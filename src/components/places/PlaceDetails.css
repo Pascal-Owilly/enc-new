@@ -1,0 +1,102 @@
+.place-details-container {
+    width: 100%;
+  }
+  
+  .hero-section {
+    height: 400px;
+    background-size: cover; /* Ensures the background image covers the section */
+    background-position: center;
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    position: relative;
+    animation: moveBackground 30s linear infinite; /* Add animation */
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay with transparency */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .place-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .place-location {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    color: white;
+  }
+  
+  .place-info {
+    padding: 20px;
+  }
+  
+  .place-description {
+    font-size: 1.2rem;
+  }
+  
+  .place-meta {
+    font-size: 1rem;
+  }
+  
+  .btn-book {
+    margin-top: 20px;
+  }
+  
+  /* Keyframes for moving background */
+  @keyframes moveBackground {
+    0% {
+      background-position: 0% 50%; /* Start position */
+    }
+    50% {
+      background-position: 100% 50%; /* Mid position */
+    }
+    100% {
+      background-position: 0% 50%; /* End position */
+    }
+  }
+  
+  .loading-spinner {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: 50px 0;
+  }
+  
+  .weather-forecast-card {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .weather-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .weather-temp {
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+  }
+  
+  .weather-temp img {
+    margin-left: 10px;
+  }
+  
+  .weather-details p {
+    margin: 5px 0;
+  }
+  

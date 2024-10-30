@@ -1,0 +1,194 @@
+.all-places-container {
+    padding: 40px;
+    background-color: #f9f9f9;
+  }
+  
+  .page-title {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .places-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .place-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .place-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .place-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .place-details {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .place-details h2 {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .place-details p {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  .price-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .see-more-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  
+  .see-more-link svg {
+    margin-left: 5px;
+  }
+  
+  .pagination {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .pagination button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .pagination button.active {
+    background-color: #0056b3;
+  }
+  
+  .pagination button:hover {
+    background-color: #0056b3;
+  }
+  
+  .filter-sort-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .filter-options, .sort-options {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .filter-options input, 
+  .filter-options select, 
+  .sort-options select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .filter-options input:focus, 
+  .filter-options select:focus, 
+  .sort-options select:focus {
+    border-color: #773697;
+    box-shadow: 0 0 5px rgba(119, 54, 151, 0.3);
+  }
+  
+  .filter-options input {
+    width: 250px;
+  }
+  
+  .filter-options select, 
+  .sort-options select {
+    min-width: 180px;
+  }
+  
+  .filter-options input::placeholder {
+    color: #999;
+  }
+  
+  .filter-options select:hover, 
+  .sort-options select:hover {
+    cursor: pointer;
+  }
+  
+  .filter-options input:hover, 
+  .filter-options select:hover, 
+  .sort-options select:hover {
+    border-color: #aaa;
+  }
+  
+  .filter-sort-section select option {
+    padding: 10px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .filter-sort-section {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .filter-options, .sort-options {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .filter-options input, 
+    .filter-options select, 
+    .sort-options select {
+      width: 100%;
+    }
+  }
+
+  .loading-spinner {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 50px;
+    color: #000042;
+  }
+  
+  .empty-message {
+    font-size: 20px;
+    text-align: center;
+    color: #999;
+    margin-top: 30px;
+  }
+  
+  .btn-book-now{
+    font-size: 12px;
+  }

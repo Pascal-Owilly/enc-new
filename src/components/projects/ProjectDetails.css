@@ -1,0 +1,45 @@
+.project-details {
+    background-color: #000042;
+    color: #ffffff;
+  }
+  
+  .project-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .project-details img {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .project-details-content {
+    margin-top: 20px;
+  }
+  
+  .project-actions {
+    margin-top: 30px;
+  }
+  
+  .project-actions .btn {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .back-to-projects {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .project-not-found {
+    background-color: #000042;
+    color: #ffffff;
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .back-link {
+    color: #fdeb3d;
+    text-decoration: underline;
+  }
+  

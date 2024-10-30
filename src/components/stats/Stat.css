@@ -1,0 +1,19 @@
+.stat {
+  display: flex;
+  align-items: center;
+}
+
+.stat p {
+  width: 260px;
+  color: #fff;
+  font-size: 30px;
+  font-family: sans-serif;
+  margin: 60px 12px 60px 8px;
+}
+
+.stat .bar {
+  max-width: 566px;
+  height: 40px;
+  transition: 0.8s ease !important;
+  background: linear-gradient(90deg, rgb(233 159 255) 0%, #0000 100%);
+}

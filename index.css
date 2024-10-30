@@ -1,0 +1,23 @@
+/* styles.css */
+
+/* General body styles */
+body {
+    font-family: 'Inter', sans-serif; /* Set the font family */
+    margin: 0;
+    padding: 20px; /* Add some padding */
+    display: flex;
+    justify-content: center; /* Center the title horizontally */
+    align-items: center; /* Center the title vertically */
+    height: 100vh; /* Full height for centering */
+    background-color: #f0f0f0; /* Light background color */
+  }
+  
+  /* Styled title */
+  .styled-title {
+    color: #000042; /* Title color */
+    letter-spacing: 3px; /* Letter spacing */
+    font-weight: 900; /* Bold weight */
+    font-size: 48px; /* Title font size */
+    text-align: center; /* Center text alignment */
+  }
+  

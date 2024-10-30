@@ -1,0 +1,70 @@
+.faq-background {
+  position: relative;
+  overflow: hidden; /* Prevents overflow */
+  height: auto; /* Full viewport height */
+  background-image: url('../../assets/about/hero.jpg'); /* Update with your image path */
+  background-size: cover; /* Cover the entire section */
+  background-position: center; /* Center the image */
+  animation: moveBackground 30s linear infinite; /* Animation for moving background */
+}
+
+@keyframes moveBackground {
+  0% {
+    background-position: 0% 50%; /* Starting position */
+  }
+  100% {
+    background-position: 100% 50%; /* Ending position */
+  }
+}
+
+.faq-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 66, 0.6); /* Overlay with opacity */
+}
+
+.faq-container {
+  position: relative; /* Position relative for the overlay */
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 800px; /* Limit width for better readability */
+  border-radius: 8px; /* Rounded corners */
+  z-index: 1; /* Place above the overlay */
+}
+
+.faq-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #fff; /* White for the title */
+  margin-bottom: 1.5rem; /* Space below title */
+}
+
+.faq-list {
+  margin-top: 1rem;
+}
+
+.faq-item {
+  margin-bottom: 1.5rem; /* Space between items */
+  padding: 1rem;
+  background-color: #f9f9f9; /* Light background for items */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.faq-item:hover {
+  background-color: #fdeb3d; /* Yellow on hover */
+}
+
+.faq-question {
+  font-size: 1.5rem;
+  color: #000042; /* Dark blue for question */
+  margin-bottom: 0.5rem; /* Space below question */
+}
+
+.faq-answer {
+  font-size: 1rem;
+  color: #666; /* Gray color for answer */
+}

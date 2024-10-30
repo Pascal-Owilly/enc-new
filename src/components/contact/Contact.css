@@ -1,0 +1,82 @@
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  margin-top: 50px;
+  background-color: ; /* Light background for contrast */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: auto;
+  position: relative; /* Enables positioning for overlay */
+  margin-top: 50px;
+}
+
+.contact-title {
+  font-size: 2.5rem;
+  color: #000042; /* Dark blue for title */
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.contact-description {
+  font-size: 1.1rem;
+  color: #666; /* Gray for description */
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.contact-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  font-size: 1.1rem;
+  color: #000042; /* Dark blue for label */
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #fdeb3d; /* Yellow border on focus */
+  outline: none; /* Remove default outline */
+}
+
+.contact-btn {
+  padding: 1rem;
+  background-color: #000042; /* Dark blue button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-btn:hover {
+  background-color: #fdeb3d; /* Yellow on hover */
+}
+
+.response-message {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #28a745; /* Green for success message */
+  text-align: center;
+}
