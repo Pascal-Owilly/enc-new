@@ -119,7 +119,7 @@ export default function NavbarComponent() {
                             style={{ color: 'white', marginLeft: '1rem' }}
                             menuVariant="light"
                         >
-                            <div className="d-flex flex-row">
+                            <div className="d-flex flex-column">
                                 <div className="px-3">
                                     <NavDropdown.Item href="/itineraries/relaxation">
                                         <FontAwesomeIcon icon={faSpa} /> Relax & Rejuvenate
