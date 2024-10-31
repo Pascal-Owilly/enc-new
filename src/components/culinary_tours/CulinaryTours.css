@@ -1,0 +1,113 @@
+/* CulinaryToursPage.css */
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #f9f9f9;
+}
+
+.sticky-sidebar {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 20px;
+    max-width: 350px;
+  }
+  
+.tour-card {
+    border: none;
+    border-radius: 12px;
+    max-width: 100%;  /* Limit the card width for larger screens */
+    transition: transform 0.3s ease-in-out;
+}
+
+.tour-card:hover {
+    transform: scale(1.03);
+}
+
+.tour-image {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.tour-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #343a40;
+}
+
+.tour-description {
+    font-size: 0.9rem;
+    color: #6c757d;
+    min-height: 60px;
+}
+
+.btn-explore {
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    color: #007bff;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #343a40;
+}
+
+/* CulinaryTours.css */
+
+/* Testimonial Section */
+.testimonial-section {
+    background-color: #f9f9f9; /* Light background for contrast */
+    padding: 2rem; /* Padding around the section */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    margin-top: 1rem; /* Space above the section */
+  }
+  
+  .testimonial-title {
+    font-size: 1.2rem; /* Title font size */
+    color: #333; /* Dark text color */
+    margin-bottom: 1.5rem; /* Space below the title */
+  }
+  
+  .testimonial {
+    padding: 0.2rem; /* Padding inside each testimonial */
+    border-left: 5px solid #007bff; /* Blue left border for emphasis */
+    margin: 1rem 0; /* Space between testimonials */
+    background-color: #fff; /* White background for each testimonial */
+    border-radius: 5px; /* Rounded corners for testimonials */
+    transition: transform 0.2s; /* Transition for hover effect */
+  }
+  
+  .testimonial:hover {
+    transform: translateY(-2px); /* Lift effect on hover */
+  }
+  
+  .testimonial-quote {
+    font-size: 1.1rem; /* Quote font size */
+    color: #555; /* Darker gray for quote text */
+    margin-bottom: 0.5rem; /* Space below the quote */
+  }
+  
+  .testimonial-author {
+    font-size: 0.9rem; /* Smaller font size for author */
+    color: #777; /* Light gray for author text */
+  }
+  
+
+@media (max-width: 768px) {
+    .tour-title {
+        font-size: 1.1rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .btn-explore {
+        font-size: 0.8rem;
+    }
+}

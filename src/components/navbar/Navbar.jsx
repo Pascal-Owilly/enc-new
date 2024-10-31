@@ -1,40 +1,40 @@
 import React from 'react';
 import { Navbar, Nav, Button, Container, Form, FormControl, InputGroup, NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-    faSearch, 
-    faUser, 
-    faSignInAlt, 
-    faSignOutAlt, 
-    faLeaf, faUsers, 
+import {
+    faSearch,
+    faUser,
+    faSignInAlt,
+    faSignOutAlt,
+    faLeaf,
+    faUsers,
     faSuitcase,
-     faHandsHelping, 
-     faCalendarAlt,
-      faMapMarkerAlt, 
-      faInfoCircle, 
-      faComments,
-       faQuestionCircle,
-       faUtensils,         // Culinary Tours
-       faShoppingBasket,   // Farmers' Markets
-       faTree,            // Nature Hikes
-       faPaintBrush,      // Art Workshops
-       faMusic,           // Cultural Festivals
-       faLandmark,        // Historical Tours
-       faMountain,        // Outdoor Adventures
-       faSpa,             // Wellness Retreats
-       faFutbol,          // Local Sports Events
-       faTheaterMasks,    // Music and Dance Classes
-       faHammer,          // Local Artisan Tours
-       faCameraRetro,     // Themed Photo Walks
-       faPaw,             // Wildlife Spotting
-       faExchangeAlt,     // Cultural Exchange
-       faBook,
-       faMagic,
-       faHeart,
-       faHiking,
-       faMap
-
-    } from '@fortawesome/free-solid-svg-icons';
+    faHandsHelping,
+    faCalendarAlt,
+    faMapMarkerAlt,
+    faInfoCircle,
+    faComments,
+    faQuestionCircle,
+    faUtensils,         // Culinary Tours
+    faShoppingBasket,   // Farmers' Markets
+    faTree,            // Nature Hikes
+    faPaintBrush,      // Art Workshops
+    faMusic,           // Cultural Festivals
+    faLandmark,        // Historical Tours
+    faMountain,        // Outdoor Adventures
+    faSpa,             // Wellness Retreats
+    faFutbol,          // Local Sports Events
+    faTheaterMasks,    // Music and Dance Classes
+    faHammer,          // Local Artisan Tours
+    faCameraRetro,     // Themed Photo Walks
+    faPaw,             // Wildlife Spotting
+    faExchangeAlt,     // Cultural Exchange
+    faBook,
+    faMagic,
+    faHeart,
+    faHiking,
+    faMap
+} from '@fortawesome/free-solid-svg-icons';
 
 import logo from '../../assets/logo/enceptics.jpg';
 
@@ -43,35 +43,20 @@ const secondaryColor = '#1c85e8';
 const primaryColor = '#000042';
 const dropdownBackgroundColor = '#1c85e8';
 
-
 export default function NavbarComponent() {
-    const spinningStyle = {
-        display: 'inline-block',
-        animation: 'spin 2s linear infinite',
-        '@keyframes spin': {
-            '0%': {
-                transform: 'rotate(0deg)',
-            },
-            '100%': {
-                transform: 'rotate(360deg)',
-            },
-        },
-    };
-
     return (
         <Navbar expand="lg" variant="dark" style={{ backgroundColor: primaryColor }} fixed="top">
             <Container fluid>
-            <Navbar.Brand 
-                href="/" 
-                style={{ 
-                    fontWeight: 'bold', 
-                    fontSize: '24px', 
-                    fontFamily: 'Caladea, sans-serif' 
-                }}
-            >
-                
-                🌍 Enceptics
-            </Navbar.Brand>
+                <Navbar.Brand 
+                    href="/" 
+                    style={{ 
+                        fontWeight: 'bold', 
+                        fontSize: '24px', 
+                        fontFamily: 'Caladea, sans-serif' 
+                    }}
+                >
+                    🌍 Enceptics
+                </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -92,13 +77,8 @@ export default function NavbarComponent() {
                                 <FontAwesomeIcon icon={faSearch} />
                             </InputGroup.Text>
                         </InputGroup> 
-                        
-                        <span style={{margnRight:'2rem'}}></span>
 
-                        {/* Dropdowns for new features */}
-                        <Nav className="me-auto m-auto">
-                        <div className="d-flex flex-row">
-                        <div className="px-3">          
+                        {/* Dropdowns for experiences */}
                         <NavDropdown
                             title="Local Experiences"
                             id="nav-dropdown-destinations"
@@ -106,157 +86,95 @@ export default function NavbarComponent() {
                             style={{ color: 'white', marginLeft: '1rem' }}
                             menuVariant="light"
                         >
-                            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', padding: '1rem' }}>
-                                <div style={{ flex: '1 1 calc(33.333% - 1rem)', margin: '0.5rem' }}>
-                                    <NavDropdown.Item href="/destinations/culinary-tours">
-                                        <FontAwesomeIcon icon={faUtensils} /> Culinary Tours
+                            <div style={{ padding: '1rem', maxWidth: '300px' }}>
+                                {[
+                                    { icon: faUtensils, text: "Culinary Tours", link: "/destinations/culinary-tours" },
+                                    { icon: faShoppingBasket, text: "Farmers' Markets", link: "/destinations/farmers-markets" },
+                                    { icon: faTree, text: "Nature Hikes", link: "/destinations/nature-hikes" },
+                                    { icon: faPaintBrush, text: "Art Workshops", link: "/destinations/art-workshops" },
+                                    { icon: faMusic, text: "Cultural Festivals", link: "/destinations/cultural-festivals" },
+                                    { icon: faLandmark, text: "Historical Tours", link: "/destinations/historical-tours" },
+                                    { icon: faHandsHelping, text: "Community Service", link: "/destinations/community-service" },
+                                    { icon: faMountain, text: "Outdoor Adventures", link: "/destinations/outdoor-adventures" },
+                                    { icon: faSpa, text: "Wellness Retreats", link: "/destinations/wellness-retreats" },
+                                    { icon: faFutbol, text: "Local Sports Events", link: "/destinations/local-sports" },
+                                    { icon: faTheaterMasks, text: "Music and Dance Classes", link: "/destinations/music-dance" },
+                                    { icon: faHammer, text: "Local Artisan Tours", link: "/destinations/artisan-tours" },
+                                    { icon: faCameraRetro, text: "Themed Photo Walks", link: "/destinations/photo-walks" },
+                                    { icon: faPaw, text: "Wildlife Spotting", link: "/destinations/wildlife-spotting" },
+                                    { icon: faExchangeAlt, text: "Cultural Exchange", link: "/destinations/cultural-exchange" },
+                                    { icon: faBook, text: "Storytelling Nights", link: "/destinations/storytelling" }
+                                ].map((item, index) => (
+                                    <NavDropdown.Item href={item.link} key={index}>
+                                        <FontAwesomeIcon icon={item.icon} /> {item.text}
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/farmers-markets">
-                                        <FontAwesomeIcon icon={faShoppingBasket} /> Farmers' Markets
+                                ))}
+                            </div>
+                        </NavDropdown>
+
+                        <NavDropdown
+                            title="Personalized Itineraries"
+                            id="nav-dropdown-personalized-itineraries"
+                            className="text-white"
+                            style={{ color: 'white', marginLeft: '1rem' }}
+                            menuVariant="light"
+                        >
+                            <div className="d-flex flex-row">
+                                <div className="px-3">
+                                    <NavDropdown.Item href="/itineraries/relaxation">
+                                        <FontAwesomeIcon icon={faSpa} /> Relax & Rejuvenate
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/nature-hikes">
-                                        <FontAwesomeIcon icon={faTree} /> Nature Hikes
+                                    <NavDropdown.Item href="/itineraries/family">
+                                        <FontAwesomeIcon icon={faUsers} /> Family Fun
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/art-workshops">
-                                        <FontAwesomeIcon icon={faPaintBrush} /> Art Workshops
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/cultural-festivals">
-                                        <FontAwesomeIcon icon={faMusic} /> Cultural Festivals
+                                    <NavDropdown.Item href="/itineraries/exploration">
+                                        <FontAwesomeIcon icon={faMap} /> Explore the Unknown
                                     </NavDropdown.Item>
                                 </div>
-                                <div style={{ flex: '1 1 calc(33.333% - 1rem)', margin: '0.5rem' }}>
-                                    <NavDropdown.Item href="/destinations/historical-tours">
-                                        <FontAwesomeIcon icon={faLandmark} /> Historical Tours
+                                <div className="px-3">
+                                    <NavDropdown.Item href="/itineraries/sustainable">
+                                        <FontAwesomeIcon icon={faLeaf} /> Sustainable Travels
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/community-service">
-                                        <FontAwesomeIcon icon={faHandsHelping} /> Community Service
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/outdoor-adventures">
-                                        <FontAwesomeIcon icon={faMountain} /> Outdoor Adventures
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/wellness-retreats">
-                                        <FontAwesomeIcon icon={faSpa} /> Wellness Retreats
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/local-sports">
-                                        <FontAwesomeIcon icon={faFutbol} /> Local Sports Events
-                                    </NavDropdown.Item>
-                                </div>
-                                <div style={{ flex: '1 1 calc(33.333% - 1rem)', margin: '0.5rem' }}>
-                                    <NavDropdown.Item href="/destinations/music-dance">
-                                        <FontAwesomeIcon icon={faTheaterMasks} /> Music and Dance Classes
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/artisan-tours">
-                                        <FontAwesomeIcon icon={faHammer} /> Local Artisan Tours
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/photo-walks">
-                                        <FontAwesomeIcon icon={faCameraRetro} /> Themed Photo Walks
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/wildlife-spotting">
-                                        <FontAwesomeIcon icon={faPaw} /> Wildlife Spotting
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/cultural-exchange">
-                                        <FontAwesomeIcon icon={faExchangeAlt} /> Cultural Exchange
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href="/destinations/storytelling">
-                                        <FontAwesomeIcon icon={faBook} /> Storytelling Nights
+                                    <NavDropdown.Item href="/itineraries/custom">
+                                        <FontAwesomeIcon icon={faMagic} /> Custom Itineraries
                                     </NavDropdown.Item>
                                 </div>
                             </div>
                         </NavDropdown>
-                        </div>
-                        </div>
-                    </Nav>
 
-
-                    <NavDropdown
-    title="Personalized Itineraries"
-    id="nav-dropdown-personalized-itineraries"
-    className="text-white"
-    style={{ color: 'white', marginLeft: '1rem' }}
-    menuVariant="light"
->
-    <div className="d-flex flex-row">
-        <div className="px-3">
-            <NavDropdown.Item href="/itineraries/adventure">
-                <FontAwesomeIcon icon={faHiking} /> Adventure Awaits
-            </NavDropdown.Item>
-            <NavDropdown.Item href="/itineraries/cultural">
-                <FontAwesomeIcon icon={faLandmark} /> Cultural Journeys
-            </NavDropdown.Item>
-            <NavDropdown.Item href="/itineraries/culinary">
-                <FontAwesomeIcon icon={faUtensils} /> Culinary Delights
-            </NavDropdown.Item>
-        </div>
-        <div className="px-3">
-            <NavDropdown.Item href="/itineraries/relaxation">
-                <FontAwesomeIcon icon={faSpa} /> Relax & Rejuvenate
-            </NavDropdown.Item>
-            <NavDropdown.Item href="/itineraries/family">
-                <FontAwesomeIcon icon={faUsers} /> Family Fun
-            </NavDropdown.Item>
-            <NavDropdown.Item href="/itineraries/romantic">
-                <FontAwesomeIcon icon={faHeart} /> Romantic Escapes
-            </NavDropdown.Item>
-        </div>
-        <div className="px-3">
-            <NavDropdown.Item href="/itineraries/exploration">
-                <FontAwesomeIcon icon={faMap} /> Explore the Unknown
-            </NavDropdown.Item>
-            <NavDropdown.Item href="/itineraries/sustainable">
-                <FontAwesomeIcon icon={faLeaf} /> Sustainable Travels
-            </NavDropdown.Item>
-            <NavDropdown.Item href="/itineraries/custom">
-                <FontAwesomeIcon icon={faMagic} /> Custom Itineraries
-            </NavDropdown.Item>
-        </div>
-    </div>
-</NavDropdown>
-
-
-                        <span className='dot'>.</span>
+                        {/* Additional Links */}
+                        <Nav.Link href="/destinations/micro-adventure" className="text-white">
+                            <FontAwesomeIcon icon={faLeaf} style={{ color: '#FFC107' }} /> Micro-Adventure
+                        </Nav.Link>
+                        <Nav.Link href="/all-places" className="text-white">
+                            <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: '#FFC107' }} /> Explore Places
+                        </Nav.Link>
+                        <Nav.Link href="/destination/group-bookings" className="text-white">
+                            <FontAwesomeIcon icon={faUsers} style={{ color: '#FFC107' }} /> Group Bookings
+                        </Nav.Link>
                         <Nav.Link href="/about" className="text-white">
-                    <FontAwesomeIcon icon={faLeaf} style={{ color: '#FFC107' }} /> Micro-Adventure
-                    </Nav.Link>
-                    <span><span className="dot"></span></span>
-
-                    <Nav.Link href="/all-places" className="text-white">
-                        <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: '#FFC107' }} /> Explore Places
-                    </Nav.Link>
-                    <span><span className="dot"></span></span>
-                    <Nav.Link href="/group-bookings" className="text-white">
-                        <FontAwesomeIcon icon={faUsers} style={{ color: '#FFC107' }} /> Group Bookings
-                    </Nav.Link>
-                    
-                    <Nav.Link href="/about" className="text-white">
-                        <FontAwesomeIcon icon={faInfoCircle} style={{ color: '#FFC107' }} /> About Us
-                    </Nav.Link>
-                    <span><span className="dot"></span></span>
-
-                    <Nav.Link href="/talks" className="text-white">
-                        <FontAwesomeIcon icon={faComments} style={{ color: '#FFC107' }} /> Chat
-                    </Nav.Link>
-                    <span><span className="dot"></span></span>
-
-                    <Nav.Link href="/faqs" className="text-white">
-                        <FontAwesomeIcon icon={faQuestionCircle} style={{ color: '#FFC107' }} /> FAQs
-                    </Nav.Link>
-
+                            <FontAwesomeIcon icon={faInfoCircle} style={{ color: '#FFC107' }} /> About Us
+                        </Nav.Link>
+                        <Nav.Link href="/talks" className="text-white">
+                            <FontAwesomeIcon icon={faComments} style={{ color: '#FFC107' }} /> Chat
+                        </Nav.Link>
+                        <Nav.Link href="/faqs" className="text-white">
+                            <FontAwesomeIcon icon={faQuestionCircle} style={{ color: '#FFC107' }} /> FAQs
+                        </Nav.Link>
                     </Nav>
+
                     <Nav>
-                        {/* Dropdown Example */}
                         <NavDropdown title="User" id="basic-nav-dropdown" className="text-white">
-                            <NavDropdown.Item href="/profile">
+                            <NavDropdown.Item href="/auth/profile">
                                 <FontAwesomeIcon icon={faUser} /> Profile
                             </NavDropdown.Item>
-                            <NavDropdown.Item href="/settings">
-                                Settings
-                            </NavDropdown.Item>
+                            <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="/logout">
+                            <NavDropdown.Item href="/auth/logout">
                                 <FontAwesomeIcon icon={faSignOutAlt} /> Logout
                             </NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href="/login" className="text-white">
+                        <Nav.Link href="/auth/login" className="text-white">
                             <FontAwesomeIcon icon={faSignInAlt} /> Login
                         </Nav.Link>
                     </Nav>

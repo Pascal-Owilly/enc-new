@@ -1,0 +1,109 @@
+/* FarmersMarkets.css */
+
+/* Farmers Market Page */
+.farmers-market-page {
+    background-color: #f0f8ff; /* Light blue background for a fresh feel */
+    padding: 2rem 0; /* Top and bottom padding */
+  }
+  
+  .farmers-market-title {
+    font-size: 2.5rem; /* Large font size for the title */
+    color: #2c3e50; /* Dark color for the title */
+    font-weight: bold; /* Bold title */
+  }
+  
+  .market-card {
+    border: none; /* No border for the card */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Clip content */
+    transition: transform 0.2s; /* Transition for hover effect */
+  }
+  
+  .market-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+  }
+  
+  .market-image {
+    height: 200px; /* Fixed height for images */
+    object-fit: cover; /* Cover the image without stretching */
+    width: 100%; /* Ensure image fills the card width */
+  }
+  
+  .market-name {
+    font-size: 1.5rem; /* Font size for market name */
+    color: #27ae60; /* Green color for the name */
+    font-weight: bold; /* Bold name */
+  }
+  
+  .market-location {
+    font-size: 1rem; /* Font size for location */
+    color: #2980b9; /* Blue color for location */
+  }
+  
+  .market-description {
+    font-size: 0.9rem; /* Font size for description */
+    color: #7f8c8d; /* Gray color for description */
+    margin-bottom: 1rem; /* Space below the description */
+  }
+  
+  .btn-explore {
+    background-color: #e67e22; /* Orange button color */
+    border: none; /* Remove border */
+    transition: background-color 0.2s; /* Transition for hover effect */
+  }
+  
+  .btn-explore:hover {
+    background-color: #d35400; /* Darker orange on hover */
+    color: #d9d9d9 !important;
+  }
+
+  /* FarmersMarkets.css */
+
+/* Existing styles... */
+
+.pagination-container {
+    margin-top: 20px; /* Space above pagination */
+  }
+  
+  .pagination-button {
+    border-radius: 25px; /* Rounded buttons */
+    padding: 10px 20px; /* Padding for buttons */
+    transition: background-color 0.3s ease; /* Smooth transition */
+  }
+  
+  .pagination-button:hover {
+    background-color: #e0e0e0; /* Light gray on hover */
+  }
+  
+  .pagination-button.active {
+    background-color: #007bff; /* Active button color */
+    color: white; /* Active button text color */
+  }
+  
+  /* FarmersMarkets.css */
+
+/* Existing styles... */
+
+.btn-explore {
+    font-size: 0.775rem; /* Decreased font size */
+  }
+  
+  .pagination-container {
+    margin-top: 20px; /* Space above pagination */
+  }
+  
+  .pagination-button {
+    border-radius: 25px; /* Rounded buttons */
+    padding: 10px 20px; /* Padding for buttons */
+    transition: background-color 0.3s ease; /* Smooth transition */
+  }
+  
+  .pagination-button:hover {
+    background-color: #e0e0e0; /* Light gray on hover */
+  }
+  
+  .pagination-button.active {
+    background-color: #007bff; /* Active button color */
+    color: white; /* Active button text color */
+  }
+  

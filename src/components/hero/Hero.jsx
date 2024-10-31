@@ -14,6 +14,7 @@ import hero3 from '../../assets/hero/hero3.jpg';
 import hero4 from '../../assets/hero/hero4.jpg';
 
 const destinations = [
+    
     {
         image: hero2,
         title: 'Intellima Seller Dashboard',
