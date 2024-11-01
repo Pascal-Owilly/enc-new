@@ -51,7 +51,7 @@ export default function NavbarComponent() {
                     href="/" 
                     style={{ 
                         fontWeight: 'bold', 
-                        fontSize: '24px', 
+                        fontSize: '20px', 
                         fontFamily: 'Caladea, sans-serif' 
                     }}
                 >
@@ -61,7 +61,7 @@ export default function NavbarComponent() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto m-auto">
-                        <InputGroup className="d-flex mx-5" style={{ width: '250px' }}>
+                        <InputGroup className="d-flex mx-5" style={{ width: 'auto' }}>
                             <FormControl
                                 className='text-muted'
                                 type="text"
@@ -83,10 +83,10 @@ export default function NavbarComponent() {
                             title="Local Experiences"
                             id="nav-dropdown-destinations"
                             className="text-white"
-                            style={{ color: 'white', marginLeft: '1rem' }}
+                            style={{ color: 'white', marginLeft: '' }}
                             menuVariant="light"
                         >
-                            <div style={{ padding: '1rem', maxWidth: '300px' }}>
+                            <div style={{ padding: '', maxWidth: '300px' }}>
                                 {[
                                     { icon: faUtensils, text: "Culinary Tours", link: "/destinations/culinary-tours" },
                                     { icon: faShoppingBasket, text: "Farmers' Markets", link: "/destinations/farmers-markets" },
@@ -113,7 +113,7 @@ export default function NavbarComponent() {
                         </NavDropdown>
 
                         <NavDropdown
-                            title="Personalized Itineraries"
+                            title="Craft Your Tour"
                             id="nav-dropdown-personalized-itineraries"
                             className="text-white"
                             style={{ color: 'white', marginLeft: '1rem' }}
@@ -176,6 +176,11 @@ export default function NavbarComponent() {
                         </NavDropdown>
                         <Nav.Link href="/auth/login" className="text-white">
                             <FontAwesomeIcon icon={faSignInAlt} /> Login
+                        </Nav.Link>
+
+                        {/* test */}
+                        <Nav.Link href="/test" className="text-white">
+                            <FontAwesomeIcon /> Test
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

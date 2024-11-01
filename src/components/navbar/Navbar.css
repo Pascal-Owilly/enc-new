@@ -10,11 +10,6 @@
   }
 }
 
-
-.navbar {
-  padding: 1rem 0;
-}
-
 @font-face {
   font-family: 'Caladea';
   src: url('src/fonts/Bitter,Caladea/Caladea/Caladea-Bold.ttf') format('truetype');
@@ -159,8 +154,6 @@
 .icon-yellow {
   color: #FFC107;
 }
-
-
 
 .navbar-nav .nav-link:hover {
   text-decoration: underline;

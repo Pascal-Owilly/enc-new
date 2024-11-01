@@ -23,6 +23,7 @@
     "@splinetool/runtime": "^0.9.508",
     "@tsparticles/react": "^3.0.0",
     "bootstrap": "^5.3.3",
+    "devicon": "^2.16.0",
     "emoji-picker-react": "^4.12.0",
     "framer-motion": "^11.11.8",
     "react": "^18.2.0",
@@ -35,6 +36,7 @@
     "react-router-dom": "^6.26.2",
     "react-tsparticles": "^2.12.2",
     "react-typed": "^2.0.12",
+    "styled-components": "^6.1.13",
     "typed.js": "^2.1.0"
   },
   "devDependencies": {

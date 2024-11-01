@@ -46,6 +46,9 @@ import GroupBookings from './components/bookings/GroupBookings';
 import Login from './components/auth/Login';
 import Profile from './components/auth/Profile';
 
+// Testing
+import Test from './components/testing/Test';
+
 export default function App() {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -114,6 +117,10 @@ export default function App() {
         <Route path="/itineraries/exploration" element={<ExploreTheUnknown />} />
         <Route path="/itineraries/sustainable" element={<SustainableTravels />} />
         <Route path="/itineraries/custom" element={<CustomItineraries />} />
+
+        {/* Test */}
+        <Route path="/test" element={<Test />} />
+
       </Routes>
       <Footer />
     </Router>
