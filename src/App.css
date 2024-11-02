@@ -27,7 +27,11 @@
 body {
   margin: 0;
   overflow-x: hidden;
-  background-color: #000042 !important;
+  background-color: rgb(248, 249,251, 0.5) !important;
+}
+
+.page-container {
+  margin: auto;
 }
 
 .hidden {

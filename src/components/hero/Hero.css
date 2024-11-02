@@ -11,7 +11,9 @@
 }
 
 /* hero.css */
-
+.hero-section {
+  background: #000042;
+}
 .main-carousel{
   z-index: 0;
   opacity:'0.7',

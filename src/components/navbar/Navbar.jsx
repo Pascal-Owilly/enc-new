@@ -155,10 +155,8 @@ export default function NavbarComponent() {
                         </Nav.Link>
                         <Nav.Link href="/talks" className="text-white">
                             <FontAwesomeIcon icon={faComments} style={{ color: '#FFC107' }} /> Chat
-                        </Nav.Link>
-                        
+                        </Nav.Link>                       
                     </Nav>
-
                     <Nav>
                         <NavDropdown title="User" id="basic-nav-dropdown" className="text-white">
                             <NavDropdown.Item href="/auth/profile">
@@ -172,9 +170,7 @@ export default function NavbarComponent() {
                         </NavDropdown>
                         <Nav.Link href="/auth/login" className="text-white">
                             <FontAwesomeIcon icon={faSignInAlt} /> Login
-                        </Nav.Link>
-
-                        
+                        </Nav.Link>                      
                     </Nav>
                 </Navbar.Collapse>
             </Container>

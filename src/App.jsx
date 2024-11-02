@@ -67,8 +67,9 @@ export default function App() {
   return (
     <Router>
     <Navbar />
-      <Routes>
+    <div className="page-container">
 
+      <Routes>
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/profile" element={<Profile />} />
 
@@ -85,7 +86,7 @@ export default function App() {
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/destintion/bookng" element={<Booking />} />
-        <Route path="/destinaton/group-bookings" element={<GroupBookings />} />
+        <Route path="/destination/group-bookings" element={<GroupBookings />} />
         <Route path="/about" element={<About />} />
         <Route path="/weather/:place_name" element={<Weather />} />
         <Route path="/talks" element={<Talks />} />
@@ -120,9 +121,11 @@ export default function App() {
 
         {/* Test */}
         <Route path="/test" element={<Test />} />
-
       </Routes>
+      </div>
+
       <Footer />
     </Router>
+
   );
 }

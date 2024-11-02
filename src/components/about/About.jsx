@@ -1,13 +1,16 @@
 import React from 'react';
 import './About.css';
+import { Carousel } from 'react-bootstrap'; // Make sure to install react-bootstrap for the carousel
 
 const AboutUs = () => {
   return (
     <div className="about-us-page">
+
+
       <section className="about-us-intro">
-        <h1 className="fade-in">Welcome to Enceptcs</h1>
+        <h1 className="fade-in">Welcome to Enceptics</h1>
         <p>
-          Yeshara is revolutionizing real estate investment through cutting-edge tokenization technology. We make property investment accessible, efficient, and globally inclusive — all while maintaining top-tier compliance.
+          Enceptics is revolutionizing real estate investment through cutting-edge tokenization technology. We make property investment accessible, efficient, and globally inclusive — all while maintaining top-tier compliance.
         </p>
       </section>
 
@@ -35,10 +38,6 @@ const AboutUs = () => {
         </div>
         <div className="difference-right">
           <img src="https://via.placeholder.com/400x250" alt="Innovation" />
-          {/* <polygon
-        points="114.41 154.34 303.42 261.07 303.42 132.94 114.4 26.21 114.41 154.34"
-        className="cls-5" 
-      /> */}
         </div>
       </section>
 
@@ -47,7 +46,7 @@ const AboutUs = () => {
         <div className="impact-cards">
           <div className="impact-card">
             <h3>Compliance</h3>
-            <p>Yeshara ensures that every tokenized offering adheres to stringent regulatory standards, creating a secure environment for investors.</p>
+            <p>Enceptics ensures that every tokenized offering adheres to stringent regulatory standards, creating a secure environment for investors.</p>
           </div>
           <div className="impact-card">
             <h3>Flexibility</h3>
@@ -55,11 +54,47 @@ const AboutUs = () => {
           </div>
           <div className="impact-card">
             <h3>Global Reach</h3>
-            <p>With Yeshara, you can access a global pool of investors, breaking down barriers to real estate capital.</p>
+            <p>With Enceptics, you can access a global pool of investors, breaking down barriers to real estate capital.</p>
           </div>
         </div>
+      <h2>Partners</h2>
+              {/* Carousel Section */}
+      <Carousel className="full-page-carousel">
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://via.placeholder.com/1920x800?text=Our+Partners"
+            alt="First slide"
+          />
+          <Carousel.Caption>
+            <h3>Our Partners</h3>
+            <p>We collaborate with industry leaders to bring innovative solutions in real estate investment.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://via.placeholder.com/1920x800?text=Innovative+Solutions"
+            alt="Second slide"
+          />
+          <Carousel.Caption>
+            <h3>Innovative Solutions</h3>
+            <p>Experience the future of real estate investment with cutting-edge tokenization technology.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://via.placeholder.com/1920x800?text=Global+Accessibility"
+            alt="Third slide"
+          />
+          <Carousel.Caption>
+            <h3>Global Accessibility</h3>
+            <p>Join a diverse community of investors from around the world, all investing together.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
       </section>
-
     </div>
   );
 };

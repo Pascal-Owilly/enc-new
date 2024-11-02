@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import './Talks.css';
 import { BASE_URL } from '../config/config';
+import moment from 'moment';
+import { FaRegComment, FaRegThumbsUp, FaRegSmile } from 'react-icons/fa'; // Example icons
 
 const BlogPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -11,18 +13,25 @@ const BlogPosts = () => {
   const [hasMore, setHasMore] = useState(true);
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
   const [chosenEmojis, setChosenEmojis] = useState({});
+  const [likes, setLikes] = useState({}); // To store like counts
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${BASE_URL}blogposts/`);
+        const response = await fetch(`${BASE_URL}blogposts/?page=${page}`);
         if (!response.ok) {
           throw new Error('Failed to fetch posts');
         }
         const data = await response.json();
-        setPosts((prevPosts) => [...prevPosts, ...data]);
-        setHasMore(data.length > 0);
+        
+        // Check if there are new posts
+        if (data.length > 0) {
+          setPosts((prevPosts) => [...prevPosts, ...data]);
+          setHasMore(data.length > 0);
+        } else {
+          setHasMore(false);
+        }
       } catch (error) {
         setError(error.message);
       } finally {
@@ -51,11 +60,15 @@ const BlogPosts = () => {
   }, [loading, hasMore]);
 
   const handleLike = (id) => {
-    console.log(`Post ${id} liked`);
+    setLikes((prevLikes) => ({
+      ...prevLikes,
+      [id]: (prevLikes[id] || 0) + 1, // Increment like count
+    }));
   };
 
   const handleComment = (id, comment) => {
     console.log(`Comment on post ${id}: ${comment}`);
+    // Additional logic to handle comments can be implemented here
   };
 
   const onEmojiClick = (postId, event, emojiObject) => {
@@ -77,7 +90,10 @@ const BlogPosts = () => {
           <div className="post-header">
             <img src={post.image} alt="Author" className="author-image" />
             <div className="author-details">
-              <h2>{post.author_full_name}</h2>
+              <h2 className="text-secondary">{post.author_full_name}</h2>
+              <p className="text-secondary text-muted">
+                {moment(post.created_at).fromNow()}
+              </p>
             </div>
           </div>
 
@@ -86,9 +102,26 @@ const BlogPosts = () => {
           </div>
 
           <div className="post-actions">
-            <button onClick={() => handleLike(post.id)} className="like-btn">
-              Like
-            </button>
+            <div className="reaction-buttons">
+              <button onClick={() => handleLike(post.id)} className="like-btn">
+                <FaRegThumbsUp />
+                {likes[post.id] || 0} {/* Display like count */}
+              </button>
+              <button
+                onClick={() => setEmojiPickerVisible((prev) => !prev)}
+                className="emoji-picker-btn"
+              >
+                <FaRegSmile />
+              </button>
+              <button
+                onClick={() => handleComment(post.id, 'Your comment here')} // Placeholder
+                className="comment-btn"
+              >
+                <FaRegComment />
+                {/* Here you could implement logic to count comments */}
+              </button>
+            </div>
+
             <input
               type="text"
               placeholder="Add a comment..."
@@ -100,14 +133,7 @@ const BlogPosts = () => {
               }}
               className="comment-input"
             />
-            
-            {/* Emoji Reaction Section */}
-            <button
-              onClick={() => setEmojiPickerVisible((prev) => !prev)}
-              className="emoji-picker-btn"
-            >
-              {chosenEmojis[post.id] ? chosenEmojis[post.id] : ''}
-            </button>
+
             {emojiPickerVisible && (
               <EmojiPicker
                 onEmojiClick={(event, emojiObject) =>
