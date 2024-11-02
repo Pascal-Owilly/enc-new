@@ -1,34 +1,37 @@
-// src/Destinations/HistoricalTours.js
 import React from 'react';
-import { Container, Row, Col, Badge } from 'react-bootstrap';
-import './Destinations.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLandmark } from '@fortawesome/free-solid-svg-icons';
+import './HistoricalTours.css';
 
-const HistoricalTours = () => {
-  const tours = [
-    { id: 1, name: 'Ancient Ruins', rating: 4.8, description: 'Explore the ancient ruins of our ancestors.', duration: '3 hours' },
-    { id: 2, name: 'Historical City Walk', rating: 4.6, description: 'Discover the history of the city through a guided walk.', duration: '2 hours' },
-    { id: 3, name: 'Museum Tour', rating: 4.9, description: 'A deep dive into the history at the local museum.', duration: '2 hours' },
-  ];
+const TreeInfo = () => (
+  <div className="container">
 
-  return (
-    <Container className="mt-5">
-      <h2 className="text-center my-4"><FontAwesomeIcon icon={faLandmark} /> Historical Tours</h2>
-      <Row xs={1} sm={2} md={3} className="g-4">
-        {tours.map(tour => (
-          <Col key={tour.id}>
-            <div className="destination-card">
-              <h5>{tour.name}</h5>
-              <Badge bg="success">⭐ {tour.rating}</Badge>
-              <p>{tour.description}</p>
-              <p>Duration: {tour.duration}</p>
-            </div>
-          </Col>
-        ))}
-      </Row>
-    </Container>
-  );
-};
+  <div className="wrap animate pop">
+    <div className="overlay">
+      <div className="overlay-content animate slide-left delay-2">
+        <h1 className="animate slide-left pop delay-4">Trees</h1>
+        <p className="animate slide-left pop delay-5" style={{ color: 'white', marginBottom: '2.5rem' }}>
+          Kingdom: <em>Plantae</em>
+        </p>
+      </div>
+      <div className="image-content animate slide delay-5"></div>
+      <div className="dots animate">
+        <div className="dot animate slide-up delay-6"></div>
+        <div className="dot animate slide-up delay-7"></div>
+        <div className="dot animate slide-up delay-8"></div>
+      </div>
+    </div>
+    <div className="text">
+      <p>
+        <img className="inset" src="https://assets.codepen.io/4787486/oak_1.jpg" alt="Oak Tree" />
+        Trees are woody perennial plants that are a member of the kingdom <em>Plantae</em>. All species of trees are grouped by their genus, family, and order. This helps make identifying and studying trees easier.
+      </p>
+      <p>
+        Apart from providing oxygen for the planet and beauty when they bloom or turn color, trees are very useful. Certain species of hardwood and softwood trees are excellent for timber, making furniture, and paper.
+      </p>
+      <p>When managed properly, trees are a good source of renewable energy and construction material.</p>
+    </div>
+  </div>
+      
+  </div>
+);
 
-export default HistoricalTours;
+export default TreeInfo;

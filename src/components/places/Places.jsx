@@ -54,7 +54,7 @@ const Places = () => {
   const chunks = chunkArray(places, 4);
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 bg-light">
       <section className="text-center fade-in mb-5 places-section">
         <h1 className="fade-in display-5 about-us-intro">Begin Your Adventure In Style </h1>
       </section>

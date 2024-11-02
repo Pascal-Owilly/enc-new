@@ -1,14 +1,19 @@
 /* Navbar.css */
-
-/* styles.css */
-@keyframes spin {
+@keyframes rotate-disk {
   0% {
-      transform: rotate(0deg);
+      transform: rotateX(0deg); /* Start at 0 degrees */
   }
   100% {
-      transform: rotate(360deg);
+      transform: rotateY(360deg); /* Rotate clockwise to 360 degrees */
   }
 }
+
+.rotating-disk-icon {
+  display: inline-block; /* Ensure it can be animated */
+  animation: rotate-disk 4s linear infinite; /* 4s duration, linear easing, infinite loop */
+}
+
+
 
 @font-face {
   font-family: 'Caladea';
@@ -42,8 +47,17 @@
   justify-content: flex-end;
 }
 
+.navbar{
+  width: 100%;
+  margin: 0 !important;
+  
+}
+
 .nav-link {
-  margin: 0 15px; /* Add spacing between nav items */
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  font-family: Caladea;
+  letter-spacing: 1px;
 }
 
 .navbar-brand {

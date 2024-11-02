@@ -14,6 +14,7 @@
 
 .main-carousel{
   z-index: 0;
+  opacity:'0.7',
 }
 
 .card-carousel {
@@ -38,7 +39,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #FFC107;
+  background-color: #ffc107;
   color:rgba(0, 0, 0, 0.7);
   font-weight: 900;
   border: none;
@@ -137,10 +138,31 @@
   /* opacity: 0.5; */
 }
 
-.carousel-image{
-  border-radius: 40% 0 0 0;
-
+.carousel-image {
+    border-radius: 100px 0 0 0; /* Rounded corners on the left */
+    height: 100vh; /* Full height of the viewport */
+    margin-top: 100px; /* Space from the top */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    position: relative; /* Positioning context for any children */
+    overflow: hidden; /* Ensures no overflow from the corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
+
+.carousel-image::before {
+    content: ""; /* Required for pseudo-element */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 66, 0.5);
+    
+     /* Optional overlay for blending */
+    border-radius: 100px 0 0 0; /* Match the image's border radius */
+    z-index: 1; /* Position above the image but below any text */
+}
+
+
 .carousel-caption h3 {
   font-size: 1.2rem;
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
@@ -176,8 +198,9 @@
 
 .carousel-indicators .active {
   opacity: 1;
-  transform: scale(1.1);
-  background-color: #000;
+  transform: scale(1.2);
+  background-color: #1c85e8 !important;
+  color: #fff !important;
 }
 
 /* Media Queries */
@@ -260,7 +283,7 @@
 .card-hover__content {
   width: 100%;
   text-align: center;
-  background-color: #FFC107;
+  background-color: #000042;
   position: absolute;
   bottom: 0;
   left: 10px;
@@ -297,7 +320,7 @@
   margin-bottom: 1em;
   font-weight: 900;
   letter-spacing: 2px;
-  color: #333;
+  color: #f0f0f0;
 }
 
 .card-hover__title span {

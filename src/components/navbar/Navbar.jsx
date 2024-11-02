@@ -1,6 +1,8 @@
 import React from 'react';
 import { Navbar, Nav, Button, Container, Form, FormControl, InputGroup, NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './Navbar.css';
+
 import {
     faSearch,
     faUser,
@@ -40,50 +42,46 @@ import logo from '../../assets/logo/enceptics.jpg';
 
 // Colors
 const secondaryColor = '#1c85e8';
-const primaryColor = '#000042';
+const primaryColor = '#1c85e8';
 const dropdownBackgroundColor = '#1c85e8';
 
 export default function NavbarComponent() {
     return (
         <Navbar expand="lg" variant="dark" style={{ backgroundColor: primaryColor }} fixed="top">
             <Container fluid>
-                <Navbar.Brand 
-                    href="/" 
-                    style={{ 
-                        fontWeight: 'bold', 
-                        fontSize: '20px', 
-                        fontFamily: 'Caladea, sans-serif' 
-                    }}
-                >
-                    🌍 Enceptics
-                </Navbar.Brand>
+            <Navbar.Brand 
+    href="/" 
+    style={{ 
+        fontWeight: 'bold', 
+        fontSize: '20px', 
+        fontFamily: 'Caladea, sans-serif' 
+    }}
+>
+    <span 
+        style={{ 
+            fontSize: '24px', 
+            color: '#007BFF' 
+        }} 
+        className="rotating-disk-icon"  // Apply the disk rotation class here
+    >
+        🌍
+    </span> 
+    Enceptics
+</Navbar.Brand>
+
+
 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto m-auto">
-                        <InputGroup className="d-flex mx-5" style={{ width: 'auto' }}>
-                            <FormControl
-                                className='text-muted'
-                                type="text"
-                                placeholder="Search places..."
-                                style={{
-                                    borderLeft: 'none',
-                                    border: '1px solid lightgray',
-                                    borderRadius: '10px 10px 0 0',
-                                    background:'#d9d9d9',
-                                }}
-                            />
-                            <InputGroup.Text style={{ backgroundColor: '#000042', borderRight: 'none', color: '#ccc' }}>
-                                <FontAwesomeIcon icon={faSearch} />
-                            </InputGroup.Text>
-                        </InputGroup> 
+                      
 
                         {/* Dropdowns for experiences */}
                         <NavDropdown
                             title="Local Experiences"
                             id="nav-dropdown-destinations"
                             className="text-white"
-                            style={{ color: 'white', marginLeft: '' }}
+                            style={{ color: 'white', marginLeft: '', fontSize:'12px' }}
                             menuVariant="light"
                         >
                             <div style={{ padding: '', maxWidth: '300px' }}>
@@ -143,7 +141,7 @@ export default function NavbarComponent() {
                         </NavDropdown>
 
                         {/* Additional Links */}
-                        <Nav.Link href="/destinations/micro-adventure" className="text-white">
+                        <Nav.Link href="/destinations/micro-adventure" className="text-white" >
                             <FontAwesomeIcon icon={faLeaf} style={{ color: '#FFC107' }} /> Micro-Adventure
                         </Nav.Link>
                         <Nav.Link href="/all-places" className="text-white">
@@ -158,9 +156,7 @@ export default function NavbarComponent() {
                         <Nav.Link href="/talks" className="text-white">
                             <FontAwesomeIcon icon={faComments} style={{ color: '#FFC107' }} /> Chat
                         </Nav.Link>
-                        <Nav.Link href="/faqs" className="text-white">
-                            <FontAwesomeIcon icon={faQuestionCircle} style={{ color: '#FFC107' }} /> FAQs
-                        </Nav.Link>
+                        
                     </Nav>
 
                     <Nav>
@@ -178,10 +174,7 @@ export default function NavbarComponent() {
                             <FontAwesomeIcon icon={faSignInAlt} /> Login
                         </Nav.Link>
 
-                        {/* test */}
-                        <Nav.Link href="/test" className="text-white">
-                            <FontAwesomeIcon /> Test
-                        </Nav.Link>
+                        
                     </Nav>
                 </Navbar.Collapse>
             </Container>
