@@ -88,7 +88,8 @@ const HeroSection = () => {
             </div>
 
             {/* Left Column - Dynamic content */}
-            <div className="col-md-3 d-flex flex-column justify-content-center align-items-start p-4">
+            
+            <div className="col-md-3 comp-screen d-flex flex-column justify-content-center align-items-start p-4">
                 <h5 className="small-title">{slidesData[currentIndex].smallTitle}</h5>
                 <h3 className="main-title">{slidesData[currentIndex].mainTitle}</h3>
                 <p className="description">{slidesData[currentIndex].description}</p>
@@ -99,68 +100,97 @@ const HeroSection = () => {
                     </Button>
                 </div>
             </div>
+            <div className="container-fluid">
+                        <div className="row">
+                            {/* Right Column with Carousel */}
+                            <div className="col-md-9 col-sm-12 position-relative">
+                            <Carousel
+                        activeIndex={currentIndex}
+                        onSelect={handleSelect}
+                        fade
+                        controls={false}
+                        indicators={false}
+                        interval={3000}
+                        className="main-carousel"
+                    >
+                        {slidesData.map((slide, index) => (
+                            <Carousel.Item key={index}>
+                                <div
+                                    className="carousel-image"
+                                    style={{
+                                        backgroundImage: `url(${slide.image})`,
+                                        height: '100vh',
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center',
+                                        
+                                    }}
+                                ></div>
+                                
+                                {/* Caption Content */}
+                                <Carousel.Caption className="d-flex flex-column align-items-start phone-screen mb-4">
+                                    {/* <h6 className="text-light small-title">{slide.smallTitle}</h6> */}
+                                    <h3 className="text-light main-title fw-bold">{slide.mainTitle}</h3>
+                                    <p className="text-light description">{slide.description}</p>
+                                    <button>Book Now!</button>
+                                </Carousel.Caption>
+                            </Carousel.Item>
+                        ))}
+                    </Carousel>
 
-            {/* Right Column with Carousel */}
-            <div className="col-md-9 position-relative">
-                <Carousel
-                    activeIndex={currentIndex}
-                    onSelect={handleSelect}
-                    fade
-                    controls={false}
-                    indicators={false}
-                    interval={3000}
-                    className="main-carousel"
-                >
-                    {slidesData.map((slide, index) => (
-                        <Carousel.Item key={index}>
-                            <div
-                                className="carousel-image"
-                                style={{
-                                    backgroundImage: `url(${slide.image})`,
-                                    height: '100vh',
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center',
-                                }}
-                            ></div>
-                        </Carousel.Item>
-                    ))}
-                </Carousel>
+                    <br />
 
-                {/* Cards Display */}
-                <div className="cards-container d-flex justify-content-start position-absolute bottom-0 w-100 p-3">
-                    {slidesData.map((slide, index) => (
-                        <div
+            {/* Cards Display */}
+            <div className="cards-container d-flex flex-wrap justify-content-start position-absolute bottom-0 w-100 p-3">
+                {slidesData.map((slide, index) => (
+                    <div
+                        key={index}
+                        className={`${
+                            index === 0 ? 'col-12' : 'col-lg-3 col-md-4 col-sm-12'
+                        } mb-3 card-hover hero-card-hover ${index === currentIndex ? 'active' : ''}`}
+                        onClick={() => handleSelect(index)}
+                    >
+                        <div className="card-hover__content">
+                            <h3 className="card-hover__title">{slide.mainTitle}</h3>
+                            <hr />
+                            <h4
+                                className="mt-5 btn btn-sm text-white"
+                                style={{ background: '#000042' }}
+                            >
+                                Explore
+                            </h4>
+                        </div>
+                        <img style={{height:'50vh'}} src={slide.image} alt={slide.mainTitle} className="w-100 hero-img" />
+                    </div>
+                ))}
+            </div>
+
+            {/* Carousel Indicators and Card Number */}
+            <div className="carousel-footer position-absolute bottom-0 end-0 p-3 d-flex align-items-center">
+                <div className="carousel-indicators">
+                    {slidesData.map((_, index) => (
+                        <button
                             key={index}
-                            className={`card-hover ${index === currentIndex ? 'active' : ''}`}
+                            className={`indicator ${index === currentIndex ? 'active' : ''}`}
                             onClick={() => handleSelect(index)}
                         >
-                            <div className="card-hover__content">
-                                <h3 className="card-hover__title">{slide.mainTitle}</h3>
-                                <hr />
-                                <h4 className="mt-5 btn btn-warning btn-sm text-dark">Explore</h4>
-                            </div>
-                            <img src={slide.image} alt={slide.mainTitle} />
-                        </div>
+                            {index + 1}
+                        </button>
                     ))}
                 </div>
-
-                        {/* Carousel Indicators and Card Number */}
-                        <div className="carousel-footer position-absolute bottom-0 end-0 p-3 d-flex align-items-center">
-                    <div className="carousel-indicators">
-                        {slidesData.map((_, index) => (
-                            <button
-                                key={index}
-                                className={`indicator ${index === currentIndex ? 'active' : ''}`}
-                                onClick={() => handleSelect(index)}
-                            >
-                                {index + 1}
-                            </button>
-                        ))}
-                    </div>
-                    <div className="line" style={{ flexGrow: 1, marginLeft: '70px', height: '4px', backgroundColor: '#fff' }}></div>
-                    <span className="card-number ms-2" ></span>
-                </div>
+                <div
+                    className="line"
+                    style={{
+                        flexGrow: 1,
+                        marginLeft: '-70px',
+                        height: '4px',
+                        backgroundColor: '#000042',
+                    }}
+                ></div>
             </div>
+        </div>
+    </div>
+</div>
+
         </div>
     );
 };
