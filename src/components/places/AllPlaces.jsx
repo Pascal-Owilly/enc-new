@@ -116,52 +116,26 @@ const AllPlaces = () => {
               <p>{place.description}</p>
              
               <div className="price-button-wrapper">
-                    <p className="card-text destination-price"><strong>{place.price ? `Ksh${place.price}` : 'N/A'}</strong></p>
-                    <button className="btn btn-sm btn-book-now">Book Now</button>
-                  </div>
+  <p className="card-text destination-price">
+    <strong>{place.price ? `Ksh${place.price}` : 'N/A'}</strong>
+  </p>
+  <Link 
+    to={{
+      pathname: `/booking`,
+      search: `?placeName=${encodeURIComponent(place.name)}&price=${place.price}&placeId=${place.id}`
+    }}
+  >
+    <button className="btn btn-sm btn-book-now">Book Now</button>
+  </Link>
+</div>
+
+
             </div>
           </div>
         ))}
       </div>
 
-      {currentPlaces.map((place, index) => (
-
-
-      <Card className="what-card-place" style={{ position: 'relative', backgroundColor: '#fff', width: '100%', height: '400px', overflow: 'hidden', color: '#333', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', border:'none', outline:'none' }}>
-  <Card.Img
-    src={place.cover_image}
-    style={{
-      objectFit: 'cover',
-      objectPosition: 'center',
-      width: '100%',
-      height: '100%',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-    }}
-  />
-  <div style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
-    <div style={{ position: 'absolute', top: 20, left: 20, padding: '10px' }}>
-      <h5 style={{ margin: 0, font: '40 Philosopher', color: '#fff' }}>{place.name}</h5>
-    </div>
-    {/* Price Container */}
-    <div style={{ position: 'absolute', top: 20, right: 20, backgroundColor: '#fa9b30', color: '#fff', padding: '5px', borderRadius: ' 30px 0 0 30px ', right: 0 }}>
-      <span style={{  font:'14px ', letterSpacing:'1px' }}>Ksh {place.price}</span>
-    </div>
-    {/* End Price Container */}
-    <div style={{ position: 'absolute', bottom: 0, padding: '20px', width: '100%', color: '#fff' }}>
-      <p style={{ marginTop: '10px' }}>{place.description}</p>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-        <button className="btn btn-sm bg-white" style={{borderRadius:'30px', right: 0, color:'#999999'}} onClick={() => handleSeeDescriptionClick(destination)}>
-          See Description
-        </button>
-      </div>
-      
-    </div>
-  </div>
-</Card>
- ))}
-
+     
       <div className="pagination">
         {[...Array(totalPages)].map((_, index) => (
           <button

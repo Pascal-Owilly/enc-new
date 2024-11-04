@@ -31,7 +31,7 @@ export default function Home() {
         <div style={{  }}>
           <div >
             <Hero />
-            {/* <Places /> */}
+            <Places />
             <Blogs />
             <Partners />
 

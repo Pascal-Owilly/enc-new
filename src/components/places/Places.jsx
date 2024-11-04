@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Places.css';
 import { FaArrowRight, FaMapMarkerAlt } from 'react-icons/fa'; // Import an additional icon
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
+import { Carousel, Card } from 'react-responsive-carousel';
 import { BASE_URL } from '../config/config';
 import { Link } from 'react-router-dom';
 
@@ -89,6 +89,45 @@ const Places = () => {
             ))}
           </div>
         ))}
+
+{/* {chunks.map((chunk, index) => (
+
+
+<Card className="what-card-place" style={{ position: 'relative', backgroundColor: '#fff', width: '100%', height: '400px', overflow: 'hidden', color: '#333', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', border:'none', outline:'none' }}>
+{chunk.cover_image && (
+  <Card.Img
+    src={chunk.cover_image}
+    style={{
+      objectFit: 'cover',
+      objectPosition: 'center',
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+    }}
+  />
+)}
+
+<div style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
+<div style={{ position: 'absolute', top: 20, left: 20, padding: '10px' }}>
+<h5 style={{ margin: 0, font: '40 Philosopher', color: '#fff' }}>{chunk.name}</h5>
+</div>
+<div style={{ position: 'absolute', top: 20, right: 20, backgroundColor: '#fa9b30', color: '#fff', padding: '5px', borderRadius: ' 30px 0 0 30px ', right: 0 }}>
+<span style={{  font:'14px ', letterSpacing:'1px' }}>Ksh {chunk.price}</span>
+</div>
+<div style={{ position: 'absolute', bottom: 0, padding: '20px', width: '100%', color: '#fff' }}>
+<p style={{ marginTop: '10px' }}>{chunk.description}</p>
+<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+  <button className="btn btn-sm bg-white" style={{borderRadius:'30px', right: 0, color:'#999999'}} onClick={() => handleSeeDescriptionClick(chunk)}>
+    See Description
+  </button>
+</div>
+
+</div>
+</div>
+</Card>
+))} */}
       </Carousel>
       <Link to="/all-places" className="see-all-button">See All <FaArrowRight size={18} /></Link>
     </div>
