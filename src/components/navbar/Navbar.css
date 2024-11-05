@@ -48,8 +48,10 @@
 }
 
 .navbar{
-  width: 100%;
+  width: 100% !important;
   margin: 0 !important;
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+
   
 }
 
@@ -58,7 +60,12 @@
   font-weight: 900 !important;
   font-family: Caladea;
   letter-spacing: 1px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #d3d3d3, #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: rgba(249, 250, 251, 1);
 }
+
 
 .navbar-brand {
   margin-right: 30px; /* Space between logo and links */
@@ -109,8 +116,6 @@
   }
 }
 
-
-
 /* Styling for hover dropdown */
 .navbar-nav .dropdown-menu {
   display: none;
@@ -130,11 +135,12 @@
 }
 
 .navbar-nav .dropdown-item {
-  color: white;
+  color: ;
 }
 
 .navbar-nav .dropdown-item:hover {
   background-color: #000042;
+  color: #b3b3b3;
 }
 
 .navbar-nav .dropdown-toggle::after {
@@ -159,7 +165,7 @@
   display: inline-block;
   width: 10px;            /* Adjust size */
   height: 10px;           /* Same height and width for a perfect circle */
-  background-color: #fdeb3d; /* Dot color */
+  background-color: rgb(253, 235, 61); /* Dot color */
   border-radius: 50%;      /* Make it circular */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
   margin-right: 5px;      /* Optional spacing if you want space between the dot and other content */

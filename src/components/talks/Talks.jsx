@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import EmojiPicker from 'emoji-picker-react';
 import './Talks.css';
 import { BASE_URL } from '../config/config';
 import moment from 'moment';
 import { FaRegComment, FaRegThumbsUp, FaRegSmile } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImages } from '@fortawesome/free-regular-svg-icons';
+import defaultProfle from '../../assets/images/default.svg';
 
 const BlogPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -11,56 +13,32 @@ const BlogPosts = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true);
-  const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
-  const [chosenEmojis, setChosenEmojis] = useState({});
   const [likes, setLikes] = useState({});
-  
-  // State for the story sharing form
+  const [commentInputs, setCommentInputs] = useState({});
+
   const [storyContent, setStoryContent] = useState('');
   const [storyImage, setStoryImage] = useState(null);
+  const [profile, setProfile] = useState('');
+
+
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
         const response = await fetch(`${BASE_URL}blogposts/?page=${page}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch posts');
-        }
+        if (!response.ok) throw new Error('Failed to fetch posts');
         const data = await response.json();
-        
-        if (data.length > 0) {
-          setPosts((prevPosts) => [...prevPosts, ...data]);
-          setHasMore(data.length > 0);
-        } else {
-          setHasMore(false);
-        }
+        setPosts((prevPosts) => [...prevPosts, ...data]);
+        setHasMore(data.length > 0);
       } catch (error) {
         setError(error.message);
       } finally {
         setLoading(false);
       }
     };
-
     fetchPosts();
   }, [page]);
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop !==
-      document.documentElement.offsetHeight ||
-      loading ||
-      !hasMore
-    ) {
-      return;
-    }
-    setPage((prevPage) => prevPage + 1);
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [loading, hasMore]);
 
   const handleLike = (id) => {
     setLikes((prevLikes) => ({
@@ -69,142 +47,200 @@ const BlogPosts = () => {
     }));
   };
 
-  const handleComment = (id, comment) => {
-    console.log(`Comment on post ${id}: ${comment}`);
-  };
-
-  const onEmojiClick = (postId, event, emojiObject) => {
-    setChosenEmojis((prevEmojis) => ({
-      ...prevEmojis,
-      [postId]: emojiObject.emoji,
+  const toggleCommentInput = (id) => {
+    setCommentInputs((prevInputs) => ({
+      ...prevInputs,
+      [id]: !prevInputs[id],
     }));
-    setEmojiPickerVisible(false);
   };
 
-  // Handle story submission
-  const handleStorySubmit = async (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData();
-    formData.append('content', storyContent);
-    if (storyImage) {
-      formData.append('image', storyImage);
-    }
-
-    try {
-      const response = await fetch(`${BASE_URL}blogposts/`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit story');
-      }
-
-      const newPost = await response.json();
-      setPosts((prevPosts) => [newPost, ...prevPosts]);
-      setStoryContent('');
-      setStoryImage(null);
-    } catch (error) {
-      setError(error.message);
+  const handleCommentSubmit = (id) => {
+    const comment = commentInputs[id]?.text;
+    if (comment) {
+      console.log(`Comment on post ${id}: ${comment}`);
+      setCommentInputs((prevInputs) => ({
+        ...prevInputs,
+        [id]: { ...prevInputs[id], text: '' },
+      }));
     }
   };
 
-  if (error) {
-    return <div className="error-message">Error: {error}</div>;
-  }
+  const handleCommentChange = (id, text) => {
+    setCommentInputs((prevInputs) => ({
+      ...prevInputs,
+      [id]: { ...prevInputs[id], text },
+    }));
+  };
 
   return (
     <div className="container-fluid">
+      <div className="chat-container ">
+        <div className="row">
+          <div className="col-md-8">
+          <h1 
+  className="text-dark text-left"
+  style={{
+    fontFamily: 'Caladea, serif',
+    fontSize: '2.5rem',       // Adjust font size as needed
+    fontWeight: 'bold',
+    color: '#2c3e50',         // Darker color for contrast
+    letterSpacing: '0.1em',   // Adds subtle letter spacing
+    marginBottom: '1rem',
+    textTransform: 'uppercase', // Optional: makes text uppercase
+    textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+  }}
+>
+  Travel Stories
+</h1>
+        <hr />
 
-    <div className="chat-container">
-    <hr />
+        <div className="input-group blogpost-input m-auto" style={{width:'95%'}}>
+  {/* {profile && profile.profile_pic && ( */}
+    <img
+      src={`` || defaultProfle}
+      style={{
+        width: '35px',
+        height: '35px',
+        borderRadius: '50%',
+        objectFit: 'cover', // To maintain the aspect ratio of the profile picture
 
-      <h1 className="heading  text-dark">Tourists Tribune </h1>
-      <h3 className='text-dark text-muted'>Travel Stories</h3>
-      <form onSubmit={handleStorySubmit} className="story-form">
-  <textarea
+      }}
+      alt="Profile Pic"
+    />
+  {/* )} */}
+  &nbsp;&nbsp;&nbsp;
+  <input
     value={storyContent}
     onChange={(e) => setStoryContent(e.target.value)}
-    placeholder="Share your travel story..."
+    placeholder="What's your story?"
     required
     className="story-input"
+    style={{borderRadius:'30px', fontFamily:'Caladea'}}
+    
   />
-  <input
-    type="file"
-    accept="image/*"
-    onChange={(e) => setStoryImage(e.target.files[0])}
-    className="image-upload"
-  />
-  <button type="submit" className="submit-story-btn">Share Story</button>
-</form>
+  <label className="custom-file-uploa what-card-btn m-2">
+    <input
+      type="file"
+      accept="image/*"
+      // onChange={handleImageChange}
+      style={{ display: 'none' }}
+    />
+    <span className="custom-button mx-1">
+      <FontAwesomeIcon icon={faImages} style={{color:'#999999'}} />&nbsp;<span style={{fontSize:'10px', color:'#999999', fontFamily:'Caladea'}}>Photo</span>
+      <br />
+    </span>
+  </label>
+  <div className="input-group-append">
+    <button
+      className="btn btn-outline-primary btn-sm" // Changed button style to btn-primary
+      type="button"
+      // onClick={createNewPost}
+      style={
+      {
+        zIndex: 0,
+        fontSize:'12px',
+        fontFamily:'Caladea',
+        width:'50px'
+      }
+      }
+    >
+      Post
+    </button>
+  </div>
+</div>
 
-      
-      <div className="chat-content">
-        {posts.map((post) => (
-          <div className="post-card" key={post.id}>
-            <div className="post-header">
-              <img src={post.image} alt="Author" className="author-image" />
-              <div className="author-details">
-                <h2 className="text-secondary">{post.author_full_name}</h2>
-                <p className="text-secondary">
-                  {moment(post.created_at).fromNow()}
-                </p>
+
+        <div className="chat-content">
+          {posts.map((post) => (
+            <div className="post-card" key={post.id}>
+              <div className="post-header">
+                <img src={post.image} alt="Author" className="author-image" />
+                <div className="author-details">
+                  <h5 className="text-secondary" style={{fontFamily:'Caladea'}}>{post.author_full_name}</h5>
+                  <p className="text-secondary">
+                    {moment(post.created_at).fromNow()}
+                  </p>
+                </div>
+              </div>
+              <div className="post-content">
+                <p className="text-dark" style={{fontFamily:'Caladea'}}>{post.content}</p>
+                <img src={post.image} alt="Post" style={{ width: '100%' }} />
+              </div>
+              <div className="post-actions">
+                <div className="reaction-buttons" style={{fontFamily:'Caladea'}}>
+                  <button onClick={() => handleLike(post.id)} className="like-btn">
+                    <FaRegThumbsUp /> {likes[post.id] || 0}
+                  </button>
+                  <button onClick={() => toggleCommentInput(post.id)} className="comment-btn">
+                    <FaRegComment /> {''|| 0}
+                  </button>
+                </div>
+                {commentInputs[post.id] && (
+                  <div className="comment-section">
+                    <input
+                      type="text"
+                      value={commentInputs[post.id]?.text || ''}
+                      onChange={(e) => handleCommentChange(post.id, e.target.value)}
+                      placeholder="Add a comment..."
+                      className="comment-input"
+                    />
+                    <button onClick={() => handleCommentSubmit(post.id)} className="submit-btn btn btn--outline-primary mt-1" style={{fontFamily:'Caladea'}}>
+                      Post
+                    </button>
+                  </div>
+                )}
+              </div>
+              {/* Render each comment with likes here */}
+              <div className="comments-list" style={{fontFamily:'Caladea'}}>
+                {post.comments?.map((comment, index) => (
+                  <div className="comment" key={index}>
+                    <span className="comment-author">{comment.author}</span>
+                    <p className="comment-text">{comment.text}</p>
+                    <button
+                      onClick={() => handleLike(comment.id)}
+                      className="like-comment-btn"
+                    >
+                      <FaRegThumbsUp /> {comment.likes || 0}
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
-
-            <div className="post-content ">
-              <p className="text-dark"> {post.content}</p>
-            </div>
-
-            <div className="post-actions">
-              <div className="reaction-buttons">
-                <button onClick={() => handleLike(post.id)} className="like-btn">
-                  <FaRegThumbsUp />
-                  {likes[post.id] || 0}
-                </button>
-                <button
-                  onClick={() => setEmojiPickerVisible((prev) => !prev)}
-                  className="emoji-picker-btn"
-                >
-                  <FaRegSmile />
-                </button>
-                <button
-                  onClick={() => handleComment(post.id, 'Your comment here')}
-                  className="comment-btn"
-                >
-                  <FaRegComment />
-                </button>
-              </div>
-
-              <input
-                type="text"
-                placeholder="Add a comment..."
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    handleComment(post.id, e.target.value);
-                    e.target.value = '';
-                  }
-                }}
-                className="comment-input"
-              />
-
-              {emojiPickerVisible && (
-                <EmojiPicker
-                  onEmojiClick={(event, emojiObject) =>
-                    onEmojiClick(post.id, event, emojiObject)
-                  }
-                />
-              )}
-            </div>
+          ))}
+          {loading && <div className="loading-spinner">Loading...</div>}
+          {!hasMore && <div className="no-more-posts">No more posts</div>}
+        </div>
           </div>
-        ))}
-        {loading && <div className="loading-spinner">Loading...</div>}
-        {!hasMore && <div className="no-more-posts">No more posts</div>}
-      </div>
+          <div className="col-md-4">
+  <div
+    className="testimonial-section my-4 mt-4 "
+    style={{
+      position: 'sticky',
+      top: '20px', // adjust top offset as needed
+      width: '100%',
+      maxWidth: '80%', // Adjust this for responsive design
+      margin: '0 auto',
+    }}
+  >
+    <h5 className="text-center testimonial-title">What Our Travelers Say</h5>
+    <div className="testimonial my-3">
+      <p className="text-muted testimonial-quote">“An unforgettable experience, I learned so much!”</p>
+      <p className="text-end testimonial-author">– Jane Doe</p>
     </div>
+    <div className="testimonial my-3">
+      <p className="text-muted testimonial-quote">“Perfectly organized, highly recommend!”</p>
+      <p className="text-end testimonial-author">– John Smith</p>
     </div>
+    <div className="testimonial my-3">
+      <p className="text-muted testimonial-quote">“Exceeded my expectations! The food was amazing!”</p>
+      <p className="text-end testimonial-author">– Alice Johnson</p>
+    </div>
+  </div>
+</div>
 
+        </div>
+              </div>
+    </div>
   );
 };
 

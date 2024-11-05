@@ -55,10 +55,8 @@ const Places = () => {
 
   return (
     <div className="container mt-5 bg-light">
-      <section className="text-center fade-in mb-5 places-section">
-        <h1 className="fade-in display-5 about-us-intro">Begin Your Adventure In Style </h1>
-      </section>
-
+     <h1
+     className="fade-in text-center page-title mt-5 all-headings">Begin Your Adventure In Style</h1>
       <Carousel 
         showArrows={true} 
         infiniteLoop={true} 

@@ -7,32 +7,32 @@ import hero4 from '../../assets/hero/hero4.jpg';
 
 const MicroAdventure = () => {
     const [wishlisted, setWishlisted] = useState([false, false, false]);
-
     const toggleWishlist = (index) => {
         const newWishlist = [...wishlisted];
         newWishlist[index] = !newWishlist[index];
         setWishlisted(newWishlist);
     };
-
     return (
         <div className="micro-adventure-page container">
            <header 
-    className="hero-banner text-center my-4" 
+    className="hero-banner text-center " 
     style={{
-        backgroundImage: `url(${heroImg})`,
+        // backgroundImage: `url(${heroImg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        color: 'white',
-        padding: '30px 20px'
+        borderRadius:'100px'
     }}
 >
-    <h1>Micro-Adventure </h1>
-    <p>
-        Micro-Adventures are all about discovering unique, exciting experiences without the need for extensive planning or long-distance travel. Perfect for busy schedules, these mini escapes allow you to explore hidden gems, from forest trekking to stargazing, right in or near your city. Micro-Adventures are designed to bring a taste of adventure to your everyday life, making it easy to connect with nature, uncover local secrets, and create lasting memories on your terms.
+<h1
+     className="fade-in text-center page-title all-headings">Micro-Adventure</h1>
+     
+     <p style={{fontFamily:'Caladea', color:'#333'}}>
+        Micro-Adventures are all about discovering unique, exciting experiences without the need for extensive planning or long-distance travel.
+         Perfect for busy schedules, these mini escapes allow you to explore hidden gems. 
+         Micro-Adventures are designed to bring a taste of adventure to your everyday life,
+        making it easy to connect with nature, uncover local secrets, and create lasting memories on your terms.
     </p>
 </header>
-
-
             <div className="row">
                 {/* Cards section occupying col-9 */}
                 <div className="col-md-10">

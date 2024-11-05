@@ -26,15 +26,6 @@
   background-color: #000042;
 }
 
-/* Introduction Section */
-.about-us-intro h1 {
-  font-size: 50px;
-  letter-spacing: 5px;
-  margin-bottom: 20px;
-  color: #d9d9d9 !important;
-  text-transform: uppercase;
-  font-weight: 700;
-}
 
 .about-us-intro p {
   font-size: 18px;
@@ -165,9 +156,6 @@
     width: 100%;
   }
 
-  .about-us-intro h1 {
-    font-size: 36px;
-  }
 
   .about-us-intro p {
     font-size: 16px;
@@ -191,9 +179,7 @@
     padding: 20px;
   }
 
-  .about-us-intro h1 {
-    font-size: 28px;
-  }
+
 
   .about-us-intro p {
     font-size: 14px;
@@ -420,14 +406,6 @@
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
 }
 
-.places-secton h1 {
-  color: #444 !important; /* Darker gray for the heading */
-  font-weight: 900; /* Bold font to make it stand out */
-  font-size: 2.5rem; /* Larger font size */
-  letter-spacing: 2px; /* Letter spacing for a premium feel */
-  text-transform: uppercase; /* Make the text uppercase for emphasis */
-  margin-bottom: 0; /* Adjust the margin for better alignment */
-}
 
 .no-places-found {
   display: flex;

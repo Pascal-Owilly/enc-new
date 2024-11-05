@@ -27,7 +27,60 @@
 body {
   margin: 0;
   overflow-x: hidden;
-  background-color: rgb(248, 249,251, 0.5) !important;
+  background-color: #f4f4f9 !important;
+}
+
+.all-headings{
+  font-family: Caladea;
+  font-size: 1.6rem;         
+  font-Weight: bold;
+  letter-spacing: 0.15em;      
+  text-transform: uppercase;   
+  /* background: linear-gradient(135deg, #3498db, #8e44ad);  */
+  Webkit-background-clip: text;
+  Webkit-text-fillColor: transparent;
+  text-shadow: 2px 2px 5px rgba(253, 235, 61, 0.4);
+  padding: '0.3em 0',     
+}
+
+.all-headings4{
+  font-family: Caladea;
+  font-size: 1.5rem !important;         
+  font-Weight: bold;
+  letter-spacing: 0.15em;      
+  text-transform: uppercase;   
+  /* background: linear-gradient(135deg, #3498db, #8e44ad);  */
+  Webkit-background-clip: text;
+  Webkit-text-fillColor: transparent;
+  text-shadow: 2px 2px 5px rgba(253, 235, 61, 0.4);
+  padding: '0.3em 0',     
+}
+
+.all-headings5{
+  font-family: Caladea;
+  font-size: 1rem !important;         
+  font-Weight: bold;
+  letter-spacing: 0.15em;      
+  text-transform: uppercase;   
+  /* background: linear-gradient(135deg, #3498db, #8e44ad);  */
+  Webkit-background-clip: text;
+  Webkit-text-fillColor: transparent;
+  text-shadow: 2px 2px 5px rgba(253, 235, 61, 0.4);
+  padding: '0.3em 0',     
+}
+
+.book-now-btn{
+  font-family: Caladea;
+  font-size: 0.8rem;         
+  font-Weight: bold;
+  letter-spacing: 0.15em;      
+  text-transform: uppercase;   
+  /* background: linear-gradient(135deg, #3498db, #8e44ad);  */
+  Webkit-background-clip: text;
+  Webkit-text-fillColor: transparent;
+  text-shadow: 2px 2px 5px rgba(253, 235, 61, 0.4);
+  padding: '0.3em 0';
+  align-items: right;
 }
 
 .page-container {
@@ -64,4 +117,9 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   height: 900px;
+}
+
+p,h1, h2, h3, h4, h5, h6{
+  font-family: Caladea !important;
+
 }

@@ -28,7 +28,9 @@ const Questionnaire = ({ onClose }) => {
   ];
 
   return (
+
     <div className="questionnaire-section">
+
       <div className="question__wrapper service-animated">
         <div className="question service__type">
           <div className="question__shape" />
@@ -44,6 +46,7 @@ const Questionnaire = ({ onClose }) => {
 
       <div className="questions__service questions__service-0">
         <div className="questions__header">
+       
           <h4>{questions[questionIndex]}</h4>
           <div className="btn-back exit keys-animated" onClick={onClose}>
             <FontAwesomeIcon icon={faX} />

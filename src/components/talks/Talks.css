@@ -2,7 +2,7 @@
 
 .chat-container {
   background-color: #f4f4f9;
-  margin-top: 80px;
+  margin-top: 100px;
 }
 
 .chat-container {
@@ -122,4 +122,16 @@
 
 .submit-story-btn:hover {
   background-color: #0056b3;
+}
+
+textarea::placeholder{
+  font-size: 12px;
+}
+
+
+/* Hide the testimonial section on smaller screens */
+@media (max-width: 768px) {
+  .testimonial-section {
+    display: none;
+  }
 }

@@ -72,7 +72,10 @@ const AllPlaces = () => {
 
   return (
     <div className="all-places-container">
-      <h1 className="fade-in text-center page-title mt-5">Explore All Amazing Destinations</h1>
+      <h1
+     
+      
+       className="fade-in text-center page-title mt-5 all-headings">Explore All Amazing Destinations</h1>
 
       <div className="filter-sort-section">
         <div className="filter-options">

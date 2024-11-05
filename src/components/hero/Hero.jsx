@@ -26,7 +26,7 @@ const Dot = () => {
             width: size,
             height: size,
             borderRadius: '50%',
-            backgroundColor: 'rgba(255, 193, 7, 0.7)', 
+            backgroundColor: '#ffc107', 
         }}
         animate={{
             y: [0, 20, 0], // Vertical floating animation
@@ -65,12 +65,7 @@ const HeroSection = () => {
             mainTitle: 'MARRAKECH MERZOUGA',
             description: 'Discover the unique charm and beauty of the Moroccan Sahara.',
         },
-        {
-            image: hero4,
-            smallTitle: 'California, USA',
-            mainTitle: 'YOSEMITE PARK',
-            description: 'A breathtaking experience awaits at Yosemite’s natural wonders.',
-        },
+
     ];
 
     const handleSelect = (selectedIndex) => {
@@ -81,7 +76,7 @@ const HeroSection = () => {
     const dotsArray = Array.from({ length: 50 }, (_, index) => <Dot key={index} />);
 
     return (
-        <div className="hero-section d-flex position-relative" style={{ height: '100vh' }}>
+        <div className="hero-section d-flex fade-in position-relative" style={{ height: '100vh' }}>
             {/* Moving dots */}
             <div className="dots-container position-absolute w-100 h-100">
                 {dotsArray}
@@ -90,12 +85,12 @@ const HeroSection = () => {
             {/* Left Column - Dynamic content */}
             
             <div className="col-md-3 comp-screen d-flex flex-column justify-content-center align-items-start p-4">
-                <h5 className="small-title">{slidesData[currentIndex].smallTitle}</h5>
-                <h3 className="main-title">{slidesData[currentIndex].mainTitle}</h3>
-                <p className="description">{slidesData[currentIndex].description}</p>
+                <h5 className="small-title text-dark">{slidesData[currentIndex].smallTitle}</h5>
+                <h3 className="main-title all-headings text-dark">{slidesData[currentIndex].mainTitle}</h3>
+                <p className="description text-dark">{slidesData[currentIndex].description}</p>
                 <div className="d-flex align-items-center mt-3">
                     <MdTour style={{ color: '#1c85e8', fontSize: '1.5em' }} />
-                    <Button variant="" className="discover-btn ms-3 text-light" style={{backgroundColor:'#1c85e8'}}>
+                    <Button variant="" className="discover-btn ms-3 text-light" style={{backgroundColor:'#000042'}}>
                         Get Started
                     </Button>
                 </div>
@@ -103,7 +98,7 @@ const HeroSection = () => {
             <div className="container-fluid">
                         <div className="row">
                             {/* Right Column with Carousel */}
-                            <div className="col-md-9 col-sm-12 position-relative">
+                            <div className="col-md-12 col-sm-12 position-relative">
                             <Carousel
                         activeIndex={currentIndex}
                         onSelect={handleSelect}
@@ -119,7 +114,6 @@ const HeroSection = () => {
                                     className="carousel-image"
                                     style={{
                                         backgroundImage: `url(${slide.image})`,
-                                        height: '100vh',
                                         backgroundSize: 'cover',
                                         backgroundPosition: 'center',
                                         
@@ -127,11 +121,12 @@ const HeroSection = () => {
                                 ></div>
                                 
                                 {/* Caption Content */}
+                                
                                 <Carousel.Caption className="d-flex flex-column align-items-start phone-screen mb-4">
-                                    {/* <h6 className="text-light small-title">{slide.smallTitle}</h6> */}
+                                    <h6 className="text-light small-title">{slide.smallTitle}</h6>
                                     <h3 className="text-light main-title fw-bold">{slide.mainTitle}</h3>
                                     <p className="text-light description">{slide.description}</p>
-                                    <button>Book Now!</button>
+                                    <button className='book-now-btn '>Book Now!</button>
                                 </Carousel.Caption>
                             </Carousel.Item>
                         ))}
@@ -145,7 +140,7 @@ const HeroSection = () => {
                     <div
                         key={index}
                         className={`${
-                            index === 0 ? 'col-12' : 'col-lg-3 col-md-4 col-sm-12'
+                            index === 0 ? 'col-12' : ' col-md-3 col-sm-12'
                         } mb-3 card-hover hero-card-hover ${index === currentIndex ? 'active' : ''}`}
                         onClick={() => handleSelect(index)}
                     >
@@ -165,7 +160,7 @@ const HeroSection = () => {
             </div>
 
             {/* Carousel Indicators and Card Number */}
-            <div className="carousel-footer position-absolute bottom-0 end-0 p-3 d-flex align-items-center">
+            <div className="carousel-footer position-absolute phone bottom-0 end-0 p-3 d-flex align-items-center">
                 <div className="carousel-indicators">
                     {slidesData.map((_, index) => (
                         <button
@@ -179,12 +174,7 @@ const HeroSection = () => {
                 </div>
                 <div
                     className="line"
-                    style={{
-                        flexGrow: 1,
-                        marginLeft: '-70px',
-                        height: '4px',
-                        backgroundColor: '#000042',
-                    }}
+                   
                 ></div>
             </div>
         </div>

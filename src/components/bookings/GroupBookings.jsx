@@ -107,7 +107,19 @@ const GroupBookings = () => {
 
     return (
         <div className="group-bookings-page container text-center">
-            <h1 className="mb-4 mt-5">Group Bookings</h1>
+            <h1 
+  className="text-dark  mb-4 mt-5"
+  style={{
+    fontFamily: 'Caladea, serif',
+    fontSize: '2.5rem',       // Adjust font size as needed
+    fontWeight: 'bold',
+    color: '#2c3e50',         // Darker color for contrast
+    letterSpacing: '0.1em',   // Adds subtle letter spacing
+    marginBottom: '1rem',
+    textTransform: 'uppercase', // Optional: makes text uppercase
+    textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
+  }}
+>Group Bookings</h1>
             <p className="lead mb-5">
                 Plan unforgettable trips with your friends, family, or colleagues. Enjoy exclusive group rates and personalized itineraries!
             </p>

@@ -42,27 +42,43 @@ import logo from '../../assets/logo/enceptics.jpg';
 
 // Colors
 const secondaryColor = '#1c85e8';
-const primaryColor = '#1c85e8';
+const primaryColor = '#000042';
 const dropdownBackgroundColor = '#1c85e8';
 
 export default function NavbarComponent() {
     return (
+        <Container fluid>
         <Navbar expand="lg" variant="dark" style={{ backgroundColor: primaryColor }} fixed="top">
-            <Container fluid>
             <Navbar.Brand 
     href="/" 
-    style={{ 
-        fontWeight: 'bold', 
-        fontSize: '20px', 
-        fontFamily: 'Caladea, sans-serif' 
-    }}
+    style={{
+        fontFamily: 'Caladea, serif',
+        fontSize: '1.6rem',            // Slightly larger font size for visibility
+        fontWeight: 'bold',
+        letterSpacing: '0.15em',       // Increased spacing for a distinct look
+        textTransform: 'uppercase',    // Gives it a bold, brand-like look
+        background: 'linear-gradient(135deg, #d3d3d3, #fff)', // Gradient from blue to purple
+        WebkitBackgroundClip: 'text',  // Clips the gradient to the text
+        WebkitTextFillColor: 'transparent', // Makes text transparent to show the gradient
+        textShadow: '2px 2px 5px rgba(253, 235, 61, 0.4)', // Slightly larger shadow for depth
+        padding: '0.3em 0',            // Adds padding for spacing
+      }}
+      
 >
     <span 
         style={{ 
-            fontSize: '24px', 
-            color: '#007BFF' 
+        fontFamily: 'Caladea, serif',
+        fontSize: '1.6rem',            // Slightly larger font size for visibility
+        fontWeight: 'bold',
+        letterSpacing: '0.15em',       // Increased spacing for a distinct look
+        textTransform: 'uppercase',    // Gives it a bold, brand-like look
+        background: 'linear-gradient(135deg, #d3d3d3, #fff)', // Gradient from blue to purple
+        WebkitBackgroundClip: 'text',  // Clips the gradient to the text
+        WebkitTextFillColor: 'transparent', // Makes text transparent to show the gradient
+        textShadow: '2px 2px 5px rgba(253, 235, 61, 0.4)', // Slightly larger shadow for depth
+        padding: '0.3em 0',            // Adds padding for spacing
         }} 
-        className="rotating-disk-icon"  // Apply the disk rotation class here
+        className=""  // Apply the disk rotation class here
     >
         🌍
     </span> 
@@ -77,14 +93,14 @@ export default function NavbarComponent() {
                       
 
                         {/* Dropdowns for experiences */}
-                        <NavDropdown
-                            title="Local Experiences"
-                            id="nav-dropdown-destinations"
-                            className="text-white"
-                            style={{ color: 'white', marginLeft: '', fontSize:'12px' }}
-                            menuVariant="light"
-                        >
-                            <div style={{ padding: '', maxWidth: '300px' }}>
+                       <NavDropdown
+    title="Local Experience"
+    id="nav-dropdown-destinations"
+    className=""
+    style={{ color: '#fff', marginLeft: '', fontSize: '12px' }}
+    menuVariant="white"
+>
+                            <div style={{ padding: '', maxWidth: '' }}>
                                 {[
                                     { icon: faUtensils, text: "Culinary Tours", link: "/destinations/culinary-tours" },
                                     { icon: faShoppingBasket, text: "Farmers' Markets", link: "/destinations/farmers-markets" },
@@ -111,12 +127,13 @@ export default function NavbarComponent() {
                         </NavDropdown>
 
                         <NavDropdown
-                            title="Craft Your Tour"
-                            id="nav-dropdown-personalized-itineraries"
-                            className="text-white"
-                            style={{ color: 'white', marginLeft: '1rem' }}
-                            menuVariant="light"
-                        >
+    title="Craft Your Tour"
+    id="nav-dropdown-personalized-itineraries"
+    className=""
+    style={{ color: '#fff', marginLeft: '', fontSize: '12px' }}
+    menuVariant="white"
+>
+                            
                             <div className="d-flex flex-column">
                                 <div className="px-3">
                                     <NavDropdown.Item href="/itineraries/relaxation">
@@ -136,25 +153,34 @@ export default function NavbarComponent() {
                                     <NavDropdown.Item href="/itineraries/custom">
                                         <FontAwesomeIcon icon={faMagic} /> Custom Itineraries
                                     </NavDropdown.Item>
+                                    <NavDropdown.Item href="/itineraries/custom">
+                                        <FontAwesomeIcon icon={faMagic} /> Tour & Learn
+                                    </NavDropdown.Item>
                                 </div>
+
                             </div>
                         </NavDropdown>
 
                         {/* Additional Links */}
                         <Nav.Link href="/destinations/micro-adventure" className="text-white" >
-                            <FontAwesomeIcon icon={faLeaf} style={{ color: '#FFC107' }} /> Micro-Adventure
+                            {/* <FontAwesomeIcon icon={faLeaf} style={{ color: '#FFC107' }} /> */}
+                             Micro-Adventure
                         </Nav.Link>
                         <Nav.Link href="/all-places" className="text-white">
-                            <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: '#FFC107' }} /> Explore Places
+                            {/* <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: '#FFC107' }} />  */}
+                            Explore 
                         </Nav.Link>
                         <Nav.Link href="/destination/group-bookings" className="text-white">
-                            <FontAwesomeIcon icon={faUsers} style={{ color: '#FFC107' }} /> Group Bookings
+                            {/* <FontAwesomeIcon icon={faUsers} style={{ color: '#FFC107' }} />  */}
+                             Group Booking
                         </Nav.Link>
                         <Nav.Link href="/about" className="text-white">
-                            <FontAwesomeIcon icon={faInfoCircle} style={{ color: '#FFC107' }} /> About Us
+                            {/* <FontAwesomeIcon icon={faInfoCircle} style={{ color: '#FFC107' }} />  */}
+                             About
                         </Nav.Link>
                         <Nav.Link href="/talks" className="text-white">
-                            <FontAwesomeIcon icon={faComments} style={{ color: '#FFC107' }} /> Chat
+                            {/* <FontAwesomeIcon icon={faComments} style={{ color: '#FFC107' }} />  */}
+                            Stories
                         </Nav.Link>                       
                     </Nav>
                     <Nav>
@@ -173,7 +199,7 @@ export default function NavbarComponent() {
                         </Nav.Link>                      
                     </Nav>
                 </Navbar.Collapse>
-            </Container>
         </Navbar>
+        </Container>
     );
 }
