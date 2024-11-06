@@ -1,0 +1,22 @@
+.sports-card {
+    background-color: #f4f4f4;
+    border: 2px solid #e2e2e2;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sports-card h5 {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .sports-card img {
+    border-radius: 8px;
+  }
+  
+  .sports-card .btn {
+    margin-top: 10px;
+  }
+  

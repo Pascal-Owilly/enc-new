@@ -43,6 +43,8 @@ import ThemedPhotoWalks from './components/destinations/ThemedPhotoWalks';
 import CulturalExchange from './components/destinations/CulturalExchange';
 import StorytellingNights from './components/destinations/StorytellingNights';
 import WildlifeSpotting from './components/destinations/WildlifeSpotting';
+import VirtualRealityOne from './components/destinations/VirtualRealtyOne';
+import VirtualRealityTwo from './components/destinations/VirtualRealityTwo';
 
 // Itineraries
 import Relaxation from './components/itineraries/Relaxation';
@@ -140,6 +142,8 @@ export default function App() {
           <Route path="/destination/group-bookings" element={<GroupBookings />} />
           <Route path="/weather/:place_name" element={<Weather />} />
           <Route path="/talks" element={<Talks />} />
+          <Route path="/destinations/vr-1" element={<VirtualRealityOne />} />
+          <Route path="/destinations/vr-2" element={<VirtualRealityTwo />} />
 
           {/* Test Route */}
           <Route path="/test" element={<Test />} />

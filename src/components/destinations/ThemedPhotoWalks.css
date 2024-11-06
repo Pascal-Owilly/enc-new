@@ -1,0 +1,31 @@
+.photo-walk-card {
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .photo-walk-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .gallery-img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 4px;
+  }
+  
+  h5 {
+    font-weight: bold;
+  }
+  
+  .badge {
+    font-size: 0.9rem;
+  }
+  
+  .card-body {
+    padding: 16px;
+    text-align: left;
+  }
+  

@@ -117,7 +117,11 @@ export default function NavbarComponent() {
                                     { icon: faCameraRetro, text: "Themed Photo Walks", link: "/destinations/photo-walks" },
                                     { icon: faPaw, text: "Wildlife Spotting", link: "/destinations/wildlife-spotting" },
                                     { icon: faExchangeAlt, text: "Cultural Exchange", link: "/destinations/cultural-exchange" },
-                                    { icon: faBook, text: "Storytelling Nights", link: "/destinations/storytelling" }
+                                    { icon: faBook, text: "Storytelling Nights", link: "/destinations/storytelling" },
+                                    // { icon: faBook, text: "VR 1", link: "/destinations/vr-1" },
+                                    { icon: faBook, text: "Virtual Realty", link: "/destinations/vr-2" }
+
+                                    
                                 ].map((item, index) => (
                                     <NavDropdown.Item href={item.link} key={index}>
                                         <FontAwesomeIcon icon={item.icon} /> {item.text}

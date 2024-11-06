@@ -1,0 +1,43 @@
+.festival-card {
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s;
+  }
+  
+  .festival-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .festival-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #eaeaea;
+  }
+  
+  .festival-details {
+    padding: 16px;
+  }
+  
+  .festival-details h5 {
+    font-weight: bold;
+  }
+  
+  .badge {
+    font-size: 0.9rem;
+  }
+  
+  button {
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

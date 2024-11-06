@@ -206,21 +206,7 @@ const CustomItineraries = () => {
                 <button type="submit" className="submit-button">Submit Request</button>
             </form>
 
-            <h2>Sample Itinerary</h2>
-            <div className="sample-itinerary">
-                <h3>Day 1: Arrival & Relaxation</h3>
-                <p>Check into your hotel and unwind. Enjoy a welcome dinner at a local restaurant.</p>
-                <h3>Day 2: Cultural Exploration</h3>
-                <p>Visit the local museum and participate in a guided cultural tour.</p>
-                <h3>Day 3: Adventure Activities</h3>
-                <p>Embark on a thrilling outdoor adventure like hiking or zip-lining.</p>
-                <h3>Day 4: Culinary Delights</h3>
-                <p>Take a cooking class to learn about local cuisine and flavors.</p>
-                <h3>Day 5: Wildlife Experience</h3>
-                <p>Join a wildlife safari to spot native animals in their natural habitat.</p>
-                <h3>Day 6: Departure</h3>
-                <p>Enjoy a leisurely breakfast before checking out and departing.</p>
-            </div>
+    
         </div>
     );
 };
