@@ -77,7 +77,7 @@
 
 .contact-btn {
   border-radius: 15px !important;
-  box-shadow: 0px 2px 2px #000042;
+  box-shadow: 0px 2px 2px rgb(0, 0, 66)
 }
 
 /* Navbar Toggler */
@@ -90,7 +90,7 @@
   display: flex; /* Center icon */
   align-items: center; /* Center icon vertically */
   justify-content: center; /* Center icon horizontally */
-  color: #d9d9d9;
+  /* color: #d9d9d9; */
 }
 
 .navbar-toggler-icon {
@@ -192,3 +192,44 @@
   border-radius: 50%; /* Make it circular */
   margin-right: 8px; /* Space between the image and the title */
 }
+
+/* Sidebar */
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 60px !important;
+  left: -250px;
+  height: 100vh;
+  width: 250px;
+  transition: left 0.3s ease;
+  z-index: 1050; /* Above main content */
+  display: block;
+}
+
+.sidebar.open {
+  left: 0;
+
+}
+
+.sidebar .nav-link, .sidebar .nav-dropdown {
+  /* color: white; */
+  padding: 10px 15px;
+  font-size: 1rem;
+  text-decoration: none;
+  border-bottom: 2px solid rgb(0, 0, 66, 0.5);
+  
+}
+
+.sidebar > .nav-link {
+  color: #333 !important;
+ 
+  border-bottom: 2px solid rgb(0, 0, 66, 0.5);
+  
+}
+
+
+.sidebar .nav-dropdown-divider {
+  margin: 0.5rem 0;
+  border-top: 2px solid #333;
+}
+

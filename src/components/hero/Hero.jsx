@@ -1,187 +1,125 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Button, Carousel } from 'react-bootstrap';
-import { MdTour } from 'react-icons/md';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './Hero.css';
+import { Navbar, Nav, Container, NavDropdown, Row } from 'react-bootstrap';
 
 import heroImg from '../../assets/hero/hero.jpg';
 import hero2 from '../../assets/hero/hero2.jpg';
 import hero3 from '../../assets/hero/hero3.jpg';
 import hero4 from '../../assets/hero/hero4.jpg';
 
-const Dot = () => {
-    // Random initial position and size for each dot
-    const randomX = Math.random() * window.innerWidth;
-    const randomY = Math.random() * window.innerHeight;
-    const size = Math.random() * 3 + 3; // Dot size range from 2 to 10
-
-    return (
-        <motion.div
-        className="dot"
-        style={{
-            position: 'absolute',
-            top: randomY,
-            left: randomX,
-            width: size,
-            height: size,
-            borderRadius: '50%',
-            backgroundColor: '#ffc107', 
-        }}
-        animate={{
-            y: [0, 20, 0], // Vertical floating animation
-            x: [0, 10, -10, 0], // Horizontal floating animation
-        }}
-        transition={{
-            duration: 4,
-            repeat: Infinity,
-            repeatType: 'loop', // Change this to 'loop' for continuous motion
-            ease: 'easeInOut',
-        }}
-    />
-
-    );
-};
+const carouselData = [
+    {
+        title: "Stay in the know, even on the go",
+        description: "Never want to miss a thing? We'll get you the latest news, trends, insights, and BCD news right in your inbox.",
+        buttonText: "Sign Up Now",
+        bookingText: "Book a Meeting",
+        backgroundImage: heroImg
+    },
+    {
+        title: "Your Business, Our Priority",
+        description: "Get updates on the latest business insights tailored to help you grow.",
+        buttonText: "Learn More",
+        bookingText: "Book Now!",
+        backgroundImage: hero2
+    },
+    {
+        title: "Travel with Confidence",
+        description: "Our travel insights will keep you prepared and informed wherever you go.",
+        buttonText: "Get Started",
+        bookingText: "Book Now!",
+        backgroundImage: hero3
+    },
+    {
+        title: "Stay Ahead of Trends",
+        description: "Our research team curates trends so you can focus on what's important.",
+        buttonText: "Explore Now",
+        bookingText: "Book Now!",
+        backgroundImage: hero4
+    }
+];
 
 const HeroSection = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [fade, setFade] = useState(true);
 
-    const slidesData = [
-        {
-            image: hero2,
-            smallTitle: 'Switzerland Alps',
-            mainTitle: 'SAINT ANTÖNIEN',
-            description: 'Mauris malesuada facilisis enim, eget accumsan turpis eleifend.',
-        },
-        {
-            image: heroImg,
-            smallTitle: 'Japan Alps',
-            mainTitle: 'NAGANO PREFECTURE',
-            description: 'Explore the scenic views and serene landscapes of Nagano.',
-        },
-        {
-            image: hero3,
-            smallTitle: 'Sahara Desert, Morocco',
-            mainTitle: 'MARRAKECH MERZOUGA',
-            description: 'Discover the unique charm and beauty of the Moroccan Sahara.',
-        },
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setFade(false);
+            setTimeout(() => {
+                setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselData.length);
+                setFade(true);
+            }, 500);
+        }, 5000);
 
-    ];
+        return () => clearInterval(interval);
+    }, []);
 
-    const handleSelect = (selectedIndex) => {
-        setCurrentIndex(selectedIndex);
+    const { title, description, buttonText, bookingText, backgroundImage } = carouselData[currentIndex];
+
+    const handleIndicatorClick = (index) => {
+        setCurrentIndex(index);
     };
 
-    // Generate an array of dots
-    const dotsArray = Array.from({ length: 50 }, (_, index) => <Dot key={index} />);
-
     return (
-        <div className="hero-section d-flex fade-in position-relative" style={{ height: '100vh' }}>
-            {/* Moving dots */}
-            <div className="dots-container position-absolute w-100 h-100">
-                {dotsArray}
+        <Container fluid>
+        <Row>
+        <section
+            className="d-flex fade-in align-items-center justify-content-center text-white vh-100 position-relative"
+            style={{
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                transition: 'background-image 0.5s ease-in-out'
+            }}
+        >
+            <div className="position-absolute w-100 h-100 bg-dark" style={{ opacity: 0.5 }}></div>
+            <div className={`position-relative text-center ${fade ? 'fade show' : 'fade'}`} style={{width:'90'}}>
+                <h1 className="display-4 all-headings fw-bold">{title}</h1>
+                <p className="lead mb-4 text-white" style={{textTransform:'capitalize'}}>{description}</p>
+                <a href="#" className="btn text-light btn-sm mx-2" style={{ background: '#000042' }}>{bookingText}</a>
             </div>
-
-            {/* Left Column - Dynamic content */}
             
-            <div className="col-md-3 comp-screen d-flex flex-column justify-content-center align-items-start p-4">
-                <h5 className="small-title text-dark">{slidesData[currentIndex].smallTitle}</h5>
-                <h3 className="main-title all-headings text-dark">{slidesData[currentIndex].mainTitle}</h3>
-                <p className="description text-dark">{slidesData[currentIndex].description}</p>
-                <div className="d-flex align-items-center mt-3">
-                    <MdTour style={{ color: '#1c85e8', fontSize: '1.5em' }} />
-                    <Button variant="" className="discover-btn ms-3 text-light" style={{backgroundColor:'#000042'}}>
-                        Get Started
-                    </Button>
-                </div>
-            </div>
-            <div className="container-fluid">
-                        <div className="row">
-                            {/* Right Column with Carousel */}
-                            <div className="col-md-12 col-sm-12 position-relative">
-                            <Carousel
-                        activeIndex={currentIndex}
-                        onSelect={handleSelect}
-                        fade
-                        controls={false}
-                        indicators={false}
-                        interval={3000}
-                        className="main-carousel"
-                    >
-                        {slidesData.map((slide, index) => (
-                            <Carousel.Item key={index}>
-                                <div
-                                    className="carousel-image"
-                                    style={{
-                                        backgroundImage: `url(${slide.image})`,
-                                        backgroundSize: 'cover',
-                                        backgroundPosition: 'center',
-                                        
-                                    }}
-                                ></div>
-                                
-                                {/* Caption Content */}
-                                
-                                <Carousel.Caption className="d-flex flex-column align-items-start phone-screen mb-4">
-                                    <h6 className="text-light small-title">{slide.smallTitle}</h6>
-                                    <h3 className="text-light main-title fw-bold">{slide.mainTitle}</h3>
-                                    <p className="text-light description">{slide.description}</p>
-                                    <button className='book-now-btn '>Book Now!</button>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                        ))}
-                    </Carousel>
-
-                    <br />
-
-            {/* Cards Display */}
-            <div className="cards-container d-flex flex-wrap justify-content-start position-absolute bottom-0 w-100 p-3">
-                {slidesData.map((slide, index) => (
-                    <div
-                        key={index}
-                        className={`${
-                            index === 0 ? 'col-12' : ' col-md-3 col-sm-12'
-                        } mb-3 card-hover hero-card-hover ${index === currentIndex ? 'active' : ''}`}
-                        onClick={() => handleSelect(index)}
-                    >
-                        <div className="card-hover__content">
-                            <h3 className="card-hover__title">{slide.mainTitle}</h3>
-                            <hr />
-                            <h4
-                                className="mt-5 btn btn-sm text-white"
-                                style={{ background: '#000042' }}
-                            >
-                                Explore
-                            </h4>
-                        </div>
-                        <img style={{height:'50vh'}} src={slide.image} alt={slide.mainTitle} className="w-100 hero-img" />
-                    </div>
-                ))}
-            </div>
-
-            {/* Carousel Indicators and Card Number */}
-            <div className="carousel-footer position-absolute phone bottom-0 end-0 p-3 d-flex align-items-center">
-                <div className="carousel-indicators">
-                    {slidesData.map((_, index) => (
+            {/* Wavy Border with Carousel Indicators */}
+            <div className="wavy-border position-absolute bottom-0 w-100">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 300">
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="50%" style={{ stopColor: "rgb(0, 0, 66, 0.8)", stopOpacity: 1 }} />
+                            <stop offset="100%" style={{ stopColor: "rgb(0, 0, 66, 0.9)", stopOpacity: 1 }} />
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#gradient)" fillOpacity="1" d="M0,256L60,240C120,224,240,192,360,160C480,128,600,96,720,80C840,64,960,64,1080,85.3C1200,107,1320,149,1380,170.7L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+                </svg>
+                
+                {/* Carousel Indicators */}
+                <div className="carousel-indicators position-absolute text-center" style={{ bottom: "20px" }}>
+                    {carouselData.map((_, index) => (
                         <button
                             key={index}
-                            className={`indicator ${index === currentIndex ? 'active' : ''}`}
-                            onClick={() => handleSelect(index)}
+                            onClick={() => handleIndicatorClick(index)}
+                            className={`indicator-btn mx-2 ${currentIndex === index ? 'active' : ''}`}
+                            style={{
+                                border: '1px solid',
+                                backgroundColor: currentIndex === index ? '#0077B6' : 'transparent',
+                                borderColor: currentIndex === index ? '#0077B6' : '#fff',
+                                borderRadius: '50%',
+                                width: '40px',
+                                height: '40px',
+                                fontWeight: 'bold',
+                                color: currentIndex === index ? '#000042' : '#fff',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '16px',
+                            }}
                         >
-                            {index + 1}
+                            {index + 1} 
                         </button>
                     ))}
                 </div>
-                <div
-                    className="line"
-                   
-                ></div>
             </div>
-        </div>
-    </div>
-</div>
-
-        </div>
+        </section>
+        </Row>
+        </Container>
     );
 };
 
