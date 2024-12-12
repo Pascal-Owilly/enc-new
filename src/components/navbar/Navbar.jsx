@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import heroImage from '../../assets/hero/bg_1.jpg'; // Correct import for the background image
+
 import {
     faBars,
     faTimes,
@@ -18,7 +20,7 @@ import './Navbar.css';
 
 // Colors
 const secondaryColor = '#1c85e8';
-const primaryColor = '#000042';
+const primaryColor = 'blue';
 
 export default function NavbarComponent() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -129,7 +131,7 @@ export default function NavbarComponent() {
                         top: '0',
                         right: '0',
                         color: 'white',
-                        backgroundColor: 'rgba(0, 0, 66, 0.6)',
+                        backgroundImage: `linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.99)), url(${heroImage})`,
                         width: '250px',
                         height: '100vh',
                         overflowY: 'auto',

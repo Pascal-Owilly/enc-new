@@ -4,6 +4,7 @@ import { FaArrowRight, FaFrown } from 'react-icons/fa'; // Added FaFrown icon
 import { BASE_URL } from '../config/config';
 import { Link } from 'react-router-dom';
 import { Container, Card } from "react-bootstrap";
+
 const AllPlaces = () => {
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -25,6 +25,8 @@ const blogsData = [
 const Blogs = () => {
   return (
     <div className="blogs-container">
+            
+
       <h1 className="blogs-title">Latest Blogs</h1>
       <div className="blogs-grid">
         {blogsData.map((blog, index) => (

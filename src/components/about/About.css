@@ -89,7 +89,6 @@
 
 .value-card h2 {
   font-size: 1.6rem;
-  color: ;
 }
 
 .value-card p {
@@ -216,7 +215,7 @@
   transform: rotate(70deg);
   animation: animate 4s linear infinite;
 }
-
+  
 .about::after {
   content: '';
   position: absolute;

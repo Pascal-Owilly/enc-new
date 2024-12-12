@@ -34,7 +34,6 @@ export default function Home() {
             <Places />
             <Blogs />
             <Partners />
-
           </div>
         </div>
         {/* <Section1 /> */}

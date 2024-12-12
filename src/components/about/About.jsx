@@ -31,8 +31,8 @@ const AboutUs = () => {
     <div className="about-us-page-section">
       <Container>
       <section className="about-us-intro">
-        <h1 className="fade-in text-center page-title all-headings mt-4">Welcome to Enceptics</h1>
-        <h2 className='all-headings5' style={{color:'#000042'}}>We focus on what's forgotten and rare</h2>
+        <h1 className="fade-in text-center page-title all-headings ">Welcome to Enceptics</h1>
+        <h2 className='all-heading' style={{color:'#000042'}}>We focus on what's forgotten and rare</h2>
         <p style={{fontFamily:'Caladea'}}>We take care of your travel needs by giving you a card with expiry date and time so you can focus on making memories</p>
         <h1 className="fade-in text-center all-headings4 page-title mt-4">How It works</h1>
 
