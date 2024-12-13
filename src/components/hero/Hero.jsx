@@ -1,34 +1,79 @@
-import React from 'react';
-import './Hero.css'; // Import CSS file for styling
-import heroImage from '../../assets/hero/bg_1.jpg'; // Correct import for the background image
+import React, { useState, useEffect } from 'react';
+import './Hero.css';
+import heroImage1 from '../../assets/hero/bg_1.jpg';
+import heroImage2 from '../../assets/hero/hero.jpg';
+import heroImage3 from '../../assets/hero/hero3.jpg';
+import cloudImage from '../../assets/hero/cloud.webp';
+import Particles from 'react-tsparticles';
+import particlesConfig from '../config/ParticlesBackground.jsx';
 
 const HeroSection = () => {
-    return (
-        <div className="hero-container">
-            <div className="hero-content">
-                <h1>Discover Your Next Adventure</h1>
-                <p>Explore stunning destinations and create unforgettable memories.</p>
-                <button className="btn-explore">Explore Now</button>
-            </div>
-            <div
-                className="hero-image"
-                style={{
-                    backgroundImage: `url(${heroImage})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    // opacity: '0.8',  
-                    // zIndex: 1, 
+  const [imageIndex, setImageIndex] = useState(0);
+  const [heroText, setHeroText] = useState("Discover Your Next Adventure");
 
-                    // filter: 'blur(5px)', 
-                }}
-            ></div>
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setImageIndex((prevIndex) => (prevIndex + 1) % 2);
+      setHeroText(imageIndex === 0 ? "New Horizons Await" : "Discover Your Next Adventure");
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [imageIndex]);
+
+  const handlePrevClick = () => {
+    setImageIndex((prevIndex) => (prevIndex - 1 + 2) % 2);
+  };
+
+  const handleNextClick = () => {
+    setImageIndex((prevIndex) => (prevIndex + 1) % 2);
+  };
+
+  return (
+    <div className="hero-container">
+      {/* Particle Effect Container */}
+      <div className="particle-effect">
+        <Particles options={particlesConfig} />
+      </div>
+
+        {/* Hero image */}
+        <div
+          className="hero-image"
+          style={{
+            backgroundImage: `url(${imageIndex === 0 ? heroImage3 : heroImage2})`,
+          }}
+        ></div>
+
+        {/* Cloud layer */}
+        <div
+          className="cloud-image"
+          style={{
+            backgroundImage: `url(${cloudImage})`,
+          }}
+        ></div>
+
+      <div className="hero-content">
+        <div className="hero-text">
+          <h1>{heroText}</h1>
+          <p>Explore stunning destinations and create unforgettable memories.</p>
         </div>
-    );
+        <button className="btn-explor offer-card">Explore Now</button>
+      </div>
+
+      {/* Controls */}
+      <div className="hero-controls">
+        <button className="prev-btn" onClick={handlePrevClick}>
+          &#10094;
+        </button>
+        <div className="indicator-container">
+          <span className={`indicator ${imageIndex === 0 ? 'active' : ''}`}></span>
+          <span className={`indicator ${imageIndex === 1 ? 'active' : ''}`}></span>
+        </div>
+        <button className="next-btn" onClick={handleNextClick}>
+          &#10095;
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default HeroSection;

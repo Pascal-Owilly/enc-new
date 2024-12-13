@@ -1,48 +1,94 @@
-import React from 'react';
-import './Blogs.css'; // Import styling
+import React, { useEffect } from 'react';
+import gsap from 'gsap';
+import './Blogs.css';
 
-const blogsData = [
-  {
-    title: 'How Technology is Revolutionizing Agriculture',
-    image: '/images/blog1.jpg',
-    excerpt: 'Discover how tech innovations are transforming the agriculture industry in 2024...',
-    date: 'October 10, 2024'
-  },
-  {
-    title: 'Top Financial Tools for Small Farmers',
-    image: '/images/blog2.jpg',
-    excerpt: 'These financial tools help small-scale farmers manage their operations more effectively...',
-    date: 'September 28, 2024'
-  },
-  {
-    title: 'Sustainability in the Supply Chain',
-    image: '/images/blog3.jpg',
-    excerpt: 'Learn about the latest sustainable practices in global supply chains...',
-    date: 'September 14, 2024'
-  }
-];
+const VacationPage = () => {
+  // Titles and descriptions for the cards based on the previous navigation items
+  const cards = [
+    {
+      name: 'Micro-Adventure',
+      description: 'Embark on small adventures that bring big experiences.',
+      price: '$150',
+    },
+    {
+      name: 'Explore',
+      description: 'Discover new places and expand your horizons.',
+      price: '$200',
+    },
+    {
+      name: 'Group Booking',
+      description: 'Organize trips for large groups at discounted rates.',
+      price: '$500',
+    },
+    {
+      name: 'About',
+      description: 'Learn more about the adventure travel company and our mission.',
+      price: 'Free',
+    },
+    {
+      name: 'Culinary Tours',
+      description: 'Taste the local flavors and enjoy cooking classes.',
+      price: '$300',
+    },
+    {
+      name: 'Farmers\' Markets',
+      description: 'Experience the best of local produce and artisan products.',
+      price: '$50',
+    },
+    {
+      name: 'Nature Hikes',
+      description: 'Explore breathtaking nature trails and serene landscapes.',
+      price: '$120',
+    },
+    {
+      name: 'Art Workshops',
+      description: 'Get creative with hands-on art sessions and local artists.',
+      price: '$200',
+    },
+    {
+      name: 'Cultural Festivals',
+      description: 'Dive into the rich culture through vibrant festivals.',
+      price: '$180',
+    },
+    {
+      name: 'Historical Tours',
+      description: 'Discover the history and landmarks of the area.',
+      price: '$250',
+    },
+  ];
 
-const Blogs = () => {
+  useEffect(() => {
+    // Animating cards moving horizontally
+    gsap.to('.cards-container', {
+      x: '-50%',
+      duration: 20,
+      repeat: -1,
+      ease: 'linear',
+    });
+  }, []);
+
   return (
-    <div className="blogs-container">
-            
-
-      <h1 className="blogs-title">Latest Blogs</h1>
-      <div className="blogs-grid">
-        {blogsData.map((blog, index) => (
-          <div key={index} className="blog-card">
-            <img src={blog.image} alt={blog.title} className="blog-image" />
-            <div className="blog-content">
-              <h2 className="blog-title">{blog.title}</h2>
-              <p className="blog-date">{blog.date}</p>
-              <p className="blog-excerpt">{blog.excerpt}</p>
-              <button className="read-more-btn">Read More</button>
-            </div>
+    <div className="container-fluid">
+      <header>
+        <h1 className="welcome-text">Discover Your Next Adventure</h1>
+      </header>
+      <main>
+        <section className="destination-showcase">
+          {/* <h2>Featured Destinations</h2> */}
+          <div className="cards-container">
+            {cards.map((card, index) => (
+              <div className="card" key={index}>
+                <div className="image-placeholder">Image</div>
+                <h3>{card.name}</h3>
+                <p>{card.description}</p>
+                <span className="price">{card.price}</span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </section>
+      </main>
     </div>
   );
 };
 
-export default Blogs;
+export default VacationPage;

@@ -19,7 +19,7 @@ import {
 import './Navbar.css';
 
 // Colors
-const secondaryColor = '#1c85e8';
+// const secondaryColor = '#1c85e8';
 const primaryColor = 'blue';
 
 export default function NavbarComponent() {
@@ -32,7 +32,7 @@ export default function NavbarComponent() {
     return (
         
         <Container fluid style={{ maxWidth: '100%', overflow: 'hidden' }}>
-            <Navbar expand="lg" variant="dark" style={{ backgroundColor: primaryColor }} fixed="top">
+            <Navbar expand="lg" variant="dar" style={{ backgroundColor: primaryColor }} fixed="top">
                 {/* Brand Logo */}
                 <Navbar.Brand href="/" style={{
                     fontFamily: 'Caladea, serif',
@@ -63,6 +63,7 @@ export default function NavbarComponent() {
                             padding: '0.5rem 1rem',
                             borderRadius: '50%', 
                             transition: 'all 0.3s ease-in-out', 
+                            backgroundColor:'#FFC107',
                             boxShadow: '0 6px 15px rgba(0, 0, 0, 0.3)', // Softer, more professional shadow
                             fontSize: '1.5rem',
                             cursor: 'pointer'
@@ -76,7 +77,7 @@ export default function NavbarComponent() {
                             e.target.style.transform = 'translateY(0)';
                         }}
                     >
-                        <FontAwesomeIcon icon={faCommentDots} size='lg'/>
+                        <FontAwesomeIcon icon={faCommentDots} size='lg' style={{color:'#333'}}/>
                     </Nav.Link>
                 </Nav>
 
@@ -140,41 +141,58 @@ export default function NavbarComponent() {
                     }}
                 >
                     <Nav className="flex-column">
-                        <Nav.Link href="/destinations/micro-adventure" className="text-white">Micro-Adventure</Nav.Link>
-                        <Nav.Link href="/all-places" className="text-white">Explore</Nav.Link>
-                        <Nav.Link href="/destination/group-bookings" className="text-white">Group Booking</Nav.Link>
-                        <Nav.Link href="/about" className="text-white">About</Nav.Link>
-                        <NavDropdown.Divider />
+                    <Nav className="ml-auto">
+  <Nav.Link href="/destinations/micro-adventure" className="text-white">Micro-Adventure</Nav.Link>
+  <Nav.Link href="/all-places" className="text-white">Explore</Nav.Link>
+  <Nav.Link href="/destination/group-bookings" className="text-white">Group Booking</Nav.Link>
+  <Nav.Link href="/about" className="text-white">About</Nav.Link>
+  <NavDropdown.Divider />
 
-                        <NavDropdown title="Local Experience" className="text-white" >
-                        <NavDropdown.Item href="/destinations/culinary-tours">Culinary Tours</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/farmers-markets">Farmers' Markets</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/nature-hikes">Nature Hikes</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/art-workshops">Art Workshops</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/cultural-festivals">Cultural Festivals</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/historical-tours">Historical Tours</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/community-service">Community Service</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/outdoor-adventures">Outdoor Adventures</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/wellness-retreats">Wellness Retreats</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/local-sports">Local Sports Events</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/music-dance">Music and Dance Classes</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/artisan-tours">Local Artisan Tours</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/photo-walks">Themed Photo Walks</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/wildlife-spotting">Wildlife Spotting</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/cultural-exchange">Cultural Exchange</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/storytelling">Storytelling Nights</NavDropdown.Item>
-                        <NavDropdown.Item href="/destinations/vr-2">Virtual Realty</NavDropdown.Item>
-                        </NavDropdown>
+  {/* Local Experience Dropdown */}
+  <NavDropdown title="Local Experience" className="text-white">
+    {[
+      { href: "/destinations/culinary-tours", title: "Culinary Tours" },
+      { href: "/destinations/farmers-markets", title: "Farmers' Markets" },
+      { href: "/destinations/nature-hikes", title: "Nature Hikes" },
+      { href: "/destinations/art-workshops", title: "Art Workshops" },
+      { href: "/destinations/cultural-festivals", title: "Cultural Festivals" },
+      { href: "/destinations/historical-tours", title: "Historical Tours" },
+      { href: "/destinations/community-service", title: "Community Service" },
+      { href: "/destinations/outdoor-adventures", title: "Outdoor Adventures" },
+      { href: "/destinations/wellness-retreats", title: "Wellness Retreats" },
+      { href: "/destinations/local-sports", title: "Local Sports Events" },
+      { href: "/destinations/music-dance", title: "Music and Dance Classes" },
+      { href: "/destinations/artisan-tours", title: "Local Artisan Tours" },
+      { href: "/destinations/photo-walks", title: "Themed Photo Walks" },
+      { href: "/destinations/wildlife-spotting", title: "Wildlife Spotting" },
+      { href: "/destinations/cultural-exchange", title: "Cultural Exchange" },
+      { href: "/destinations/storytelling", title: "Storytelling Nights" },
+      { href: "/destinations/vr-2", title: "Virtual Reality" },
+    ].map((item, index) => (
+      <NavDropdown.Item href={item.href} key={index}>
+        {item.title}
+      </NavDropdown.Item>
+    ))}
+  </NavDropdown>
 
-                        <NavDropdown title="Craft Your Tour" className="text-white">
-                            <NavDropdown.Item href="/itineraries/relaxation">Relax & Rejuvenate</NavDropdown.Item>
-                            <NavDropdown.Item href="/itineraries/family">Family Fun</NavDropdown.Item>
-                            <NavDropdown.Item href="/itineraries/exploration">Explore the Unknown</NavDropdown.Item>
-                            <NavDropdown.Item href="/itineraries/sustainable">Sustainable Travels</NavDropdown.Item>
-                            <NavDropdown.Item href="/itineraries/custom">Custom Itineraries</NavDropdown.Item>
-                            <NavDropdown.Item href="/itineraries/custom">Tour & Learn</NavDropdown.Item>
+  {/* Craft Your Tour Dropdown */}
+  <NavDropdown title="Craft Your Tour" className="text-white">
+    {[
+      { href: "/itineraries/relaxation", title: "Relax & Rejuvenate" },
+      { href: "/itineraries/family", title: "Family Fun" },
+      { href: "/itineraries/exploration", title: "Explore the Unknown" },
+      { href: "/itineraries/sustainable", title: "Sustainable Travels" },
+      { href: "/itineraries/custom", title: "Custom Itineraries" },
+      { href: "/itineraries/custom", title: "Tour & Learn" },
+    ].map((item, index) => (
+      <NavDropdown.Item href={item.href} key={index}>
+        {item.title}
+      </NavDropdown.Item>
+    ))}
+  </NavDropdown>
+</Nav>
 
-                        </NavDropdown>
+
                     </Nav>
                 </div>
             )}

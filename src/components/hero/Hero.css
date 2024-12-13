@@ -2,60 +2,306 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 60vh;
+    width: 100%;
     background-color: #f0f8ff;
     color: #333;
     position: relative;
-    width: 100%;
-}
-
-.hero-content {
+    margin-top: 50px;
+  }
+  
+  .hero-content {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: row; /* Make the content layout horizontal */
+    justify-content: space-between; /* Space out text and button */
+    align-items: center; /* Align items vertically in the middle */
     padding: 50px;
     z-index: 2;
-}
-
-.hero-content > h1 {
-    font-size: 2.0rem;
+  }
+  
+  .hero-text {
+    max-width: 60%; /* Control text width */
+  }
+  
+  .hero-text > h1 {
+    font-size: 3rem;
     margin-bottom: 20px;
     font-weight: bold;
     color: #f0f8ff;
-}
-
-.hero-content > p {
-    /* font-size: 1.5rem; */
+  }
+  
+  .hero-text > p {
     margin-bottom: 30px;
     color: #f0f8ff;
-} 
+  }
 
-.hero-content > .btn-explore {
-    background-color: #000042;
+  .hero-text > .btn-explore{
+    background-color: blue;
     color: white;
-    border: none;
-    /* padding: 15px 30px; */
-    /* font-size: 1.2rem; */
-    cursor: pointer;
-    transition: background-color 0.3s;
-    border-radius: 5px;
-}
-
-.btn-explore:hover {
-    background-color: #2980b9;
-}
-
-/* Hero image styles */
-/* .hero-image {
-    background-image: url('src/assets/hero/bg_1.jpg'); 
+  }
+  
+  .hero-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Hero Image */
+  .hero-image {
     background-size: cover;
     background-position: center;
-    opacity: 0.8;
-    z-index: 1;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    filter: blur(5px);
-} */
+    z-index: 1;
+    transition: background-image 1s ease-in-out;
+    border-radius:  50px;
+    margin-top: 13px;
+    margin: 15px;
+  }
+  
+  /* Cloud image with movement */
+  .cloud-image {
+    background-size: auto;
+    background-repeat: repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    filter: blur(1px);
+    opacity: 0.5;
+    mix-blend-mode: lighten;
+    animation: moveClouds 20s linear infinite;
+  }
+  
+  @keyframes moveClouds {
+    0% {
+      transform: translateY(0); /* Start from the bottom */
+    }
+    5% {
+      transform: translateY(0); /* Move to the top */
+    }
+    50% {
+      transform: translateY(-100%); /* Reset to the bottom after reaching the top */
+    }
+  }
+  
+  
+  /* Styling for the particle effect */
+  .particle-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+  }
+  
+  /* Hero Controls (Previous/Next arrows and indicators) */
+  .hero-controls {
+    position: absolute;
+    bottom: 40px; /* Distance from the bottom */
+    right: 40%; /* Distance from the right */
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Space between the arrows and indicators */
+    z-index: 5; /* Ensure it appears above other elements */
+  }
+  
+  .next-btn {
+    background-color: #FFD700;
+    color: blue;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 0 30px 30px 0;
+  }
+
+  .prev-btn{
+    background-color: #FFD700;
+    color: blue;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 30px 0 0 30px;
+    
+  }
+  
+  .indicator-container {
+    display: flex;
+    gap: 10px; /* Space between the indicators */
+  }
+  
+  .indicator {
+    width: 10px;
+    height: 10px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+  }
+  
+  .indicator.active {
+    background-color: blue;
+  }
+
+  .particle-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 50vh;
+    z-index: 3;
+    pointer-events: none; /* Make particles non-interactive */
+  }
+  
+  /* Media  Queries */
+  /* Base styles for larger screens (default styles) */
+
+/* Extra large screens (Desktops - 1200px and above) */
+@media (min-width: 1200px) {
+  .hero-container {
+    height: 60vh;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 50px;
+  }
+
+  .hero-text > h1 {
+    font-size: 3.5rem;
+  }
+
+  .hero-text > p {
+    font-size: 1.25rem;
+  }
+}
+
+/* Large screens (Laptops - 992px to 1200px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hero-container {
+    height: 55vh;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-text {
+    max-width: 70%;
+  }
+
+  .hero-text > h1 {
+    font-size: 3rem;
+  }
+
+  .hero-text > p {
+    font-size: 1.15rem;
+  }
+
+  .cloud-image {
+    filter: blur(8px);
+  }
+}
+
+/* Medium screens (Tablets - 768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    height: 50vh;
+    margin-top: 10px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-text {
+    max-width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .hero-text > h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-text > p {
+    font-size: 1rem;
+  }
+
+  .cloud-image {
+    filter: blur(6px);
+    opacity: 0.7;
+  }
+}
+
+/* Small screens (Phones - 576px to 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    height: 45vh;
+  }
+
+  .hero-content {
+    padding: 30px;
+  }
+
+  .hero-text {
+    max-width: 90%;
+  }
+
+  .hero-text > h1 {
+    font-size: 2rem;
+  }
+
+  .hero-text > p {
+    font-size: 0.9rem;
+  }
+
+  .next-btn,
+  .prev-btn {
+    padding: 8px;
+    font-size: 18px;
+  }
+}
+
+/* Extra small screens (Phones - up to 575px) */
+@media (max-width: 575px) {
+  .hero-container {
+    height: 40vh;
+    margin-top: 30px;
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-text > h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-text > p {
+    font-size: 0.8rem;
+  }
+
+  .next-btn,
+  .prev-btn {
+    padding: 6px;
+    font-size: 16px;
+  }
+
+  .cloud-image {
+    filter: blur(4px);
+    opacity: 0.6;
+  }
+}
