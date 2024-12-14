@@ -1,57 +1,90 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  overflow-x: hidden;
-}
-
-.container-fluid {
-  width: 100%;
-  text-align: center;
-}
-
 header {
   background: linear-gradient(to bottom, #87CEEB, #ffffff);
   padding: 20px;
   color: white;
 }
 
-.welcome-text {
-  font-size: 2rem;
-  color: #444;
-  margin-bottom: 20px;
-}
-
 .destination-showcase {
-  padding: 40px 20px;
+  padding: 20px 10px;
   background: #f9f9f9;
+  border-radius: 10px;
 }
 
-h2 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-}
 
 .cards-container {
   display: flex;
-  gap: 20px;
-  width: 200%;
-  transform: translateX(0);
+  gap: 15px;
+  width: 100%;
+  overflow-x: auto;  /* Allow horizontal scrolling */
+  scroll-snap-type: x mandatory; /* Enabling smooth snapping for sliding cards */
+  padding-bottom: 10px;  /* Optional, just to ensure the scrollbar isn't cut off */
 }
 
 .card {
-  flex: 0 0 200px;
+  flex: 0 0 250px;  /* Each card takes up 250px width */
   border: 1px solid #ccc;
   border-radius: 8px;
   background: #fff;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 15px;
+  padding: 5px;
   transition: transform 0.3s;
+  scroll-snap-align: start;  /* Ensures the cards align nicely when scrolling */
+}
+
+.cards-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.cards-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
 }
 
 .card:hover {
   transform: scale(1.05);
 }
+
+.special-offers {
+  text-align: center;
+  background: #FFD700;
+  padding: 20px;
+}
+
+.special-offers .offer-card {
+  background: #FFD700;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 4px;
+  animation: pulse 2s infinite;
+}
+
+.special-offers .offer-card {
+  background: #FFC107;
+  padding: 20px;
+  margin: 10px auto;
+  border-radius: 4px;
+  animation: pulse 2s infinite;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.welcome-text {
+  /* position: absolute; */
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 3rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  animation: fade-in 3s ease-in-out;
+  text-align: center;
+}
+
+/* .categories  {
+text-align: center;
+padding: 50px;
+} */
 
 .image-placeholder {
   width: 100%;
@@ -77,6 +110,159 @@ h2 {
   color: #007BFF;
 }
 
+/* Testimonials  */
+
+.carousel-item {
+  display: flex;
+  justify-content: space-between;
+  min-height: 50vh;
+}
+
+.carousel-item .col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #000;
+}
+
+/* Common Card Styles */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.card .price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #27ae60;
+}
+
+.card .btn {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.card .btn:hover {
+  background-color: #2980b9;
+}
+
+/* Category-Specific Styles */
+.category-culinary-tours {
+  background-color: #f8e7b4 !important; /* Light yellow for culinary */
+  border-left: 5px solid #f39c12 !important; /* Accent color */
+}
+
+.category-farmers-markets {
+  background-color: #e1f7d5; /* Light green for farmers' markets */
+  border-left: 5px solid #2ecc71; /* Accent color */
+}
+
+.category-nature-hikes {
+  background-color: #d0f0c0; /* Light green for nature */
+  border-left: 5px solid #27ae60; /* Accent color */
+}
+
+.category-art-workshops {
+  background-color: #f0e1f1; /* Light purple for art workshops */
+  border-left: 5px solid #9b59b6; /* Accent color */
+}
+
+.category-cultural-festivals {
+  background-color: #f8d7b2; /* Warm beige for festivals */
+  border-left: 5px solid #f39c12; /* Accent color */
+}
+
+.category-historical-tours {
+  background-color: #d9e2f2; /* Light blue for historical tours */
+  border-left: 5px solid #2980b9; /* Accent color */
+}
+
+.category-community-service {
+  background-color: #f2f3f4; /* Soft gray for community service */
+  border-left: 5px solid #95a5a6; /* Accent color */
+}
+
+.category-outdoor-adventures {
+  background-color: #ffebd9; /* Light orange for outdoor */
+  border-left: 5px solid #e67e22; /* Accent color */
+}
+
+.category-wellness-retreats {
+  background-color: #e0f7fa; /* Light blue for wellness */
+  border-left: 5px solid #1abc9c; /* Accent color */
+}
+
+.category-local-sports {
+  background-color: #f2f4f7; /* Soft gray for sports */
+  border-left: 5px solid #34495e; /* Accent color */
+}
+
+.category-music-dance {
+  background-color: #fce0e0; /* Light pink for music & dance */
+  border-left: 5px solid #e74c3c; /* Accent color */
+}
+
+.category-artisan-tours {
+  background-color: #f9f3e3; /* Light tan for artisan tours */
+  border-left: 5px solid #f39c12; /* Accent color */
+}
+
+.category-photo-walks {
+  background-color: #f0f8ff; /* Light cyan for photo walks */
+  border-left: 5px solid #3498db; /* Accent color */
+}
+
+.category-wildlife-spotting {
+  background-color: #d3e8d5; /* Light green for wildlife */
+  border-left: 5px solid #2ecc71; /* Accent color */
+}
+
+.category-cultural-exchange {
+  background-color: #333; /* Light cyan for cultural exchange */
+  border-left: 5px solid #8e44ad; /* Accent color */
+}
+
+.category-storytelling {
+  background-color: #fdf6e3; /* Soft cream for storytelling */
+  border-left: 5px solid #d35400; /* Accent color */
+}
+
+.category-virtual-reality {
+  background-color: #e6f7ff; /* Light blue for VR */
+  border-left: 5px solid #2980b9; /* Accent color */
+}
+
+
 @keyframes move-cards {
   from {
     transform: translateX(0);
@@ -85,3 +271,96 @@ h2 {
     transform: translateX(-50%);
   }
 }
+
+/* For devices with a maximum width of 1200px (Laptops and smaller screens) */
+@media screen and (max-width: 1200px) {
+  .cards-container {
+    gap: 10px; /* Reduce spacing between cards */
+    padding-bottom: 8px;
+  }
+  .card {
+    flex: 0 0 200px; /* Smaller card width */
+  }
+  .welcome-text {
+    font-size: 2.5rem; /* Reduce welcome text size */
+  }
+}
+
+/* For devices with a maximum width of 992px (Tablets in landscape mode) */
+@media screen and (max-width: 992px) {
+  .header {
+    padding: 15px; /* Reduce padding */
+  }
+  .special-offers {
+    padding: 15px;
+  }
+  .special-offers .offer-card {
+    width: 90%; /* Make cards more flexible */
+  }
+  .cards-container {
+    gap: 8px; /* Adjust gap further */
+  }
+  .welcome-text {
+    font-size: 2rem; /* Further reduce text size */
+  }
+}
+
+/* For devices with a maximum width of 768px (Tablets in portrait mode) */
+@media screen and (max-width: 768px) {
+
+  .special-offers {
+    font-size: 1.2rem; /* Adjust font size */
+  }
+  .welcome-text {
+    font-size: 2rem;
+  }
+}
+
+/* For devices with a maximum width of 576px (Phones in landscape mode) */
+@media screen and (max-width: 576px) {
+  .header {
+    padding: 10px;
+    text-align: center; /* Center-align text */
+  }
+  .destination-showcase {
+    padding: 10px;
+  }
+  .special-offers .offer-card {
+    width: 95%; /* Almost full width */
+  }
+  .welcome-text {
+    font-size: 1.5rem; /* Make welcome text smaller */
+  }
+}
+
+/* For devices with a maximum width of 480px (Phones in portrait mode) */
+@media screen and (max-width: 480px) {
+  /* .card {
+    flex: 1 1 auto;
+    padding: 5px;
+  } */
+  .image-placeholder {
+    height: 100px; /* Reduce image placeholder size */
+  }
+  .special-offers {
+    padding: 10px;
+  }
+  .welcome-text {
+    font-size: 1.2rem;
+  }
+}
+
+/* For devices with a maximum width of 320px (Small phones) */
+@media screen and (max-width: 320px) {
+  .header {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+  .welcome-text {
+    font-size: 1rem; /* Very small welcome text */
+  }
+  .special-offers .offer-card {
+    width: 100%; /* Full width on small screens */
+  }
+}
+

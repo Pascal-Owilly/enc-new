@@ -102,7 +102,7 @@ const AboutUs = () => {
             <p>We simplify the tokenization of assets, offering complete solutions from valuation to compliance, dividend management, and secondary trading options.</p>
           </div>
           <div className="value-card">
-            <h1 className="fade-in text-center all-headings4 mt-4">Why Us?</h1>
+            <h1 className="fade-in text-center all-headings4 mt-4">Our Vision</h1>
 
             <p>
             Our vision is to connect travelers with their dream destinations, providing seamless transportation, accommodations, and insightful tour guides.
@@ -110,6 +110,27 @@ const AboutUs = () => {
                       </div>
         </div>
       </section>
+          <section className="hero-section">
+            <h2>Why Choose Us?</h2>
+            <div className="icons-container">
+              <div className="icon">
+                <i className="fas fa-check-circle"></i>
+                <p>Affordable Prices</p>
+              </div>
+              <div className="icon">
+                <i className="fas fa-cogs"></i>
+                <p>Customized Itineraries</p>
+              </div>
+              <div className="icon">
+                <i className="fas fa-heart"></i>
+                <p>Unforgettable Experiences</p>
+              </div>
+              <div className="icon">
+                <i className="fas fa-heart"></i>
+                <p>No hidden charges</p>
+              </div>
+            </div>
+          </section>
 
       <section className="about-us-difference">
         <div className="difference-left">

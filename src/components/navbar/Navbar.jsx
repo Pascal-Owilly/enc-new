@@ -16,6 +16,7 @@ import {
     faBook,
     faCommentDots
 } from '@fortawesome/free-solid-svg-icons';
+
 import './Navbar.css';
 
 // Colors

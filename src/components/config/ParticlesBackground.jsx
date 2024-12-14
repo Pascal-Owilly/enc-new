@@ -2,14 +2,11 @@ import { tsParticles } from "https://cdn.jsdelivr.net/npm/@tsparticles/engine@3.
 import { loadAll } from "https://cdn.jsdelivr.net/npm/@tsparticles/all@3.1.0/+esm";
 
 async function loadParticles(options) {
-  // Load all tsparticles plugins and presets
   await loadAll(tsParticles);
 
-  // Initialize the particles with the provided configuration
   await tsParticles.load({ id: "tsparticles", options });
 }
 
-// Particle configuration
 const particlesConfig = {
   particles: {
     destroy: {
@@ -95,7 +92,6 @@ const particlesConfig = {
   },
 };
 
-// Load the particles with the configuration
 loadParticles(particlesConfig);
 
 export default particlesConfig;

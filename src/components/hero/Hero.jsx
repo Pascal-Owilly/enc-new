@@ -46,9 +46,9 @@ const HeroSection = () => {
         {/* Cloud layer */}
         <div
           className="cloud-image"
-          style={{
-            backgroundImage: `url(${cloudImage})`,
-          }}
+          // style={{
+          //   backgroundImage: `url(${cloudImage})`,
+          // }}
         ></div>
 
       <div className="hero-content">

@@ -6,7 +6,6 @@
     background-color: #f0f8ff;
     color: #333;
     position: relative;
-    margin-top: 50px;
   }
   
   .hero-content {
@@ -56,40 +55,49 @@
     bottom: 0;
     z-index: 1;
     transition: background-image 1s ease-in-out;
-    border-radius:  50px;
+    border-radius:  30px;
     margin-top: 13px;
     margin: 15px;
   }
   
-  /* Cloud image with movement */
-  .cloud-image {
-    background-size: auto;
-    background-repeat: repeat;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    filter: blur(1px);
-    opacity: 0.5;
-    mix-blend-mode: lighten;
-    animation: moveClouds 20s linear infinite;
+/* Cloud image with fade in and out */
+.cloud-image {
+  background-size: cover;
+  background-repeat: repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  border-radius:  30px;
+  margin-top: 13px;
+  margin: 15px;
+  background-position: center;
+  z-index: 2;
+  opacity: 1; /* Start fully visible */
+  animation: fadeClouds 8s linear infinite;
+
+  /* Optional: Add a soft radial gradient for visual enhancement */
+  background: radial-gradient(circle, rgba(0, 0, 255, 0.5) 40%, rgba(0, 0, 255, 0.5) 80%), 
+              url('../../assets/hero/cloud.webp');
+}
+
+/* Keyframes for fading effect */
+@keyframes fadeClouds {
+  0% {
+    opacity: 1; /* Fully visible */
   }
-  
-  @keyframes moveClouds {
-    0% {
-      transform: translateY(0); /* Start from the bottom */
-    }
-    5% {
-      transform: translateY(0); /* Move to the top */
-    }
-    50% {
-      transform: translateY(-100%); /* Reset to the bottom after reaching the top */
-    }
+  90% {
+    opacity: 0; /* Invisible */
   }
-  
-  
+  100% {
+    opacity: 1; /* Back to fully visible */
+  }
+}
+
+   
   /* Styling for the particle effect */
   .particle-effect {
     position: absolute;
@@ -214,6 +222,10 @@
     margin-top: 10px;
   }
 
+  .hero-image {
+    margin-top: 13px;
+  }
+
   .hero-content {
     flex-direction: column;
     align-items: center;
@@ -246,6 +258,10 @@
     height: 45vh;
   }
 
+  .hero-image {
+    margin-top: 30px !important;
+  }
+
   .hero-content {
     padding: 30px;
   }
@@ -275,6 +291,10 @@
     height: 40vh;
     margin-top: 30px;
     grid-template-columns: 1fr;
+  }
+
+  .hero-image {
+    margin-top: 13px;
   }
 
   .hero-content {
