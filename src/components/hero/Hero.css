@@ -232,6 +232,10 @@
     margin-top: 13px;
   }
 
+  .hero-controls {
+    display: block !important;
+  }
+
   .hero-content {
     flex-direction: column;
     align-items: center;
@@ -262,6 +266,10 @@
   .hero-container {
     grid-template-columns: 1fr;
     height: 35vh;
+  }
+
+  .hero-controls {
+    display: none !important;
   }
 
   .hero-image {
@@ -296,6 +304,10 @@
   .hero-container {
     height: 30vh;
     grid-template-columns: 1fr;
+  }
+
+  .hero-controls {
+    display: none !important;
   }
 
   .hero-image {
