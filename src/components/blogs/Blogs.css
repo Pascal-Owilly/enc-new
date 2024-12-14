@@ -10,7 +10,6 @@ header {
   border-radius: 10px;
 }
 
-
 .cards-container {
   display: flex;
   gap: 15px;
@@ -363,4 +362,7 @@ padding: 50px;
     width: 100%; /* Full width on small screens */
   }
 }
+
+/* testimonials */
+
 

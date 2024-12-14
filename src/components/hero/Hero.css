@@ -6,19 +6,22 @@
     background-color: #f0f8ff;
     color: #333;
     position: relative;
+    margin-top: 60px ;
+
   }
   
   .hero-content {
     display: flex;
-    flex-direction: row; /* Make the content layout horizontal */
+    flex-direction: column; /* Make the content layout horizontal */
     justify-content: space-between; /* Space out text and button */
     align-items: center; /* Align items vertically in the middle */
-    padding: 50px;
+    padding: 40px;
     z-index: 2;
+    margin-top: 10px;
   }
   
   .hero-text {
-    max-width: 60%; /* Control text width */
+    max-width: 100%; /* Control text width */
   }
   
   .hero-text > h1 {
@@ -31,6 +34,7 @@
   .hero-text > p {
     margin-bottom: 30px;
     color: #f0f8ff;
+    width: 90%
   }
 
   .hero-text > .btn-explore{
@@ -112,8 +116,8 @@
   /* Hero Controls (Previous/Next arrows and indicators) */
   .hero-controls {
     position: absolute;
-    bottom: 40px; /* Distance from the bottom */
-    right: 40%; /* Distance from the right */
+    bottom: 30px; /* Distance from the bottom */
+    right: 10%; /* Distance from the right */
     display: flex;
     align-items: center; /* Align items vertically */
     gap: 10px; /* Space between the arrows and indicators */
@@ -125,10 +129,12 @@
     color: blue;
     border: none;
     padding: 10px;
-    font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
-    border-radius: 0 30px 30px 0;
+    border-radius: 100%;
+    padding:  10px 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
   }
 
   .prev-btn{
@@ -136,10 +142,11 @@
     color: blue;
     border: none;
     padding: 10px;
-    font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
-    border-radius: 30px 0 0 30px;
+    border-radius: 100%;
+    padding:  10px 15px;
+
     
   }
   
@@ -176,10 +183,10 @@
 /* Extra large screens (Desktops - 1200px and above) */
 @media (min-width: 1200px) {
   .hero-container {
-    height: 60vh;
+    height: 50vh;
     grid-template-columns: 1fr 1fr;
-    margin-top: 50px;
   }
+  
 
   .hero-text > h1 {
     font-size: 3.5rem;
@@ -193,12 +200,12 @@
 /* Large screens (Laptops - 992px to 1200px) */
 @media (min-width: 992px) and (max-width: 1199px) {
   .hero-container {
-    height: 55vh;
+    height: 45vh;
     grid-template-columns: 1fr 1fr;
   }
 
   .hero-text {
-    max-width: 70%;
+    max-width: 100%;
   }
 
   .hero-text > h1 {
@@ -218,8 +225,7 @@
 @media (min-width: 768px) and (max-width: 991px) {
   .hero-container {
     grid-template-columns: 1fr;
-    height: 50vh;
-    margin-top: 10px;
+    height: 40vh;
   }
 
   .hero-image {
@@ -255,7 +261,7 @@
 @media (min-width: 576px) and (max-width: 767px) {
   .hero-container {
     grid-template-columns: 1fr;
-    height: 45vh;
+    height: 35vh;
   }
 
   .hero-image {
@@ -288,8 +294,7 @@
 /* Extra small screens (Phones - up to 575px) */
 @media (max-width: 575px) {
   .hero-container {
-    height: 40vh;
-    margin-top: 30px;
+    height: 30vh;
     grid-template-columns: 1fr;
   }
 

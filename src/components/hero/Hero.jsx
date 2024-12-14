@@ -52,24 +52,25 @@ const HeroSection = () => {
         ></div>
 
       <div className="hero-content">
-        <div className="hero-text">
+        <div className="hero-text text-center">
           <h1>{heroText}</h1>
           <p>Explore stunning destinations and create unforgettable memories.</p>
+          {/* <button className="btn-explor offer-card ">Explore Now</button> */}
+
         </div>
-        <button className="btn-explor offer-card">Explore Now</button>
       </div>
 
       {/* Controls */}
       <div className="hero-controls">
         <button className="prev-btn" onClick={handlePrevClick}>
-          &#10094;
+        ◀
         </button>
         <div className="indicator-container">
           <span className={`indicator ${imageIndex === 0 ? 'active' : ''}`}></span>
           <span className={`indicator ${imageIndex === 1 ? 'active' : ''}`}></span>
         </div>
         <button className="next-btn" onClick={handleNextClick}>
-          &#10095;
+        ▶
         </button>
       </div>
     </div>

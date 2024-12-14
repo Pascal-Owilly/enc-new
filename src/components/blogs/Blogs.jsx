@@ -274,140 +274,129 @@ const VacationPage = () => {
         </div>
       </div>
     </section>
-          {/* Testimonials */}
-          <div style={{ width: "80%", margin: "50px auto", padding: "20px", backgroundColor: "#f9f9f9", borderRadius: "10px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)" }}>
-      {/* <h2 style={{ textAlign: "center", color: "#333", marginBottom: "20px", fontFamily: "'Roboto', sans-serif" }}>What Our Customers Say</h2> */}
-      <h1 className='welcome-text mt-5 text-left'>From travel stories</h1>
+   {/* Testimonials */}
+<div className="container-fluid my-5 py-4" style={{ backgroundColor: "#f9f9f9", borderRadius: "10px", boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)" }}>
+  {/* Heading */}
+  <h1 className="welcome-text text-left">From travel stories</h1>
 
-      <div style={{ display: "flex", overflow: "hidden", position: "relative" }}>
-        <div
-          style={{
-            display: "flex",
-            transform: `translateX(-${activeIndex * 100}%)`,
-            transition: "transform 0.5s ease-in-out",
-            width: `${testimonials.length * 100}%`,
-          }}
-        >
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              style={{
-                flex: "0 0 100%",
-                padding: "30px",
-                boxSizing: "border-box",
-                position: "relative",
-                backgroundColor: "#fff",
-                borderRadius: "10px",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                margin: "0 10px",
-              }}
-            >
-              {/* Quote Section */}
-              <div style={{
-                position: "relative",
-                padding: "20px",
-                fontStyle: "italic",
-                color: "#555",
-                fontSize: "1.1em",
-                lineHeight: "1.6",
-                textAlign: "center",
-                borderLeft: "10px solid #773697",
-                borderRadius: "5px",
-              }}>
-                <blockquote style={{ margin: "0" }}>
-                  <span style={{
-                    position: "absolute",
-                    left: "-20px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    width: "0",
-                    height: "0",
-                    borderTop: "10px solid transparent",
-                    borderRight: "10px solid #773697",
-                    borderBottom: "10px solid transparent",
-                  }}></span>
-                  "{testimonial.quote}"
-                </blockquote>
-              </div>
+  <div style={{ display: "flex", overflow: "hidden", position: "relative", flexWrap: "wrap", maxWidth:'100%'}}>
+  <div
+    style={{
+      display: "flex",
+      transform: `translateX(-${activeIndex * 100}%)`,
+      transition: "transform 0.5s ease-in-out",
+      width: '100%',
+    }}
+  >
+    {testimonials.map((testimonial, index) => (
+      <div
+        key={index}
+        className="col-12 col-sm-6 col-md-4 p-3"  // Bootstrap grid classes for responsiveness
+        style={{
+          flex: "0 0 100%",
+          padding: "30px",
+          boxSizing: "border-box",
+          position: "relative",
+          backgroundColor: "#fff",
+          borderRadius: "10px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          margin: "0 10px",
+        }}
+      >
+        {/* Quote Section */}
+        <div style={{
+          position: "relative",
+          padding: "20px",
+          fontStyle: "italic",
+          color: "#555",
+          fontSize: "1.1em",
+          lineHeight: "1.6",
+          textAlign: "center",
+          borderLeft: "10px solid #773697",
+          borderRadius: "5px",
+        }}>
+          <blockquote style={{ margin: "0" }}>
+            <span style={{
+              position: "absolute",
+              left: "-20px",
+              top: "50%",
+              maxWidth: '100%',
+              borderTop: "10px solid transparent",
+              borderRight: "10px solid #773697",
+              borderBottom: "10px solid transparent",
+            }}></span>  
+            "{testimonial.quote}"
+          </blockquote>
+        </div>
 
-              {/* Author Section */}
-              <div style={{
-                marginTop: "15px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
-              }}>
-                <img src={testimonial.image} alt={testimonial.author} style={{
-                  width: "60px",
-                  height: "60px",
-                  borderRadius: "50%",
-                  marginRight: "10px",
-                  position: "absolute",
-                  bottom: "-30px",
-                  left: "20px",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
-                }} />
-                <div>
-                  <p style={{
-                    fontWeight: "bold",
-                    color: "#333",
-                    fontSize: "1em",
-                    marginBottom: "0",
-                  }}>
-                    - {testimonial.author}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+        {/* Author Section */}
+        <div style={{
+          marginTop: "15px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+        }}>
+          <img src={testimonial.image} alt={testimonial.author} className="img-fluid rounded-circle" style={{
+            width: "60px",
+            height: "60px",
+            marginRight: "10px",
+            position: "absolute",
+            bottom: "-10px",
+            left: "30px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
+          }} />
+          <div>
+            <p style={{
+              fontWeight: "bold",
+              color: "#333",
+              fontSize: "1em",
+              marginBottom: "0",
+            }}>
+              - {testimonial.author}
+            </p>
+          </div>
         </div>
       </div>
+    ))}
+  </div>
+</div>
 
-      {/* Navigation Buttons */}
-      <div style={{
-        display: "flex",
-        justifyContent: "center",
-        marginTop: "20px",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        zIndex: "10",
-      }}>
-        <button
-          onClick={goToPrevSlide}
-          style={{
-            padding: "10px 15px",
-            margin: "0 5px",
-            border: "none",
-            borderRadius: "50%",
-            backgroundColor: "#333",
-            color: "#fff",
-            cursor: "pointer",
-          }}
-        >
-          ◀
-        </button>
-        <button
-          onClick={goToNextSlide}
-          style={{
-            padding: "10px 15px",
-            margin: "0 5px",
-            border: "none",
-            borderRadius: "50%",
-            backgroundColor: "#333",
-            color: "#fff",
-            cursor: "pointer",
-          }}
-        >
-          ▶
-        </button>
-      </div>
-    </div>
+  {/* Navigation Buttons */}
+  <div className="d-flex justify-content-center text-center my-3">
+    <button
+      onClick={goToPrevSlide}
+      className="btn btn-warning text-dark rounded-circle"
+      style={{
+        padding: "10px 15px",
+        margin: "0 5px",
+        border: "none",
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        background: '#FFD700',
+        
+      }}
+    >
+      ◀
+    </button>
+    <button
+      onClick={goToNextSlide}
+      className="btn btn-warning text-dark rounded-circle"
+      style={{
+        padding: "10px 15px",
+        margin: "0 5px",
+        border: "none",
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        background: '#FFD700',
+      }}
+    >
+      ▶
+    </button>
+  </div>
+</div>
+
 
      {/* Partners Section */}
-     <div style={{ textAlign: "center", margin: "50px auto", width: "80%" }}>
+     {/* <div style={{ textAlign: "center", margin: "50px auto", width: "80%" }}>
         <h2 style={{ fontSize: "1.8em", fontWeight: "bold", color: "#333", marginBottom: "30px" }}>
           We partner with visionaries to drive global innovations
         </h2>
@@ -444,7 +433,7 @@ const VacationPage = () => {
           display: "flex",
           justifyContent: "center",
           marginTop: "20px",
-          position: "absolute",
+          position: "absolut",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
@@ -457,7 +446,7 @@ const VacationPage = () => {
               margin: "0 5px",
               border: "none",
               borderRadius: "50%",
-              backgroundColor: "#333",
+              backgroundColor: "yellow",
               color: "#fff",
               cursor: "pointer",
             }}
@@ -479,7 +468,7 @@ const VacationPage = () => {
             ▶
           </button>
         </div>
-      </div>
+      </div> */}
         </main>
       </div>
     </div>

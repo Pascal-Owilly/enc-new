@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import heroImage from '../../assets/hero/bg_1.jpg'; // Correct import for the background image
+import logo from '../../assets/hero/cloud.webp';
 
 import {
     faBars,
@@ -33,7 +34,15 @@ export default function NavbarComponent() {
     return (
         
         <Container fluid style={{ maxWidth: '100%', overflow: 'hidden' }}>
-            <Navbar expand="lg" variant="dar" style={{ backgroundColor: primaryColor }} fixed="top">
+   <Navbar
+      expand="lg"
+      variant="dark"
+      style={{
+        background: "linear-gradient(90deg, blue 0%, #FFD700 100%)", // Gradient background
+        color: "white", // Navbar text color
+      }}
+      fixed="top"
+    >                
                 {/* Brand Logo */}
                 <Navbar.Brand href="/" style={{
                     fontFamily: 'Caladea, serif',
@@ -48,7 +57,8 @@ export default function NavbarComponent() {
                     padding: '0.3em 0',
                     marginLeft: '10px'
                 }}>
-                    🌍 Enceptics
+                    {/* 🌍 Enceptics */}
+                    <img src={logo} alt="" style={{width:'30px'}}/>
                 </Navbar.Brand>
 
                 {/* Stories Icon */}
