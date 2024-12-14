@@ -61,7 +61,7 @@ const HeroSection = () => {
       </div>
 
       {/* Controls */}
-      <div className="hero-controls">
+      {/* <div className="hero-controls">
         <button className="prev-btn" onClick={handlePrevClick}>
         ◀
         </button>
@@ -72,7 +72,7 @@ const HeroSection = () => {
         <button className="next-btn" onClick={handleNextClick}>
         ▶
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };
