@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import heroImage from '../../assets/hero/bg_1.jpg'; // Correct import for the background image
-import logo from '../../assets/hero/cloud.webp';
+import logo from '../../assets/logo/enc_logo.png';
 
 import {
     faBars,
@@ -44,21 +44,9 @@ export default function NavbarComponent() {
       fixed="top"
     >                
                 {/* Brand Logo */}
-                <Navbar.Brand href="/" style={{
-                    fontFamily: 'Caladea, serif',
-                    fontSize: '1.2rem',
-                    fontWeight: 'bold',
-                    letterSpacing: '0.15em',
-                    textTransform: 'uppercase',
-                    background: 'linear-gradient(135deg, #d3d3d3, #fff)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    textShadow: '2px 2px 5px rgba(253, 235, 61, 0.4)',
-                    padding: '0.3em 0',
-                    marginLeft: '10px'
-                }}>
+                <Navbar.Brand href="/">
                     {/* 🌍 Enceptics */}
-                    <img src={logo} alt="" style={{width:'30px'}}/>
+                    <img src={logo} alt="" style={{width:'50px', marginLeft :'10px'}}/>
                 </Navbar.Brand>
 
                 {/* Stories Icon */}
@@ -103,6 +91,8 @@ export default function NavbarComponent() {
                         <Nav.Link href="/destinations/micro-adventure" className="text-white">Micro-Adventure</Nav.Link>
                         <Nav.Link href="/all-places" className="text-white">Explore</Nav.Link>
                         <Nav.Link href="/destination/group-bookings" className="text-white">Group Booking</Nav.Link>
+                        <Nav.Link href="/management/property-management" className="text-white">Manage Propertied</Nav.Link>
+
                         <Nav.Link href="/about" className="text-white">About</Nav.Link>
                     </Nav>
                     <Nav>
@@ -156,6 +146,7 @@ export default function NavbarComponent() {
   <Nav.Link href="/destinations/micro-adventure" className="text-white">Micro-Adventure</Nav.Link>
   <Nav.Link href="/all-places" className="text-white">Explore</Nav.Link>
   <Nav.Link href="/destination/group-bookings" className="text-white">Group Booking</Nav.Link>
+
   <Nav.Link href="/about" className="text-white">About</Nav.Link>
   <NavDropdown.Divider />
 
@@ -164,6 +155,7 @@ export default function NavbarComponent() {
     {[
       { href: "/destinations/culinary-tours", title: "Culinary Tours" },
       { href: "/destinations/farmers-markets", title: "Farmers' Markets" },
+      { href: "/management/property-management", title: "Manage Property" },
       { href: "/destinations/nature-hikes", title: "Nature Hikes" },
       { href: "/destinations/art-workshops", title: "Art Workshops" },
       { href: "/destinations/cultural-festivals", title: "Cultural Festivals" },
@@ -195,6 +187,8 @@ export default function NavbarComponent() {
       { href: "/itineraries/sustainable", title: "Sustainable Travels" },
       { href: "/itineraries/custom", title: "Custom Itineraries" },
       { href: "/itineraries/custom", title: "Tour & Learn" },
+      { href: "/management/property-management", title: "Manage Property" },
+
     ].map((item, index) => (
       <NavDropdown.Item href={item.href} key={index}>
         {item.title}
@@ -202,8 +196,6 @@ export default function NavbarComponent() {
     ))}
   </NavDropdown>
 </Nav>
-
-
                     </Nav>
                 </div>
             )}

@@ -6,9 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import './Projects.css';
 import pos from '../../assets/showcase/pos-dashboard.png';
 import clockin from '../../assets/showcase/Clockin-management.png';
-import intellimaSellerDb from '../../assets/showcase/Intellima-seller-dashboard.png';
-import mamlaka from '../../assets/showcase/mam-laka.png';
-import yeshara from '../../assets/showcase/yeshara.png';
+
+
 
 const projects = [
   {
@@ -27,19 +26,19 @@ const projects = [
     id: 3,
     title: 'Supply Chain Management',
     description: 'Connect buyers and sellers globally. Sellers send quotes, buyers confirm or reject, and if confirmed, issue an LC to the seller’s bank for the process to start.',
-    image: intellimaSellerDb,
+    image: clockin,
   },
   {
     id: 4,
     title: 'Africa Trade Payment Network',
     description: 'Showcasing innovative payment solutions to empower financial systems in Africa.',
-    image: mamlaka,
+    image: clockin,
   },
   {
     id: 5,
     title: 'Real Estate Tokenization',
     description: 'Explore a minimalistic platform for real estate tokenization and sales insights.',
-    image: yeshara,
+    image: clockin,
   },
 ];
 

@@ -4,6 +4,7 @@ import heroImg from '../../assets/hero/hero.jpg';
 import hero2 from '../../assets/hero/hero2.jpg';
 import hero3 from '../../assets/hero/hero3.jpg';
 import hero4 from '../../assets/hero/hero4.jpg';
+import '../../App.css';
 
 const MicroAdventure = () => {
     const [wishlisted, setWishlisted] = useState([false, false, false]);
@@ -13,7 +14,7 @@ const MicroAdventure = () => {
         setWishlisted(newWishlist);
     };
     return (
-        <div className="micro-adventure-page container">
+        <div className="micro-adventure-page container m-auto mt-5">
            <header 
     className="hero-banner text-center " 
     style={{
@@ -24,7 +25,7 @@ const MicroAdventure = () => {
     }}
 >
 <h1
-     className="fade-in text-center page-title all-headings">Micro-Adventure</h1>
+     className="fade-in text-center page-title all-headings fade-in">Micro-Adventure</h1>
      
      <p style={{fontFamily:'Caladea', color:'#333'}}>
         Micro-Adventures are all about discovering unique, exciting experiences without the need for extensive planning or long-distance travel.
@@ -33,6 +34,7 @@ const MicroAdventure = () => {
         making it easy to connect with nature, uncover local secrets, and create lasting memories on your terms.
     </p>
 </header>
+<br /> <br />
             <div className="row">
                 {/* Cards section occupying col-9 */}
                 <div className="col-md-10">

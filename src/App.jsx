@@ -66,7 +66,10 @@ import Talks from './components/talks/Talks';
 import Test from './components/testing/Test';
 
 // Payment
-import Payment from './components/payment/Payment'; // Import the Payment Component
+import Payment from './components/payment/Payment'; 
+
+// Property Management
+import PropertyManager from './components/property_management/PropertyManager';
 
 export default function App() {
   useEffect(() => {
@@ -150,6 +153,9 @@ export default function App() {
 
           {/* Payment */}
           <Route path="/payment" element={<Payment />} />
+
+          {/* Property Management */}
+          <Route path="/management/property-management" element={<PropertyManager />} />
 
         </Routes>
       </div>

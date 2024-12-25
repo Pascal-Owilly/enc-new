@@ -5,7 +5,7 @@ import heroImage2 from '../../assets/hero/hero.jpg';
 import heroImage3 from '../../assets/hero/hero3.jpg';
 import cloudImage from '../../assets/hero/cloud.webp';
 import Particles from 'react-tsparticles';
-import particlesConfig from '../config/ParticlesBackground.jsx';
+// import particlesConfig from '../config/ParticlesBackground.jsx';
 
 const HeroSection = () => {
   const [imageIndex, setImageIndex] = useState(0);
@@ -31,9 +31,9 @@ const HeroSection = () => {
   return (
     <div className="hero-container">
       {/* Particle Effect Container */}
-      <div className="particle-effect">
+      {/* <div className="particle-effect">
         <Particles options={particlesConfig} />
-      </div>
+      </div> */}
 
         {/* Hero image */}
         <div
