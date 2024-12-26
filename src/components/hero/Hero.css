@@ -6,7 +6,7 @@
     background-color: #f0f8ff;
     color: #333;
     position: relative;
-    margin-top: 60px ;
+    margin-top: 80px ;
 
   }
   
@@ -91,13 +91,13 @@
 /* Keyframes for fading effect */
 @keyframes fadeClouds {
   0% {
-    opacity: 1; /* Fully visible */
+    opacity: 0.5; /* Fully visible */
   }
   90% {
     opacity: 0; /* Invisible */
   }
   100% {
-    opacity: 1; /* Back to fully visible */
+    opacity: 0.5; /* Back to fully visible */
   }
 }
 
@@ -125,29 +125,30 @@
   }
   
   .next-btn {
-    background-color: #FFD700;
-    color: blue;
+    background-color: transparent;
+    color: white;
     border: none;
     padding: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
     border-radius: 100%;
+    border: 3px solid #f0f0f0;
     padding:  10px 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   }
 
   .prev-btn{
-    background-color: #FFD700;
-    color: blue;
+    background-color: transparent;
+    color: white;
     border: none;
     padding: 10px;
     cursor: pointer;
+    border: 3px solid #f0f0f0;
     transition: background-color 0.3s;
     border-radius: 100%;
     padding:  10px 15px;
 
-    
   }
   
   .indicator-container {
@@ -164,7 +165,7 @@
   }
   
   .indicator.active {
-    background-color: blue;
+    background-color: #FFD700;
   }
 
   .particle-effect {

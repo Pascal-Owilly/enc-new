@@ -13,8 +13,6 @@
   animation: rotate-disk 4s linear infinite; /* 4s duration, linear easing, infinite loop */
 }
 
-
-
 @font-face {
   font-family: 'Caladea';
   src: url('src/fonts/Bitter,Caladea/Caladea/Caladea-Bold.ttf') format('truetype');
@@ -51,6 +49,7 @@
   width: 100% !important;
   margin: 0 !important;
   box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+  /* background: linear-gradient(to bottom, 90deg, blue 0%, #FFD700 100%) !important; */
 
   
 }
@@ -63,7 +62,7 @@
   text-transform: uppercase;
   background: linear-gradient(135deg, #d3d3d3, #fff);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: rgba(249, 250, 251, 1);
+  -webkit-text-fill-color: #333;
 }
 
 
@@ -128,7 +127,7 @@
 
 .navbar-nav .dropdown-menu {
   /* background-color: #1c85e8; */
-  color: white;
+  /* color: white; */
   border-radius: 0;
   margin-top: 0;
   padding: 10px;
@@ -197,7 +196,7 @@
 /* Sidebar styles */
 .sidebar {
   position: fixed;
-  top: 60px !important;
+  top: 76px !important;
   left: -250px;
   height: 100vh;
   width: 250px;

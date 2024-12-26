@@ -12,7 +12,7 @@ header {
 
 .cards-container {
   display: flex;
-  gap: 15px;
+  gap: 1px;
   width: 100%;
   overflow-x: auto;  /* Allow horizontal scrolling */
   scroll-snap-type: x mandatory; /* Enabling smooth snapping for sliding cards */
@@ -137,7 +137,7 @@ padding: 50px;
 .card {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 20px;
+  /* margin: 20px; */
   overflow: hidden;
   transition: transform 0.3s;
 }
@@ -147,7 +147,7 @@ padding: 50px;
 }
 
 .card h3 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #333;
 }
 

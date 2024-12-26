@@ -1,195 +1,153 @@
+/* src/AllPlaces.css */
+
 .all-places-container {
-    padding: 40px;
-    background-color: #f9f9f9;
-    border-radius: 30px;
-  }
-  
-  .page-title {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    color: #333;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-  
-  .places-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  
-  .place-card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .place-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  }
-  
-  .place-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px 10px 0 0;
-  }
-  
-  .place-details {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .place-details h2 {
-    font-size: 1.5rem;
-    color: #555;
-    margin-bottom: 10px;
-  }
-  
-  .place-details p {
-    font-size: 1rem;
-    color: #777;
-    margin-bottom: 20px;
-  }
-  
-  .price-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .see-more-link {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-  }
-  
-  .see-more-link svg {
-    margin-left: 5px;
-  }
-  
-  .pagination {
-    text-align: center;
-    margin-top: 30px;
-  }
-  
-  .pagination button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 0 5px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1rem;
-  }
-  
-  .pagination button.active {
-    background-color: #0056b3;
-  }
-  
-  .pagination button:hover {
-    background-color: #0056b3;
-  }
-  
+  background-color: white;
+  padding: 20px;
+  color: #333;
+  margin-top: 60px;
+
+}
+
+.page-title {
+  color: #1e90ff; /* Bright blue */
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.filter-sort-section {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.filter-options,
+.sort-options {
+  display: flex;
+  gap: 10px;
+  flex: 1 1 auto; /* Allow flexibility */
+}
+
+input[type="text"],
+select {
+  padding: 8px;  /* Reduced padding for smaller text */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.9em; /* Smaller text */
+}
+
+input[type="text"]:focus,
+select:focus {
+  border-color: #1e90ff; /* Bright blue */
+}
+
+.places-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.place-card {
+  position: relative;
+  width: 300px; /* Adjust width as needed */
+  height: 400px; /* Adjust height as needed */
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.place-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5; 
+  z-index: 1;
+}
+
+.place-details {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+h4 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.price-button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.destination-price {
+  font-size: 1.2em;
+}
+
+.booking-button {
+  background-color: #ff6200; /* Button color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.booking-button:hover {
+  background-color: #e55b00; /* Darker shade on hover */
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #1e90ff; /* Bright blue */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.pagination .active {
+  background-color: #FFD700; /* Gold for active page */
+  color: #333;
+}
+
+/* Additional styles for smaller screens */
+@media (max-width: 600px) {
   .filter-sort-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .filter-options, .sort-options {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .filter-options input, 
-  .filter-options select, 
-  .sort-options select {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #fff;
-    transition: border 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .filter-options input:focus, 
-  .filter-options select:focus, 
-  .sort-options select:focus {
-    border-color: #773697;
-    box-shadow: 0 0 5px rgba(119, 54, 151, 0.3);
-  }
-  
-  .filter-options input {
-    width: 250px;
-  }
-  
-  .filter-options select, 
-  .sort-options select {
-    min-width: 180px;
-  }
-  
-  .filter-options input::placeholder {
-    color: #999;
-  }
-  
-  .filter-options select:hover, 
-  .sort-options select:hover {
-    cursor: pointer;
-  }
-  
-  .filter-options input:hover, 
-  .filter-options select:hover, 
-  .sort-options select:hover {
-    border-color: #aaa;
-  }
-  
-  .filter-sort-section select option {
-    padding: 10px;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .filter-sort-section {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .filter-options, .sort-options {
-      flex-direction: column;
-      width: 100%;
-    }
-  
-    .filter-options input, 
-    .filter-options select, 
-    .sort-options select {
-      width: 100%;
-    }
+      flex-direction: column; /* Stack vertically on small screens */
   }
 
-  .loading-spinner {
-    font-size: 18px;
-    text-align: center;
-    margin-top: 50px;
-    color: #000042;
+  .filter-options,
+  .sort-options {
+      justify-content: space-between; /* Align options */
   }
-  
-  .empty-message {
-    font-size: 20px;
-    text-align: center;
-    color: #999;
-    margin-top: 30px;
+
+  input[type="text"],
+  select {
+      font-size: 0.8em; /* Smaller text for mobile */
+      width: 100%; /* Full width for inputs */
+      margin-bottom: 10px; /* Space between stacked items */
   }
-  
-  .btn-book-now{
-    font-size: 12px;
-  }
+}

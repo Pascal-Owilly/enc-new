@@ -79,7 +79,7 @@ const Booking = () => {
     <div className="booking-container ">
       <h3>Booking for {placeName}</h3>
       <form className="booking-form" onSubmit={handleBookingSubmit}>
-          <input
+          <input  
           type="date"
           style={{ border: 'none', backgroundColor: 'rgb(238, 240, 251)', color: '#999999' }}
           className="form-control"

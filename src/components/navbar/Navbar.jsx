@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import heroImage from '../../assets/hero/bg_1.jpg'; // Correct import for the background image
 import logo from '../../assets/logo/enc_logo.png';
+import messageIcon from '../../assets/images/message_icon.png';
 
 import {
     faBars,
@@ -35,38 +37,37 @@ export default function NavbarComponent() {
         
         <Container fluid style={{ maxWidth: '100%', overflow: 'hidden' }}>
    <Navbar
+        
       expand="lg"
       variant="dark"
       style={{
-        background: "linear-gradient(90deg, blue 0%, #FFD700 100%)", // Gradient background
-        color: "white", // Navbar text color
+        // background: "linear-gradient(90deg, blue 0%, #FFD700 100%)", 
+        backgroundImage: `linear-gradient(to top, #87CEEB, #f0f0f0)`,
+
+        color: "    ", // Navbar text color
       }}
       fixed="top"
     >                
                 {/* Brand Logo */}
-                <Navbar.Brand href="/">
-                    {/* 🌍 Enceptics */}
-                    <img src={logo} alt="" style={{width:'50px', marginLeft :'10px'}}/>
-                </Navbar.Brand>
+                <Navbar.Brand href="/" style={{ height: '60px' }}>
+    <img 
+        src={logo} 
+        alt="Enceptics Logo" 
+        style={{ 
+            height: '100%', 
+            width: 'auto', 
+            objectFit: 'contain',
+            marginLeft:'20px'
+        }} 
+    />
+</Navbar.Brand>
 
                 {/* Stories Icon */}
                 <Nav className="me-auto" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
                     <Nav.Link 
                         href="/talks" 
                         className="text-white" 
-                        style={{
-                            display: 'flex', 
-                            justifyContent: 'center', 
-                            alignItems: 'center', 
-                            position: 'relative', 
-                            padding: '0.5rem 1rem',
-                            borderRadius: '50%', 
-                            transition: 'all 0.3s ease-in-out', 
-                            backgroundColor:'#FFC107',
-                            boxShadow: '0 6px 15px rgba(0, 0, 0, 0.3)', // Softer, more professional shadow
-                            fontSize: '1.5rem',
-                            cursor: 'pointer'
-                        }}
+                       
                         onMouseOver={(e) => {
                             e.target.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.4)';
                             e.target.style.transform = 'translateY(-2px)';
@@ -76,14 +77,40 @@ export default function NavbarComponent() {
                             e.target.style.transform = 'translateY(0)';
                         }}
                     >
-                        <FontAwesomeIcon icon={faCommentDots} size='lg' style={{color:'#333'}}/>
+                    <img 
+                        src={messageIcon} 
+                        alt="Talks" 
+                        style={{ 
+                            height: '30px', 
+                            width: 'auto', 
+                            objectFit: 'contain',
+                            marginLeft: '20px',
+                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Professional box shadow
+                            borderRadius: '5px' // Optional: adds a slight rounding to the corners
+                        }} 
+                    />               
                     </Nav.Link>
                 </Nav>
 
                 {/* Sidebar Toggle Button */}
-                <button onClick={toggleSidebar} style={{ background: 'none', border: 'none', color: 'white', marginRight: '5px' }}>
-                    <FontAwesomeIcon icon={sidebarOpen ? faTimes : faBars} size="lg" />
-                </button>
+                <button 
+            onClick={toggleSidebar} 
+            style={{ 
+                background: 'none', 
+                border: 'none', 
+                color: '#333', // Set a nice color
+                cursor: 'pointer', // Change cursor to pointer
+                padding: '10px', // Add padding for better click area
+                borderRadius: '5px', // Slight rounding for a softer look
+                transition: 'background 0.3s, transform 0.3s', // Smooth transition
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = '#f0f0f0'} // Hover effect
+            onMouseLeave={(e) => e.currentTarget.style.background = 'none'} // Reset on leave
+            onFocus={(e) => e.currentTarget.style.outline = 'none'} // Remove outline on focus
+            onBlur={(e) => e.currentTarget.style.outline = 'none'} // Reset outline
+        >
+            <FontAwesomeIcon icon={faEllipsisV} size="lg" />
+        </button>
 
                 {/* Navbar Links for Larger Screens */}
                 <Navbar.Collapse id="basic-navbar-nav" className="d-none d-lg-flex">
@@ -133,7 +160,7 @@ export default function NavbarComponent() {
                         top: '0',
                         right: '0',
                         color: 'white',
-                        backgroundImage: `linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.99)), url(${heroImage})`,
+                        backgroundImage: `linear-gradient(to bottom, #87CEEB, #ffffff)`,
                         width: '250px',
                         height: '100vh',
                         overflowY: 'auto',
@@ -146,13 +173,14 @@ export default function NavbarComponent() {
   <Nav.Link href="/destinations/micro-adventure" className="text-white">Micro-Adventure</Nav.Link>
   <Nav.Link href="/all-places" className="text-white">Explore</Nav.Link>
   <Nav.Link href="/destination/group-bookings" className="text-white">Group Booking</Nav.Link>
+  <Nav.Link href="/destination/group-bookings" className="text-white">About Enceptics</Nav.Link>
 
-  <Nav.Link href="/about" className="text-white">About</Nav.Link>
   <NavDropdown.Divider />
 
   {/* Local Experience Dropdown */}
   <NavDropdown title="Local Experience" className="text-white">
     {[
+
       { href: "/destinations/culinary-tours", title: "Culinary Tours" },
       { href: "/destinations/farmers-markets", title: "Farmers' Markets" },
       { href: "/management/property-management", title: "Manage Property" },
@@ -171,6 +199,7 @@ export default function NavbarComponent() {
       { href: "/destinations/cultural-exchange", title: "Cultural Exchange" },
       { href: "/destinations/storytelling", title: "Storytelling Nights" },
       { href: "/destinations/vr-2", title: "Virtual Reality" },
+
     ].map((item, index) => (
       <NavDropdown.Item href={item.href} key={index}>
         {item.title}

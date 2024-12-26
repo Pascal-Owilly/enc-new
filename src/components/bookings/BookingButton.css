@@ -1,0 +1,88 @@
+/* src/BookingComponent.css */
+.booking-component {
+    border: 1px solid #ddd;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 10px;
+}
+
+.booking-component:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.place-detail {
+    flex: 1;
+    text-align: center;
+}
+
+.rating {
+    display: flex;
+    justify-content: space-between; /* Align ratings and wishlist to opposite sides */
+    align-items: center;
+    margin: 10px 0;
+}
+
+.ratings {
+    display: flex;
+    align-items: center;
+}
+
+.views {
+    margin-left: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.wishlist-button {
+    background: none; 
+    color: red;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: color 0.3s;
+}
+
+.wishlist-button:hover {
+    color: #FF4081; /* Change color on hover */
+}
+
+.footer {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space out items */
+    align-items: center; /* Center items vertically */
+    padding: 10px 20px; /* Add padding for spacing */
+    border-top: 1px solid #ddd; /* Optional: Add a border at the top */
+    background-color: white; /* Optional: Background color */
+}
+
+.details-button {
+    font-size: 1em; /* Adjust font size if needed */
+    color: #1e90ff; /* Bright blue color */
+    text-decoration: none; /* Remove underline for link */
+}
+
+.booking-button {
+    background-color: #1e90ff; /* Bright blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    /* padding: 10px 15px; */
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.3s;
+}
+
+.booking-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.wished {
+    color: #FF4081; /* Different color when wished */
+}
