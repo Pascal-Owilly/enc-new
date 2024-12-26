@@ -5,10 +5,11 @@ import heroImage2 from '../../assets/hero/hero.jpg';
 import heroImage3 from '../../assets/hero/hero3.jpg';
 import cloudImage from '../../assets/hero/cloud.webp';
 import Particles from 'react-tsparticles';
+// import particlesConfig from '../config/ParticlesBackground.jsx';
 
 const HeroSection = () => {
   const [imageIndex, setImageIndex] = useState(0);
-  const [heroText, setHeroText] = useState("Discover Your Next Adventure");
+  const [heroText, setHeroText] = useState("Choose Your Purpose: Culinary Delights, Thrilling Sports, Cultural Journeys, and More!");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,33 +30,30 @@ const HeroSection = () => {
 
   return (
     <div className="hero-container">
-
+      
         <div
           className="hero-image"
           style={{
             backgroundImage: `url(${imageIndex === 0 ? heroImage3 : heroImage2})`,
-          }}
-        ></div>
+          }}></div>
 
-        {/* Cloud layer */}
         <div
-          className="cloud-image"
-          // style={{
-          //   backgroundImage: `url(${cloudImage})`,
-          // }}
-        ></div>
+          className="cloud-image"></div>
 
-      <div className="hero-content">
-        <div className="hero-text text-center">
-          <h1>{heroText}</h1>
-          <p>Explore stunning destinations and create unforgettable memories.</p>
-          {/* <button className="btn-explor offer-card ">Explore Now</button> */}
-
+<div className="hero-contents" style={{zIndex:'3'}}>
+<h1>Choose Your Purpose:
+   {/* Culinary Delights, Thrilling Sports, Cultural Journeys, and More! */}
+   </h1>
+<div className="category-icons">
+          <button className="category-button">🍽️ Culinary</button>
+          <button className="category-button">⚽ Sports</button>
+          <button className="category-button">👨‍👩‍👧 Family</button>
+          <button className="category-button">🌍 Cultural</button>
         </div>
       </div>
 
       {/* Controls */}
-      <div className="hero-controls">
+      {/* <div className="hero-controls">
         <button className="prev-btn" onClick={handlePrevClick}>
         ◀
         </button>
@@ -66,7 +64,7 @@ const HeroSection = () => {
         <button className="next-btn" onClick={handleNextClick}>
         ▶
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

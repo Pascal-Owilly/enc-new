@@ -7,7 +7,6 @@
     color: #333;
     position: relative;
     margin-top: 80px ;
-
   }
   
   .hero-content {
@@ -59,9 +58,9 @@
     bottom: 0;
     z-index: 1;
     transition: background-image 1s ease-in-out;
-    border-radius:  30px;
-    margin-top: 13px;
-    margin: 15px;
+    /* border-radius:  30px; */
+    margin-bottom: 13px;
+    /* margin: 15px; */
   }
   
 /* Cloud image with fade in and out */
@@ -75,33 +74,32 @@
   bottom: 0;
   width: auto;
   height: auto;
-  border-radius:  30px;
-  margin-top: 13px;
-  margin: 15px;
+  /* border-radius:  30px; */
+  /* margin-top: 13px; */
+  margin-bottom: 15px;
   background-position: center;
   z-index: 2;
   opacity: 1; /* Start fully visible */
   animation: fadeClouds 8s linear infinite;
 
   /* Optional: Add a soft radial gradient for visual enhancement */
-  background: radial-gradient(circle, rgba(0, 0, 255, 0.5) 40%, rgba(0, 0, 255, 0.5) 80%), 
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.5) 40%, rgba(244,198,16, 0.5) 80%), 
               url('../../assets/hero/cloud.webp');
 }
 
 /* Keyframes for fading effect */
 @keyframes fadeClouds {
   0% {
-    opacity: 0.5; /* Fully visible */
+    opacity: 1; /* Fully visible */
   }
   90% {
     opacity: 0; /* Invisible */
   }
   100% {
-    opacity: 0.5; /* Back to fully visible */
+    opacity: 1  ; /* Back to fully visible */
   }
 }
 
-   
   /* Styling for the particle effect */
   .particle-effect {
     position: absolute;
@@ -341,5 +339,69 @@
   .cloud-image {
     filter: blur(4px);
     opacity: 0.6;
+  }
+}
+
+
+
+****************************************************************************************************************
+
+.category-icons {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.category-button {
+  background: transparent ; /* Light blue */
+
+  border: 1px solid white;
+  color: white;
+  padding: 8px 12px; /* Smaller padding */
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+  font-size: 0.9em; /* Smaller font size */
+}
+
+.hero-container {
+  /* position: relative; */
+  /* height: 100vh; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #003f5c; /* Dark blue from the logo */
+}
+
+.category-icons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.category-button {
+  background-color: transparent; /* Light blue */
+  color: white;
+  padding: 10px 15px; /* Adjusted padding */
+  border: 1px solid #f0f8ff;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px; /* Space between buttons */
+  transition: 0.3s;
+}
+
+.category-button:hover {
+  background: #0080ff; /* Darker blue */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5em; /* Smaller font size for mobile */
+  }
+  
+  .category-button {
+    font-size: 0.9em; /* Smaller font size for buttons on mobile */
   }
 }
