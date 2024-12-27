@@ -18,7 +18,6 @@ const VacationPage = () => {
       price: '$150',
       link: '/destinations/micro-adventure',
       image: heroImage2,
-
     },
     {
       name: 'Explore',
@@ -26,7 +25,6 @@ const VacationPage = () => {
       price: '$200',
       link: '/destinations/explore',
       image: heroImage3,
-
     },
     {
       name: 'Group Booking',
@@ -34,7 +32,6 @@ const VacationPage = () => {
       price: '$500',
       link: '/destinations/group-booking',
       image: heroImage2,
-
     },
     {
       name: 'Culinary Tours',
@@ -42,7 +39,6 @@ const VacationPage = () => {
       price: '$300',
       link: '/destinations/culinary-tours',
       image: heroImage3,
-
     },
     {
       name: 'Farmers\' Markets',
@@ -50,7 +46,6 @@ const VacationPage = () => {
       price: '$50',
       link: '/destinations/farmers-markets',
       image: heroImage2,
-
     },
     {
       name: 'Nature Hikes',
@@ -58,7 +53,6 @@ const VacationPage = () => {
       price: '$120',
       link: '/destinations/nature-hikes',
       image: heroImage3,
-
     },
     {
       name: 'Art Workshops',
@@ -66,7 +60,6 @@ const VacationPage = () => {
       price: '$200',
       link: '/destinations/art-workshops',
       image: heroImage2,
-
     },
     {
       name: 'Cultural Festivals',
@@ -74,7 +67,6 @@ const VacationPage = () => {
       price: '$180',
       link: '/destinations/cultural-festivals',
       image: heroImage3,
-
     },
     {
       name: 'Historical Tours',
@@ -82,7 +74,83 @@ const VacationPage = () => {
       price: '$250',
       link: '/destinations/historical-tours',
       image: heroImage2,
-
+    },
+    {
+      name: 'Community Service',
+      description: 'Engage in activities that benefit local communities.',
+      price: '$100',
+      link: '/destinations/community-service',
+      image: heroImage3,
+    },
+    {
+      name: 'Outdoor Adventures',
+      description: 'Experience thrilling outdoor activities and nature.',
+      price: '$220',
+      link: '/destinations/outdoor-adventures',
+      image: heroImage2,
+    },
+    {
+      name: 'Wellness Retreats',
+      description: 'Relax and rejuvenate with wellness programs.',
+      price: '$400',
+      link: '/destinations/wellness-retreats',
+      image: heroImage3,
+    },
+    {
+      name: 'Local Sports Events',
+      description: 'Experience the excitement of local sports events.',
+      price: '$75',
+      link: '/destinations/local-sports',
+      image: heroImage2,
+    },
+    {
+      name: 'Music and Dance Classes',
+      description: 'Learn music and dance from local experts.',
+      price: '$150',
+      link: '/destinations/music-dance',
+      image: heroImage3,
+    },
+    {
+      name: 'Local Artisan Tours',
+      description: 'Explore the craftsmanship of local artisans.',
+      price: '$130',
+      link: '/destinations/artisan-tours',
+      image: heroImage2,
+    },
+    {
+      name: 'Themed Photo Walks',
+      description: 'Capture beautiful moments on guided photo walks.',
+      price: '$80',
+      link: '/destinations/photo-walks',
+      image: heroImage3,
+    },
+    {
+      name: 'Wildlife Spotting',
+      description: 'Observe and learn about local wildlife.',
+      price: '$200',
+      link: '/destinations/wildlife-spotting',
+      image: heroImage2,
+    },
+    {
+      name: 'Cultural Exchange',
+      description: 'Engage in cultural exchanges with locals.',
+      price: '$150',
+      link: '/destinations/cultural-exchange',
+      image: heroImage3,
+    },
+    {
+      name: 'Storytelling Nights',
+      description: 'Enjoy evenings of storytelling and local tales.',
+      price: '$50',
+      link: '/destinations/storytelling',
+      image: heroImage2,
+    },
+    {
+      name: 'Virtual Reality',
+      description: 'Experience immersive virtual reality adventures.',
+      price: '$300',
+      link: '/destinations/vr-2',
+      image: heroImage3,
     },
   ];
 
@@ -92,7 +160,7 @@ const VacationPage = () => {
     { href: '/itineraries/exploration', title: 'Explore the Unknown', image: heroImage2 },
     { href: '/itineraries/sustainable', title: 'Sustainable Travels', image: heroImage3 },
     { href: '/itineraries/custom', title: 'Custom Itineraries', image: heroImage2 },
-    { href: '/itineraries/tour-learn', title: 'Tour & Learn' , image: heroImage3},
+    // { href: '/destinations/tour-and-learn', title: 'Tour & Learn' , image: heroImage3},
   ];
 
   const [welcomeText, setWelcomeText] = useState('Discover Your Next Adventure');

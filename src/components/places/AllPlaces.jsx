@@ -67,7 +67,7 @@ const AllPlaces = () => {
             <div className="no-places-found text-center">
                 <FaFrown size={50} color="#ccc" />
                 <p>No places found. Please try a different search or filter.</p>
-                <Link to="/all-places">Back</Link>
+                <a href="/all-places">Back</a>
             </div>
         );
     }
@@ -75,7 +75,7 @@ const AllPlaces = () => {
     return (
         <div className="all-places-container">
             <h1 className="page-title">Explore All Amazing Destinations</h1>
-
+<hr />
             <div className="filter-sort-section">
                 <div className="filter-options">
                     <input

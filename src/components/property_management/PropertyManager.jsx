@@ -44,7 +44,7 @@ const dummyProperties = [
   {
     id: 1,
     name: 'Beachfront Villa',
-    image: img1,
+    image: 'https://via.placeholder.com/300x200?text=Beachfront+Villa',
     bookings: 20,
     earnings: 3000,
     visitors: 150,
@@ -61,7 +61,7 @@ const dummyProperties = [
   {
     id: 1,
     name: 'Beachfront Villa',
-    image: img2,
+    image: 'https://via.placeholder.com/300x200?text=Beachfront+Villa',
     bookings: 20,
     earnings: 3000,
     visitors: 150,
@@ -78,7 +78,7 @@ const dummyProperties = [
   {
     id: 1,
     name: 'Beachfront Villa',
-    image: img3,
+    image: 'https://via.placeholder.com/300x200?text=Beachfront+Villa',
     bookings: 20,
     earnings: 3000,
     visitors: 150,
@@ -95,7 +95,7 @@ const dummyProperties = [
   {
     id: 1,
     name: 'Beachfront Villa',
-    image: img4,
+    image: 'https://via.placeholder.com/300x200?text=Beachfront+Villa',
     bookings: 20,
     earnings: 3000,
     visitors: 150,

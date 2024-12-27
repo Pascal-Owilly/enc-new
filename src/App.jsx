@@ -45,6 +45,7 @@ import StorytellingNights from './components/destinations/StorytellingNights';
 import WildlifeSpotting from './components/destinations/WildlifeSpotting';
 import VirtualRealityOne from './components/destinations/VirtualRealtyOne';
 import VirtualRealityTwo from './components/destinations/VirtualRealityTwo';
+import TourAndLearn from './components/destinations/TourAndLearn';
 
 // Itineraries
 import Relaxation from './components/itineraries/Relaxation';
@@ -139,14 +140,14 @@ export default function App() {
           <Route path="/destinations/micro-adventure" element={<MicroAdventure />} />
 
           {/* Additional Routes */}
-          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/destinations/all-categories" element={<Blogs />} />
           <Route path="/partners" element={<Partners />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/destination/group-bookings" element={<GroupBookings />} />
           <Route path="/weather/:place_name" element={<Weather />} />
           <Route path="/talks" element={<Talks />} />
           <Route path="/destinations/vr-1" element={<VirtualRealityOne />} />
-          <Route path="/destinations/vr-2" element={<VirtualRealityTwo />} />
+          <Route path="/destinations/tour-and-learn" element={<TourAndLearn />} />
 
           {/* Test Route */}
           <Route path="/test" element={<Test />} />

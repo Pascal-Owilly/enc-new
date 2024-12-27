@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './Hero.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import heroImage1 from '../../assets/hero/bg_1.jpg';
 import heroImage2 from '../../assets/hero/hero.jpg';
 import heroImage3 from '../../assets/hero/hero3.jpg';
 import cloudImage from '../../assets/hero/cloud.webp';
 import Particles from 'react-tsparticles';
+import { Link } from 'react-router-dom';
+
 // import particlesConfig from '../config/ParticlesBackground.jsx';
 
 const HeroSection = () => {
@@ -40,31 +44,48 @@ const HeroSection = () => {
         <div
           className="cloud-image"></div>
 
-<div className="hero-contents" style={{zIndex:'3'}}>
-<h1>Choose Your Purpose:
-   {/* Culinary Delights, Thrilling Sports, Cultural Journeys, and More! */}
-   </h1>
-<div className="category-icons">
-          <button className="category-button">🍽️ Culinary</button>
-          <button className="category-button">⚽ Sports</button>
-          <button className="category-button">👨‍👩‍👧 Family</button>
-          <button className="category-button">🌍 Cultural</button>
-        </div>
+      <div className="hero-contents" style={{zIndex:'3'}}>
+        <h1>Choose Your Purpose:</h1>
+        <div className="category-icons">
+      <Link to="/destinations/culinary-tours"> 
+        <button className="category-button">🍽️ Culinary</button>
+      </Link>
+      
+      <Link to="/destinations/local-sports"> 
+        <button className="category-button">⚽ Sports</button>
+      </Link>
+
+      <Link to="/itineraries/family"> 
+        <button className="category-button">👨‍👩‍👧 Family</button>
+      </Link>
+
+      <Link to="/destinations/cultural-exchange"> 
+        <button className="category-button">🌍 Cultural</button>
+      </Link>
+
+      <Link to="/destinations/all-categories" >
+      <button className="category-button-arrow ">
+          <div className="">
+           <FontAwesomeIcon icon={faArrowRight} className="forward-arrow" />
+          </div>
+          </button> 
+      </Link>  
+    </div>
       </div>
 
       {/* Controls */}
-      {/* <div className="hero-controls">
+      <div className="hero-controls">
         <button className="prev-btn" onClick={handlePrevClick}>
-        ◀
+          ◀
         </button>
         <div className="indicator-container">
           <span className={`indicator ${imageIndex === 0 ? 'active' : ''}`}></span>
           <span className={`indicator ${imageIndex === 1 ? 'active' : ''}`}></span>
         </div>
         <button className="next-btn" onClick={handleNextClick}>
-        ▶
+          ▶
         </button>
-      </div> */}
+      </div>
     </div>
   );
 };

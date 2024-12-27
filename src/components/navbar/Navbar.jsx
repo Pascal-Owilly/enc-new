@@ -85,11 +85,11 @@ export default function NavbarComponent() {
                             width: 'auto', 
                             objectFit: 'contain',
                             marginLeft: '20px',
-                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Professional box shadow
-                            borderRadius: '5px' // Optional: adds a slight rounding to the corners
+                            boxShadow: '2px 0 rgba(0, 0, 0, 0.2)',
+                            borderRadius: '5px' 
                         }} 
                     />               
-                    </Nav.Link>
+                    </Nav.Link> 
                 </Nav>
 
                 {/* Sidebar Toggle Button */}
@@ -215,7 +215,7 @@ export default function NavbarComponent() {
       { href: "/itineraries/exploration", title: "Explore the Unknown" },
       { href: "/itineraries/sustainable", title: "Sustainable Travels" },
       { href: "/itineraries/custom", title: "Custom Itineraries" },
-      { href: "/itineraries/custom", title: "Tour & Learn" },
+    //   { href: "/itineraries/custom", title: "Tour & Learn" },
       { href: "/management/property-management", title: "Manage Property" },
 
     ].map((item, index) => (

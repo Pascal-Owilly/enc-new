@@ -8,13 +8,6 @@
 
 }
 
-.page-title {
-  color: #1e90ff; /* Bright blue */
-  font-size: 2.5em;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
 .filter-sort-section {
   display: flex;
   flex-wrap: wrap; /* Allow wrapping on smaller screens */
@@ -149,5 +142,44 @@ h4 {
       font-size: 0.8em; /* Smaller text for mobile */
       width: 100%; /* Full width for inputs */
       margin-bottom: 10px; /* Space between stacked items */
+  }
+}
+
+.page-title {
+  font-size: 2.5em;
+  text-align: center;
+  margin: 20px 0;
+  color: #333; /* Adjust color as needed */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+  .page-title {
+    font-size: 2.2em; /* Slightly smaller for medium screens */
+  }
+}
+
+@media (max-width: 992px) {
+  .page-title {
+    font-size: 2em; /* Smaller for tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1em !important; /* Smaller for small tablets and large phones */
+    padding: 15px; /* Add padding for the card effect */
+    background-color: white; /* Card background color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+    text-align: center; /* Center text */
+    margin: 20px; /* Space around the card */
+  }
+}
+
+@media (max-width: 576px) {
+  .page-title {
+    font-size: 1.6em; /* Smaller for mobile phones */
+    margin: 15px 0; /* Adjust margin for better spacing */
   }
 }
