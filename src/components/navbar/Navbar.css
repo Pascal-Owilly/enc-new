@@ -197,38 +197,62 @@
 .sidebar {
   position: fixed;
   top: 76px !important;
-  left: -250px;
-  height: 100vh;
+  left: -250px; /* Initially off-screen */
+  height: calc(100vh - 76px); /* Adjust height based on the navbar */
   width: 250px;
-  transition: left 0.3s ease;
+  transition: left 0.3s ease, background-color 0.3s ease; /* Smooth transition for both left and background color */
   z-index: 1050; /* Above main content */
   display: block;
+  background: white; /* Background color for the sidebar */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 .sidebar.open {
-  left: 0;
-
+  left: 0; /* Slide in */
 }
 
 .sidebar .nav-link, .sidebar .nav-dropdown {
-  /* color: white; */
   padding: 10px 15px;
   font-size: 1rem;
   text-decoration: none;
-  border-bottom: 2px solid rgb(0, 0, 66, 0.5);
-  
+  border-bottom: 2px solid rgba(0, 0, 66, 0.5); /* Use rgba for semi-transparency */
+  transition: background-color 0.2s ease; /* Transition for hover effects */
 }
 
 .sidebar > .nav-link {
-  color: #333 !important;
- 
-  border-bottom: 2px solid rgb(0, 0, 66, 0.5);
-  
+  color: #333 !important; /* Primary link color */
 }
 
+.sidebar .nav-link:hover, 
+.sidebar .nav-dropdown:hover {
+  background-color: rgba(0, 0, 66, 0.5); /* Light background on hover */
+}
 
 .sidebar .nav-dropdown-divider {
   margin: 0.5rem 0;
-  border-top: 2px solid #333;
+  border-top: 2px solid #333; /* Divider style */
 }
 
+/* For better overall sidebar aesthetics */
+.sidebar > .nav-link {
+  transition: color 0.3s ease; /* Color transition for links */
+}
+
+.sidebar > .nav-link:hover {
+  color: #1c85e8; /* Change color on hover */
+}
+
+.nav-dropdown {
+  max-height: 300px !important; /* Set a maximum height for the dropdown */
+  overflow-y: auto !important; /* Enable vertical scrolling */
+}
+
+.nav-dropdown .dropdown-item {
+  white-space: nowrap !important; /* Prevent text wrapping */
+}
+
+@media (max-width: 768px) {
+  .navbar{
+height: auto;
+  }
+}

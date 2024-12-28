@@ -146,7 +146,7 @@ export default function App() {
           <Route path="/destination/group-bookings" element={<GroupBookings />} />
           <Route path="/weather/:place_name" element={<Weather />} />
           <Route path="/talks" element={<Talks />} />
-          <Route path="/destinations/vr-1" element={<VirtualRealityOne />} />
+          <Route path="/destinations/vr-2" element={<VirtualRealityTwo />} />
           <Route path="/destinations/tour-and-learn" element={<TourAndLearn />} />
 
           {/* Test Route */}

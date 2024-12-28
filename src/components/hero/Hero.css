@@ -20,7 +20,7 @@
   }
   
   .hero-text {
-    max-width: 100%; /* Control text width */
+    max-width: 100%; 
   }
   
   .hero-text > h1 {

@@ -64,53 +64,70 @@ export default function NavbarComponent() {
 
                 {/* Stories Icon */}
                 <Nav className="me-auto" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
-                    <Nav.Link 
-                        href="/talks" 
-                        className="text-white" 
-                       
-                        onMouseOver={(e) => {
-                            e.target.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.4)';
-                            e.target.style.transform = 'translateY(-2px)';
-                        }}
-                        onMouseOut={(e) => {
-                            e.target.style.boxShadow = '0 6px 15px rgba(0, 0, 0, 0.3)';
-                            e.target.style.transform = 'translateY(0)';
-                        }}
-                    >
-                    <img 
-                        src={messageIcon} 
-                        alt="Talks" 
-                        style={{ 
-                            height: '30px', 
-                            width: 'auto', 
-                            objectFit: 'contain',
-                            marginLeft: '20px',
-                            boxShadow: '2px 0 rgba(0, 0, 0, 0.2)',
-                            borderRadius: '5px' 
-                        }} 
-                    />               
-                    </Nav.Link> 
+                <Nav.Link 
+    href="/talks" 
+    className="text-white" 
+    style={{ position: 'relative', display: 'inline-block', marginTop: '20px' }} // Positioning for the text
+    onMouseOver={(e) => {
+        e.target.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.4)';
+        e.target.style.transform = 'translateY(-2px)';
+    }}
+    onMouseOut={(e) => {
+        e.target.style.boxShadow = '0 6px 15px rgba(0, 0, 0, 0.3)';
+        e.target.style.transform = 'translateY(0)';
+    }}
+>
+    <img 
+        className=''
+        src={messageIcon} 
+        alt="Talks" 
+        style={{ 
+            height: '30px', 
+            width: 'auto', 
+            objectFit: 'contain',
+            marginLeft: '20px',
+            boxShadow: '2px 0 rgba(0, 0, 0, 0.7)',
+            borderRadius: '5px',
+            marginTop: '-25px',
+
+        }} 
+    />
+    <span 
+        style={{
+            position: 'absolute',
+            bottom: '3px', // Adjust this value to position the text closer to the image
+            left: '33px', // Align to the bottom-right
+            fontSize: '7px', // Font size adjustment
+            fontWeight: 'bold', 
+            color: '#fff', // Text color
+            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)', 
+            letterSpacing: '1px' // Spacing between letters
+        }}
+    >
+        Stories 
+    </span>
+</Nav.Link>
                 </Nav>
 
                 {/* Sidebar Toggle Button */}
                 <button 
-            onClick={toggleSidebar} 
-            style={{ 
-                background: 'none', 
-                border: 'none', 
-                color: '#333', // Set a nice color
-                cursor: 'pointer', // Change cursor to pointer
-                padding: '10px', // Add padding for better click area
-                borderRadius: '5px', // Slight rounding for a softer look
-                transition: 'background 0.3s, transform 0.3s', // Smooth transition
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.background = '#f0f0f0'} // Hover effect
-            onMouseLeave={(e) => e.currentTarget.style.background = 'none'} // Reset on leave
-            onFocus={(e) => e.currentTarget.style.outline = 'none'} // Remove outline on focus
-            onBlur={(e) => e.currentTarget.style.outline = 'none'} // Reset outline
-        >
-            <FontAwesomeIcon icon={faEllipsisV} size="lg" />
-        </button>
+                    onClick={toggleSidebar} 
+                    style={{ 
+                        background: 'none', 
+                        border: 'none', 
+                        color: '#333', 
+                        cursor: 'pointer', 
+                        padding: '10px', 
+                        borderRadius: '5px', 
+                        transition: 'background 0.3s, transform 0.3s',
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#f0f0f0'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
+                    onFocus={(e) => e.currentTarget.style.outline = 'none'}
+                    onBlur={(e) => e.currentTarget.style.outline = 'none'}
+                >
+                    <FontAwesomeIcon icon={sidebarOpen ? faTimes : faBars} size="" />
+                </button>
 
                 {/* Navbar Links for Larger Screens */}
                 <Navbar.Collapse id="basic-navbar-nav" className="d-none d-lg-flex">
@@ -177,38 +194,8 @@ export default function NavbarComponent() {
 
   <NavDropdown.Divider />
 
-  {/* Local Experience Dropdown */}
-  <NavDropdown title="Local Experience" className="text-white">
-    {[
-
-      { href: "/destinations/culinary-tours", title: "Culinary Tours" },
-      { href: "/destinations/farmers-markets", title: "Farmers' Markets" },
-      { href: "/management/property-management", title: "Manage Property" },
-      { href: "/destinations/nature-hikes", title: "Nature Hikes" },
-      { href: "/destinations/art-workshops", title: "Art Workshops" },
-      { href: "/destinations/cultural-festivals", title: "Cultural Festivals" },
-      { href: "/destinations/historical-tours", title: "Historical Tours" },
-      { href: "/destinations/community-service", title: "Community Service" },
-      { href: "/destinations/outdoor-adventures", title: "Outdoor Adventures" },
-      { href: "/destinations/wellness-retreats", title: "Wellness Retreats" },
-      { href: "/destinations/local-sports", title: "Local Sports Events" },
-      { href: "/destinations/music-dance", title: "Music and Dance Classes" },
-      { href: "/destinations/artisan-tours", title: "Local Artisan Tours" },
-      { href: "/destinations/photo-walks", title: "Themed Photo Walks" },
-      { href: "/destinations/wildlife-spotting", title: "Wildlife Spotting" },
-      { href: "/destinations/cultural-exchange", title: "Cultural Exchange" },
-      { href: "/destinations/storytelling", title: "Storytelling Nights" },
-      { href: "/destinations/vr-2", title: "Virtual Reality" },
-
-    ].map((item, index) => (
-      <NavDropdown.Item href={item.href} key={index}>
-        {item.title}
-      </NavDropdown.Item>
-    ))}
-  </NavDropdown>
-
-  {/* Craft Your Tour Dropdown */}
-  <NavDropdown title="Craft Your Tour" className="text-white">
+    {/* Craft Your Tour Dropdown */}
+    <NavDropdown title="Craft Your Tour" className="text-white">
     {[
       { href: "/itineraries/relaxation", title: "Relax & Rejuvenate" },
       { href: "/itineraries/family", title: "Family Fun" },
@@ -224,6 +211,61 @@ export default function NavbarComponent() {
       </NavDropdown.Item>
     ))}
   </NavDropdown>
+
+  {/* Local Experience Dropdown */}
+  <NavDropdown 
+    title="Local Experience" 
+    style={{
+        height: '300px', // Set a maximum height
+        overflowY: 'auto', // Enable vertical scrolling
+        overflowX: 'hidden', // Prevent horizontal scrolling
+    }}
+>
+    {[
+        { href: "/destinations/culinary-tours", title: "Culinary Tours" },
+        { href: "/destinations/farmers-markets", title: "Farmers' Markets" },
+        { href: "/management/property-management", title: "Manage Property" },
+        { href: "/destinations/nature-hikes", title: "Nature Hikes" },
+        { href: "/destinations/art-workshops", title: "Art Workshops" },
+        { href: "/destinations/cultural-festivals", title: "Cultural Festivals" },
+        { href: "/destinations/historical-tours", title: "Historical Tours" },
+        { href: "/destinations/community-service", title: "Community Service" },
+        { href: "/destinations/outdoor-adventures", title: "Outdoor Adventures" },
+        { href: "/destinations/wellness-retreats", title: "Wellness Retreats" },
+        { href: "/destinations/local-sports", title: "Local Sports Events" },
+        { href: "/destinations/music-dance", title: "Music and Dance Classes" },
+        { href: "/destinations/artisan-tours", title: "Local Artisan Tours" },
+        { href: "/destinations/photo-walks", title: "Themed Photo Walks" },
+        { href: "/destinations/wildlife-spotting", title: "Wildlife Spotting" },
+        { href: "/destinations/cultural-exchange", title: "Cultural Exchange" },
+        { href: "/destinations/storytelling", title: "Storytelling Nights" },
+        { href: "/destinations/vr-2", title: "Virtual Reality" },
+    ].map((item, index) => (
+        <div key={index}>
+            <NavDropdown.Item 
+                href={item.href} 
+                style={{
+                    padding: '10px 15px', // Adjust padding for better spacing
+                    color: '#333', // Text color
+                    textDecoration: 'none', // Remove underline
+                    transition: 'background-color 0.2s', // Transition effect
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(0, 0, 66, 0.1)'} // Hover effect
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'} // Reset background
+            >
+                {item.title}
+            </NavDropdown.Item>
+            {index < 16 && ( // Add divider after each item except the last one
+                <div style={{
+                    height: '1px', 
+                    backgroundColor: '#ccc', // Divider color
+                    margin: '5px 0' // Divider spacing
+                }} />
+            )}
+        </div>
+    ))}
+</NavDropdown>
+
 </Nav>
                     </Nav>
                 </div>

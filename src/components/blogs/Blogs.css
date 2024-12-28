@@ -353,7 +353,7 @@ padding: 50px;
 @media screen and (max-width: 320px) {
   .header {
     font-size: 0.9rem;
-    padding: 8px;
+    padding: 8px; 
   }
   .welcome-text {
     font-size: 1rem; /* Very small welcome text */

@@ -14,7 +14,7 @@ const MicroAdventure = () => {
         setWishlisted(newWishlist);
     };
     return (
-        <div className="micro-adventure-page container m-auto mt-5">
+        <div className="micro-adventure-page container m-auto ">
            <header 
     className="hero-banner text-center " 
     style={{
@@ -27,14 +27,13 @@ const MicroAdventure = () => {
 <h1
      className="fade-in text-center page-title all-headings fade-in">Micro-Adventure</h1>
      
-     <p style={{fontFamily:'Caladea', color:'#333'}}>
-        Micro-Adventures are all about discovering unique, exciting experiences without the need for extensive planning or long-distance travel.
-         Perfect for busy schedules, these mini escapes allow you to explore hidden gems. 
-         Micro-Adventures are designed to bring a taste of adventure to your everyday life,
-        making it easy to connect with nature, uncover local secrets, and create lasting memories on your terms.
-    </p>
+    
 </header>
-<br /> <br />
+<br /> 
+
+<p style={{fontFamily:'Caladea', color:'#333'}}>
+        Discover unique, exciting experiences without the need for extensive planning or long-distance travel.
+    </p>
             <div className="row">
                 {/* Cards section occupying col-9 */}
                 <div className="col-md-10">

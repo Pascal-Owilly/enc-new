@@ -1,8 +1,175 @@
-
-
 .chat-container {
   background-color: #f4f4f9;
   margin-top: 100px;
+  height: auto; /* Full height of the viewport */
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-content {
+  flex: 1;
+  /* padding: 20px; */
+  overflow-y: auto;
+}
+
+.post-card {
+  background-color: #ffffff; 
+  border-top: 5px solid #007bff; /* Top border */
+  border-bottom: 5px solid #007bff; /* Bottom border */
+  margin-bottom: 10px; 
+  display: flex;
+  flex-direction: column;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+}
+
+.author-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.author-details {
+  flex-grow: 1;
+}
+
+.post-content {
+  /* margin-top: 10px; */
+  flex-grow: 1; /* Allows content to take available space */
+}
+
+.post-actions {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.reaction-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.like-btn, .comment-btn, .emoji-picker-btn {
+  background: #007a5e; 
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.like-btn:hover, .comment-btn:hover, .emoji-picker-btn:hover {
+  background: #00574b; 
+}
+
+.comment-input {
+  margin-top: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.loading-spinner, .no-more-posts {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.story-form {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between form items */
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.story-input {
+  flex: 1; /* Allows the text input to expand */
+  min-width: 0; /* Prevents overflowing on smaller screens */
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.image-upload {
+  width: auto;
+  padding: 8px;
+  border: none;
+  font-size: 14px;
+  background: #f0f0f0;
+  cursor: pointer;
+}
+
+.submit-story-btn {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-story-btn:hover {
+  background-color: #0056b3;
+}
+
+textarea::placeholder {
+  font-size: 12px;
+}
+
+/* Hide the testimonial section on smaller screens */
+@media (max-width: 768px) {
+  .testimonial-section {
+      display: none;
+  }
+}
+
+.travel-stories {
+  font-family: 'Caladea', serif;
+  font-size: 2rem;       /* Adjust font size as needed */
+  font-weight: bold;
+  color: #2c3e50;         /* Darker color for contrast */
+  letter-spacing: 0.1em;   /* Adds subtle letter spacing */
+  margin-bottom: 1rem;
+  text-transform: uppercase; /* Optional: makes text uppercase */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+  .travel-stories {
+      font-size: 2rem;  /* Slightly smaller font size for large tablets */
+  }
+}
+
+@media (max-width: 992px) {
+  .travel-stories {
+      font-size: 1.75rem; /* Smaller font size for tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .travel-stories {
+      font-size: 1.5rem;  /* Smaller font size for mobile devices */
+      margin-bottom: 0.75rem; /* Adjust margin for smaller screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .travel-stories {
+      font-size: 1.25rem;  /* Even smaller font size for extra small devices */
+      letter-spacing: 0.05em; /* Reduce letter spacing */
+  }
 }
 
 .chat-container {
@@ -18,9 +185,8 @@
 .post-card {
   background-color: #ffffff; 
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
-  padding: 15px;
+  margin-bottom: 10px;
+  padding: 10px;
 }
 
 .post-header {

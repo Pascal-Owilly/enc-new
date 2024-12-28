@@ -78,17 +78,8 @@ const BlogPosts = () => {
         <div className="row">
           <div className="col-md-8">
           <h1 
-  className="text-dark text-left"
-  style={{
-    fontFamily: 'Caladea, serif',
-    fontSize: '2.5rem',       // Adjust font size as needed
-    fontWeight: 'bold',
-    color: '#2c3e50',         // Darker color for contrast
-    letterSpacing: '0.1em',   // Adds subtle letter spacing
-    marginBottom: '1rem',
-    textTransform: 'uppercase', // Optional: makes text uppercase
-    textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
-  }}
+  className="text-dark travel-stories text-left"
+ 
 >
   Travel Stories
 </h1>
