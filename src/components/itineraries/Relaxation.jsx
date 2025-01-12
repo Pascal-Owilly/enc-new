@@ -15,6 +15,6 @@ const Relaxation = () => {
             <p>Rating: ★★★★☆</p>
         </div>
     );
-};
+};  
 
 export default Relaxation;

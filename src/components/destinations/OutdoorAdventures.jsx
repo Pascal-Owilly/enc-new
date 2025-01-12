@@ -1,33 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Badge, Button } from 'react-bootstrap';
 import './Destinations.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMountain } from '@fortawesome/free-solid-svg-icons';
+import { faMountain, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { BASE_URL } from '../config/config';
+import BookingButton from '../bookings/BookingButton';
 
 const OutdoorAdventures = () => {
-  const adventures = [
-    { id: 1, name: 'Rock Climbing', rating: 4.8, description: 'Experience the thrill of rock climbing.', duration: '3 hours' },
-    { id: 2, name: 'Kayaking', rating: 4.7, description: 'Enjoy kayaking in scenic waters.', duration: '2 hours' },
-    { id: 3, name: 'Zip Lining', rating: 4.9, description: 'Soar through the trees on a zip line.', duration: '1.5 hours' },
-    { id: 4, name: 'Hiking', rating: 4.6, description: 'Hike through beautiful mountain trails.', duration: '5 hours' },
-    { id: 5, name: 'Bungee Jumping', rating: 4.9, description: 'Jump off a bridge for an adrenaline rush!', duration: '1 hour' },
-    { id: 6, name: 'Mountain Biking', rating: 4.8, description: 'Ride through challenging mountain paths.', duration: '3 hours' },
-    { id: 7, name: 'Canoeing', rating: 4.7, description: 'Row through calm river waters.', duration: '2 hours' },
-    { id: 8, name: 'Paragliding', rating: 5.0, description: 'Soar in the sky with stunning views.', duration: '2 hours' },
-    { id: 9, name: 'Skydiving', rating: 4.8, description: 'Experience the thrill of freefalling.', duration: '2 hours' },
-    { id: 10, name: 'Off-road Driving', rating: 4.7, description: 'Drive through rugged terrains.', duration: '4 hours' },
-    { id: 11, name: 'Sandboarding', rating: 4.6, description: 'Ride down sand dunes on a board.', duration: '3 hours' },
-    { id: 12, name: 'Caving', rating: 4.8, description: 'Explore deep caves and underground paths.', duration: '4 hours' },
-    { id: 13, name: 'Wildlife Safari', rating: 4.9, description: 'Go on a thrilling wildlife safari.', duration: '5 hours' },
-    { id: 14, name: 'Fishing', rating: 4.7, description: 'Enjoy a relaxing day of fishing.', duration: '3 hours' },
-    { id: 15, name: 'Jet Skiing', rating: 4.8, description: 'Feel the speed on the water.', duration: '2 hours' },
-    { id: 16, name: 'Horseback Riding', rating: 4.7, description: 'Ride horses through scenic trails.', duration: '2.5 hours' },
-    { id: 17, name: 'Surfing', rating: 4.9, description: 'Catch some waves and ride the surf.', duration: '2 hours' },
-    { id: 18, name: 'Snowboarding', rating: 5.0, description: 'Ride the slopes on a snowboard.', duration: '4 hours' },
-  ];
+  const [adventures, setAdventures] = useState([]); // State to store fetched adventures
+  const [currentPage, setCurrentPage] = useState(1); // State to manage current page
+  const [loading, setLoading] = useState(true); // State to show loading indicator
+  const category = "outdoor_adventures";
+  const [error, setError] = useState(null); // State for any errors during data fetching
+  const itemsPerPage = 6; // Items per page for pagination
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  // Fetch outdoor adventures from backend API
+  useEffect(() => {
+    const fetchAdventures = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=${category}`);
+        const data = await response.json();
+        
+        // Assuming the backend returns an array of adventures
+        setAdventures(data);
+        setLoading(false); // Set loading to false when data is fetched
+      } catch (error) {
+        setError('Failed to fetch data. Please try again later.');
+        setLoading(false);
+      }
+    };
+    
+    fetchAdventures();
+  }, []); // Empty dependency array means this runs once after component mounts
 
   // Calculate the index of the first and last items to display on the current page
   const lastIndex = currentPage * itemsPerPage;
@@ -46,26 +50,44 @@ const OutdoorAdventures = () => {
 
   return (
     <Container className="mt-5">
-      <h2 className="text-center my-4"><FontAwesomeIcon icon={faMountain} /> Outdoor Adventures</h2>
-      <Row xs={1} sm={2} md={3} className="g-4">
-        {currentAdventures.map(adventure => (
-          <Col key={adventure.id}>
-            <div className="destination-card">
-              <img 
-                src="https://assets.codepen.io/4787486/oak_1.jpg" 
-                alt={adventure.name} 
-                className="img-fluid mb-3" 
-              />
-              <h5>{adventure.name}</h5>
-              <Badge bg="success">⭐ {adventure.rating}</Badge>
-              <p>{adventure.description}</p>
-              <p>Duration: {adventure.duration}</p>
-              <Button variant="primary" className="me-2">Book Now</Button>
-              <Button variant="secondary">Explore</Button>
-            </div>
-          </Col>
-        ))}
-      </Row>
+      <h2 className="text-center my-4">
+        <FontAwesomeIcon icon={faMountain} /> Outdoor Adventures
+      </h2>
+
+      {loading ? (
+        <div className="dot-loader">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      ) : error ? (
+        <p className="text-danger">{error}</p>
+      ) : adventures.length === 0 ? (
+        <div className="text-center mt-5">
+          <FontAwesomeIcon icon={faExclamationCircle} size="3x" className="text-warning mb-3" />
+          <h4>No Outdoor Adventure Available</h4>
+          <p>Currently, there are no outdoor adventures to display. Please check back later.</p>
+        </div>
+      ) : (
+        <Row xs={1} sm={2} md={3} className="g-4">
+          {currentAdventures.map(adventure => (
+            <Col key={adventure.id}>
+              <div className="destination-card">
+                <img 
+                  src={adventure.imageUrl || 'https://assets.codepen.io/4787486/oak_1.jpg'} 
+                  alt={adventure.name} 
+                  className="img-fluid mb-3" 
+                />
+                <h5>{adventure.name}</h5>
+                <Badge bg="success">⭐ {adventure.rating}</Badge>
+                <p>{adventure.description}</p>
+                <p>Duration: {adventure.duration}</p>
+                <BookingButton place={adventure} />
+              </div>
+            </Col>
+          ))}
+        </Row>
+      )}
 
       {/* Pagination */}
       <div className="pagination text-center mt-4">

@@ -270,7 +270,7 @@ const BlogPosts = () => {
               {!hasMore && <div className="no-more-posts">No more posts</div>}
             </div>
           </div>
-          <div className="col-md-4">
+  <div className="col-md-4">
   <div className="social-media-section my-4 mt-4">
     <h5 className="text-center">Follow Us on Social Media</h5>
     <div className="text-center">

@@ -281,7 +281,7 @@ padding: 50px;
     flex: 0 0 200px; /* Smaller card width */
   }
   .welcome-text {
-    font-size: 2.5rem; /* Reduce welcome text size */
+    font-size: 2rem; /* Reduce welcome text size */
   }
 }
 
@@ -300,7 +300,7 @@ padding: 50px;
     gap: 8px; /* Adjust gap further */
   }
   .welcome-text {
-    font-size: 2rem; /* Further reduce text size */
+    font-size: 1.5rem; /* Further reduce text size */
   }
 }
 

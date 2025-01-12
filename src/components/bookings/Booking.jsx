@@ -75,45 +75,64 @@ const Booking = () => {
   };
 
   return (
-    <div className="bookng-contaner">
-    <div className="booking-container ">
-      <h3>Booking for {placeName}</h3>
+    <div className="booking-container">
+      <div className="booking-header">
+        <h3>Booking for {placeName}</h3>
+        <p className="place-price">Price: ${price}</p>
+      </div>
+
       <form className="booking-form" onSubmit={handleBookingSubmit}>
-          <input  
-          type="date"
-          style={{ border: 'none', backgroundColor: 'rgb(238, 240, 251)', color: '#999999' }}
-          className="form-control"
-          name="checkin_date"
-          value={bookingData.checkin_date}
-          onChange={handleBookingChange}
-          required
-        />
-        <input
-          style={{ border: 'none', backgroundColor: 'rgb(238, 240, 251)', color: '#999999' }}
-          type="date"
-          className="form-control"
-          name="checkout_date"
-          value={bookingData.checkout_date}
-          onChange={handleBookingChange}
-          required
-        />
-        <input
-          className="booking-input"
-          name="phone"
-          value={bookingData.phone}
-          onChange={handleBookingChange}
-          placeholder="Phone Number"
-          required
-        />
-        <input
-          className="booking-input"
-          name="email"
-          value={bookingData.email}
-          onChange={handleBookingChange}
-          placeholder="Email Address"
-          required
-        />
-        <button className="booking-button" type="submit">Book Now</button>
+        <div className="form-group">
+          <label htmlFor="checkin_date">Check-in Date:</label>
+          <input
+            type="date"
+            id="checkin_date"
+            className="form-control"
+            name="checkin_date"
+            value={bookingData.checkin_date}
+            onChange={handleBookingChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="checkout_date">Check-out Date:</label>
+          <input
+            type="date"
+            id="checkout_date"
+            className="form-control"
+            name="checkout_date"
+            value={bookingData.checkout_date}
+            onChange={handleBookingChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="phone">Phone Number:</label>
+          <input
+            className="form-control"
+            name="phone"
+            value={bookingData.phone}
+            onChange={handleBookingChange}
+            placeholder="Phone Number"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="email">Email Address:</label>
+          <input
+            className="form-control"
+            name="email"
+            value={bookingData.email}
+            onChange={handleBookingChange}
+            placeholder="Email Address"
+            required
+          />
+        </div>
+
+        <button className="btn btn-primary booking-button" type="submit">Book Now</button>
       </form>
 
       {showPaymentMethods && (
@@ -129,7 +148,6 @@ const Booking = () => {
           </button>
         </div>
       )}
-    </div>
     </div>
   );
 };

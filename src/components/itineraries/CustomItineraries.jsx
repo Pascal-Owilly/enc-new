@@ -55,8 +55,7 @@ const CustomItineraries = () => {
         <div className="itinerary-page">
             <h1>Custom Itineraries</h1>
             <div className="info-section">
-                <h2>Discover the World with Personalized Itineraries</h2>
-                <p>
+            <p>
                     Our custom itineraries are designed to fit your unique travel preferences and interests. 
                     Whether you're seeking adventure, relaxation, culture, or culinary delights, we tailor each 
                     experience to ensure you have the trip of a lifetime. 
@@ -66,17 +65,15 @@ const CustomItineraries = () => {
                     that resonates with your dreams. With flexible planning, local insights, and tailored experiences, 
                     your travel will be as unique as you are.
                 </p>
-                <button onClick={scrollToForm} className="get-started-button">
-                    Get Started
-                </button>
+              
             </div>
             
-            <h2>Get Started on Your Custom Itinerary</h2>
+            <h5>Get Started on Your Custom Itinerary</h5>
             <form id="custom-itinerary-form" onSubmit={handleSubmit} className="custom-itinerary-form">
                 <div className="form-group">
                     <label htmlFor="name">Full Name:</label>
                     <input
-                        type="text"
+                        type="text" 
                         id="name"
                         name="name"
                         value={formData.name}

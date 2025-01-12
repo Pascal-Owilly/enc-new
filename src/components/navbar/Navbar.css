@@ -47,28 +47,46 @@
 
 .navbar{
   width: 100% !important;
+  height: px !important;
+  padding: 0;
   margin: 0 !important;
   box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
   /* background: linear-gradient(to bottom, 90deg, blue 0%, #FFD700 100%) !important; */
-
-  
 }
 
 .nav-link {
   font-size: 12px !important;
   font-weight: 900 !important;
-  font-family: Caladea;
+  /* font-family: Caladea; */
   letter-spacing: 1px;
   text-transform: uppercase;
-  background: linear-gradient(135deg, #d3d3d3, #fff);
+  /* background: linear-gradient(135deg, #d3d3d3, #fff); */
   -webkit-background-clip: text;
-  -webkit-text-fill-color: #333;
+  /* -webkit-text-fill-color: #fff; */
 }
-
 
 .navbar-brand {
-  margin-right: 30px; /* Space between logo and links */
+  margin-right: 30px; 
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  margin-left: 3px;
 }
+
+.navbar-brand img{
+  height: 50px;
+  width: 100%;
+}
+
+.message-icon{
+    height: 30px;
+    width: auto;
+    object-fit: contain;
+    /* margin-left: 20px; */
+    /* box-shadow: 2px 0 rgba(0, 0, 0, 0.7); */
+    /* border-radius: 30px; */
+    /* margin-top: -25px; */
+  }
 
 .text-white {
   color: #fff;
@@ -84,7 +102,7 @@
   border: none; /* Remove border */
   width: 50px; /* Increase width */
   height: 50px; /* Increase height */
-  padding: 10px; /* Add padding */
+  padding: ; /* Add padding */
   background-color: transparent; /* Make background transparent */
   display: flex; /* Center icon */
   align-items: center; /* Center icon vertically */
@@ -95,7 +113,6 @@
 .navbar-toggler-icon {
   background-color: none; /* Change toggle icon color */
   color: #d9d9d9;
-
 }
 
 .navbar-toggler-icon::before,
@@ -192,7 +209,6 @@
   margin-right: 8px; /* Space between the image and the title */
 }
 
-/* Sidebar */
 /* Sidebar styles */
 .sidebar {
   position: fixed;
@@ -245,6 +261,13 @@
 .nav-dropdown {
   max-height: 300px !important; /* Set a maximum height for the dropdown */
   overflow-y: auto !important; /* Enable vertical scrolling */
+}
+
+.nav-dropdown-toggle img {
+  width: 30px; 
+  height: 30px; 
+  border-radius: 50%; 
+  margin-right: 10px; 
 }
 
 .nav-dropdown .dropdown-item {

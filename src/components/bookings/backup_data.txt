@@ -1,0 +1,418 @@
+   // Define the booking data
+    const bookingData = [
+        {
+            id: 1,
+            title: 'Corporate Retreat',
+            image: 'https://via.placeholder.com/300x200',
+            description: 'Enhance team bonding with a corporate retreat designed for relaxation and productivity.',
+            size: '10-50',
+            rating: '★★★★★'
+        },
+        {
+            id: 2,
+            title: 'Family Reunion',
+            image: 'https://via.placeholder.com/300x200',
+            description: 'Make memories with your loved ones during a family reunion filled with fun activities and adventures.',
+            size: '5-30',
+            rating: '★★★★☆'
+        },
+        {
+            id: 3,
+            title: 'Friends Getaway',
+            image: 'https://via.placeholder.com/300x200',
+            description: 'Gather your friends for a weekend getaway packed with thrilling experiences and relaxation.',
+            size: '4-20',
+            rating: '★★★★★'
+        },
+        {
+            id: 4,
+            title: 'Adventure Trip',
+            image: 'https://via.placeholder.com/300x200',
+            description: 'Experience thrilling adventures together in breathtaking locations.',
+            size: '5-25',
+            rating: '★★★★☆'
+        },
+        {
+            id: 5,
+            title: 'Cultural Expedition',
+            image: 'https://via.placeholder.com/300x200',
+            description: 'Explore new cultures with your group and create lasting memories.',
+            size: '6-30',
+            rating: '★★★★☆'
+        },
+        {
+            id: 6,
+            title: 'Wellness Retreat',
+            image: 'https://via.placeholder.com/300x200',
+            description: 'Relax and rejuvenate with wellness activities tailored for your group.',
+            size: '8-40',
+            rating: '★★★★★'
+        },
+        {
+            id: 7,
+            title: 'Sports Event',
+            image: 'https://via.placeholder.com/300x200',
+            description: 'Join your friends for a thrilling sports event experience.',
+            size: '10-50',
+            rating: '★★★★☆'
+        },
+        {
+            id: 8,
+            title: 'Camping Trip',
+            image: 'https://via.placeholder.com/300x200',
+            description: 'Enjoy the great outdoors with a fun camping adventure.',
+            size: '5-20',
+            rating: '★★★★☆'
+        },
+        {
+            id: 9,
+            title: 'Food Tasting Tour',
+            image: 'https://via.placeholder.com/300x200',
+            description: 'Discover local cuisines on a fun food tasting tour.',
+            size: '4-15',
+            rating: '★★★★★'
+        },
+        {
+            id: 10,
+            title: 'Mystery Trip',
+            image: 'https://via.placeholder.com/300x200',
+            description: 'Let us surprise you with a mystery trip tailored for your group.',
+            size: '5-20',
+            rating: '★★★★★'
+        }
+    ];
+
+
+    Culinary Tours 
+
+      const tours = [
+    {
+      id: 1,
+      title: "Italian Cooking Adventure",
+      location: "Rome, Italy",
+      duration: "5 days",
+      description: "Immerse yourself in the authentic flavors of Italy as you learn to make traditional pasta, pizza, and desserts.",
+      rating: 4.8,
+      imageUrl: "https://via.placeholder.com/600x400",
+    },
+    {
+      id: 2,
+      title: "Street Food Tour",
+      location: "Bangkok, Thailand",
+      duration: "3 days",
+      description: "Dive into the bustling street food scene of Bangkok and experience the vibrant flavors of Thailand.",
+      rating: 4.6,
+      imageUrl: "https://via.placeholder.com/600x400",
+    },
+    {
+      id: 3,
+      title: "Vineyard and Cheese Tour",
+      location: "Bordeaux, France",
+      duration: "4 days",
+      description: "Enjoy wine tasting and artisanal cheese workshops in the picturesque vineyards of Bordeaux.",
+      rating: 4.9,
+      imageUrl: "https://via.placeholder.com/600x400",
+    },
+    {
+        id: 3,
+        title: "Vineyard and Cheese Tour",
+        location: "Bordeaux, France",
+        duration: "4 days",
+        description: "Enjoy wine tasting and artisanal cheese workshops in the picturesque vineyards of Bordeaux.",
+        rating: 4.9,
+        imageUrl: "https://via.placeholder.com/600x400",
+      },
+  ];
+
+  // Dummy data for farmers markets
+  const markets = [
+    {
+      id: 1,
+      name: "Sunnydale Farmers Market",
+      location: "Sunnydale, CA",
+      description: "A vibrant market with fresh produce, artisanal goods, and local crafts.",
+      imageUrl: "https://via.placeholder.com/600x400",
+      rating: 4.7,
+    },
+    {
+      id: 2,
+      name: "Green Valley Market",
+      location: "Green Valley, AZ",
+      description: "Explore a wide variety of organic fruits and vegetables directly from local farmers.",
+      imageUrl: "https://via.placeholder.com/600x400",
+      rating: 4.9,
+    },
+    {
+      id: 3,
+      name: "Old Town Market",
+      location: "Old Town, TX",
+      description: "Experience the charm of local vendors and delicious food options in the heart of Old Town.",
+      imageUrl: "https://via.placeholder.com/600x400",
+      rating: 4.8,
+    },
+    {
+      id: 4,
+      name: "River Bend Market",
+      location: "River Bend, FL",
+      description: "Fresh produce and homemade goods from local farmers and artisans.",
+      imageUrl: "https://via.placeholder.com/600x400",
+      rating: 4.6,
+    },
+    {
+      id: 5,
+      name: "Mountain View Market",
+      location: "Mountain View, CO",
+      description: "A beautiful market with stunning views and fresh, local produce.",
+      imageUrl: "https://via.placeholder.com/600x400",
+      rating: 4.7,
+    },
+    {
+      id: 6,
+      name: "Seaside Farmers Market",
+      location: "Seaside, OR",
+      description: "A coastal market featuring fresh seafood and local produce.",
+      imageUrl: "https://via.placeholder.com/600x400",
+      rating: 4.8,
+    },
+    {
+      id: 7,
+      name: "Desert Springs Market",
+      location: "Desert Springs, NV",
+      description: "A unique market with local crafts, produce, and delicious food.",
+      imageUrl: "https://via.placeholder.com/600x400",
+      rating: 4.9,
+    },
+    {
+      id: 8,
+      name: "Forest Grove Market",
+      location: "Forest Grove, OR",
+      description: "Enjoy a variety of organic products and handmade crafts.",
+      imageUrl: "https://via.placeholder.com/600x400",
+      rating: 4.7,
+    },
+    {
+      id: 9,
+      name: "Lakeside Market",
+      location: "Lakeside, MI",
+      description: "Fresh fruits and vegetables from local farms by the lake.",
+      imageUrl: "https://via.placeholder.com/600x400",
+      rating: 4.8,
+    },
+  ];
+
+  //Nature hikes 
+    const hikes = [
+    { id: 1, name: 'Sunset Trail', rating: 4.8, description: 'A beautiful trail with stunning sunset views.', duration: '2 hours', imageUrl: "https://via.placeholder.com/600x400"},
+    { id: 2, name: 'Mountain Path', rating: 4.5, description: 'An adventurous hike through the mountains.', duration: '3 hours', imageUrl: "https://via.placeholder.com/600x400"},
+    { id: 3, name: 'Forest Walk', rating: 4.7, description: 'A serene walk through lush forests.', duration: '1.5 hours', imageUrl: "https://via.placeholder.com/600x400"},
+    { id: 4, name: 'River Trek', rating: 4.6, description: 'Hike along a beautiful river.', duration: '3 hours', imageUrl: "https://via.placeholder.com/600x400"},
+    { id: 5, name: 'Hill Climb', rating: 4.3, description: 'A challenging climb with rewarding views.', duration: '4 hours', imageUrl: "https://via.placeholder.com/600x400"},
+    { id: 6, name: 'Valley Loop', rating: 4.9, description: 'Explore a scenic valley.', duration: '2.5 hours', imageUrl: "https://via.placeholder.com/600x400"},
+    { id: 7, name: 'Desert Trail', rating: 4.2, description: 'A unique desert hiking experience.', duration: '5 hours', imageUrl: "https://via.placeholder.com/600x400"},
+    { id: 8, name: 'Coastal Path', rating: 4.4, description: 'Walk along a stunning coastline.', duration: '3.5 hours', imageUrl: "https://via.placeholder.com/600x400"},
+  ];
+
+  // Art workshops
+
+    const workshops = [
+    { id: 1, name: 'Watercolor Basics', rating: 4.9, description: 'Learn the basics of watercolor painting.', duration: '3 hours', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 2, name: 'Ceramic Art', rating: 4.6, description: 'Create beautiful ceramic pieces.', duration: '4 hours', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 3, name: 'Acrylic Pouring', rating: 4.8, description: 'Experience the magic of acrylic pouring.', duration: '2 hours', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 4, name: 'Oil Painting Mastery', rating: 4.7, description: 'Master the techniques of oil painting.', duration: '5 hours', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 5, name: 'Sketching for Beginners', rating: 4.5, description: 'Learn the fundamentals of sketching.', duration: '3 hours', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 6, name: 'Advanced Pottery', rating: 4.8, description: 'Take your pottery skills to the next level.', duration: '6 hours', imageUrl: "https://via.placeholder.com/600x400" },
+  ];
+
+ // Cultural festivals
+    const festivals = [
+    { id: 1, name: 'Harvest Festival', rating: 4.7, description: 'Celebrate the harvest with food and music.', duration: 'All day', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 2, name: 'Artisan Fair', rating: 4.5, description: 'Showcasing local artisans and their crafts.', duration: 'Weekend', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 3, name: 'Music Festival', rating: 4.9, description: 'Enjoy performances from local and national artists.', duration: '2 days', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 4, name: 'Film Festival', rating: 4.6, description: 'Screenings of local and international films.', duration: '3 days', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 5, name: 'Food & Wine Festival', rating: 4.8, description: 'Indulge in gourmet food and wines.', duration: 'All weekend', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 6, name: 'Dance Festival', rating: 4.7, description: 'Experience various dance performances.', duration: '2 days', imageUrl: "https://via.placeholder.com/600x400" },
+  ];
+
+  // community servce 
+    const services = [
+    { id: 1, name: 'Beach Cleanup', rating: 4.9, description: 'Join us in cleaning up the local beach.', duration: '3 hours', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 2, name: 'Food Bank Volunteer', rating: 4.8, description: 'Help serve food at the local food bank.', duration: '4 hours', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 3, name: 'Animal Shelter Help', rating: 4.7, description: 'Assist in caring for animals at the shelter.', duration: '2 hours', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 4, name: 'Park Restoration', rating: 4.6, description: 'Help restore local parks by planting trees.', duration: '3.5 hours', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 5, name: 'Soup Kitchen Service', rating: 4.5, description: 'Serve meals to those in need.', duration: '2.5 hours', imageUrl: "https://via.placeholder.com/600x400" },
+    { id: 6, name: 'Clothing Drive', rating: 4.4, description: 'Collect and distribute clothes to the needy.', duration: '3 hours', imageUrl: "https://via.placeholder.com/600x400" },
+  ];
+
+  //outdoor adventure
+
+const OutdoorAdventures = () => {
+  const adventures = [
+    { id: 1, name: 'Rock Climbing', rating: 4.8, description: 'Experience the thrill of rock climbing.', duration: '3 hours' },
+    { id: 2, name: 'Kayaking', rating: 4.7, description: 'Enjoy kayaking in scenic waters.', duration: '2 hours' },
+    { id: 3, name: 'Zip Lining', rating: 4.9, description: 'Soar through the trees on a zip line.', duration: '1.5 hours' },
+    { id: 4, name: 'Hiking', rating: 4.6, description: 'Hike through beautiful mountain trails.', duration: '5 hours' },
+    { id: 5, name: 'Bungee Jumping', rating: 4.9, description: 'Jump off a bridge for an adrenaline rush!', duration: '1 hour' },
+    { id: 6, name: 'Mountain Biking', rating: 4.8, description: 'Ride through challenging mountain paths.', duration: '3 hours' },
+    { id: 7, name: 'Canoeing', rating: 4.7, description: 'Row through calm river waters.', duration: '2 hours' },
+    { id: 8, name: 'Paragliding', rating: 5.0, description: 'Soar in the sky with stunning views.', duration: '2 hours' },
+    { id: 9, name: 'Skydiving', rating: 4.8, description: 'Experience the thrill of freefalling.', duration: '2 hours' },
+    { id: 10, name: 'Off-road Driving', rating: 4.7, description: 'Drive through rugged terrains.', duration: '4 hours' },
+    { id: 11, name: 'Sandboarding'  , rating: 4.6, description: 'Ride down sand dunes on a board.', duration: '3 hours' },
+    { id: 12, name: 'Caving', rating: 4.8, description: 'Explore deep caves and underground paths.', duration: '4 hours' },
+    { id: 13, name: 'Wildlife Safari', rating: 4.9, description: 'Go on a thrilling wildlife safari.', duration: '5 hours' },
+    { id: 14, name: 'Fishing', rating: 4.7, description: 'Enjoy a relaxing day of fishing.', duration: '3 hours' },
+    { id: 15, name: 'Jet Skiing', rating: 4.8, description: 'Feel the speed on the water.', duration: '2 hours' },
+    { id: 16, name: 'Horseback Riding', rating: 4.7, description: 'Ride horses through scenic trails.', duration: '2.5 hours' },
+    { id: 17, name: 'Surfing', rating: 4.9, description: 'Catch some waves and ride the surf.', duration: '2 hours' },
+    { id: 18, name: 'Snowboarding', rating: 5.0, description: 'Ride the slopes on a snowboard.', duration: '4 hours' },
+  ];
+
+// wellness retreats
+    const retreats = [
+    { id: 1, name: 'Therapy Sessions', rating: 4.9, description: 'A calming therpy retreat for relaxation and mindfulness.', duration: 'Weekend' },
+    { id: 2, name: 'Canceling Sessions', rating: 4.8, description: 'Get yourself together afer ....', duration: '2 hours' },
+    { id: 3, name: 'Spa Day', rating: 4.7, description: 'Enjoy a full day of pampering at the spa.', duration: '1 day' },
+    { id: 4, name: 'Rehabilitation', rating: 4.8, description: 'A retreat focused on detoxifying the body.', duration: 'Weekend' },
+    { id: 5, name: 'Mindfulness Workshop', rating: 4.7, description: 'Learn mindfulness techniques to reduce stress.', duration: '4 hours' },
+    { id: 8, name: 'Wellness Weekend', rating: 5.0, description: 'A weekend getaway focused on total wellness.', duration: 'Weekend' },
+    { id: 10, name: 'Stress Relief Retreat', rating: 4.7, description: 'A retreat designed to relieve stress and tension.', duration: '2 days' },
+  ];
+
+// Local sports
+  const sports = [
+    { id: 1, name: 'Soccer Match', rating: 4.8, description: 'Watch local teams battle it out on the field.', duration: '2 hours' },
+    { id: 2, name: 'Basketball Game', rating: 4.7, description: 'Enjoy a thrilling basketball game.', duration: '2 hours' },
+    { id: 3, name: 'Marathon', rating: 4.9, description: 'Join the excitement of a local marathon.', duration: 'All day' },
+    { id: 4, name: 'Tennis Tournament', rating: 4.8, description: 'Catch the best local tennis players in action.', duration: '3 hours' },
+    { id: 5, name: 'Cycling Race', rating: 4.7, description: 'Cheer on the cyclists as they race through the streets.', duration: '3 hours' },
+    { id: 6, name: 'Boxing Match', rating: 4.9, description: 'Experience the excitement of a live boxing match.', duration: '2 hours' },
+    { id: 7, name: 'Volleyball Game', rating: 4.6, description: 'Get involved in a fun and competitive volleyball game.', duration: '2 hours' },
+    { id: 8, name: 'Baseball Game', rating: 4.8, description: 'Enjoy an exciting baseball game with local teams.', duration: '3 hours' },
+    { id: 9, name: 'Rugby Match', rating: 4.7, description: 'Feel the adrenaline of a local rugby match.', duration: '2 hours' },
+    { id: 10, name: 'Badminton Tournament', rating: 4.8, description: 'Join the excitement of a badminton tournament.', duration: '3 hours' },
+  ];
+
+// Music and dance classes
+  const classes = [
+    { id: 1, name: 'Salsa Dance Class', rating: 4.9, description: 'Learn salsa dancing in a fun environment.', duration: '1.5 hours' },
+    { id: 2, name: 'Guitar Workshop', rating: 4.8, description: 'Join our guitar workshop for beginners.', duration: '2 hours' },
+    { id: 3, name: 'Hip Hop Dance Class', rating: 4.7, description: 'Get your groove on with hip hop dance.', duration: '1 hour' },
+  ];
+
+//local artisan tours
+  const tours = [
+    { id: 1, name: 'Pottery Workshop', rating: 4.8, description: 'Learn pottery making from local artisans.', duration: '2 hours' },
+    { id: 2, name: 'Textile Tour', rating: 4.7, description: 'Explore local textile production.', duration: '3 hours' },
+    { id: 3, name: 'Craft Beer Tasting', rating: 4.9, description: 'Enjoy a tasting tour at local breweries.', duration: '3 hours' },
+  ];
+
+// Themed photo walks
+const walks = [
+    {
+      id: 1,
+      name: 'Street Photography Walk',
+      rating: 4.9,
+      description: 'Capture the essence of the city through street photography.',
+      duration: '2 hours',
+      images: [
+        'https://via.placeholder.com/600x400',
+        'https://via.placeholder.com/600x400',
+        'https://via.placeholder.com/600x400',
+      ],
+    },
+    {
+      id: 2,
+      name: 'Nature Photography Walk',
+      rating: 4.8,
+      description: 'Join us for a walk focused on capturing nature.',
+      duration: '3 hours',
+      images: [
+        'https://via.placeholder.com/600x400',
+        'https://via.placeholder.com/600x400',
+        'https://via.placeholder.com/600x400',
+      ],
+    },
+    {
+      id: 3,
+      name: 'Night Photography Walk',
+      rating: 4.7,
+      description: 'Explore night photography techniques.',
+      duration: '2 hours',
+      images: [
+        'https://via.placeholder.com/600x400',
+        'https://via.placeholder.com/600x400',
+        'https://via.placeholder.com/600x400',
+      ],
+    },
+  ];
+
+// Cultural exchange
+ const exchanges = [
+    {
+      id: 1,
+      name: 'Cooking Class',
+      rating: 4.9,
+      description: 'Learn to cook traditional dishes.',
+      duration: '3 hours',
+      images: [
+        'https://via.placeholder.com/600x400',
+        'https://via.placeholder.com/600x400',
+        'https://via.placeholder.com/600x400',
+      ],
+    },
+    {
+      id: 2,
+      name: 'Language Exchange',
+      rating: 4.8,
+      description: 'Practice languages with locals.',
+      duration: '2 hours',
+      images: [
+        'https://via.placeholder.com/600x400',
+        'https://via.placeholder.com/600x400',
+        'https://via.placeholder.com/600x400',
+      ],
+    },
+    {
+      id: 3,
+      name: 'Cultural Sharing Session',
+      rating: 4.7,
+      description: 'Engage in a cultural sharing event.',
+      duration: '2 hours',
+      images: [
+        'https://via.placeholder.com/600x400',
+        'https://via.placeholder.com/600x400',
+        'https://via.placeholder.com/600x400',
+      ],
+    },
+  ];
+
+// story telling nights 
+  const nights = [
+    { id: 1, name: 'Local Tales', rating: 4.9, description: 'Experience local storytelling.', duration: '2 hours', imageUrl: 'https://via.placeholder.com/600x400' },
+    { id: 2, name: 'Folklore Evening', rating: 4.8, description: 'Enjoy an evening of folklore tales.', duration: '2 hours', imageUrl: 'https://via.placeholder.com/600x400' },
+    { id: 3, name: 'Personal Stories', rating: 4.7, description: 'Share and listen to personal stories.', duration: '2 hours', imageUrl: 'https://via.placeholder.com/600x400' },
+  ];
+
+// Sustainable travels
+  const destinations = [
+    {
+      name: 'Costa Rica',
+      description: 'A leader in eco-tourism with lush rainforests and diverse wildlife.',
+      image: 'https://example.com/costarica.jpg',
+    },
+    {
+      name: 'Iceland',
+      description: 'Known for its stunning landscapes and commitment to renewable energy.',
+      image: 'https://example.com/iceland.jpg',
+    },
+    {
+      name: 'New Zealand',
+      description: 'Offers breathtaking nature and promotes conservation efforts.',
+      image: 'https://example.com/newzealand.jpg',
+    },
+    {
+      name: 'Norway',
+      description: 'Famous for its fjords and sustainable living practices.',
+      image: 'https://example.com/norway.jpg',
+    },
+  ];

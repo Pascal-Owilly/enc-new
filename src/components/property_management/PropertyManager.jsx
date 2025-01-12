@@ -231,7 +231,7 @@ function App() {
   };
 
   return (
-    <div className="manage-container">
+    <div className="manage-container mt-3">
       <div className="dashboard">
         <div className="main-content">
         <div className="property-navbar d-flex property-header">
@@ -239,10 +239,12 @@ function App() {
         <FaTachometerAlt style={{ marginRight: '10px' }} />
         Admin
       </h2>
+      <a href="/management/property-management/add-place">
       <button className="manage-btn">
         <FaTools style={{ marginRight: '8px' }} />
         Manage
       </button>
+      </a>
     </div>
 
 

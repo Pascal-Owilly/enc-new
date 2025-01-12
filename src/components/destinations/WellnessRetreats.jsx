@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Badge, Button } from 'react-bootstrap';
 import './Destinations.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpa } from '@fortawesome/free-solid-svg-icons';
+import { BASE_URL } from '../config/config';
+import BookingButton from '../bookings/BookingButton';
 
 const WellnessRetreats = () => {
-  const retreats = [
-    { id: 1, name: 'Yoga Retreat', rating: 4.9, description: 'A calming yoga retreat for relaxation.', duration: 'Weekend' },
-    { id: 2, name: 'Meditation Workshop', rating: 4.8, description: 'Learn the art of meditation in a serene setting.', duration: '2 hours' },
-    { id: 3, name: 'Spa Day', rating: 4.7, description: 'Enjoy a full day of pampering at the spa.', duration: '1 day' },
-    { id: 4, name: 'Detox Retreat', rating: 4.8, description: 'A retreat focused on detoxifying the body.', duration: 'Weekend' },
-    { id: 5, name: 'Mindfulness Workshop', rating: 4.7, description: 'Learn mindfulness techniques to reduce stress.', duration: '4 hours' },
-    { id: 6, name: 'Healing Retreat', rating: 4.9, description: 'A retreat dedicated to physical and mental healing.', duration: '3 days' },
-    { id: 7, name: 'Ayurvedic Retreat', rating: 4.6, description: 'A holistic wellness retreat based on Ayurveda.', duration: '5 days' },
-    { id: 8, name: 'Wellness Weekend', rating: 5.0, description: 'A weekend getaway focused on total wellness.', duration: 'Weekend' },
-    { id: 9, name: 'Reiki Healing', rating: 4.8, description: 'Experience the healing power of Reiki.', duration: '1 hour' },
-    { id: 10, name: 'Stress Relief Retreat', rating: 4.7, description: 'A retreat designed to relieve stress and tension.', duration: '2 days' },
-  ];
+  const [retreats, setRetreats] = useState([]); // State to store fetched retreats
+  const [currentPage, setCurrentPage] = useState(1); // State to manage current page
+  const [loading, setLoading] = useState(true); // State to show loading indicator
+  const [error, setError] = useState(null); // State for any errors during data fetching
+  const category = "wellness_retreats"; // Set the category to wellness retreats
+  const itemsPerPage = 6; // Items per page for pagination
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  // Fetch wellness retreats from backend API
+  useEffect(() => {
+    const fetchRetreats = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=${category}`);
+        const data = await response.json();
+        
+        // Assuming the backend returns an array of retreats
+        setRetreats(data);
+        setLoading(false); // Set loading to false when data is fetched
+      } catch (error) {
+        setError('Failed to fetch data. Please try again later.');
+        setLoading(false);
+      }
+    };
+    
+    fetchRetreats();
+  }, []); // Empty dependency array means this runs once after component mounts
 
   // Calculate the index of the first and last items to display on the current page
   const lastIndex = currentPage * itemsPerPage;
@@ -39,25 +51,41 @@ const WellnessRetreats = () => {
   return (
     <Container className="mt-5">
       <h2 className="text-center my-4"><FontAwesomeIcon icon={faSpa} /> Wellness Retreats</h2>
-      <Row xs={1} sm={2} md={3} className="g-4">
-        {currentRetreats.map(retreat => (
-          <Col key={retreat.id}>
-            <div className="destination-card">
-              <img 
-                src="https://via.placeholder.com/600x400" 
-                alt={retreat.name} 
-                className="img-fluid mb-3" 
-              />
-              <h5>{retreat.name}</h5>
-              <Badge bg="success">⭐ {retreat.rating}</Badge>
-              <p>{retreat.description}</p>
-              <p>Duration: {retreat.duration}</p>
-              <Button variant="primary" className="me-2">Book Now</Button>
-              <Button variant="secondary">Explore</Button>
-            </div>
-          </Col>
-        ))}
-      </Row>
+
+      {loading ? (
+        <div className="dot-loader">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      ) : error ? (
+        <p className="text-danger">{error}</p>
+      ) : retreats.length === 0 ? (
+        <div className="text-center mt-5">
+          <FontAwesomeIcon icon={faSpa} size="3x" className="text-warning mb-3" />
+          <h4>No Wellness Retreats Available</h4>
+          <p>Currently, there are no wellness retreats to display. Please check back later.</p>
+        </div>
+      ) : (
+        <Row xs={1} sm={2} md={3} className="g-4">
+          {currentRetreats.map(retreat => (
+            <Col key={retreat.id}>
+              <div className="destination-card">
+                <img 
+                  src={retreat.imageUrl || 'https://via.placeholder.com/600x400'} 
+                  alt={retreat.name} 
+                  className="img-fluid mb-3" 
+                />
+                <h5>{retreat.name}</h5>
+                <Badge bg="success">⭐ {retreat.rating}</Badge>
+                <p>{retreat.description}</p>
+                <p>Duration: {retreat.duration}</p>
+                <BookingButton place={retreat} />
+              </div>
+            </Col>
+          ))}
+        </Row>
+      )}
 
       {/* Pagination */}
       <div className="pagination text-center mt-4">

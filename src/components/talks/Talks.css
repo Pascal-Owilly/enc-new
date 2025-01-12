@@ -46,8 +46,6 @@ hr {
   overflow: hidden;
 }
 
-
-
 .post-header {
   display: flex;
   align-items: center;
@@ -104,8 +102,6 @@ hr {
 .post-actions div:hover {
   color: #007bff; /* Change color on hover */
 }
-
-
 
 /* Comments List */
 .comments-list {

@@ -1,104 +1,106 @@
-import React, { useState } from 'react';
-import './HistoricalTours.css';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Badge, Button, Pagination } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Container, Row, Col, Badge } from 'react-bootstrap';
-import { faPaw, faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPaw, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import './Destinations.css';
+import { BASE_URL } from '../config/config';
+import BookingButton from '../bookings/BookingButton';
 
-const cardData = Array.from({ length: 18 }, (_, index) => ({
-  title: `Tree ${index + 1}`,
-  description: "Trees are woody perennial plants in the kingdom Plantae.",
-  imgSrc: "https://assets.codepen.io/4787486/oak_1.jpg",
-  shortDescription: "Experience the beauty and history of ancient trees. Book your tour now to explore nature's wonders!",
-  book: "Book Now!",
-  rating: 4.7,
+const NatureHikes = () => {
+  const [hikes, setHikes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const category = "wildlife_spotting";
 
-
-}));
-
-const TreeInfo = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 6;
-
-  const lastCardIndex = currentPage * cardsPerPage;
-  const firstCardIndex = lastCardIndex - cardsPerPage;
-  const currentCards = cardData.slice(firstCardIndex, lastCardIndex);
-
-  const totalPages = Math.ceil(cardData.length / cardsPerPage);
-  
-  const handlePrevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  const handleNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-
-    // Function to render stars based on rating
-    const renderStars = (rating) => {
-      const fullStars = Math.floor(rating);
-      const halfStar = rating - fullStars >= 0.5;
-  
-      return (
-        <>
-          {Array.from({ length: fullStars }, (_, i) => (
-            <FontAwesomeIcon key={i} icon={faStar} className="star" />
-          ))}
-          {halfStar && <FontAwesomeIcon icon={faStarHalfAlt} className="star text-light" />}
-        </>
-      );
+  useEffect(() => {
+    const fetchHikes = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=${category}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch nature hikes');
+        }
+        const data = await response.json();
+        setHikes(data);
+      } catch (error) {
+        console.error('Error fetching nature hikes:', error);
+      } finally {
+        setLoading(false);
+      }
     };
-  
+
+    fetchHikes();
+  }, [category]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentHikes = hikes.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(hikes.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="container">
-      <div className="jumbotron">
-      <h2 className="text-center all-headings text-dark my-4"><FontAwesomeIcon icon={faPaw} /> Wildlife Spotting</h2>
-      <p className="text-dark" style={{ color: "#5e5e5e", fontSize: "1.2rem", marginBottom: "1rem" }}>
-  Step into the heart of nature and experience the thrill of witnessing wildlife up close while discovering the stories of ancient ecosystems. Our tours not only offer adventure, but also a chance to contribute to the preservation of our planet’s most precious habitats.
-</p>
-
-
-        <div className="card-grid">
-          {currentCards.map((card, index) => (
-            <div key={index} className="wrap animate pop">
-              <div className="overlay">
-                <div className="overlay-content animate slide-left delay-2">
-                  <h1 className="card-title animate slide-left pop delay-4">{card.title}</h1>
-                  <p className="animate slide-left pop delay-5" style={{ marginBottom: '2.5rem' }}>
-                    Kingdom: <em>Plantae</em>
-                  </p>
-                  <p className="card-short-description animate slide-left pop delay-5">
-                    {card.shortDescription}
-                  </p>
-                  <button className="book-button">Book Now</button>
-                </div>
-                <div className="image-content animate slide delay-5"></div>
-                <div className="dots animate">
-                  
-                  <Badge bg="white"  className="text-success">{card.rating}</Badge>
-                  <div className="rating animate">
-                  {renderStars(card.rating)}
-                  <span className="rating-text"> {card.rating.toFixed(1)}</span>
-                </div>
-                </div>
-              </div>
-              <div className="text">
-                <img className="inset" src={card.imgSrc} alt={card.title} />
-                <p>{card.description}</p>
-                <button  className='btn btn-sm' style={{background:'#d9d9d9', color:'#333'}}>{card.book}</button>
-
-              </div>
-            </div>
-          ))}
+    <Container className="mt-5">
+      <h2 className="text-center my-4">
+        <FontAwesomeIcon icon={faPaw} /> Wildlife spotting
+      </h2>
+      
+      {loading ? (
+        <div className="dot-loader">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
+      ) : hikes.length > 0 ? (
+        <>
+          <Row xs={1} sm={2} md={3} className="g-4">
+            {currentHikes.map((hike) => (
+              <Col key={hike.id}>
+                <div className="destination-card">
+                  <img
+                    src={`${BASE_URL}${hike.imageUrl || hike.cover_image}`}
+                    alt={hike.name}
+                    className="hike-image"
+                    style={{ width: '100%' }}
+                  />
+                  <h5>{hike.name}</h5>
+                  <Badge bg="success">⭐ {hike.rating || 'N/A'}</Badge>
+                  <p>{hike.description || 'No description available.'}</p>
+                  <p>Duration: {hike.duration || 'N/A'}</p>
+                  <div className="d-flex justify-content-between mt-3">
+                  <div className="card-footer text-center">
+                        <BookingButton place={hike} />
+                      </div>
+                  </div>
+                </div>
+              </Col>
+            ))}
+          </Row>
 
-        <div className="pagination">
-          <button onClick={handlePrevPage} disabled={currentPage === 1}>
-            Previous
-          </button>
-          <span>Page {currentPage} of {totalPages}</span>
-          <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-            Next
-          </button>
+          <Pagination className="justify-content-center mt-4">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <Pagination.Item
+                key={index + 1}
+                active={index + 1 === currentPage}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
+        </>
+      ) : (
+        <div className="text-center mt-5">
+          <FontAwesomeIcon icon={faExclamationCircle} size="3x" className="text-warning mb-3" />
+          <h4>No Wildlife spotting Available</h4>
+          <p>Currently, there are no wildlife spotting to display. Please check back later.</p>
         </div>
-      </div>
-    </div>
+      )}
+    </Container>
   );
 };
 
-export default TreeInfo;
+export default NatureHikes;

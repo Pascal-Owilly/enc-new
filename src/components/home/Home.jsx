@@ -33,11 +33,11 @@ export default function Home() {
             <Hero />
             {/* <Places /> */}
             <Blogs />
-            {/* <Partners /> */}
+            <Partners />
           </div>
         </div>
         {/* <Section1 /> */}
-        {/* <Projects /> */}
+        <Projects />
       </div>
     </>
   );

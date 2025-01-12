@@ -20,7 +20,7 @@ const AllPlaces = () => {
     useEffect(() => {
         const fetchPlaces = async () => {
             try {
-                const response = await fetch(`${BASE_URL}places/`);
+                const response = await fetch(`${BASE_URL}api/places/`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -118,8 +118,6 @@ const AllPlaces = () => {
                      
                   }}
                     >
-                      
-
                         <div className="place-details">
                             <h4>{place.name}</h4>
                             <p className='text-white'>{place.description}</p>

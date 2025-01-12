@@ -14,12 +14,16 @@ import About from './components/about/About';
 
 // Auth Pages
 import Login from './components/auth/Login';
+import SignUp from './components/auth/SignUp';
+
 import Profile from './components/auth/Profile';
 
 // Places and Details
 import Places from './components/places/Places';
+import AddPlace from './components/places/AddPlace';
 import AllPlaces from './components/places/AllPlaces';
 import PlaceDetails from './components/places/PlaceDetails';
+import ReviewPage from './components/places/ReviewPage';
 
 // Project and Demo Pages
 import ProjectDetails from './components/projects/ProjectDetails';
@@ -72,6 +76,10 @@ import Payment from './components/payment/Payment';
 // Property Management
 import PropertyManager from './components/property_management/PropertyManager';
 
+// Authentication
+import { AuthProvider } from "./components/auth/AuthContext";
+import PrivateRoute from "./components/auth/PrivateRoute";
+
 export default function App() {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -90,23 +98,46 @@ export default function App() {
 
   return (
     <Router>
+      <AuthProvider>
+
       <Navbar />
       <div className="page-container">
         <Routes>
           {/* Authentication Routes */}
           <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/profile" element={<Profile />} />
+          <Route path="/auth/signup" element={<SignUp />} />
 
+          <Route
+            path="/auth/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
           {/* Core Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About />} />
+          {/* <Route path="/about" element={<About />} /> */}
+
+          <Route
+            path="/about"
+            element={
+              <PrivateRoute>
+                <About />
+              </PrivateRoute>
+            }
+          />
 
           {/* Places Routes */}
           <Route path="/places" element={<Places />} />
           <Route path="/all-places" element={<AllPlaces />} />
+          <Route path="/all-places/:category" element={<AllPlaces />} />
           <Route path="/place/:id" element={<PlaceDetails />} />
+          <Route path="/reviews/:id" element={<ReviewPage />} />
+
+          <Route path="/booking" element={<Booking />} />
 
           {/* Project and Demo Routes */}
           <Route path="/project-details/:id" element={<ProjectDetails />} />
@@ -157,10 +188,13 @@ export default function App() {
 
           {/* Property Management */}
           <Route path="/management/property-management" element={<PropertyManager />} />
+          <Route path="/management/property-management/add-place" element={<AddPlace />} />
 
         </Routes>
       </div>
       <Footer />
+      </AuthProvider>
+
     </Router>
   );
 }

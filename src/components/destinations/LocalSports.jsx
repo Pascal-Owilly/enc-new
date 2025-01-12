@@ -1,34 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Badge, Button } from 'react-bootstrap';
 import './Destinations.css';
 import './LocalSports.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFutbol } from '@fortawesome/free-solid-svg-icons';
+import { BASE_URL } from '../config/config';
+import BookingButton from '../bookings/BookingButton';
 
 const LocalSports = () => {
-  const sports = [
-    { id: 1, name: 'Soccer Match', rating: 4.8, description: 'Watch local teams battle it out on the field.', duration: '2 hours' },
-    { id: 2, name: 'Basketball Game', rating: 4.7, description: 'Enjoy a thrilling basketball game.', duration: '2 hours' },
-    { id: 3, name: 'Marathon', rating: 4.9, description: 'Join the excitement of a local marathon.', duration: 'All day' },
-    { id: 4, name: 'Tennis Tournament', rating: 4.8, description: 'Catch the best local tennis players in action.', duration: '3 hours' },
-    { id: 5, name: 'Cycling Race', rating: 4.7, description: 'Cheer on the cyclists as they race through the streets.', duration: '3 hours' },
-    { id: 6, name: 'Boxing Match', rating: 4.9, description: 'Experience the excitement of a live boxing match.', duration: '2 hours' },
-    { id: 7, name: 'Volleyball Game', rating: 4.6, description: 'Get involved in a fun and competitive volleyball game.', duration: '2 hours' },
-    { id: 8, name: 'Baseball Game', rating: 4.8, description: 'Enjoy an exciting baseball game with local teams.', duration: '3 hours' },
-    { id: 9, name: 'Rugby Match', rating: 4.7, description: 'Feel the adrenaline of a local rugby match.', duration: '2 hours' },
-    { id: 10, name: 'Badminton Tournament', rating: 4.8, description: 'Join the excitement of a badminton tournament.', duration: '3 hours' },
-  ];
+  const [sports, setSports] = useState([]); // State to store fetched sports
+  const [currentPage, setCurrentPage] = useState(1); // State to manage current page
+  const [loading, setLoading] = useState(true); // State to show loading indicator
+  const [error, setError] = useState(null); // State for any errors during data fetching
+  const category = "local_sports_events"; // Set the category to local sports events
+  const itemsPerPage = 6; // Items per page for pagination
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  // Fetch local sports events from backend API
+  useEffect(() => {
+    const fetchSports = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=${category}`);
+        const data = await response.json();
+        
+        // Assuming the backend returns an array of sports events
+        setSports(data);
+        setLoading(false); // Set loading to false when data is fetched
+      } catch (error) {
+        setError('Failed to fetch data. Please try again later.');
+        setLoading(false);
+      }
+    };
+    
+    fetchSports();
+  }, []); // Empty dependency array means this runs once after component mounts
 
+  // Calculate the index of the first and last items to display on the current page
   const lastIndex = currentPage * itemsPerPage;
   const firstIndex = lastIndex - itemsPerPage;
 
+  // Slice the sports array to get the items to show on the current page
   const currentSports = sports.slice(firstIndex, lastIndex);
+
+  // Calculate the total number of pages
   const totalPages = Math.ceil(sports.length / itemsPerPage);
 
+  // Handle the page change
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -36,34 +53,52 @@ const LocalSports = () => {
   return (
     <Container className="mt-5">
       <h2 className="text-center my-4"><FontAwesomeIcon icon={faFutbol} /> Local Sports</h2>
-      <Row xs={1} sm={2} md={2} lg={2} className="g-4">
-        {currentSports.map(sport => (
-          <Col key={sport.id}>
-            <div className="sports-card">
-              <Row>
-                <Col md={6}>
-                  <img 
-                    src="https://via.placeholder.com/600x400" 
-                    alt={sport.name} 
-                    className="img-fluid mb-3 rounded"
-                  />
-                </Col>
-                <Col md={6}>
-                  <h5>{sport.name}</h5>
-                  <Badge bg="success" className="mb-3">⭐ {sport.rating}</Badge>
-                  <p>{sport.description}</p>
-                  <p><strong>Duration:</strong> {sport.duration}</p>
-                  <div className="d-flex">
-                    <Button variant="primary" className="me-2">Book Now</Button>
-                    <Button variant="secondary">Explore</Button>
-                  </div>
-                </Col>
-              </Row>
-            </div>
-          </Col>
-        ))}
-      </Row>
 
+      {loading ? (
+        <div className="dot-loader">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      ) : error ? (
+        <p className="text-danger">{error}</p>
+      ) : sports.length === 0 ? (
+        <div className="text-center mt-5">
+          <FontAwesomeIcon icon={faFutbol} size="3x" className="text-warning mb-3" />
+          <h4>No Local Sports Events Available</h4>
+          <p>Currently, there are no local sports events to display. Please check back later.</p>
+        </div>
+      ) : (
+        <Row xs={1} sm={2} md={2} lg={2} className="g-4">
+          {currentSports.map(sport => (
+            <Col key={sport.id}>
+              <div className="sports-card">
+                <Row>
+                  <Col md={6}>
+                    <img 
+                      src={sport.imageUrl || 'https://via.placeholder.com/600x400'} 
+                      alt={sport.name} 
+                      className="img-fluid mb-3 rounded"
+                    />
+                  </Col>
+                  <Col md={6}>
+                    <h5>{sport.name}</h5>
+                    <Badge bg="success" className="mb-3">⭐ {sport.rating}</Badge>
+                    <p>{sport.description}</p>
+                    <p><strong>Duration:</strong> {sport.duration}</p>
+                    <div className="d-flex">
+                    <BookingButton place={sport} />
+
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </Col>
+          ))}
+        </Row>
+      )}
+
+      {/* Pagination */}
       <div className="pagination text-center mt-4">
         <Button 
           variant="outline-primary" 

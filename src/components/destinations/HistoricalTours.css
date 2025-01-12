@@ -4,6 +4,19 @@
 	box-sizing: border-box;
 }
 
+.overlay-content p,
+.overlay-content h5 {
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+}
+
+.overlay-content .tour-location,
+.overlay-content .tour-rating {
+  display: inline-block;
+  margin-right: 10px;
+}
+
 
 h1 {
 	font-size: 5.25vmin;
@@ -138,17 +151,7 @@ p {
 	transition: 0.3s ease-in-out 0.2s;
 	z-index: 1;
 }
-.image-content {
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 60vmin;
-	height: 100%;
-	background-image: url("https://assets.codepen.io/4787486/trees.png");
-	background-size: cover;
-	transition: 0.3s ease-in-out;
-	/* border: 1px solid green; */
-}
+
 
 .inset {
 	max-width: 50%;

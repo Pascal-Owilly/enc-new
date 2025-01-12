@@ -30,7 +30,7 @@ const VacationPage = () => {
       name: 'Group Booking',
       description: 'Organize trips for large groups at discounted rates.',
       price: '$500',
-      link: '/destinations/group-booking',
+      link: '/destination/group-bookings',
       image: heroImage2,
     },
     {
@@ -155,20 +155,16 @@ const VacationPage = () => {
   ];
 
   const itineraries = [
-    { href: '/itineraries/relaxation', title: 'Relax & Rejuvenate', image: heroImage2 },
-    { href: '/itineraries/family', title: 'Family Fun', image: heroImage3 },
-    { href: '/itineraries/exploration', title: 'Explore the Unknown', image: heroImage2 },
     { href: '/itineraries/sustainable', title: 'Sustainable Travels', image: heroImage3 },
     { href: '/itineraries/custom', title: 'Custom Itineraries', image: heroImage2 },
     // { href: '/destinations/tour-and-learn', title: 'Tour & Learn' , image: heroImage3},
   ];
 
-  const [welcomeText, setWelcomeText] = useState('Discover Your Next Adventure');
+  const [welcomeText, setWelcomeText] = useState('Discover Your   Adventure');
 
   const texts = [
-    'Discover Your Next Adventure',
-    'Explore Exciting Categories and Find Your Perfect Match',
-    'Experience Unforgettable Journeys Around the World',
+    'Explore Categories ',
+    'Find Your Perfect Match',
     'Create Memories to Cherish Forever',
   ];
 
@@ -178,7 +174,7 @@ const VacationPage = () => {
       opacity: 0,
       y: -100,
       ease: 'bounce.out',
-    });
+    }); 
 
     const textInterval = setInterval(() => {
       setWelcomeText((prevText) => {
@@ -278,14 +274,17 @@ const VacationPage = () => {
     <div className="container-fluid categories">
       <div className="jumbotron">
         <header>
-          <h1 className="welcome-text m-auto" style={{ maxWidth: '70%' }}>
+          <h3 className="welcome-text m-auto" style={{ maxWidth: '70%' }}>
             {welcomeText}
-          </h1>
+          </h3>
         </header>
         <main>
           {/* Featured Destinations */}
           <section className="destination-showcase">
+          <h2 className="all-headings4 text-dark">Explore Categories</h2>
+          <hr />
             <div className="cards-container">
+              
               {cards.map((card, index) => (
                 <div
                 className={`card category-${card.title ? card.title.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
@@ -306,11 +305,13 @@ const VacationPage = () => {
 
         {/* Custom Itineraries */}
         <section className="itineraries-showcase">
-          <h2>Custom Itineraries</h2>
+          <h2 className="all-headings4 text-dark">Custom Itineraries</h2>
+          <hr />
+
           <div className="cards-container">
             {itineraries.map((itinerary, index) => (
             <div
-            className={`card category-${itinerary.title ? itinerary.title.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
+            className={`card category-${itinerary.  title ? itinerary.title.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
             key={index}
           >
                 <div className="image-placeholder">

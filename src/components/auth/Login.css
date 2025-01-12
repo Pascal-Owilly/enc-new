@@ -1,51 +1,107 @@
 .login-page {
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin-top: 50px;
+    background: #f5f6fa;
+    font-family: Arial, sans-serif;
 }
 
-.login-page h1 {
-    color: #343a40;
+.login-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.login-subtitle {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #777;
+}
+
+.login-form {
+    margin-bottom: 20px;
 }
 
 .form-group {
     margin-bottom: 15px;
+    text-align: left;
 }
 
-.form-group label {
+label {
     display: block;
+    font-size: 0.9rem;
     margin-bottom: 5px;
-    color: #495057;
+    color: #555;
 }
 
-.form-group input {
+input {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
 }
 
-button {
-    padding: 10px 15px;
-    color: white;
-    background-color: #007bff;
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background: #4caf50;
     border: none;
-    border-radius: 4px;
+    color: white;
+    font-size: 1rem;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-button:hover {
-    background-color: #0056b3;
+.login-button:hover {
+    background: #45a049;
 }
 
-.forgot-password {
-    margin-top: 10px;
+.divider {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 0.9rem;
 }
 
-.forgot-password a {
+.divider span {
+    padding: 0 10px;
+    background: white;
+}
+
+.google-login-button {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    font-size: 1rem !important;
+}
+
+.signup-link {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.signup-link a {
     color: #007bff;
     text-decoration: none;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
 }

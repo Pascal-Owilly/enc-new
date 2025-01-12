@@ -1,94 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BASE_URL } from '../config/config';
+import BookingButton from '../bookings/BookingButton';
 import './GroupBookings.css';
 
 const GroupBookings = () => {
-    // Define the booking data
-    const bookingData = [
-        {
-            id: 1,
-            title: 'Corporate Retreat',
-            image: 'https://via.placeholder.com/300x200',
-            description: 'Enhance team bonding with a corporate retreat designed for relaxation and productivity.',
-            size: '10-50',
-            rating: '★★★★★'
-        },
-        {
-            id: 2,
-            title: 'Family Reunion',
-            image: 'https://via.placeholder.com/300x200',
-            description: 'Make memories with your loved ones during a family reunion filled with fun activities and adventures.',
-            size: '5-30',
-            rating: '★★★★☆'
-        },
-        {
-            id: 3,
-            title: 'Friends Getaway',
-            image: 'https://via.placeholder.com/300x200',
-            description: 'Gather your friends for a weekend getaway packed with thrilling experiences and relaxation.',
-            size: '4-20',
-            rating: '★★★★★'
-        },
-        {
-            id: 4,
-            title: 'Adventure Trip',
-            image: 'https://via.placeholder.com/300x200',
-            description: 'Experience thrilling adventures together in breathtaking locations.',
-            size: '5-25',
-            rating: '★★★★☆'
-        },
-        {
-            id: 5,
-            title: 'Cultural Expedition',
-            image: 'https://via.placeholder.com/300x200',
-            description: 'Explore new cultures with your group and create lasting memories.',
-            size: '6-30',
-            rating: '★★★★☆'
-        },
-        {
-            id: 6,
-            title: 'Wellness Retreat',
-            image: 'https://via.placeholder.com/300x200',
-            description: 'Relax and rejuvenate with wellness activities tailored for your group.',
-            size: '8-40',
-            rating: '★★★★★'
-        },
-        {
-            id: 7,
-            title: 'Sports Event',
-            image: 'https://via.placeholder.com/300x200',
-            description: 'Join your friends for a thrilling sports event experience.',
-            size: '10-50',
-            rating: '★★★★☆'
-        },
-        {
-            id: 8,
-            title: 'Camping Trip',
-            image: 'https://via.placeholder.com/300x200',
-            description: 'Enjoy the great outdoors with a fun camping adventure.',
-            size: '5-20',
-            rating: '★★★★☆'
-        },
-        {
-            id: 9,
-            title: 'Food Tasting Tour',
-            image: 'https://via.placeholder.com/300x200',
-            description: 'Discover local cuisines on a fun food tasting tour.',
-            size: '4-15',
-            rating: '★★★★★'
-        },
-        {
-            id: 10,
-            title: 'Mystery Trip',
-            image: 'https://via.placeholder.com/300x200',
-            description: 'Let us surprise you with a mystery trip tailored for your group.',
-            size: '5-20',
-            rating: '★★★★★'
-        }
-    ];
-
+    const [adventures, setAdventures] = useState([]);
+    const [wishlisted, setWishlisted] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const category = "group_booking";
+    
     const itemsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(0);
-    const totalPages = Math.ceil(bookingData.length / itemsPerPage);
+    const totalPages = Math.ceil(adventures.length / itemsPerPage);
+
+    useEffect(() => {
+        const fetchAdventures = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`${BASE_URL}api/places/filter_by_category/?category=${category}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch adventures');
+                }
+                const data = await response.json();
+                setAdventures(data);
+                setWishlisted(Array(data.length).fill(false));
+            } catch (error) {
+                console.error('Error fetching adventures:', error);
+                setError('Failed to load adventures. Please try again later.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAdventures();
+    }, [category]);
 
     const handleNext = () => {
         if (currentPage < totalPages - 1) {
@@ -103,37 +49,57 @@ const GroupBookings = () => {
     };
 
     const startIndex = currentPage * itemsPerPage;
-    const currentItems = bookingData.slice(startIndex, startIndex + itemsPerPage);
+    const currentItems = adventures.slice(startIndex, startIndex + itemsPerPage);
+
+    const AdventureItem = ({ title, description, size, image, adventure }) => (
+        <div className="group-card shadow-sm border-0 w-100"
+        style={{margin:'auto', width:'90%'}}> {/* Full width */}
+            <img src={`${BASE_URL}${image}`} alt={title} className="card-img-top" />
+            <div className="card-header">
+                <h5>{title}</h5>
+            </div>
+            <div className="card-body">
+                <p className="card-text">{description}</p>
+                <p className="card-text"><small className="text-muted">Group Size: {size}</small></p>
+            </div>
+            <div className="card-footer text-center">
+                <BookingButton place={adventure} />
+            </div>
+        </div>
+    );
 
     return (
-        <div className="group-bookings-page container text-center">
-            <h1 
-  className="text-dark  mb-4 mt-5"
-  style={{
-    fontFamily: 'Caladea, serif',
-    fontSize: '2.5rem',       // Adjust font size as needed
-    fontWeight: 'bold',
-    color: '#2c3e50',         // Darker color for contrast
-    letterSpacing: '0.1em',   // Adds subtle letter spacing
-    marginBottom: '1rem',
-    textTransform: 'uppercase', // Optional: makes text uppercase
-    textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)', // Subtle shadow for depth
-  }}
->Group Bookings</h1>
+        <div className="container-fluid text-center">
+            <h1 className="text-dark mb-2 group-title all-headings4 mb-4">Group Bookings</h1>
             <p className="lead mb-5">
                 Plan unforgettable trips with your friends, family, or colleagues. Enjoy exclusive group rates and personalized itineraries!
             </p>
-            <div className="booking-list row">
-                {currentItems.map((booking) => (
-                    <div className="booking-item col-md-3 mb-4" key={booking.id}>
-                        <img src={booking.image} alt={booking.title} className="img-fluid rounded mb-3" />
-                        <h2>{booking.title}</h2>
-                        <p>{booking.description}</p>
-                        <p>Group Size: {booking.size} | Rating: {booking.rating}</p>
-                        <button className="btn btn-sm mt-2" style={{backgroundColor:'#000042'}}>Book Now</button>
-                    </div>
-                ))}
-            </div>
+            {loading ? (
+                <div className="dot-loader">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            ) : (
+                <div className="row g-2">
+                    {adventures.length > 0 ? (
+                        currentItems.map((adventure, index) => (
+                            <div className="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-4" key={adventure.id}>
+                                <AdventureItem
+                                    title={adventure.name}
+                                    description={adventure.description}
+                                    size={adventure.size}
+                                    image={adventure.pictures}
+                                    adventure={adventure}
+                                />
+                            </div>
+                        ))
+                    ) : (
+                        <p>No group bookings found.</p>
+                    )}
+                </div>
+            )}
+
             <div className="pagination">
                 <button className="btn btn-sm btn-info" onClick={handlePrev} disabled={currentPage === 0}>Prev</button>
                 <button className="btn btn-sm btn-info" onClick={handleNext} disabled={currentPage === totalPages - 1}>Next</button>

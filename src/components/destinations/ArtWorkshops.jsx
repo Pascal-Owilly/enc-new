@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Badge, Button, Pagination } from 'react-bootstrap';
-import './Destinations.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaintBrush } from '@fortawesome/free-solid-svg-icons';
+import { faPaintBrush, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import './Destinations.css';
+import { BASE_URL } from '../config/config';
+import BookingButton from '../bookings/BookingButton';
 
 const ArtWorkshops = () => {
-  const workshops = [
-    { id: 1, name: 'Watercolor Basics', rating: 4.9, description: 'Learn the basics of watercolor painting.', duration: '3 hours', imageUrl: "https://via.placeholder.com/600x400" },
-    { id: 2, name: 'Ceramic Art', rating: 4.6, description: 'Create beautiful ceramic pieces.', duration: '4 hours', imageUrl: "https://via.placeholder.com/600x400" },
-    { id: 3, name: 'Acrylic Pouring', rating: 4.8, description: 'Experience the magic of acrylic pouring.', duration: '2 hours', imageUrl: "https://via.placeholder.com/600x400" },
-    { id: 4, name: 'Oil Painting Mastery', rating: 4.7, description: 'Master the techniques of oil painting.', duration: '5 hours', imageUrl: "https://via.placeholder.com/600x400" },
-    { id: 5, name: 'Sketching for Beginners', rating: 4.5, description: 'Learn the fundamentals of sketching.', duration: '3 hours', imageUrl: "https://via.placeholder.com/600x400" },
-    { id: 6, name: 'Advanced Pottery', rating: 4.8, description: 'Take your pottery skills to the next level.', duration: '6 hours', imageUrl: "https://via.placeholder.com/600x400" },
-  ];
+  const [workshops, setWorkshops] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const category = "art_workshops";
+
+  useEffect(() => {
+    const fetchWorkshops = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=${category}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch art workshops');
+        }
+        const data = await response.json();
+        setWorkshops(data);
+      } catch (error) {
+        console.error('Error fetching art workshops:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWorkshops();
+  }, [category]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  // Calculate pagination
+  // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentWorkshops = workshops.slice(indexOfFirstItem, indexOfLastItem);
@@ -27,39 +44,61 @@ const ArtWorkshops = () => {
 
   return (
     <Container className="mt-5">
-      <h2 className="text-center my-4"><FontAwesomeIcon icon={faPaintBrush} /> Art Workshops</h2>
-      
-      <Row xs={1} sm={2} md={3} className="g-4">
-        {currentWorkshops.map(workshop => (
-          <Col key={workshop.id}>
-            <div className="destination-card">
-              <img src={workshop.imageUrl} alt={workshop.name} className="workshop-image" style={{ width: '100%' }} />
-              <h5>{workshop.name}</h5>
-              <Badge bg="success">⭐ {workshop.rating}</Badge>
-              <p>{workshop.description}</p>
-              <p>Duration: {workshop.duration}</p>
-              
-              <div className="d-flex justify-content-between mt-3">
-                <Button className="see-more-btn" size="sm">See More</Button>
-                <Button className="book-btn" size="sm">Book</Button>
-              </div>
-            </div>
-          </Col>
-        ))}
-      </Row>
+      <h2 className="text-center my-4">
+        <FontAwesomeIcon icon={faPaintBrush} /> Art Workshops
+      </h2>
 
-      {/* Pagination */}
-      <Pagination className="justify-content-center mt-4">
-        {[...Array(totalPages)].map((_, index) => (
-          <Pagination.Item 
-            key={index + 1} 
-            active={index + 1 === currentPage} 
-            onClick={() => handlePageChange(index + 1)}
-          >
-            {index + 1}
-          </Pagination.Item>
-        ))}
-      </Pagination>
+      {loading ? (
+        <div className="dot-loader">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      ) : workshops.length > 0 ? (
+        <>
+          <Row xs={1} sm={2} md={3} className="g-4">
+            {currentWorkshops.map((workshop) => (
+              <Col key={workshop.id}>
+                <div className="destination-card">
+                  <img
+                    src={`${BASE_URL}${workshop.imageUrl || workshop.cover_image}`}
+                    alt={workshop.name}
+                    className="workshop-image"
+                    style={{ width: '100%' }}
+                  />
+                  <h5>{workshop.name}</h5>
+                  <Badge bg="success">⭐ {workshop.average_rating || 'N/A'}</Badge>
+                  <p>{workshop.description || 'No description available.'}</p>
+                  <p>Duration: {workshop.duration || 'N/A'}</p>
+                  <div className="d-flex justify-content-between mt-3">
+                    <div className="card-footer text-center">
+                      <BookingButton place={workshop} />
+                    </div>
+                  </div>
+                </div>
+              </Col>
+            ))}
+          </Row>
+
+          <Pagination className="justify-content-center mt-4">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <Pagination.Item
+                key={index + 1}
+                active={index + 1 === currentPage}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
+        </>
+      ) : (
+        <div className="text-center mt-5">
+          <FontAwesomeIcon icon={faExclamationCircle} size="3x" className="text-warning mb-3" />
+          <h4>No Art Workshops Available</h4>
+          <p>Currently, there are no art workshops to display. Please check back later.</p>
+        </div>
+      )}
     </Container>
   );
 };
