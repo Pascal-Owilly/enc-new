@@ -19,13 +19,7 @@ const VacationPage = () => {
       link: '/destinations/micro-adventure',
       image: heroImage2,
     },
-    {
-      name: 'Explore',
-      description: 'Discover new places and expand your horizons.',
-      price: '$200',
-      link: '/destinations/explore',
-      image: heroImage3,
-    },
+
     {
       name: 'Group Booking',
       description: 'Organize trips for large groups at discounted rates.',
@@ -274,9 +268,9 @@ const VacationPage = () => {
     <div className="container-fluid categories">
       <div className="jumbotron">
         <header>
-          <h3 className="welcome-text m-auto" style={{ maxWidth: '70%' }}>
+          {/* <h3 className="welcome-text m-auto" style={{ maxWidth: '70%' }}>
             {welcomeText}
-          </h3>
+          </h3> */}
         </header>
         <main>
           {/* Featured Destinations */}
@@ -286,8 +280,9 @@ const VacationPage = () => {
             <div className="cards-container">
               
               {cards.map((card, index) => (
+                <a href={card.link} className="card" style={{textDecoration:'none'}}>
                 <div
-                className={`card category-${card.title ? card.title.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
+                className={` category-${card.title ? card.title.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
                 >
                   <div className="image-placeholder">
                     <img src={card.image} alt={card.name} style={{ width: '100%' }} />
@@ -295,10 +290,8 @@ const VacationPage = () => {
                   <h3>{card.name}</h3>
                   <p>{card.description}</p>
                   <span className="price">{card.price}</span>
-                  <a href={card.link} className="btn">
-                    View Details  
-                  </a>
                 </div>
+                </a>
               ))}
             </div>
           </section>
@@ -310,8 +303,10 @@ const VacationPage = () => {
 
           <div className="cards-container">
             {itineraries.map((itinerary, index) => (
+            <a href={itinerary.href} className="card" style={{textDecoration:'none'}}>
+
             <div
-            className={`card category-${itinerary.  title ? itinerary.title.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
+            className={` category-${itinerary.  title ? itinerary.title.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
             key={index}
           >
                 <div className="image-placeholder">
@@ -322,6 +317,7 @@ const VacationPage = () => {
                   View Details
                 </a>
               </div>
+              </a>
             ))}
           </div>
         </section>

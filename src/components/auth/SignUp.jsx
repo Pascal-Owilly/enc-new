@@ -1,113 +1,185 @@
 import React, { useState } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { BASE_URL } from '../config/config'; // Ensure this is set correctly
+import { BASE_URL } from '../config/config';
 
 import './SignUp.css';
 
 const SignUp = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        role: '',
+        phoneNumber: '',
+        address: '',
+    });
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
 
     const handleSignUp = async (e) => {
         e.preventDefault();
+        setError('');
+        setSuccess('');
         try {
-            const response = await fetch(`${BASE_URL}/auth/signup/`, {
+            const response = await fetch(`${BASE_URL}api/auth/register/`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ firstName, lastName, email, password }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
             });
 
             if (response.ok) {
                 const data = await response.json();
+                setSuccess('Sign up successful! Please check your email to verify your account.');
                 console.log('Sign up success:', data);
-                // Handle the sign-up success, e.g., redirect to login
             } else {
-                const error = await response.json();
-                console.error('Sign up error:', error);
-                // Handle error, e.g., show a message
+                const errorData = await response.json();
+                setError(errorData.detail || 'Failed to sign up.');
             }
-        } catch (error) {
-            console.error('Network error:', error);
+        } catch (err) {
+            setError('Network error. Please try again later.');
         }
     };
 
     const handleGoogleLoginSuccess = (credentialResponse) => {
-        // Use the Google credentials to authenticate with your backend
         console.log('Google Sign Up Success:', credentialResponse);
-        // Send `credentialResponse.credential` to your backend for verification
+        // Forward Google token to the backend
     };
 
     const handleGoogleLoginError = () => {
         console.error('Google Sign Up Failed');
+        setError('Google sign up failed.');
     };
 
     return (
-        <GoogleOAuthProvider clientId="">
+        <GoogleOAuthProvider clientId="143693841827-i3di9q4b0kc497cc9sj7q9ng9fcakhl1.apps.googleusercontent.com">
             <div className="signup-page">
                 <div className="signup-container">
                     <h1 className="signup-title">Create Your Account</h1>
-                    <form onSubmit={handleSignUp} className="signup-form">
+                    {error && <p className="error-message">{error}</p>}
+                    {success && <p className="success-message">{success}</p>}
+                    <form onSubmit={handleSignUp} className ="signup-form">
+                        {/* First Name */}
                         <div className="form-group">
                             <label htmlFor="firstName">First Name</label>
                             <input
                                 type="text"
                                 id="firstName"
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
+                                name="firstName"
+                                value={formData.firstName}
+                                onChange={handleChange}
                                 placeholder="Enter your first name"
                                 required
                             />
                         </div>
+                        
+                        {/* Last Name */}
                         <div className="form-group">
                             <label htmlFor="lastName">Last Name</label>
                             <input
                                 type="text"
                                 id="lastName"
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
+                                name="lastName"
+                                value={formData.lastName}
+                                onChange={handleChange}
                                 placeholder="Enter your last name"
                                 required
                             />
                         </div>
+                        
+                        {/* Email */}
                         <div className="form-group">
                             <label htmlFor="email">Email Address</label>
                             <input
                                 type="email"
                                 id="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
                                 placeholder="Enter your email"
                                 required
                             />
                         </div>
+
+                        {/* Password */}
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
                             <input
                                 type="password"
                                 id="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
                                 placeholder="Create your password"
                                 required
                             />
                         </div>
+
+                        {/* Role */}
+                        <div className="form-group">
+                            <label htmlFor="role">Role</label>
+                            <select
+                                id="role"
+                                name="role"
+                                value={formData.role}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="">Select Role</option>
+                                <option value="manager">Manager</option>
+                                <option value="role2">Role 2</option>
+                            </select>
+                        </div>
+
+                        {/* Phone Number */}
+                        <div className="form-group">
+                            <label htmlFor="phoneNumber">Phone Number</label>
+                            <input
+                                type="text"
+                                id="phoneNumber"
+                                name="phoneNumber"
+                                value={formData.phoneNumber}
+                                onChange={handleChange}
+                                placeholder="Enter your phone number"
+                            />
+                        </div>
+
+                        {/* Address */}
+                        <div className="form-group">
+                            <label htmlFor="address">Address</label>
+                            <input
+                                type="text"
+                                id="address"
+                                name="address"
+                                value={formData.address}
+                                onChange={handleChange}
+                                placeholder="Enter your address"
+                            />
+                        </div>
+
+                        {/* Submit Button */}
                         <button type="submit" className="signup-button">Sign Up</button>
                     </form>
 
-                    <div className="divider">
-                        <span>OR</span>
-                    </div>
+                    {/* Divider */}
+                    <div className="divider"><span>OR</span></div>
 
+                    {/* Google OAuth */}
                     <GoogleLogin
                         onSuccess={handleGoogleLoginSuccess}
                         onError={handleGoogleLoginError}
                         useOneTap
                     />
 
+                    {/* Login Link */}
                     <p className="login-link">
                         Already have an account? <a href="/auth/login">Log in</a>
                     </p>

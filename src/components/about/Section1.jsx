@@ -32,13 +32,7 @@ export default function SectionHighlights() {
 
   return (
     <div ref={sectionRef} className="container py-5 about hidden">
-      <div className="row text-center mb-5">
-        <div className="col-md-12">
-          <h1 className="display-4 font-weight-bold text-shadow">Your Vision, Our Creation</h1>
-          <p className="lead text-shadow">Building Solutions for a Connected World</p>
-        </div>
-      </div>
-
+    
       <div className="row text-center">
         {/* Counter 1: Systems Created */}
         <div className="col-md-4 mb-4">

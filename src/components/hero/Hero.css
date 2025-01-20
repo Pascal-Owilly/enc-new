@@ -6,7 +6,7 @@
     background-color: #f0f8ff;
     color: #333;
     position: relative;
-    margin-top: 60px ;
+    /* margin-top: 60px ; */
   }
   
   .hero-content {
@@ -86,7 +86,7 @@
   .hero-image {
     background-size: cover;
     background-position: center;
-    position: absolute;
+    position: absolute; 
     top: 0;
     left: 0;
     right: 0;
@@ -99,28 +99,7 @@
   }
   
 /* Cloud image with fade in and out */
-.cloud-image {
-  background-size: cover;
-  background-repeat: repeat;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: auto;
-  height: auto;
-  /* border-radius:  30px; */
-  /* margin-top: 13px; */
-  margin-bottom: 15px;
-  background-position: center;
-  z-index: 2;
-  opacity: 1; /* Start fully visible */
-  animation: fadeClouds 8s linear infinite;
 
-  /* Optional: Add a soft radial gradient for visual enhancement */
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.5) 40%, rgba(244,198,16, 0.5) 80%), 
-              url('../../assets/hero/cloud.webp');
-}
 
 /* Keyframes for fading effect */
 @keyframes fadeClouds {
@@ -404,7 +383,7 @@
   /* padding: 10px; */
   width: 40px;
   height: 40px;
-  /* margin-top: 5px !important; */
+  margin-top: 5px !important;
   margin-bottom: auto;
   margin: 0 4px;
   cursor: pointer;

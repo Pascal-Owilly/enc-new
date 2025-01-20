@@ -30,7 +30,7 @@ const BlogPosts = () => {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${BASE_URL}blogposts/`);
+      const response = await fetch(`${BASE_URL}api/blogposts/`);
       if (!response.ok) throw new Error('Failed to fetch posts');
       const data = await response.json();
       const postsWithComments = data.map(post => ({
@@ -65,7 +65,7 @@ const BlogPosts = () => {
 
   const handleLike = async (postId) => {
     try {
-      const response = await fetch(`${BASE_URL}likes/`, {
+      const response = await fetch(`${BASE_URL}api/likes/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ post: postId }),
@@ -88,7 +88,7 @@ const BlogPosts = () => {
     const commentText = commentInputs[postId]?.text;
     if (!commentText) return;
     try {
-      const response = await fetch(`${BASE_URL}comments/`, {
+      const response = await fetch(`${BASE_URL}api/comments/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ post: postId, text: commentText }),
@@ -119,7 +119,7 @@ const BlogPosts = () => {
 
   const deletePost = async (postId) => {
     try {
-      const response = await fetch(`${BASE_URL}blogpost/${postId}/`, {
+      const response = await fetch(`${BASE_URL}api/blogpost/${postId}/`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Failed to delete post');

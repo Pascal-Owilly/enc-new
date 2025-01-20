@@ -45,11 +45,12 @@ const HeroSection = () => {
           className="cloud-image"></div>
 
       <div className="hero-contents" style={{zIndex:'3'}}>
-        <h1>Choose Your Purpose:</h1>
+        <h1 className=" all-headings4 text-white">Take a vacation with a purpose</h1>
+        <p className='text-light text-center'>{heroText}</p>
         <div className="category-icons">
-      <Link to="/destinations/culinary-tours"> 
+      {/* <Link to="/destinations/culinary-tours"> 
         <button className="category-button">🍽️ Culinary</button>
-      </Link>
+      </Link> */}
       
       <Link to="/destinations/local-sports"> 
         <button className="category-button">⚽ Sports</button>

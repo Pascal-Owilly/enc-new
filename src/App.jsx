@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Navbar and Footer
 import Navbar from './components/navbar/Navbar';
+import BottomNav from './components/navbar/BottomNav';
+
 import Footer from './components/footer/Footer';
 
 // Core Pages
@@ -101,6 +103,7 @@ export default function App() {
       <AuthProvider>
 
       <Navbar />
+      <BottomNav />
       <div className="page-container">
         <Routes>
           {/* Authentication Routes */}
@@ -124,9 +127,7 @@ export default function App() {
           <Route
             path="/about"
             element={
-              <PrivateRoute>
                 <About />
-              </PrivateRoute>
             }
           />
 

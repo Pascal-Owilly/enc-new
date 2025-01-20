@@ -8,6 +8,7 @@ import Projects from '../../components/projects/Projects';
 import Places from '../../components/places/Places';
 import Blogs from '../../components/blogs/Blogs';
 import Partners from '../../components/partners/Partners';
+import BottomNav from '../../components/navbar/BottomNav';
 
 export default function Home() {
 
@@ -36,8 +37,7 @@ export default function Home() {
             <Partners />
           </div>
         </div>
-        {/* <Section1 /> */}
-        <Projects />
+        <Section1 />
       </div>
     </>
   );

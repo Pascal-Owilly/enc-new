@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BASE_URL } from '../config/config';
-import './Booking.css'; // Import the CSS file for styles
+import './Booking.css'; // Make sure to update this CSS file
+import bg_1 from '../../assets/hero/cloud.jpg';
 
 const Booking = () => {
   const location = useLocation();
@@ -56,7 +57,7 @@ const Booking = () => {
     axios.post(`${BASE_URL}/api/book-place/`, orderPlace)
       .then(() => {
         console.log(`Booking successful for ${bookingData.email} to ${placeName} at ${price}`);
-        setShowPaymentMethods(true); // Show payment methods after booking
+        setShowPaymentMethods(true);
       })
       .catch(error => console.error('Booking error:', error));
   };
@@ -75,80 +76,125 @@ const Booking = () => {
   };
 
   return (
-    <div className="booking-container">
-      <div className="booking-header">
-        <h3>Booking for {placeName}</h3>
-        <p className="place-price">Price: ${price}</p>
+<div
+  className="container-fluid booking-container"
+  // style={{ backgroundImage: `url(${bg_1})` }}
+>
+  <div className="overlay"></div>
+  <div className="container py-">
+    <div className="row justify-content-center">
+      {/* Left Column: Booking Form */}
+      <div className="col-md-6 ">
+        <form
+          className="booking-form p-4 shadow rounded"
+          style={{ background: '#fff' }}
+          onSubmit={handleBookingSubmit}
+        >
+          <h3>Booking for {placeName}</h3>
+          <p className="place-price" style={{ color: 'gold', fontWeight: 'bold' }}>
+            Price: ${price}
+          </p>
+          <div className="mb-3">
+            <label htmlFor="checkin_date" className="form-label text-dark">
+              Check-in Date:
+            </label>
+            <input
+              type="date"
+              id="checkin_date"
+              className="form-control"
+              name="checkin_date"
+              value={bookingData.checkin_date}
+              onChange={handleBookingChange}
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="checkout_date" className="form-label text-dark">
+              Check-out Date:
+            </label>
+            <input
+              type="date"
+              id="checkout_date"
+              className="form-control"
+              name="checkout_date"
+              value={bookingData.checkout_date}
+              onChange={handleBookingChange}
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="phone" className="form-label text-dark">
+              Phone Number:
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              name="phone"
+              value={bookingData.phone}
+              onChange={handleBookingChange}
+              placeholder="Phone Number"
+              required
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label text-dark">
+              Email Address:
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              name="email"
+              value={bookingData.email}
+              onChange={handleBookingChange}
+              placeholder="Email Address"
+              required
+            />
+          </div>
+
+          <button className="btn btn-primary w-100" type="submit">
+            Book Now
+          </button>
+        </form>
       </div>
 
-      <form className="booking-form" onSubmit={handleBookingSubmit}>
-        <div className="form-group">
-          <label htmlFor="checkin_date">Check-in Date:</label>
-          <input
-            type="date"
-            id="checkin_date"
-            className="form-control"
-            name="checkin_date"
-            value={bookingData.checkin_date}
-            onChange={handleBookingChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="checkout_date">Check-out Date:</label>
-          <input
-            type="date"
-            id="checkout_date"
-            className="form-control"
-            name="checkout_date"
-            value={bookingData.checkout_date}
-            onChange={handleBookingChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="phone">Phone Number:</label>
-          <input
-            className="form-control"
-            name="phone"
-            value={bookingData.phone}
-            onChange={handleBookingChange}
-            placeholder="Phone Number"
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email">Email Address:</label>
-          <input
-            className="form-control"
-            name="email"
-            value={bookingData.email}
-            onChange={handleBookingChange}
-            placeholder="Email Address"
-            required
-          />
-        </div>
-
-        <button className="btn btn-primary booking-button" type="submit">Book Now</button>
-      </form>
-
-      {showPaymentMethods && (
-        <div className="payment-methods">
-          <h2>Select Payment Method:</h2>
-          <button className="payment-button" onClick={() => handlePayment('paypal')}>
-            <img src="/path/to/paypal-icon.png" alt="PayPal" className="payment-icon" />
-            Pay with PayPal
-          </button>
-          <button className="payment-button" onClick={() => handlePayment('mpesa')}>
-            <img src="/path/to/mpesa-icon.png" alt="M-Pesa" className="payment-icon" />
-            Pay with M-Pesa
-          </button>
-        </div>
-      )}
+      {/* Right Column: Booking Details */}
+        {showPaymentMethods && (
+          <div className="payment-methods">
+            <h4 className="mb-3 text-white">Select Payment Method:</h4>
+            <button
+              className="btn btn-outline-primary d-flex align-items-center mb-2 w-100"
+              onClick={() => handlePayment('paypal')}
+            >
+              <img
+                src="/path/to/paypal-icon.png"
+                alt="PayPal"
+                className="me-2"
+                style={{ width: '24px', height: '24px' }}
+              />
+              Pay with PayPal
+            </button>
+            <button
+              className="btn btn-outline-success d-flex align-items-center w-100"
+              onClick={() => handlePayment('mpesa')}
+            >
+              <img
+                src="/path/to/mpesa-icon.png"
+                alt="M-Pesa"
+                className="me-2"
+                style={{ width: '24px', height: '24px' }}
+              />
+              Pay with M-Pesa
+            </button>
+          </div>
+        )}
+      </div>
     </div>
+  </div>
+
+
   );
 };
 
