@@ -1,5 +1,6 @@
 .chat-container{
-  margin-top: 90px;
+  margin-top: 20px;
+  min-height: 100vh;
 }
 .blogpost-input{
   margin-bottom: 20px !important;

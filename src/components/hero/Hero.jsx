@@ -45,8 +45,8 @@ const HeroSection = () => {
           className="cloud-image"></div>
 
       <div className="hero-contents" style={{zIndex:'3'}}>
-        <h1 className=" all-headings4 text-white">Take a vacation with a purpose</h1>
-        <p className='text-light text-center'>{heroText}</p>
+        <h1 className="" style={{color:'#FFD700', fontWeight:'700'}}>Take a vacation with a purpose</h1>
+        <p className='text-center' style={{color:'#fff',fontWeight:'bold'}}>{heroText}</p>
         <div className="category-icons">
       {/* <Link to="/destinations/culinary-tours"> 
         <button className="category-button">🍽️ Culinary</button>
@@ -64,18 +64,16 @@ const HeroSection = () => {
         <button className="category-button">🌍 Cultural</button>
       </Link>
 
-      <Link to="/destinations/all-categories" >
-      <button className="category-button-arrow ">
-          <div className="">
-           <FontAwesomeIcon icon={faArrowRight} className="forward-arrow" />
-          </div>
-          </button> 
-      </Link>  
+      <Link to="/destinations/all-categories"> 
+        <button className="category-button">
+        <FontAwesomeIcon icon={faArrowRight} className="forward-arrow text-dark" />
+        </button>
+      </Link> 
     </div>
       </div>
 
       {/* Controls */}
-      <div className="hero-controls">
+      {/* <div className="hero-controls">
         <button className="prev-btn" onClick={handlePrevClick}>
           ◀
         </button>
@@ -86,7 +84,7 @@ const HeroSection = () => {
         <button className="next-btn" onClick={handleNextClick}>
           ▶
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

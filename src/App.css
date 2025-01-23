@@ -31,6 +31,10 @@ body {
   transition: 0.3s ease-in-out;
 }
 
+/* p{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important ;
+} */
+
 .all-headings{
   font-family: Caladea;
   font-size: 1.6rem;         

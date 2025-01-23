@@ -77,11 +77,11 @@ const Booking = () => {
 
   return (
 <div
-  className="container-fluid booking-container"
+  className="container-flui booking-containe"
   // style={{ backgroundImage: `url(${bg_1})` }}
 >
   <div className="overlay"></div>
-  <div className="container py-">
+  <div className=" py-">
     <div className="row justify-content-center">
       {/* Left Column: Booking Form */}
       <div className="col-md-6 ">

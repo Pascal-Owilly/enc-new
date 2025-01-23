@@ -1,112 +1,81 @@
-import React from 'react';
-import './About.css';
-import { Carousel, Col, Row, Container } from 'react-bootstrap';
-import heroImage2 from '../../assets/hero/hero.jpg';
-import Section1 from '../../components/about/Section1';
+import React from "react";
+import { ParallaxProvider, Parallax } from "react-scroll-parallax";
+import { useSpring, animated } from "react-spring";
+import { Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel } from "react-accessible-accordion";
+import "react-accessible-accordion/dist/fancy-example.css";
+import "./About.css";
 
-const AboutUs = () => {
-  const goals = [
-    { year: "2025", progress: 20, description: "Expand to 5 countries." },
-    { year: "2026", progress: 40, description: "Expand to 10 countries." },
-    { year: "2027", progress: 60, description: "Achieve 1 million customers." },
-    { year: "2028", progress: 80, description: "Become a leader in sustainable travel." },
-    { year: "2030", progress: 100, description: "Revolutionize global travel experiences." }
-  ];
-
-  const vision = "To be the global leader in sustainable and memorable travel experiences.";
-  const mission = "Empowering travelers through innovative solutions and exceptional service.";
-
-  const partnerLogos = Array.from({ length: 8 }, (_, i) => ({
-    imgSrc: `https://via.placeholder.com/150?text=Partner+${i + 1}`,
-  }));
-
-  const serviceCards = [
-    { title: "Register", imgSrc: heroImage2 },
-    { title: "Book", imgSrc: heroImage2 },
-    { title: "Receive Card", imgSrc: heroImage2 },
-    { title: "Use the Card", imgSrc: heroImage2 }
-  ];
+const FAQ = () => {
+  const fadeIn = useSpring({
+    from: { opacity: 0, transform: "translateY(20px)" },
+    to: { opacity: 1, transform: "translateY(0)" },
+    config: { duration: 1000 },
+  });
 
   return (
-    <div className="about-us-page-section">
-      <Container fluid>
-        <section className="about-us-intro">
-          <h1 style={{color:'#fff'}} className=" all-headings">Welcome to Enceptics</h1>
-          <h4 style={{color:'#fff'}} >We focus on what's forgotten and rare</h4>
-          <Section1 /> 
-
+    <ParallaxProvider>
+      <div className="faq-page">
+        <Parallax speed={-5}>
+          <header className="faq-header">
+            <h1>Welcome to Enceptics</h1>
+            <p>Your Purpose-Driven Vacation Partner</p>
+          </header>
+        </Parallax>
+        <animated.section style={fadeIn} className="faq-intro">
+          <p>
+            At Enceptics, we specialize in vacations with a purpose. Whether you're an agriculture lover seeking insight into farming, a culinary enthusiast exploring local flavors, or a nature lover immersing in serene landscapes, we have something for everyone.
+          </p>
+          <p>
+            Our unique offerings include customizable itineraries tailored to your travel preferences. Fill out a form, and our team will meet with you to design a personalized experience that matches your desires.
+          </p>
+        </animated.section>
+        <section className="faq-categories">
+          <Accordion allowMultipleExpanded allowZeroExpanded>
+            <AccordionItem>
+              <AccordionItemHeading>
+                <AccordionItemButton>Adventure Enthusiasts</AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <p>Explore thrilling outdoor activities, nature hikes, and micro-adventures that bring unforgettable experiences.</p>
+              </AccordionItemPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionItemHeading>
+                <AccordionItemButton>Food Lovers</AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <p>Embark on culinary tours, taste local flavors, and enjoy cooking classes guided by expert chefs.</p>
+              </AccordionItemPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionItemHeading>
+                <AccordionItemButton>Art & Culture Aficionados</AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <p>Immerse yourself in art workshops, cultural festivals, and storytelling nights with local communities.</p>
+              </AccordionItemPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionItemHeading>
+                <AccordionItemButton>Environmental Advocates</AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <p>Join eco-friendly vacations, explore sustainable practices, and learn about local conservation efforts.</p>
+              </AccordionItemPanel>
+            </AccordionItem>
+          </Accordion>
         </section>
-
-        <section className="about-us__progress">
-          <h1>Our Goals</h1>
-          <div className="progress-bar__container">
-            {goals.map((goal, index) => (
-              <div key={index} className="progress-bar__item">
-                <span>{goal.year}</span>
-                <progress value={goal.progress} max="100"></progress>
-                <p>{goal.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="about-us__values">
-          <h1>Vision & Mission</h1>
-          <div className="timeline">
-            <div className="timeline__item">
-              <h2>Vision</h2>
-              <p>{vision}</p>
-            </div>
-            <div className="timeline__item">
-              <h2>Mission</h2>
-              <p>{mission}</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="about-us-difference">
-          <div>
-            <h2>How We Started</h2>
-            <p>Our journey began with a passion for travel...</p>
-          </div>
-          <div>
-            <img src="https://via.placeholder.com/400x250" alt="Innovation" />
-          </div>
-        </section>
-
-        <section className="about-us__partners">
-          <h1>Our Partners</h1>
-          <div className="partner-carousel">
-            {partnerLogos.map((logo, index) => (
-              <div key={index} className="partner-logo">
-                <img src={logo.imgSrc} alt={`Partner ${index + 1}`} />
-              </div>
-            ))}
-          </div>
-        </section>
-        <Container className="services-section">
-            <Row>
-              {serviceCards.map((card, index) => (
-                <Col md={3} key={index}>
-                  <div className="service-animated">
-                    <img src={card.imgSrc} alt={card.title} style={{width:'30px'}}/>
-                    <h5>{card.title}</h5>
-                  </div>
-                </Col>
-              ))}
-            </Row>
-          </Container>
-        <h1 className="all-headings mt-4">What We Offer</h1>
-          <p>Join our Chat room, share your travel stories, and connect with fellow adventurers.</p>
-          <h1 className="all-headings mt-4">Weather Updates</h1>
-          <p>Get real-time weather information for your destination to help you pack and prepare.</p>
-        <section className="about-us-impact">
-          <h1 className="fade-in text-center all-headings mt-4">Join Our Community</h1>
-          <p>Enceptics is more than an app; it's a community of travelers sharing their journeys and experiences...</p>
-        </section>
-      </Container>
-    </div>
+        <Parallax speed={5}>
+          <section className="faq-footer">
+            <h2>Partnering with Excellence</h2>
+            <p>
+              Enceptics is actively working toward partnerships with leading companies to provide you with unmatched vacation experiences.
+            </p>
+          </section>
+        </Parallax>
+      </div>
+    </ParallaxProvider>
   );
 };
 
-export default AboutUs;
+export default FAQ;

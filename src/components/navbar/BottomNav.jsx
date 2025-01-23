@@ -1,38 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from 'react-icons/fa'; // Importing icons
-import logo from '../../assets/logo/enc_logo.png';
-import messageIcon from '../../assets/images/message_icon.png';
+import React, { useState, useEffect } from "react";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaShareAlt } from "react-icons/fa";
 
 const NavigationBar = () => {
-  const [isSticky, setIsSticky] = useState(false);
-  const [scrolling, setScrolling] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState("Journey with Purpose");
 
   const links = [
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
+    { href: "/faqs", label: "FAQs" },
   ];
 
   const socialLinks = [
     { href: "https://facebook.com", icon: <FaFacebook /> },
+    { href: "https://twitter.com", icon: <FaTwitter /> },
     { href: "https://instagram.com", icon: <FaInstagram /> },
     { href: "https://linkedin.com", icon: <FaLinkedin /> },
   ];
 
+  const categories = ["Journey with Purpose", "Explore Your Passions", "Savor Your Desires", "Share your story"];
+
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsSticky(true);
-        setScrolling(true);
-      } else {
-        setIsSticky(false);
-        setScrolling(false);
-      }
+    const interval = setInterval(() => {
+      setCurrentCategory((prevCategory) => {
+        const currentIndex = categories.indexOf(prevCategory);
+        const nextIndex = (currentIndex + 1) % categories.length;
+        return categories[nextIndex];
+      });
+    }, 3000); // Change category every 3 seconds
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, [categories]);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: "Check this out!",
+      text: "I found something interesting to share with you.",
+      url: window.location.href,
     };
 
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        console.log("Content shared successfully!");
+      } catch (err) {
+        console.error("Error sharing content:", err);
+      }
+    } else {
+      alert("Sharing not supported in this browser. Use the links below!");
+    }
+  };
 
   return (
     <nav
@@ -40,62 +61,46 @@ const NavigationBar = () => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        backgroundColor: isSticky ? "#0071ce" : "#ddd", // Background color changes
-        color: isSticky ? "#ffffff" : "#000000", // Text color changes
-        padding: "5px 10px",
+        backgroundColor: "#ddd",
+        color: "#000",
+        padding: "0 10px 0 10px",
         width: "100%",
-        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-        position: "sticky",
-        top: "0",
-        zIndex: "10",
-        transform: scrolling ? "translateY(0)" : "translateY(0)",
-        transition: "transform 0.3s ease-in-out",
-        backdropFilter: isSticky ? "blur(10px)" : "none", // Add blur effect behind the navbar
-        WebkitBackdropFilter: isSticky ? "blur(10px)" : "none", // For Safari compatibility
       }}
     >
-      {/* Brand */}
-      <div style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-        {isSticky ? (
-          <img src={logo} alt="Logo" style={{ height: "40px" }} />
-        ) : (
-          <span></span>
-        )}
-      </div>
+   <div
+  style={{
+    fontSize: "0.9rem",  // Smaller font size
+    fontWeight: "600",   // Slightly bolder text
+    color: '#0071ce',
+    opacity: 0.5,
+    transform: "translateY(20px)",
+    animation: "fadeInUp 1.5s ease-out forwards, parallaxEffect 5s infinite alternate",
+    transition: "transform 0.3s ease-out",
+  }}
+>
+  {currentCategory}
+</div>
 
-      {/* Centered Links */}
-      <div style={{ display: "flex", gap: "10px" }}>
-        {isSticky ? (
-        <div className="actions">
-          <a href="/talks">
-            <div className="messages">
-              <img
-                src={messageIcon}
-                alt="Message Icon"
-              />
-              <div className="notification">5</div>
-            </div>
+
+      <div className="d-none d-sm-block" style={{ display: "flex", gap: "10px" }}>
+        {links.map((link) => (
+          <a
+          className="mx-2"
+            key={link.href}
+            href={link.href}
+            style={{
+              textDecoration: "none",
+              color: "#333",
+              fontSize: "1rem",
+              fontWeight: "500",
+            }}
+          >
+            {link.label}
           </a>
-        </div>        ) : (
-          links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              style={{
-                textDecoration: "none",
-                color: isSticky ? "#ffffff" : "#333", // Link color changes based on scroll
-                fontSize: "1rem",
-                fontWeight: "500",
-              }}
-            >
-              {link.label}
-            </a>
-          ))
-        )}
+        ))}
       </div>
 
-      {/* Social Links */}
-      <div style={{ display: "flex", gap: "15px" }}>
+      <div style={{ display: "flex", gap: "15px", alignItems: "center" }}>
         {socialLinks.map((social) => (
           <a
             key={social.href}
@@ -105,13 +110,33 @@ const NavigationBar = () => {
             style={{
               textDecoration: "none",
               fontSize: "1.2rem",
-              color: isSticky ? "#ffffff" : "#333", // Social icon color changes based on scroll
             }}
           >
             {social.icon}
           </a>
         ))}
+
+        <button
+          onClick={handleShare}
+          style={{
+            background: "transparent",
+            border: "none",
+            fontSize: "1.2rem",
+            cursor: "pointer",
+          }}
+        >
+          <FaShareAlt />
+        </button>
       </div>
+
+      <style>{`
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </nav>
   );
 };

@@ -1,0 +1,26 @@
+.nav-links {
+    display: none; /* Hidden by default */
+  }
+  
+  @media (min-width: 768px) {
+    .nav-links {
+      display: flex; /* Visible on large screens */
+    }
+  }
+  
+  .sidebar {
+    display: none; /* Default state */
+  }
+  
+  @media (max-width: 767px) {
+    .sidebar {
+      display: flex; /* Sidebar for small screens */
+    }
+  }
+
+  @media (max-width: 576px) {
+    .hide-on-small {
+      display: none !important;
+    }
+  }
+  

@@ -188,8 +188,10 @@ export default function App() {
           <Route path="/payment" element={<Payment />} />
 
           {/* Property Management */}
-          <Route path="/management/property-management" element={<PropertyManager />} />
-          <Route path="/management/property-management/add-place" element={<AddPlace />} />
+          
+          <Route path="/management/property-management" element={<PrivateRoute><PropertyManager /></PrivateRoute>} />
+          <Route path="/management/property-management/add-place" element={<PrivateRoute><AddPlace /></PrivateRoute>} />
+          
 
         </Routes>
       </div>

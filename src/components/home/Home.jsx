@@ -37,7 +37,6 @@ export default function Home() {
             <Partners />
           </div>
         </div>
-        <Section1 />
       </div>
     </>
   );

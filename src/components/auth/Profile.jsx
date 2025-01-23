@@ -1,27 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './Profile.css'; // Adjust the path as necessary
+import { BASE_URL } from "../config/config";
 
 const Profile = () => {
-    const userData = {
-        name: "Jane Doe",
-        email: "jane.doe@example.com",
-        degreeProgram: "Adventurous Traveler",
-        visitedDestinations: ["Paris", "New York", "Tokyo", "Sydney"],
-        wishList: ["Bali", "Santorini", "Machu Picchu"],
-        followers: 120,
-        following: 80,
-        messages: [
-            { from: "Alice", text: "Can't wait for our trip!", date: "2024-10-25" },
-            { from: "Bob", text: "Have you booked the tickets?", date: "2024-10-20" },
-            { from: "Charlie", text: "Let’s plan our itinerary!", date: "2024-10-18" },
-        ],
-        touristThemes: [
-            { title: "Adventure", description: "Explore the wild and embrace the thrill of the great outdoors." },
-            { title: "Culture", description: "Immerse yourself in the history and heritage of diverse cultures." },
-            { title: "Relaxation", description: "Unwind and rejuvenate at serene locations worldwide." },
-            { title: "Culinary", description: "Savor the flavors of the world with culinary tours and cooking classes." },
-        ],
-    };
+    const [userData, setUserData] = useState(null);
+    const [error, setError] = useState(null);
+    const token = localStorage.getItem('authToken'); // Assuming token is stored in localStorage
+
+    useEffect(() => {
+        if (token) {
+            // Fetch user profile data with token authentication
+            axios
+                .get(`${BASE_URL}profile/profile/`, {
+                    headers: {
+                        Authorization: `Token ${token}`,  // Add token to Authorization header
+                    },
+                })
+                .then((response) => {
+                    setUserData(response.data); // Set the user data from the response
+                })
+                .catch((err) => {
+                    setError('Error fetching user data: ' + (err.response?.data?.detail || err.message));
+                    console.error(err);
+                });
+        } else {
+            setError('Token not found.');
+        }
+    }, [token]);
+
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+    if (!userData) {
+        return <div>Loading...</div>;
+    }
+
+    // Safely handle arrays by defaulting to empty array if undefined
+    const visitedDestinations = Array.isArray(userData.visitedDestinations) ? userData.visitedDestinations : [];
+    const wishList = Array.isArray(userData.wishList) ? userData.wishList : [];
+    const messages = Array.isArray(userData.messages) ? userData.messages : [];
+    const touristThemes = Array.isArray(userData.touristThemes) ? userData.touristThemes : [];
 
     return (
         <div className="profile-page">
@@ -35,7 +55,7 @@ const Profile = () => {
             <div className="visited-section">
                 <h2>Visited Destinations</h2>
                 <ul>
-                    {userData.visitedDestinations.map((destination, index) => (
+                    {visitedDestinations.map((destination, index) => (
                         <li key={index}>{destination}</li>
                     ))}
                 </ul>
@@ -44,7 +64,7 @@ const Profile = () => {
             <div className="wish-list-section">
                 <h2>Wish List</h2>
                 <ul>
-                    {userData.wishList.map((item, index) => (
+                    {wishList.map((item, index) => (
                         <li key={index}>{item}</li>
                     ))}
                 </ul>
@@ -59,7 +79,7 @@ const Profile = () => {
             <div className="messages-section">
                 <h2>Messages</h2>
                 <ul>
-                    {userData.messages.map((message, index) => (
+                    {messages.map((message, index) => (
                         <li key={index}>
                             <strong>{message.from}</strong>: {message.text} <em>({message.date})</em>
                         </li>
@@ -70,7 +90,7 @@ const Profile = () => {
             <div className="themes-section">
                 <h2>Tourist Themes</h2>
                 <div className="grid-container">
-                    {userData.touristThemes.map((theme, index) => (
+                    {touristThemes.map((theme, index) => (
                         <div className="grid-item" key={index}>
                             <h3>{theme.title}</h3>
                             <p>{theme.description}</p>

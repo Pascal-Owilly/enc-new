@@ -275,7 +275,7 @@ const VacationPage = () => {
         <main>
           {/* Featured Destinations */}
           <section className="destination-showcase">
-          <h2 className="all-headings4 text-dark">Explore Categories</h2>
+          <h3 className="all-headi text-dark">Explore Categories</h3>
           <hr />
             <div className="cards-container">
               
@@ -298,7 +298,7 @@ const VacationPage = () => {
 
         {/* Custom Itineraries */}
         <section className="itineraries-showcase">
-          <h2 className="all-headings4 text-dark">Custom Itineraries</h2>
+          <h3 className="all-head text-dark">Custom Itineraries</h3>
           <hr />
 
           <div className="cards-container">
