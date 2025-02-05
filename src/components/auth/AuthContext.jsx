@@ -7,6 +7,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("authToken") || null);
+  const [decodedToken, setDecodedToken] = useState(null);  // New state for decoded token
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);  // New loading state
 
@@ -19,13 +20,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token]);
 
-  // Initialize token from local storage
-  useEffect(() => {
-    const storedToken = localStorage.getItem("authToken");
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
+  // Decode token and set decoded data (like user ID) when token changes
 
   // Fetch user data when token changes
   useEffect(() => {
@@ -55,12 +50,37 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
   }, [token]);
 
+  // Signup function
+  const signUp = async (formData) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}api/auth/register/`,
+        formData,
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      
+      if (response.status === 201) {
+        const { token, user } = response.data;
+        setToken(token);  // Set the token from response
+        setUser(user); // Set user data
+        return { success: true };
+      } else {
+        setError('Sign up failed');
+        return { success: false, message: 'Sign up failed' };
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      setError(error.response?.data?.detail || "An error occurred during signup.");
+      return { success: false, message: error.response?.data?.detail || "An error occurred during signup." };
+    }
+  };
+
   // Login function
-  const login = async (username, password) => {
+  const login = async (email, password) => {
     try {
       const response = await axios.post(
         `${BASE_URL}api/auth/login/`,
-        { username, password },
+        { email, password },
         { headers: { 'Content-Type': 'application/json' } }
       );
       
@@ -80,6 +100,31 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Google login function
+  const googleLogin = async (token) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}api/auth/google-login/`,
+        { token },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+
+      if (response.status === 200) {
+        const { token, user } = response.data;
+        setToken(token);  // Set the token from response
+        setUser(user); // Set user data
+        return { success: true };
+      } else {
+        setError('Google login failed');
+        return { success: false, message: 'Google login failed' };
+      }
+    } catch (error) {
+      console.error("Google login error:", error);
+      setError(error.response?.data?.detail || "An error occurred during Google login.");
+      return { success: false, message: error.response?.data?.detail || "An error occurred during Google login." };
+    }
+  };
+
   // Logout function
   const logout = () => {
     setToken(null);
@@ -88,7 +133,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, token, error, loading }}>
+    <AuthContext.Provider value={{
+      user, 
+      login, 
+      googleLogin, 
+      signUp, 
+      logout, 
+      token, 
+      error, 
+      loading, 
+    }}>
       {children}
     </AuthContext.Provider>
   );

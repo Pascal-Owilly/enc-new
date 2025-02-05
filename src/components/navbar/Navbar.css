@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #0071ce;
+  background: linear-gradient(135deg, #773697, #4a148c);
   color: #ffffff;
   }
 
@@ -227,7 +227,7 @@ color: #ddd;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #0071ce;
+  background-color: transparent;
   color: white;
 }
 

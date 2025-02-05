@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { BASE_URL } from '../config/config';
+import { useNavigate } from "react-router-dom";
+import AuthContext from './AuthContext';  // Corrected import of AuthContext
 
 import './SignUp.css';
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
         email: '',
         password: '',
-        role: '',
-        phoneNumber: '',
-        address: '',
+        first_name: '',
+        last_name: '',
+        role: null,
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const navigate = useNavigate();
+    const { setToken, setUser } = useContext(AuthContext); // Use useContext to get context values
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -38,25 +40,62 @@ const SignUp = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                setSuccess('Sign up successful! Please check your email to verify your account.');
-                console.log('Sign up success:', data);
+                setSuccess('Sign up successful! Redirecting to login...');
+                
+                // Store token and user in context after successful signup
+                // setToken(data.token); 
+                // setUser(data.user);
+                navigate('/auth/login'); // Redirect to login page
             } else {
                 const errorData = await response.json();
-                setError(errorData.detail || 'Failed to sign up.');
+                // Directly set the error response from backend
+                setError(JSON.stringify(errorData));  // Convert the error object to a string for display
             }
         } catch (err) {
             setError('Network error. Please try again later.');
         }
     };
 
-    const handleGoogleLoginSuccess = (credentialResponse) => {
-        console.log('Google Sign Up Success:', credentialResponse);
-        // Forward Google token to the backend
+    // Define Google login success and error handling
+    const handleGoogleLoginSuccess = async (response) => {
+        const { credential } = response;
+    
+        try {
+            // Send the credential (Google OAuth token) to your backend for verification and user authentication
+            const apiResponse = await fetch(`${BASE_URL}api/auth/google-login/`, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token: credential }),
+            });
+    
+            if (apiResponse.ok) {
+                const data = await apiResponse.json();
+                console.log("Google login successful:", data);
+    
+                // Store token and user information in the context (for frontend state management)
+                setToken(data.token); // assuming `data.token` is the JWT received
+                setUser(data.user);   // assuming `data.user` contains the user's details
+    
+                // Redirect to a dashboard or home page after successful login
+                navigate('/dashboard');
+            } else {
+                // Handle errors (e.g., user not found, invalid token)
+                const errorData = await apiResponse.json();
+                console.error("Error during Google login:", errorData);
+                setError('Google login failed. Please try again.');
+            }
+        } catch (error) {
+            console.error("Error in Google login request:", error);
+            setError('Network error during Google login. Please try again later.');
+        }
     };
+    
 
-    const handleGoogleLoginError = () => {
-        console.error('Google Sign Up Failed');
-        setError('Google sign up failed.');
+    const handleGoogleLoginError = (error) => {
+        console.error("Google login error", error);
+        setError('Google login failed. Please try again.');
     };
 
     return (
@@ -66,36 +105,32 @@ const SignUp = () => {
                     <h1 className="signup-title">Create Your Account</h1>
                     {error && <p className="error-message">{error}</p>}
                     {success && <p className="success-message">{success}</p>}
-                    <form onSubmit={handleSignUp} className ="signup-form">
-                        {/* First Name */}
+                    <form onSubmit={handleSignUp} className="signup-form">
+                        {/* Form fields */}
                         <div className="form-group">
-                            <label htmlFor="firstName">First Name</label>
+                            <label htmlFor="first_name">First Name</label>
                             <input
                                 type="text"
-                                id="firstName"
-                                name="firstName"
-                                value={formData.firstName}
+                                id="first_name"
+                                name="first_name"
+                                value={formData.first_name}
                                 onChange={handleChange}
                                 placeholder="Enter your first name"
                                 required
                             />
                         </div>
-                        
-                        {/* Last Name */}
                         <div className="form-group">
-                            <label htmlFor="lastName">Last Name</label>
+                            <label htmlFor="last_name">Last Name</label>
                             <input
                                 type="text"
-                                id="lastName"
-                                name="lastName"
-                                value={formData.lastName}
+                                id="last_name"
+                                name="last_name"
+                                value={formData.last_name}
                                 onChange={handleChange}
                                 placeholder="Enter your last name"
                                 required
                             />
                         </div>
-                        
-                        {/* Email */}
                         <div className="form-group">
                             <label htmlFor="email">Email Address</label>
                             <input
@@ -108,8 +143,6 @@ const SignUp = () => {
                                 required
                             />
                         </div>
-
-                        {/* Password */}
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
                             <input
@@ -118,12 +151,10 @@ const SignUp = () => {
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
-                                placeholder="Create your password"
+                                placeholder="Enter your password"
                                 required
                             />
                         </div>
-
-                        {/* Role */}
                         <div className="form-group">
                             <label htmlFor="role">Role</label>
                             <select
@@ -131,55 +162,23 @@ const SignUp = () => {
                                 name="role"
                                 value={formData.role}
                                 onChange={handleChange}
-                                required
                             >
                                 <option value="">Select Role</option>
+                                <option value="superuser">Superuser</option>
+                                <option value="customer">Customer</option>
+                                <option value="property_manager">Property Manager</option>
                                 <option value="manager">Manager</option>
-                                <option value="role2">Role 2</option>
+                                <option value="sub_manager">Sub-Manager</option>
                             </select>
                         </div>
-
-                        {/* Phone Number */}
-                        <div className="form-group">
-                            <label htmlFor="phoneNumber">Phone Number</label>
-                            <input
-                                type="text"
-                                id="phoneNumber"
-                                name="phoneNumber"
-                                value={formData.phoneNumber}
-                                onChange={handleChange}
-                                placeholder="Enter your phone number"
-                            />
-                        </div>
-
-                        {/* Address */}
-                        <div className="form-group">
-                            <label htmlFor="address">Address</label>
-                            <input
-                                type="text"
-                                id="address"
-                                name="address"
-                                value={formData.address}
-                                onChange={handleChange}
-                                placeholder="Enter your address"
-                            />
-                        </div>
-
-                        {/* Submit Button */}
                         <button type="submit" className="signup-button">Sign Up</button>
                     </form>
-
-                    {/* Divider */}
                     <div className="divider"><span>OR</span></div>
-
-                    {/* Google OAuth */}
                     <GoogleLogin
                         onSuccess={handleGoogleLoginSuccess}
                         onError={handleGoogleLoginError}
                         useOneTap
                     />
-
-                    {/* Login Link */}
                     <p className="login-link">
                         Already have an account? <a href="/auth/login">Log in</a>
                     </p>

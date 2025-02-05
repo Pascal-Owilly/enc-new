@@ -1,0 +1,150 @@
+/* General Styles */
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Hero Section */
+.hero-container-bg {
+    background: url("../../assets/hero/hero.jpg") center/cover no-repeat;
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #773697, #4a148c);
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+}
+
+.cta-button {
+    background: #000042 !important;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+/* .cta-button:hover {
+    background: #e66a3c;
+} */
+
+/* Destinations */
+.destinations {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.destination-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.destination {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    width: 280px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.destination img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.destination:hover {
+    transform: scale(1.05);
+}
+
+/* Testimonials */
+.testimonials {
+    text-align: center;
+    background: #fffbf2;
+    padding: 50px 20px;
+}
+
+.testimonial {
+    margin: 20px auto;
+    width: 50%;
+    font-style: italic;
+}
+
+/* CTA Section */
+.cta {
+    text-align: center;
+    background: #ff7f50;
+    color: white;
+    padding: 60px 20px;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: white;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .destination-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .testimonial {
+        width: 70%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 60px 15px;
+    }
+    .hero h1 {
+        font-size: 2rem;
+    }
+    .cta-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    .destination-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .testimonial {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 40px 10px;
+    }
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    .cta-button {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+    .destination {
+        width: 90%;
+    }
+    .testimonial {
+        width: 90%;
+    }
+}

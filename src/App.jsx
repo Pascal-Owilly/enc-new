@@ -68,6 +68,7 @@ import Booking from './components/bookings/Booking';
 import GroupBookings from './components/bookings/GroupBookings';
 import Weather from './components/weather/Weather';
 import Talks from './components/talks/Talks';
+import Talks2 from './components/talks/Talks2';
 
 // Testing Component
 import Test from './components/testing/Test';
@@ -178,6 +179,8 @@ export default function App() {
           <Route path="/destination/group-bookings" element={<GroupBookings />} />
           <Route path="/weather/:place_name" element={<Weather />} />
           <Route path="/talks" element={<Talks />} />
+          <Route path="/talks2" element={<Talks2 />} />
+
           <Route path="/destinations/vr-2" element={<VirtualRealityTwo />} />
           <Route path="/destinations/tour-and-learn" element={<TourAndLearn />} />
 
@@ -192,7 +195,6 @@ export default function App() {
           <Route path="/management/property-management" element={<PrivateRoute><PropertyManager /></PrivateRoute>} />
           <Route path="/management/property-management/add-place" element={<PrivateRoute><AddPlace /></PrivateRoute>} />
           
-
         </Routes>
       </div>
       <Footer />

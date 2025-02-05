@@ -9,142 +9,161 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import adventure from '../../assets/categories/adventure.jpg';
+import vr from '../../assets/categories/vr.jpg';
+import story from '../../assets/categories/story.jpg';
+import cultural from '../../assets/categories/cultural.jpg';
+import photo from '../../assets/categories/photo.jpg';
+import sports from '../../assets/categories/sports.jpg';
+import retreats3 from '../../assets/categories/retreats3.jpg';
+import community from '../../assets/categories/community.jpg';
+import historical from '../../assets/categories/historical.jpg';
+import nature2 from '../../assets/categories/nature2.jpg';
+import group from '../../assets/categories/group.jpg';
+import culinary from '../../assets/categories/culinary.jpg';
+import outdoor from '../../assets/categories/outdoor.jpg';
+import farming from '../../assets/categories/farming.jpg';
+import art from '../../assets/categories/art.jpg';
+import artisan from '../../assets/categories/artisan.jpg';
+import music from '../../assets/categories/music.jpg';
+import wildlife from '../../assets/categories/wildlife.jpg';
+
 const VacationPage = () => {
   // Titles, descriptions, and links for the cards
   const cards = [
     {
       name: 'Micro-Adventure',
       description: 'Embark on small adventures that bring big experiences.',
-      price: '$150',
+      price: '150',
       link: '/destinations/micro-adventure',
-      image: heroImage2,
+      image: adventure,
     },
 
     {
       name: 'Group Booking',
       description: 'Organize trips for large groups at discounted rates.',
-      price: '$500',
+      price: '500',
       link: '/destination/group-bookings',
-      image: heroImage2,
+      image: group,
     },
     {
       name: 'Culinary Tours',
       description: 'Taste the local flavors and enjoy cooking classes.',
       price: '$300',
       link: '/destinations/culinary-tours',
-      image: heroImage3,
+      image: culinary,
     },
     {
       name: 'Farmers\' Markets',
       description: 'Experience the best of local produce and artisan products.',
       price: '$50',
       link: '/destinations/farmers-markets',
-      image: heroImage2,
+      image: farming,
     },
     {
       name: 'Nature Hikes',
       description: 'Explore breathtaking nature trails and serene landscapes.',
       price: '$120',
       link: '/destinations/nature-hikes',
-      image: heroImage3,
+      image: nature2,
     },
     {
       name: 'Art Workshops',
       description: 'Get creative with hands-on art sessions and local artists.',
       price: '$200',
       link: '/destinations/art-workshops',
-      image: heroImage2,
+      image: art,
     },
     {
       name: 'Cultural Festivals',
       description: 'Dive into the rich culture through vibrant festivals.',
       price: '$180',
       link: '/destinations/cultural-festivals',
-      image: heroImage3,
+      image: cultural,
     },
     {
       name: 'Historical Tours',
       description: 'Discover the history and landmarks of the area.',
       price: '$250',
       link: '/destinations/historical-tours',
-      image: heroImage2,
+      image: historical,
     },
     {
       name: 'Community Service',
       description: 'Engage in activities that benefit local communities.',
       price: '$100',
       link: '/destinations/community-service',
-      image: heroImage3,
+      image: community,
     },
     {
       name: 'Outdoor Adventures',
       description: 'Experience thrilling outdoor activities and nature.',
       price: '$220',
       link: '/destinations/outdoor-adventures',
-      image: heroImage2,
+      image: outdoor,
     },
     {
       name: 'Wellness Retreats',
       description: 'Relax and rejuvenate with wellness programs.',
       price: '$400',
       link: '/destinations/wellness-retreats',
-      image: heroImage3,
+      image: retreats3,
     },
     {
       name: 'Local Sports Events',
       description: 'Experience the excitement of local sports events.',
       price: '$75',
       link: '/destinations/local-sports',
-      image: heroImage2,
+      image: sports,
     },
     {
       name: 'Music and Dance Classes',
       description: 'Learn music and dance from local experts.',
       price: '$150',
       link: '/destinations/music-dance',
-      image: heroImage3,
+      image: music,
     },
     {
       name: 'Local Artisan Tours',
       description: 'Explore the craftsmanship of local artisans.',
-      price: '$130',
+      price: '130',
       link: '/destinations/artisan-tours',
-      image: heroImage2,
+      image: artisan,
     },
     {
       name: 'Themed Photo Walks',
       description: 'Capture beautiful moments on guided photo walks.',
-      price: '$80',
+      price: '80',
       link: '/destinations/photo-walks',
-      image: heroImage3,
+      image: photo,
     },
     {
       name: 'Wildlife Spotting',
       description: 'Observe and learn about local wildlife.',
-      price: '$200',
+      price: '200',
       link: '/destinations/wildlife-spotting',
-      image: heroImage2,
+      image: wildlife,
     },
     {
       name: 'Cultural Exchange',
       description: 'Engage in cultural exchanges with locals.',
-      price: '$150',
+      price: '150',
       link: '/destinations/cultural-exchange',
-      image: heroImage3,
+      image: cultural,
     },
     {
       name: 'Storytelling Nights',
       description: 'Enjoy evenings of storytelling and local tales.',
-      price: '$50',
+      price: '50',
       link: '/destinations/storytelling',
-      image: heroImage2,
+      image: story,
     },
     {
       name: 'Virtual Reality',
       description: 'Experience immersive virtual reality adventures.',
-      price: '$300',
+      price: '300',
       link: '/destinations/vr-2',
-      image: heroImage3,
+      image: vr,
     },
   ];
 
@@ -276,30 +295,59 @@ const VacationPage = () => {
           {/* Featured Destinations */}
           <section className="destination-showcase">
           <h3 className="all-headi text-dark">Explore Categories</h3>
-          <hr />
-            <div className="cards-container">
-              
-              {cards.map((card, index) => (
-                <a href={card.link} className="card" style={{textDecoration:'none'}}>
-                <div
-                className={` category-${card.title ? card.title.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
-                >
-                  <div className="image-placeholder">
-                    <img src={card.image} alt={card.name} style={{ width: '100%' }} />
-                  </div>
-                  <h3>{card.name}</h3>
-                  <p>{card.description}</p>
-                  <span className="price">{card.price}</span>
-                </div>
-                </a>
-              ))}
-            </div>
+          <div className="cards-container" >
+  {cards.map((card, index) => (
+    <a href={card.link} className="card" style={{ textDecoration: 'none', width: '300px' }} key={index}>
+      <div
+        className={`category-${card.title ? card.title.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
+        style={{
+          backgroundImage: `url(${card.image})`,
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          height: '300px',
+          color: 'white',
+          borderRadius: '10px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+          padding: '20px',
+          boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+          transition: 'transform 0.3s, box-shadow 0.3s',
+        }}
+      >
+        <h3 style={{ margin: '0', fontSize: '1.5em', fontWeight: 'bold',color:'#fff', textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>{card.name}</h3>
+        <p style={{ margin: '5px 0', fontSize: '0.9em',color:'#ddd', textShadow: '1px 1px 2px rgba(0,0,0,0.5)' }}>{card.description}</p>
+        <span className="price" style={{ fontSize: '1.2em', fontWeight: 'bold' }}>
+          <span className="discount-price" style={{ textDecoration: 'line-through', marginRight: '5px', color: 'rgba(255,255,255,0.7)' }}>${card.originalPrice}</span>
+          <b style={{ color: '#ffcc00' }}>{card.price}</b>
+        </span>
+        <span className="rating" style={{ fontSize: '0.9em', marginTop: '5px' }}>⭐ {card.rating} / 5</span>
+        <a href={card.link} className="explore-btn" style={{
+          marginTop: '10px',
+          padding: '10px 15px',
+          backgroundColor: 'transparent',
+          border:'1px solid #ddd',
+          color: '#fff',
+          borderRadius: '5px',
+          textAlign: 'center',
+          textDecoration: 'none',
+          fontWeight: 'bold',
+          transition: 'background-color 0.3s',
+        }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#ffd700'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ffcc00'}>
+          Plan My Adventure
+        </a>
+      </div>
+    </a>
+  ))}
+</div>
+
           </section>
 
         {/* Custom Itineraries */}
+        <hr />
+
         <section className="itineraries-showcase">
           <h3 className="all-head text-dark">Custom Itineraries</h3>
-          <hr />
 
           <div className="cards-container">
             {itineraries.map((itinerary, index) => (
@@ -427,113 +475,8 @@ const VacationPage = () => {
   </div>
 </div>
 
-  {/* Navigation Buttons */}
-  <div className="d-flex justify-content-center text-center my-3">
-    <button
-      onClick={goToPrevSlide}
-      className="btn btn-warning text-dark rounded-circle"
-      style={{
-        padding: "10px 15px",
-        margin: "0 5px",
-        border: "none",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        background: '#FFD700',
-        
-      }}
-    >
-      ◀
-    </button>
-    <button
-      onClick={goToNextSlide}
-      className="btn btn-warning text-dark rounded-circle"
-      style={{
-        padding: "10px 15px",
-        margin: "0 5px",
-        border: "none",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        background: '#FFD700',
-      }}
-    >
-      ▶
-    </button>
-  </div>
 </div>
 
-
-     {/* Partners Section */}
-     {/* <div style={{ textAlign: "center", margin: "50px auto", width: "80%" }}>
-        <h2 style={{ fontSize: "1.8em", fontWeight: "bold", color: "#333", marginBottom: "30px" }}>
-          We partner with visionaries to drive global innovations
-        </h2>
-
-        <div style={{ display: "flex", overflow: "hidden", position: "relative" }}>
-          <div
-            style={{
-              display: "flex",
-              transform: `translateX(-${activeIndex * 100}%)`,
-              transition: "transform 0.5s ease-in-out",
-              width: `${partners.length * 100}%`,
-            }}
-          >
-            {partners.map((partner, index) => (
-              <div
-                key={index}
-                style={{
-                  flex: "0 0 100%",
-                  padding: "20px",
-                  boxSizing: "border-box",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "#fff",
-                }}
-              >
-                <img src={partner.logo} alt={partner.name} style={{ width: "100px", height: "50px", objectFit: "contain" }} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "20px",
-          position: "absolut",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          zIndex: "10",
-        }}>
-          <button
-            onClick={goToPrevSlide}
-            style={{
-              padding: "10px 15px",
-              margin: "0 5px",
-              border: "none",
-              borderRadius: "50%",
-              backgroundColor: "yellow",
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            ◀
-          </button>
-          <button
-            onClick={goToNextSlide}
-            style={{
-              padding: "10px 15px",
-              margin: "0 5px",
-              border: "none",
-              borderRadius: "50%",
-              backgroundColor: "#333",
-              color: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            ▶
-          </button>
-        </div>
-      </div> */}
         </main>
       </div>
     </div>

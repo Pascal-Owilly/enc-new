@@ -13,6 +13,8 @@ import { faImages } from '@fortawesome/free-regular-svg-icons';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
+import * as jwt_decode from 'jwt-decode';
+
 const BlogPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,6 +25,7 @@ const BlogPosts = () => {
   const [hasMore, setHasMore] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(null);
   const [expandedComments, setExpandedComments] = useState({});
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     fetchPosts();
@@ -34,55 +37,99 @@ const BlogPosts = () => {
   };
 
   const fetchPosts = async () => {
-    setLoading(true);
+    setLoading(true); // Start loading when the data fetch begins
+    
     try {
+      // Fetching blog posts from the backend API
       const response = await fetch(`${BASE_URL}api/blogposts/`);
+      
+      // If the response is not successful (status outside 200-299), throw an error
       if (!response.ok) throw new Error('Failed to fetch posts');
+      
+      // Parse the response as JSON
       const data = await response.json();
+      
+      // Add a 'comments' field to each post, defaulting to an empty array if none exists
       const postsWithComments = data.map(post => ({
         ...post,
-        comments: post.comments || [],
+        comments: post.comments || [], // If no comments, default to empty array
       }));
+  
+      // Update state with posts containing comments
       setPosts(postsWithComments);
+  
+      // Check if there are posts to display (if there are, set hasMore to true)
       setHasMore(postsWithComments.length > 0);
+      
     } catch (error) {
+      // If an error occurs during fetch, store the error message
       setError(error.message);
     } finally {
+      // Once the fetch is complete (success or failure), stop loading
       setLoading(false);
     }
   };
+  
 
+  const getUserIdFromToken = () => {
+    const token = localStorage.getItem('authToken');
+    console.log("Token from localStorage:", token);  // Add this log
+    return token;
+  };
+  
   const createPost = async () => {
-    const token = getAuthToken();
+    const token = localStorage.getItem('authToken');
     if (!token) {
-      setError('You must be logged in to create a post');
+      setError('Please log in first. We’re excited to see what you’ll share!');
       return;
     }
   
-    const postData = { content: storyContent };
+    const formData = new FormData();
+    formData.append('content', storyContent);  // Include the content in the form data
+    if (selectedImage) {
+      formData.append('image', selectedImage);  // Include the image if selected
+    }
   
     try {
       const response = await fetch(`${BASE_URL}api/blogposts/`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Token ${token}`,
+          'Authorization': `Token ${token}`,  // Pass the token in the authorization header
         },
-        body: JSON.stringify(postData),
+        body: formData,  // Send the form data
       });
   
+      const responseText = await response.text();
+      console.log('Response Status:', response.status);
+      console.log('Response Body:', responseText);
+      console.log('Request Payload:', formData);
+  
       if (!response.ok) {
-        // Extract the error message from the response body
-        const errorData = await response.json();
-        throw new Error(errorData?.detail || 'Failed to create post');
+        let errorMessage;
+        try {
+          const errorData = JSON.parse(responseText);
+          errorMessage = errorData?.detail || 'Failed to create post';
+        } catch {
+          errorMessage = responseText || 'Failed to create post';
+        }
+        throw new Error(errorMessage);
       }
   
-      const newPost = await response.json();
-      setPosts(prev => [newPost, ...prev]);
+      const newPost = JSON.parse(responseText);
+      setPosts((prev) => [newPost, ...prev]);
       setStoryContent('');
+      setSelectedImage(null);  // Reset image after post creation
     } catch (error) {
-      // Display the error message returned by the server
+      console.error('Post Creation Error:', error);
       setError(error.message || 'An unknown error occurred');
+    }
+  };
+  
+  
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file);
     }
   };
   
@@ -90,7 +137,7 @@ const BlogPosts = () => {
   const handleLike = async (postId) => {
     const token = getAuthToken();
     if (!token) {
-      setError('You must be logged in to like a post');
+      setError('Please log in first. We’re excited to see expressing interest!');
       return;
     }
 
@@ -123,8 +170,9 @@ const BlogPosts = () => {
     
     const token = getAuthToken();
     if (!token) {
-      setError('You must be logged in to comment');
+      setError('Please log in first. We’re excited to see what you’ll share!');
       return;
+
     }
 
     try {
@@ -163,12 +211,12 @@ const BlogPosts = () => {
   const deletePost = async (postId) => {
     const token = getAuthToken();
     if (!token) {
-      setError('You must be logged in to delete a post');
+      setError('Please log in first');
       return;
     }
 
     try {
-      const response = await fetch(`${BASE_URL}api/blogpost/${postId}/`, {
+      const response = await fetch(`${BASE_URL}api/blogposts/${postId}/`, {
         method: 'DELETE',
         headers: {
           Authorization: `Token ${token}`, // Add token to the request header
@@ -191,152 +239,192 @@ const BlogPosts = () => {
   };
 
   return (
-    <div className="container-fluid talks-container">
-      <div className="chat-container">
-        <div className="row">
-          <div className="col-md-8">
-            <h1 className="text-dark travel-stories text-left">Travel Stories</h1>
-            <hr />
-            <div className="input-group blogpost-input m-auto" style={{ width: '97%' }}>
-              <img
-                src={defaultProfile}
-                style={{
-                  width: '35px',
-                  height: '35px',
-                  borderRadius: '50%',
-                  objectFit: 'cover',
-                }}
-                alt="Profile Pic"
+<div className="container-fluid talks-container">
+  <div className="chat-container">
+    <div className="row">
+      <div className="col-md-8">
+        <h1 className="text-dark travel-stories text-left">Travel Stories</h1>
+        <hr />
+        <div className="input-group blogpost-input m-auto" style={{ width: '97%' }}>
+  <img
+    src={defaultProfile}
+    style={{
+      width: '35px',
+      height: '35px',
+      borderRadius: '50%',
+      objectFit: 'cover',
+    }}
+    alt="Profile Pic"
+  />
+  &nbsp;&nbsp;&nbsp;
+  <input
+    value={storyContent}
+    onChange={(e) => setStoryContent(e.target.value)}
+    placeholder="What's your travel story?"
+    required
+    className="story-input"
+    style={{ borderRadius: '30px', fontFamily: 'Caladea' }}
+  />
+  <label htmlFor="imageInput" className="custom-file-upload what-card-bt m-2">
+    <input
+      type="file"
+      id="imageInput"
+      accept="image/*"
+      onChange={handleFileChange} // Handle file change event
+      style={{ display: 'none' }}
+    />
+    <span className="custom-button mx-1">
+      <FontAwesomeIcon icon={faImages} className="icon-style" />
+      <span style={{ fontSize: '10px', color: '#999999', fontFamily: 'Caladea' }}>
+        Photo
+      </span>
+    </span>
+  </label>
+
+  <div>
+    <button
+      type="button"
+      onClick={() => {
+        // Validate content before posting
+        if (storyContent.trim() === '') {
+          alert('Please write something before posting.');
+          return; // Prevent posting
+        }
+        createPost(); // Proceed with post creation if content is valid
+      }}
+      style={{
+        zIndex: 0,
+        fontSize: '12px',
+        fontFamily: 'Caladea',
+        width: '50px',
+      }}
+    >
+      Post
+    </button>
+  </div>
+</div>
+
+        {loading && (
+          <div className="dot-loader">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        )}
+        {error && <p className="text-center">{error}</p>}
+        {!loading && posts.length === 0 && (
+          <div className="no-posts-message text-center">
+            <FontAwesomeIcon
+              icon={faExclamationCircle}
+              style={{ fontSize: '48px', color: '#999999', marginBottom: '10px' }}
+            />
+            <p className="text-secondary" style={{ fontFamily: 'Caladea', fontSize: '18px' }}>
+              No blog posts to display. Start by creating one!
+            </p>
+          </div>
+        )}
+  <div className="chat-content">
+  {Array.isArray(posts) && posts.length > 0 ? (
+    posts.map((post) => (
+      <div className="post-card" key={post.id}>
+        <div className="post-header">
+          <img src={post.image} alt="Author" className="author-image" />
+          <div className="author-details">
+            <h5 className="text-secondary" style={{ fontFamily: 'verdana', fontSize: '14px' }}>
+              {post.author_full_name}
+            </h5>
+            <p style={{ fontFamily: 'verdana', fontSize: '12px' }} className="text-secondary">
+              {moment(post.created_at).fromNow()}
+            </p>
+          </div>
+        </div>
+        <div className="post-content">
+          <p className="text-dark" style={{ fontFamily: 'Caladea' }}>{post.content}</p>
+          {post.image ? <img src={post.image} alt="Post" style={{ maxWidth: '100%' }} /> : null}
+        </div>
+        <div className="d-flex justify-content-between align-items-center p-2 mx-2 border-top bg-light">
+          <div className="likes-section d-flex align-items-center">
+            <button className="btn btn-link p-0" onClick={() => handleLike(post.id)}>
+              <FontAwesomeIcon
+                icon={likes[post.id] ? solidThumbsUp : regularThumbsUp}
+                className="like-icon"
               />
-              &nbsp;&nbsp;&nbsp;
-              <input
-                value={storyContent}
-                onChange={(e) => setStoryContent(e.target.value)}
-                placeholder="What's your story?"
-                required
-                className="story-input"
-                style={{ borderRadius: '30px', fontFamily: 'Caladea' }}
-              />
-              <label className="custom-file-upload what-card-bt m-2">
-                <input
-                  type="file"
-                  accept="image/*"
-                  style={{ display: 'none' }}
-                />
-                <span className="custom-button mx-1">
-                  <FontAwesomeIcon icon={faImages} style={{ color: '#999999' }} />
-                  &nbsp;<span style={{ fontSize: '10px', color: '#999999', fontFamily: 'Caladea' }}>Photo</span>
-                </span>
-              </label>
-              <div>
+            </button>
+            <span className="ms-1">{likes[post.id] || 0} </span>
+          </div>
+
+          <div className="comments-section d-flex align-items-center">
+            <button className="btn btn-link p-0" onClick={() => toggleExpandedComments(post.id)}>
+              <FontAwesomeIcon icon={faComment} />
+            </button>
+            <span className="ms-1">{(post.comments || []).length}</span>
+          </div>
+
+          <div className="dropdown">
+            <button
+              className="btn btn-sm btn-link p-0 dropdown-toggle"
+              onClick={() => toggleMenu(post.id)}
+              aria-expanded={isMenuOpen === post.id ? 'true' : 'false'}
+            >
+              <FontAwesomeIcon icon={faEllipsisV} />
+            </button>
+            {isMenuOpen === post.id && (
+              <div
+                className="dropdown-menu-end show"
+                style={{ position: 'relative' }}
+              >
                 <button
-                  type="button"
-                  onClick={createPost}
-                  style={{
-                    zIndex: 0,
-                    fontSize: '12px',
-                    fontFamily: 'Caladea',
-                    width: '50px',
-                  }}
+                  className="dropdown-item"
+                  onClick={() => handleDeleteConfirm(post.id)}
                 >
-                  Post
+                  Delete
+                </button>
+                <button
+                  className="dropdown-item"
+                  onClick={() => handleDeleteConfirm(post.id)}
+                >
+                  Archive
                 </button>
               </div>
-            </div>
-            {loading && 
-                <div className="dot-loader">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>            }
-            {error && <p className='text-center'>{error}</p>}
-            {!loading && posts.length === 0 && (
-              <div className="no-posts-message text-center">
-                <FontAwesomeIcon
-                  icon={faExclamationCircle}
-                  style={{ fontSize: '48px', color: '#999999', marginBottom: '10px' }}
-                />
-                <p className="text-secondary" style={{ fontFamily: 'Caladea', fontSize: '18px' }}>
-                  No blog posts to display. Start by creating one!
-                </p>
-              </div>
             )}
-            <div className="chat-content">
-              {posts.map((post) => (
-                <div className="post-card" key={post.id}>
-                  <div className="post-header">
-                    <img src={post.image} alt="Author" className="author-image" />
-                    <div className="author-details">
-                      <h5 className="text-secondary" style={{ fontFamily: 'Caladea' }}>
-                        {post.author_full_name}
-                      </h5>
-                      <p className="text-secondary">{moment(post.created_at).fromNow()}</p>
-                    </div>
-                  </div>
-                  <div className="post-content">
-                    <p className="text-dark" style={{ fontFamily: 'Caladea' }}>{post.content}</p>
-                    {post.image ? (
-                      <img src={post.image} alt="Post" style={{ maxWidth: '100%' }} />
-                    ) : null}
-                  </div>
-                  <div className="post-actions">
-                    <div className="likes-section">
-                      <button onClick={() => handleLike(post.id)}>
-                        <FontAwesomeIcon
-                          icon={likes[post.id] ? solidThumbsUp : regularThumbsUp}
-                          className="like-icon"
-                        />
-                      </button>
-                      <span>{likes[post.id] || 0} Likes</span>
-                    </div>
-                    <div className="comments-section">
-                      <button onClick={() => handleCommentToggle(post.id)}>
-                        <FontAwesomeIcon icon={faComment} />
-                      </button>
-                      <span>{post.comments.length} Comments</span>
-                    </div>
-                    <div className="dropdown-menu">
-                      <button onClick={() => toggleMenu(post.id)}>
-                        <FontAwesomeIcon icon={faEllipsisV} />
-                      </button>
-                      {isMenuOpen === post.id && (
-                        <div className="dropdown-content">
-                          <button onClick={() => handleDeleteConfirm(post.id)}>Delete</button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  {expandedComments[post.id] && (
-                    <div className="comments-container">
-                      {post.comments.map((comment, index) => (
-                        <div className="comment" key={index}>
-                          <div className="comment-text">
-                            <p className="text-dark" style={{ fontFamily: 'Caladea' }}>
-                              {comment.text}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                      <textarea
-                        value={commentInputs[post.id]?.text || ''}
-                        onChange={(e) => handleCommentChange(post.id, e.target.value)}
-                        placeholder="Write a comment..."
-                      />
-                      <button
-                        onClick={() => handleCommentSubmit(post.id)}
-                        className="comment-submit-button"
-                      >
-                        Comment
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-            
           </div>
-          <div className="col-md-4">
-          <div className="social-media-section my-4 mt-4">
+        </div>
+
+        {expandedComments[post.id] && (
+          <div className="comments-container">
+            {post.comments.map((comment, index) => (
+              <div className="comment" key={index}>
+                <div className="comment-text">
+                  <p className="text-dark" style={{ fontFamily: 'Caladea' }}>
+                    {comment.text}
+                  </p>
+                </div>
+              </div>
+            ))}
+            <textarea
+              value={commentInputs[post.id]?.text || ''}
+              onChange={(e) => handleCommentChange(post.id, e.target.value)}
+              placeholder="Write a comment..."
+              maxLength={200}
+            />
+            <button
+              onClick={() => handleCommentSubmit(post.id)}
+              className="comment-submit-button btn btn-sm btn-primary"
+            >
+              Comment
+            </button>
+          </div>
+        )}
+      </div>
+    ))
+  ) : (
+    <p>No posts available</p>
+  )}
+</div>
+
+      </div>
+      <div className="col-md-4">
+      <div className="social-media-section my-4 mt-4">
             <h5 className="text-center">Follow Us on Social Media</h5>
             <div className="text-center">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
@@ -366,11 +454,11 @@ const BlogPosts = () => {
             <div className="text-center mt-4">
               <a href="/contact" className="btn btn-primary text-light">Get In Touch</a>
             </div>
-          </div>
-        </div>
-        </div>
-      </div>
+          </div>      </div>
     </div>
+  </div>
+</div>
+
   );
 };
 

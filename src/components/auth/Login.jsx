@@ -7,8 +7,8 @@ import AuthContext from './AuthContext';  // Import the context
 import './Login.css';
 
 const Login = () => {
-    const { login } = useContext(AuthContext);  // Access login function from context
-    const [username, setUsername] = useState('');
+    const { login, googleLogin } = useContext(AuthContext);  // Access login function from context
+    const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Login = () => {
         e.preventDefault();
         console.log("Attempting login..."); // Debugging
         try {
-            const { success, message } = await login(username, password); // Use context login function
+            const { success, message } = await login(email, password); // Use context login function
             console.log('Login response:', success, message); // Debugging
             
             if (success) {
@@ -29,8 +29,8 @@ const Login = () => {
                 // Navigate to the original location or default to '/'
                 navigate(from);
             } else {
-                setError(message);
-                console.log('Error:', message); // Debugging
+                setError(data);
+                console.log('Error:', data); // Debugging
             }
         } catch (error) {
             setError('An error occurred during login.');
@@ -41,16 +41,11 @@ const Login = () => {
     const handleGoogleLoginSuccess = async (credentialResponse) => {
         try {
             console.log("Google login success:", credentialResponse); // Debugging
-            const response = await axios.post(
-                `${BASE_URL}api/auth/google-login/`,
-                { token: credentialResponse.credential },
-                { headers: { 'Content-Type': 'application/json' } }
-            );
-            if (response.status === 200) {
-                const { token } = response.data;
-                console.log('Google login successful, token received:', token);
-                localStorage.setItem('authToken', token);
-                navigate('/dashboard');
+            const { success, message } = await googleLogin(credentialResponse.credential);
+            if (success) {
+                navigate('/');
+            } else {
+                setError(message);
             }
         } catch (error) {
             setError('Google login failed. Please try again.');
@@ -88,13 +83,13 @@ const Login = () => {
 
                     <form onSubmit={handleLogin} className="login-form">
                         <div className="form-group">
-                            <label htmlFor="username">Email Address</label>
+                            <label htmlFor="email">Email Address</label>
                             <input
-                                type="text"
-                                id="username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                placeholder="Enter your username or email"
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Enter your email"
                                 required
                             />
                         </div>

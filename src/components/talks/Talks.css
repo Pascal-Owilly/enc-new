@@ -86,23 +86,7 @@ hr {
 }
 
 /* Post Actions */
-.post-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 15px;
-  border-top: 1px solid #e9ecef;
-}
 
-.post-actions div {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.post-actions div:hover {
-  color: #007bff; /* Change color on hover */
-}
 
 /* Comments List */
 .comments-list {

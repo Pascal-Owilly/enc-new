@@ -5,7 +5,7 @@ header {
 }
 
 .destination-showcase {
-  padding: 20px 10px;
+  /* padding: 20px 10px; */
   background: #f9f9f9;
   border-radius: 10px;
 }
@@ -123,7 +123,7 @@ padding: 50px;
   align-items: center;
   background: #f4f4f4;
   border: 1px solid #ddd;
-  padding: 20px;
+  /* padding: 20px; */
   border-radius: 8px;
   text-align: center;
 }
@@ -134,13 +134,7 @@ padding: 50px;
 }
 
 /* Common Card Styles */
-.card {
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* margin: 20px; */
-  overflow: hidden;
-  transition: transform 0.3s;
-}
+
 
 .card:hover {
   transform: scale(1.05);

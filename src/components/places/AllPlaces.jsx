@@ -59,7 +59,11 @@ const AllPlaces = () => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    if (loading) return <div className="loading-spinner">Loading...</div>;
+    if (loading) return  <div className="dot-loader">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>;
     if (error) return <div className="error-message">Error: {error}</div>;
 
     if (!loading && filteredPlaces.length === 0) {
