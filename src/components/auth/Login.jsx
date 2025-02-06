@@ -1,77 +1,90 @@
-import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useContext } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { useNavigate, useLocation } from "react-router-dom";
-import { BASE_URL } from '../config/config';
 import AuthContext from './AuthContext';  // Import the context
 import './Login.css';
 
 const Login = () => {
-    const { login, googleLogin } = useContext(AuthContext);  // Access login function from context
-    const [email, setEmail] = useState(''); 
+    const { login, googleLogin } = useContext(AuthContext);
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState(null); // Store JSX instead of string
     const navigate = useNavigate();
     const location = useLocation();
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        console.log("Attempting login..."); // Debugging
+        console.log("Attempting login...");
+
         try {
-            const { success, message } = await login(email, password); // Use context login function
-            console.log('Login response:', success, message); // Debugging
-            
+            const { success, message } = await login(email, password);
+            console.log('Login response:', success, message);
+
             if (success) {
-                // Check if there's a 'from' location (the page they were trying to access before being redirected)
-                const from = location.state?.from || '/'; // Default to '/' if no 'from' location
-                console.log("Navigating to:", from); // Debugging
-                
-                // Navigate to the original location or default to '/'
-                navigate(from);
+                setSuccessMessage(
+                    <div>
+                        <span>Success! Redirecting </span>
+                        <div className="dot-loader">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                );
+                setError('');
+
+                const from = location.state?.from || '/';
+                console.log("Navigating to:", from);
+
+                setTimeout(() => navigate(from), 1500);
             } else {
-                setError(data);
-                console.log('Error:', data); // Debugging
+                setError(message);
+                setSuccessMessage(null);
             }
         } catch (error) {
             setError('An error occurred during login.');
+            setSuccessMessage(null);
             console.error('Login error:', error);
         }
     };
 
     const handleGoogleLoginSuccess = async (credentialResponse) => {
         try {
-            console.log("Google login success:", credentialResponse); // Debugging
+            console.log("Google login success:", credentialResponse);
             const { success, message } = await googleLogin(credentialResponse.credential);
+            
             if (success) {
-                navigate('/');
+                setSuccessMessage(
+                    <div>
+                        <span>Success! Redirecting </span>
+                        <div className="dot-loader">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                );
+                
+                setError('');
+                const from = location.state?.from || '/'; // ✅ Define `from`
+                setTimeout(() => navigate(from), 1500);
             } else {
                 setError(message);
+                setSuccessMessage(null);
             }
         } catch (error) {
             setError('Google login failed. Please try again.');
+            setSuccessMessage(null);
             console.error('Google login error:', error);
         }
     };
 
     const handleGoogleLoginError = () => {
         setError('Google Login Failed. Please try again.');
+        setSuccessMessage(null);
         console.error('Google Login Failed');
     };
-
-    useEffect(() => {
-        console.log('Login Page Mounted'); // Debugging
-
-        // Ensure redirect only happens if no errors
-        if (!error && location.state?.from) {
-            const from = location.state.from || '/';
-            console.log("Navigating to: ", from); // Debugging
-            navigate(from);
-        }
-
-        return () => {
-            console.log('Login Page Unmounted'); // Debugging
-        };
-    }, [error, location.state?.from, navigate]);
 
     return (
         <GoogleOAuthProvider clientId='143693841827-i3di9q4b0kc497cc9sj7q9ng9fcakhl1.apps.googleusercontent.com'>
@@ -80,6 +93,7 @@ const Login = () => {
                     <h1 className="login-title">Welcome Back!</h1>
 
                     {error && <p className="error-message">{error}</p>}
+                    {successMessage && <div className="success-message">{successMessage}</div>} 
 
                     <form onSubmit={handleLogin} className="login-form">
                         <div className="form-group">

@@ -2,8 +2,7 @@ import React, { useState, useContext } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { BASE_URL } from '../config/config';
 import { useNavigate } from "react-router-dom";
-import AuthContext from './AuthContext';  // Corrected import of AuthContext
-
+import AuthContext from './AuthContext';
 import './SignUp.css';
 
 const SignUp = () => {
@@ -12,12 +11,14 @@ const SignUp = () => {
         password: '',
         first_name: '',
         last_name: '',
-        role: null,
+        image: null,
+        role: 'customer',
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const { setToken, setUser } = useContext(AuthContext); // Use useContext to get context values
+    const { setToken, setUser } = useContext(AuthContext);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -31,6 +32,7 @@ const SignUp = () => {
         e.preventDefault();
         setError('');
         setSuccess('');
+        setLoading(true);
         try {
             const response = await fetch(`${BASE_URL}api/auth/register/`, {
                 method: 'POST',
@@ -39,62 +41,59 @@ const SignUp = () => {
             });
 
             if (response.ok) {
-                const data = await response.json();
                 setSuccess('Sign up successful! Redirecting to login...');
-                
-                // Store token and user in context after successful signup
-                // setToken(data.token); 
-                // setUser(data.user);
-                navigate('/auth/login'); // Redirect to login page
+                navigate('/auth/login');
             } else {
                 const errorData = await response.json();
-                // Directly set the error response from backend
-                setError(JSON.stringify(errorData));  // Convert the error object to a string for display
+                setError(errorData.message || 'Registration failed.');
             }
         } catch (err) {
             setError('Network error. Please try again later.');
+        } finally {
+            setLoading(false);
         }
     };
 
-    // Define Google login success and error handling
     const handleGoogleLoginSuccess = async (response) => {
-        const { credential } = response;
-    
-        try {
-            // Send the credential (Google OAuth token) to your backend for verification and user authentication
-            const apiResponse = await fetch(`${BASE_URL}api/auth/google-login/`, {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ token: credential }),
-            });
-    
-            if (apiResponse.ok) {
-                const data = await apiResponse.json();
-                console.log("Google login successful:", data);
-    
-                // Store token and user information in the context (for frontend state management)
-                setToken(data.token); // assuming `data.token` is the JWT received
-                setUser(data.user);   // assuming `data.user` contains the user's details
-    
-                // Redirect to a dashboard or home page after successful login
-                navigate('/dashboard');
+    setLoading(true);
+    setError(''); // Clear previous errors
+
+    const { credential } = response;
+    try {
+        const apiResponse = await fetch(`${BASE_URL}api/auth/google-login/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: credential }),
+        });
+
+        const data = await apiResponse.json(); // Directly parse JSON response
+        
+        console.log("Google login response:", data);
+
+        if (apiResponse.ok) {
+            if (data.user && data.token) {
+                data.user.role = data.user.role || 'customer'; // Default role
+                setToken(data.token);
+                setUser(data.user);
+                console.log("setToken:", setToken);
+                console.log("setUser:", setUser);
+
+                navigate('/');
             } else {
-                // Handle errors (e.g., user not found, invalid token)
-                const errorData = await apiResponse.json();
-                console.error("Error during Google login:", errorData);
-                setError('Google login failed. Please try again.');
+                setError("Unexpected response format.");
             }
-        } catch (error) {
-            console.error("Error in Google login request:", error);
-            setError('Network error during Google login. Please try again later.');
+        } else {
+            setError(data.message || "Google login failed.");
         }
-    };
-    
+    } catch (networkError) {
+        console.error("Network error:", networkError);
+        setError("Network error during Google login. Please try again later.");
+    } finally {
+        setLoading(false);
+    }
+};
 
     const handleGoogleLoginError = (error) => {
-        console.error("Google login error", error);
         setError('Google login failed. Please try again.');
     };
 
@@ -105,6 +104,7 @@ const SignUp = () => {
                     <h1 className="signup-title">Create Your Account</h1>
                     {error && <p className="error-message">{error}</p>}
                     {success && <p className="success-message">{success}</p>}
+                    {loading && <div className="dot-loader"></div>}
                     <form onSubmit={handleSignUp} className="signup-form">
                         {/* Form fields */}
                         <div className="form-group">
@@ -155,7 +155,7 @@ const SignUp = () => {
                                 required
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group d-none">
                             <label htmlFor="role">Role</label>
                             <select
                                 id="role"
@@ -174,14 +174,8 @@ const SignUp = () => {
                         <button type="submit" className="signup-button">Sign Up</button>
                     </form>
                     <div className="divider"><span>OR</span></div>
-                    <GoogleLogin
-                        onSuccess={handleGoogleLoginSuccess}
-                        onError={handleGoogleLoginError}
-                        useOneTap
-                    />
-                    <p className="login-link">
-                        Already have an account? <a href="/auth/login">Log in</a>
-                    </p>
+                    <GoogleLogin onSuccess={handleGoogleLoginSuccess} onError={handleGoogleLoginError} useOneTap disabled={loading} />
+                    <p className="login-link">Already have an account? <a href="/auth/login">Log in</a></p>
                 </div>
             </div>
         </GoogleOAuthProvider>
