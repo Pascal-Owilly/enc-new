@@ -76,29 +76,92 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Login function
-  const login = async (email, password) => {
+  // const login = async (email, password) => {
+  //   try {
+  //     const response = await axios.post(
+  //       `${BASE_URL}api/auth/login/`,
+  //       { email, password },
+  //       { headers: { 'Content-Type': 'application/json' } }
+  //     );
+      
+  //     if (response.status === 200) {
+  //       const { token, user } = response.data;
+  //       setToken(token);  // Set the token from response
+  //       setUser(user); // Set user data
+  //       return { success: true };
+  //     } else {
+  //       setError('Login failed');
+  //       return { success: false, message: 'Login failed' };
+  //     }
+  //   } catch (error) {
+  //     console.error("Login error:", error);
+  //     setError(error.response?.data?.detail || "An error occurred during login.");
+  //     return { success: false, message: error.response?.data?.detail || "An error occurred during login." };
+  //   }
+  // };
+
+const login = async (email, password) => {
+    try {
+        const response = await axios.post(
+            `${BASE_URL}api/auth/login/`,
+            { email, password },
+            { headers: { 'Content-Type': 'application/json' } }
+        );
+
+        if (response.status === 200) {
+            const { token, user } = response.data;
+            setToken(token);
+            setUser(user);
+            return { success: true };
+        } else {
+            return { success: false, message: 'Login failed' };
+        }
+    } catch (error) {
+        console.error("Login error:", error.response?.data || error);
+
+        // Extract error message safely
+        let errorMessage = "An error occurred during login.";
+
+        if (error.response?.data) {
+            const errorData = error.response.data;
+
+            // Check if 'non_field_errors' exists
+            if (errorData.non_field_errors) {
+                errorMessage = errorData.non_field_errors.join(', '); // Convert array to string
+            } else if (typeof errorData === 'string') {
+                errorMessage = errorData; // If backend sends a string error
+            } else {
+                errorMessage = JSON.stringify(errorData); // Fallback: Convert object to string
+            }
+        }
+
+        return { success: false, message: errorMessage };
+    }
+};
+
+  // RESET Password
+
+  const resetPassword = async (email) => {
     try {
       const response = await axios.post(
-        `${BASE_URL}api/auth/login/`,
-        { email, password },
-        { headers: { 'Content-Type': 'application/json' } }
+        `${BASE_URL}api/auth/password/reset/`,
+        { email },
+        { headers: { "Content-Type": "application/json" } }
       );
-      
+  
       if (response.status === 200) {
-        const { token, user } = response.data;
-        setToken(token);  // Set the token from response
-        setUser(user); // Set user data
-        return { success: true };
+        return { success: true, message: "Password reset email sent successfully!" };
       } else {
-        setError('Login failed');
-        return { success: false, message: 'Login failed' };
+        return { success: false, message: "Failed to send password reset email." };
       }
     } catch (error) {
-      console.error("Login error:", error);
-      setError(error.response?.data?.detail || "An error occurred during login.");
-      return { success: false, message: error.response?.data?.detail || "An error occurred during login." };
+      return {
+        success: false,
+        message: error.response?.data?.detail || "An error occurred. Please try again.",
+      };
     }
   };
+ 
 
   // Google login function
   const googleLogin = async (token) => {
@@ -142,6 +205,7 @@ export const AuthProvider = ({ children }) => {
       token, 
       error, 
       loading, 
+      resetPassword, 
     }}>
       {children}
     </AuthContext.Provider>

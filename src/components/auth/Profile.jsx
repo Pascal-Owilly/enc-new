@@ -1,101 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './Profile.css'; // Adjust the path as necessary
+import './Profile.css'; // Ensure the path is correct
 import { BASE_URL } from "../config/config";
 
 const Profile = () => {
     const [userData, setUserData] = useState(null);
     const [error, setError] = useState(null);
-    const token = localStorage.getItem('authToken'); // Assuming token is stored in localStorage
+    const token = localStorage.getItem('authToken');
 
     useEffect(() => {
         if (token) {
-            // Fetch user profile data with token authentication
             axios
-                .get(`${BASE_URL}profile/profile/`, {
-                    headers: {
-                        Authorization: `Token ${token}`,  // Add token to Authorization header
-                    },
+                .get(`${BASE_URL}/api/users/`, {
+                    headers: { Authorization: `Token ${token}` },
                 })
-                .then((response) => {
-                    setUserData(response.data); // Set the user data from the response
-                })
-                .catch((err) => {
-                    setError('Error fetching user data: ' + (err.response?.data?.detail || err.message));
-                    console.error(err);
-                });
+                .then((response) => setUserData(response.data))
+                .catch((err) => setError('Error fetching user data: ' + (err.response?.data?.detail || err.message)));
         } else {
             setError('Token not found.');
         }
     }, [token]);
 
-    if (error) {
-        return <div>{error}</div>;
-    }
-
-    if (!userData) {
-        return <div>Loading...</div>;
-    }
-
-    // Safely handle arrays by defaulting to empty array if undefined
-    const visitedDestinations = Array.isArray(userData.visitedDestinations) ? userData.visitedDestinations : [];
-    const wishList = Array.isArray(userData.wishList) ? userData.wishList : [];
-    const messages = Array.isArray(userData.messages) ? userData.messages : [];
-    const touristThemes = Array.isArray(userData.touristThemes) ? userData.touristThemes : [];
+    if (error) return <div className="error-message">{error}</div>;
+    if (!userData) return <div className="dot-loader">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>;
 
     return (
         <div className="profile-page">
-            <h1>Profile</h1>
-            <div className="user-info">
-                <h2>{userData.name}</h2>
-                <p><strong>Email:</strong> {userData.email}</p>
-                <p><strong>Degree Program:</strong> {userData.degreeProgram}</p>
+            <h3 className='text-center'>Profile</h3>
+            <div className="profile-container">
+                <div className="profile-picture">
+                    <img src={userData.image || '/default-profile.png'} alt="Profile" />
+                </div>
+                <div className="user-details">
+                    <h2>{userData.first_name} {userData.last_name}</h2>
+                    <p><strong>Email:</strong> {userData.email}</p>
+                    <p><strong>Role:</strong> {userData.role}</p>
+                    <p><strong>Date Joined:</strong> {new Date(userData.date_joined).toLocaleDateString()}</p>
+                </div>
             </div>
-
-            <div className="visited-section">
-                <h2>Visited Destinations</h2>
-                <ul>
-                    {visitedDestinations.map((destination, index) => (
-                        <li key={index}>{destination}</li>
-                    ))}
-                </ul>
+            <div className="columns-container">
+                <div className="column">
+                    <h3>Visited Destinations</h3>
+                    {userData.visitedDestinations?.length > 0 ? (
+                        <ul>{userData.visitedDestinations.map((dest, i) => <li key={i}>{dest}</li>)}</ul>
+                    ) : (
+                        <p>No visited destinations yet.</p>
+                    )}
+                </div>
+                <div className="column">
+                    <h3>Wish List</h3>
+                    {userData.wishList?.length > 0 ? (
+                        <ul>{userData.wishList.map((item, i) => <li key={i}>{item}</li>)}</ul>
+                    ) : (
+                        <p>No items in wish list.</p>
+                    )}
+                </div>
             </div>
-
-            <div className="wish-list-section">
-                <h2>Wish List</h2>
-                <ul>
-                    {wishList.map((item, index) => (
-                        <li key={index}>{item}</li>
-                    ))}
-                </ul>
-            </div>
-
-            <div className="social-section">
-                <h2>Social Connections</h2>
-                <p><strong>Followers:</strong> {userData.followers}</p>
-                <p><strong>Following:</strong> {userData.following}</p>
-            </div>
-
-            <div className="messages-section">
-                <h2>Messages</h2>
-                <ul>
-                    {messages.map((message, index) => (
-                        <li key={index}>
-                            <strong>{message.from}</strong>: {message.text} <em>({message.date})</em>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-
-            <div className="themes-section">
-                <h2>Tourist Themes</h2>
-                <div className="grid-container">
-                    {touristThemes.map((theme, index) => (
-                        <div className="grid-item" key={index}>
-                            <h3>{theme.title}</h3>
-                            <p>{theme.description}</p>
-                        </div>
-                    ))}
+            <div className="columns-container">
+                <div className="column">
+                    <h3>Followers</h3>
+                    <p>{userData.followers || 'No followers yet.'}</p>
+                </div>
+                <div className="column">
+                    <h3>Following</h3>
+                    <p>{userData.following || 'Not following anyone yet.'}</p>
                 </div>
             </div>
         </div>

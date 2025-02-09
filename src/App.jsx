@@ -19,15 +19,20 @@ import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
 
 import Profile from './components/auth/Profile';
+import ResetPassword from './components/auth/ResetPassword';
+import PasswordResetConfirm from './components/auth/PasswordResetConfirm';
 
 // Places and Details
 import Places from './components/places/Places';
+// import Search from './components/places/Search';
+import SearchResults from './components/places/SearchResults';
+
 import AddPlace from './components/places/AddPlace';
 import AllPlaces from './components/places/AllPlaces';
 import PlaceDetails from './components/places/PlaceDetails';
 import ReviewPage from './components/places/ReviewPage';
 
-// Project and Demo Pages
+// Project and Demo Pages 
 import ProjectDetails from './components/projects/ProjectDetails';
 import RequestDemo from './components/projects/RequestDemoForm';
 import ThankYou from './components/projects/ThankYou';
@@ -75,6 +80,7 @@ import Test from './components/testing/Test';
 
 // Payment
 import Payment from './components/payment/Payment'; 
+import BookingResponse from './components/bookings/BookingResponse'; 
 
 // Property Management
 import PropertyManager from './components/property_management/PropertyManager';
@@ -110,8 +116,9 @@ export default function App() {
           {/* Authentication Routes */}
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<SignUp />} />
-
-          <Route
+          <Route path="/auth/reset-password" element={<ResetPassword />} />
+          <Route path="/password-reset/confirm/:uidb64/:token" element={<PasswordResetConfirm />} />
+          <Route  
             path="/auth/profile"
             element={
               <PrivateRoute>
@@ -189,12 +196,17 @@ export default function App() {
 
           {/* Payment */}
           <Route path="/payment" element={<Payment />} />
+          <Route path="/booking/response/" element={<BookingResponse />} />
 
           {/* Property Management */}
           
           <Route path="/management/property-management" element={<PrivateRoute><PropertyManager /></PrivateRoute>} />
           <Route path="/management/property-management/add-place" element={<PrivateRoute><AddPlace /></PrivateRoute>} />
           
+          {/*Search*/}
+          <Route path="/search" element={<SearchResults />} />
+          <Route path="/result/:id" element={<Places />} />
+
         </Routes>
       </div>
       <Footer />

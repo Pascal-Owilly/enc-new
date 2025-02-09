@@ -14,40 +14,42 @@ const Login = () => {
     const location = useLocation();
 
     const handleLogin = async (e) => {
-        e.preventDefault();
-        console.log("Attempting login...");
+    e.preventDefault();
+    console.log("Attempting login...");
 
-        try {
-            const { success, message } = await login(email, password);
-            console.log('Login response:', success, message);
+    try {
+        const { success, message } = await login(email, password);
+        console.log('Login response:', success, message);
 
-            if (success) {
-                setSuccessMessage(
-                    <div>
-                        <span>Success! Redirecting </span>
-                        <div className="dot-loader">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
+        if (success) {
+            setSuccessMessage(
+                <div>
+                    <span>Success! Redirecting </span>
+                    <div className="dot-loader">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
-                );
-                setError('');
+                </div>
+            );
+            setError('');
 
-                const from = location.state?.from || '/';
-                console.log("Navigating to:", from);
+            const from = location.state?.from || '/';
+            console.log("Navigating to:", from);
 
-                setTimeout(() => navigate(from), 1500);
-            } else {
-                setError(message);
-                setSuccessMessage(null);
-            }
-        } catch (error) {
-            setError('An error occurred during login.');
+            setTimeout(() => navigate(from), 1500);
+        } else {
+            setError(message);
             setSuccessMessage(null);
-            console.error('Login error:', error);
         }
-    };
+    } catch (error) {
+        setError('An error occurred during login.');
+        
+        console.error('Login failed:', error.response ? error.response.data : error.message);
+        setSuccessMessage(null);
+    }
+};
+
 
     const handleGoogleLoginSuccess = async (credentialResponse) => {
         try {
@@ -133,6 +135,9 @@ const Login = () => {
 
                     <p className="signup-link">
                         Don’t have an account? <a href="/auth/signup">Sign up</a>
+                    </p>
+                    <p className="signup-link">
+                        Forgot password? <a href="/auth/reset-password">Reset</a>
                     </p>
                 </div>
             </div>

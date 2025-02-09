@@ -7,14 +7,15 @@ import messageIcon from '../../assets/images/message_icon.png';
 import defaultProfile from '../../assets/images/default.svg';
 import { FaSearch, FaBars, FaTimes, FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp, FaShareAlt } from 'react-icons/fa';
 import { FaUser, FaHome, FaSignOutAlt, FaSignInAlt, FaUserPlus } from 'react-icons/fa';  // Import icons
-
 import BottomNav from './BottomNav';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false); 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const navigate = useNavigate()
 
   const handleLogout = () => {
     // Handle logout and clear auth token
@@ -76,6 +77,25 @@ const Navbar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  // Search
+  const [searchQuery, setSearchQuery] = useState("");
+
+
+ // Function to handle search input changes
+ const handleSearchInputChange = (e) => {
+  setSearchQuery(e.target.value);
+};
+
+  // Function to handle the search button click
+  const handleSearch = () => {
+    console.log("Search Query:", searchQuery);
+    // Check if searchQuery is not empty before navigating
+    if (searchQuery.trim() !== '') {
+      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+      window.location.reload();
+    }
+  };
+
   return (
     <div className={`navbar ${isSticky ? "sticky" : ""}`}>
       <div className="top-bar">
@@ -104,8 +124,10 @@ const Navbar = () => {
           <input
             type="text"
             placeholder="Search everything at enceptics ..."
+            value={searchQuery}
+            onChange={handleSearchInputChange}
           />
-          <button className="search-icon">
+          <button className="search-icon" onClick={handleSearch}>
             <FaSearch size={15} style={{color:'#333'}}/>
           </button>
         </div>
@@ -189,8 +211,6 @@ const Navbar = () => {
     </>
   )}
 </div>
-
-
 
         <div className="">
           <a href="/chats">
@@ -310,13 +330,19 @@ const Navbar = () => {
       <div className="form-outline" data-mdb-input-init>
         <input type="search" id="form1"
         placeholder="Search everything at enceptics ..."
-        className="form-control" />
+        className="form-control"
+        value={searchQuery}
+        onChange={handleSearchInputChange}
+         />
+
       </div>
       {/* Search Button */}
-      <button type="button" className="btn btn-s" data-mdb-ripple-init style={{background:'#000042', color:'#ddd', marginTop:'-1px'}}>
+      <button onClick={handleSearch} type="button" className="btn btn-s" data-mdb-ripple-init style={{background:'#000042', color:'#ddd', marginTop:'-1px'}}>
         <FaSearch size={10}/>  
       </button>
+
     </div>
+
     <hr style={{ margin: '10px 0' }} />
     <div style={{ marginBottom: '10px', textAlign:'left' }}>
         

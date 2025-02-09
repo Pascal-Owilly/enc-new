@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { BASE_URL } from '../config/config';
 import './PlaceDetails.css'; // Import CSS for styling
-import DetailsButton from '../bookings/BookingButton';
+import BookingButton from '../bookings/BookingButton';
 
 const PlaceDetails = () => {
   const { id } = useParams();
@@ -21,12 +21,6 @@ const PlaceDetails = () => {
         }
         const data = await response.json();
         setPlace(data);
-
-        // Optionally, fetch the weather data here if required
-        // const weatherResponse = await fetch(`...`); // Adjust the URL to fetch weather
-        // const weatherData = await weatherResponse.json();
-        // setWeather(weatherData);
-
       } catch (error) {
         setError(error.message);
       } finally {
@@ -51,6 +45,7 @@ const PlaceDetails = () => {
 
   return (
     <div className="place-details-container">
+      {/* Hero Section */}
       <div
         className="hero-section"
         style={{
@@ -66,16 +61,26 @@ const PlaceDetails = () => {
         </div>
       </div>
 
+      {/* Responsive Details Section */}
       <div className="container my-4">
-        <div className="place-info">
-          <p className="place-description">{place.description}</p>
-          <div className="place-meta mb-4">
-            <p><strong>Price:</strong> Ksh {place.price || 'N/A'}</p>
-            <p><strong>Average Rating:</strong> {place.average_rating || 'Not Rated'}</p>
-            <p><strong>Total Reviews:</strong> {place.total_reviews || 0}</p>
-            {weather && <p><strong>Weather Forecast:</strong> {weather.forecast || 'N/A'}</p>}
+        <div className="details-wrapper">
+          {/* Place Image */}
+          <div className="place-image">
+            <img src={place?.picture || '/default-image.jpg'} alt={place.name} />
           </div>
-          <DetailsButton place={place} />
+
+          {/* Place Information */}
+          <div className="place-info">
+            <h2>{place.name}</h2>
+            <p className="place-description">{place.description}</p>
+            <div className="place-meta">
+              <p><strong>Price:</strong> Ksh {place.price || 'N/A'}</p>
+              <p><strong>Average Rating:</strong> {place.average_rating || 'Not Rated'}</p>
+              <p><strong>Total Reviews:</strong> {place.total_reviews || 0}</p>
+              {weather && <p><strong>Weather Forecast:</strong> {weather.forecast || 'N/A'}</p>}
+            </div>
+            <BookingButton place={place} />
+          </div>
         </div>
       </div>
     </div>

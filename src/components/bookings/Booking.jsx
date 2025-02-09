@@ -2,199 +2,132 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BASE_URL } from '../config/config';
-import './Booking.css'; // Make sure to update this CSS file
-import bg_1 from '../../assets/hero/cloud.jpg';
+import './Booking.css';
 
 const Booking = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
   const searchParams = new URLSearchParams(location.search);
-  const placeName = searchParams.get("placeName");
-  const price = parseFloat(searchParams.get("price")) || 0;
+  
   const placeId = searchParams.get("placeId");
+  const authToken = localStorage.getItem("authToken");
 
-  const [placeData, setPlaceData] = useState({});
   const [bookingData, setBookingData] = useState({
+    name: '',
+    price: '',
     checkin_date: '',
     checkout_date: '',
     phone: '',
     email: '',
-    is_paid: false,
-    user: null,
-    place: null,
+    place: placeId,
   });
+  
 
   const [showPaymentMethods, setShowPaymentMethods] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [pesapalButtonHtml, setPesapalButtonHtml] = useState('');
 
   useEffect(() => {
     if (placeId) {
-      axios.get(`${BASE_URL}book-place/${placeId}`)
-        .then(placeResponse => {
-          setPlaceData(placeResponse.data);
+      axios.get(`${BASE_URL}/api/places/${placeId}/`)
+        .then(response => {
           setBookingData(prev => ({
             ...prev,
-            place: placeResponse.data.id,
-            checkin_date: placeResponse.data.checkin_date || '',
-            checkout_date: placeResponse.data.checkout_date || '',
-            phone: placeResponse.data.phone || '',
-            email: placeResponse.data.email || '',
+            place: response.data.id,
+            name: response.data.name,  
+            price: response.data.price 
           }));
         })
         .catch(error => console.error('Error fetching place data:', error));
     }
-  }, [navigate, placeId]);
+  }, [placeId]);
 
-  const handleBookingChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setBookingData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleBookingSubmit = (e) => {
     e.preventDefault();
-    const orderPlace = { ...bookingData, place: placeId };
-
-    axios.post(`${BASE_URL}/api/book-place/`, orderPlace)
+    setLoading(true);
+  
+    // Remove `user_id` from bookingData since the backend gets it from the token
+    const bookingPayload = { ...bookingData };
+    delete bookingPayload.user_id; 
+  
+    axios.post(`${BASE_URL}/api/book-place/`, bookingPayload, {
+      headers: {
+        Authorization: `Token ${authToken}`
+      }
+    })
       .then(() => {
-        console.log(`Booking successful for ${bookingData.email} to ${placeName} at ${price}`);
+        console.log(`Booking successful for ${bookingData.email}`);
         setShowPaymentMethods(true);
+        fetchPesapalButton();
       })
-      .catch(error => console.error('Booking error:', error));
+      .catch(error => console.error('Booking error:', error))
+      .finally(() => setLoading(false));
   };
-
-  const handlePayment = async (method) => {
-    const paymentData = { id: placeId };
-    const endpoint = `${BASE_URL}/api/auth/${method}/create/`;
-
+  
+  const fetchPesapalButton = async () => {
+    setLoading(true);
     try {
-      const response = await axios.post(endpoint, paymentData, { timeout: 30000 });
-      const approvalUrl = response.data.approved_url;
-      if (approvalUrl) window.location.href = approvalUrl;
+      const response = await axios.post(`${BASE_URL}/api/auth/pesapal/payment/`, {
+        place_id: placeId, // Only send place_id, backend extracts user from token
+      }, {
+        headers: {
+          Authorization: `Token ${authToken}`
+        }
+      });
+  
+      if (response.data.pesapal_button_html) {
+        setPesapalButtonHtml(response.data.pesapal_button_html);
+      } else {
+        alert("Error processing payment. Try again.");
+      }
     } catch (error) {
-      console.error(`${method} Payment Error:`, error);
+      console.error('Pesapal Payment Error:', error);
+    } finally {
+      setLoading(false);
     }
   };
-
+  
   return (
-<div
-  className="container-flui booking-containe"
-  // style={{ backgroundImage: `url(${bg_1})` }}
->
-  <div className="overlay"></div>
-  <div className=" py-">
-    <div className="row justify-content-center">
-      {/* Left Column: Booking Form */}
-      <div className="col-md-6 ">
-        <form
-          className="booking-form p-4 shadow rounded"
-          style={{ background: '#fff' }}
-          onSubmit={handleBookingSubmit}
-        >
-          <h3>Booking for {placeName}</h3>
-          <p className="place-price" style={{ color: 'gold', fontWeight: 'bold' }}>
-            Price: ${price}
-          </p>
-          <div className="mb-3">
-            <label htmlFor="checkin_date" className="form-label text-dark">
-              Check-in Date:
-            </label>
-            <input
-              type="date"
-              id="checkin_date"
-              className="form-control"
-              name="checkin_date"
-              value={bookingData.checkin_date}
-              onChange={handleBookingChange}
-              required
-            />
-          </div>
+    <div className="container booking-container">
+      <div className="booking-form">
+        <h3>Booking for {bookingData.name}</h3>
+        <p className="price">Price: ${bookingData.price}</p>
+        
+        <form onSubmit={handleBookingSubmit}>
+          <label>Check-in Date:</label>
+          <input type="date" name="checkin_date" value={bookingData.checkin_date} onChange={handleInputChange} required />
 
-          <div className="mb-3">
-            <label htmlFor="checkout_date" className="form-label text-dark">
-              Check-out Date:
-            </label>
-            <input
-              type="date"
-              id="checkout_date"
-              className="form-control"
-              name="checkout_date"
-              value={bookingData.checkout_date}
-              onChange={handleBookingChange}
-              required
-            />
-          </div>
+          <label>Check-out Date:</label>
+          <input type="date" name="checkout_date" value={bookingData.checkout_date} onChange={handleInputChange} required />
 
-          <div className="mb-3">
-            <label htmlFor="phone" className="form-label text-dark">
-              Phone Number:
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              name="phone"
-              value={bookingData.phone}
-              onChange={handleBookingChange}
-              placeholder="Phone Number"
-              required
-            />
-          </div>
+          <label>Phone:</label>
+          <input type="tel" name="phone" value={bookingData.phone} onChange={handleInputChange} required />
 
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label text-dark">
-              Email Address:
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              name="email"
-              value={bookingData.email}
-              onChange={handleBookingChange}
-              placeholder="Email Address"
-              required
-            />
-          </div>
+          <label>Email:</label>
+          <input type="email" name="email" value={bookingData.email} onChange={handleInputChange} />
 
-          <button className="btn btn-primary w-100" type="submit">
-            Book Now
+          <button type="submit" disabled={loading}>
+            {loading ? "Processing..." : "Book Now"}
           </button>
         </form>
-      </div>
 
-      {/* Right Column: Booking Details */}
         {showPaymentMethods && (
-          <div className="payment-methods">
-            <h4 className="mb-3 text-white">Select Payment Method:</h4>
-            <button
-              className="btn btn-outline-primary d-flex align-items-center mb-2 w-100"
-              onClick={() => handlePayment('paypal')}
-            >
-              <img
-                src="/path/to/paypal-icon.png"
-                alt="PayPal"
-                className="me-2"
-                style={{ width: '24px', height: '24px' }}
-              />
-              Pay with PayPal
-            </button>
-            <button
-              className="btn btn-outline-success d-flex align-items-center w-100"
-              onClick={() => handlePayment('mpesa')}
-            >
-              <img
-                src="/path/to/mpesa-icon.png"
-                alt="M-Pesa"
-                className="me-2"
-                style={{ width: '24px', height: '24px' }}
-              />
-              Pay with M-Pesa
-            </button>
+          <div className="payment-options">
+            <h4>Select Payment Method</h4>
+            {pesapalButtonHtml ? (
+              <div dangerouslySetInnerHTML={{ __html: pesapalButtonHtml }} />
+            ) : (
+              <p>Loading Pesapal...</p>
+            )}
           </div>
         )}
       </div>
     </div>
-  </div>
-
-
   );
 };
 
