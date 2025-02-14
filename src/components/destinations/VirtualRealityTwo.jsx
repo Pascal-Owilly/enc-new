@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Carousel, Button } from 'react-bootstrap';
+import { Carousel, Button, Card } from 'react-bootstrap';
 import './Vr.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
@@ -32,10 +32,10 @@ function VRPageTwo() {
 
   return (
     <div className="page-two">
-      {/* Full Background Image Section */}
-      <section className="web-design-info">
-        {/* Section content could be placed here */}
-      </section>
+     <div className="text-center my-4">
+        <h2 className="vr-heading">Step into the Future: The Joy of Virtual Reality</h2>
+        <p className="vr-intro m-auto" style={{maxWidth:'800px'}}>Experience a world beyond imagination, where adventure, creativity, and limitless possibilities come to life. Whether you're soaring through space, exploring ancient ruins, or playing in a virtual playground, VR takes entertainment to a whole new level.</p>
+      </div>
       
       {loading ? (
         <div className="dot-loader">
@@ -51,15 +51,16 @@ function VRPageTwo() {
           <p>Currently, there are no Virtual Reality events to display. Please check back later.</p>
         </div>
       ) : (
-        <div className="vr-background">
+        <div className="vr-backgroun">
           <Carousel indicators={true} controls={true} interval={3000} nextIcon={<span className="carousel-control-next-icon" />} prevIcon={<span className="carousel-control-prev-icon" />} fade>
             {vr.slice(0, itemsPerPage).map((item, index) => (
               <Carousel.Item key={index}>
                 <img
                   className="d-block w-100"
-                  src={item.cover_image} // Fallback image
+                  src={`${BASE_URL}${item.pictures }`}
                   alt={`Slide ${index + 1}`}
                 />
+                
                 <Carousel.Caption>
                   <h3>{item.name}</h3>
                   <p>{item.description}</p>
@@ -72,6 +73,28 @@ function VRPageTwo() {
 
         </div>
       )}
+
+<div className="container">
+  <div className="row g-3">
+    {vr.slice(0, itemsPerPage).map((item, index) => (
+      <div key={index} className="col-lg-4 col-md-6 col-sm-12">
+        <div className="angel-card p-3 shadow rounded">
+          <img
+            className="symbol img-fluid"
+            src={`${BASE_URL}${item.cover_image}`}
+            style={{ width: "100%", maxHeight: "300px", objectFit: "cover" }}
+            alt={item.name}
+          />
+          <h6 className="mt-2">{item.name}</h6>
+          <p className="description">{item.description}</p>
+          <BookingButton className="p-2" place={item} />
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+
     </div>
   );
 }

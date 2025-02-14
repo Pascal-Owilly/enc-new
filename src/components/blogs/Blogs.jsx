@@ -32,27 +32,20 @@ const VacationPage = () => {
   // Titles, descriptions, and links for the cards
   const cards = [
     {
-      name: 'Micro-Adventure',
-      description: 'Embark on small adventures that bring big experiences.',
-      price: '150',
-      link: '/destinations/micro-adventure',
-      image: adventure,
-    },
-
-    {
-      name: 'Group Booking',
-      description: 'Organize trips for large groups at discounted rates.',
-      price: '500',
-      link: '/destination/group-bookings',
-      image: group,
-    },
-    {
       name: 'Culinary Tours',
       description: 'Taste the local flavors and enjoy cooking classes.',
       price: '$300',
       link: '/destinations/culinary-tours',
       image: culinary,
     },
+     {
+      name: 'Virtual Reality',
+      description: 'Experience immersive virtual reality adventures.',
+      price: '300',
+      link: '/destinations/vr-2',
+      image: vr,
+    },
+
     {
       name: 'Farmers\' Markets',
       description: 'Experience the best of local produce and artisan products.',
@@ -66,6 +59,13 @@ const VacationPage = () => {
       price: '$120',
       link: '/destinations/nature-hikes',
       image: nature2,
+    },
+        {
+      name: 'Micro-Adventure',
+      description: 'Embark on small adventures that bring big experiences.',
+      price: '150',
+      link: '/destinations/micro-adventure',
+      image: adventure,
     },
     {
       name: 'Art Workshops',
@@ -101,6 +101,13 @@ const VacationPage = () => {
       price: '$220',
       link: '/destinations/outdoor-adventures',
       image: outdoor,
+    },
+    {
+      name: 'Group Booking',
+      description: 'Organize trips for large groups at discounted rates.',
+      price: '500',
+      link: '/destination/group-bookings',
+      image: group,
     },
     {
       name: 'Wellness Retreats',
@@ -158,13 +165,7 @@ const VacationPage = () => {
       link: '/destinations/storytelling',
       image: story,
     },
-    {
-      name: 'Virtual Reality',
-      description: 'Experience immersive virtual reality adventures.',
-      price: '300',
-      link: '/destinations/vr-2',
-      image: vr,
-    },
+   
   ];
 
   const itineraries = [
@@ -302,7 +303,7 @@ const VacationPage = () => {
                     className={`category-${card.title ? card.title.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
                     style={{
                         backgroundImage: `url(${card.image})`,
-                        backgroundSize: 'contain',
+                        backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         height: '300px',
                         color: 'white',
@@ -341,7 +342,7 @@ const VacationPage = () => {
         ))}
     </div>
     
-    <a href="/all-places" style={{
+   {/* <a href="/all-places" style={{
         position: 'absolute',
         bottom: '-10px',
         right: '20px',
@@ -354,7 +355,7 @@ const VacationPage = () => {
         transition: 'background-color 0.3s',
     }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0056b3'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#007bff'}>
         Explore All
-    </a>
+    </a>*/}
 </section>
 
         {/* Custom Itineraries */}

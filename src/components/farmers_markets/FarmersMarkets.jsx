@@ -49,8 +49,8 @@ const FarmersMarketsPage = () => {
   };
 
   return (
-    <Container className="mt-5 farmers-market-page">
-      <h2 className="text-center my-5 farmers-market-title">Discover Farmers Markets</h2>
+    <Container fluid className="farmers-market-page">
+      <h2 className="text-center my- farmers-market-title">Discover Farmers Markets</h2>
         <p className='text-center'>Explore vibrant farmers markets offering fresh produce, unique crafts, and top-rated experiences—all in one place.</p>
       {loading ? (
         <div className="dot-loader">

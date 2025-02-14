@@ -21,7 +21,7 @@ const AllPlaces = () => {
         const fetchPlaces = async () => {
             setLoading(true);
             try {
-                const response = await fetch(`${BASE_URL}api/places/?page=${page}`);
+                const response = await fetch(`${BASE_URL}/api/places/?page=${page}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

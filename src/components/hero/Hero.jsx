@@ -4,31 +4,26 @@ import heroImage from "../../assets/hero/hero2.jpg"; // Import the image
 
 const HomePage = () => {
   return (
-    <div className="homepage">
+   <div className="homepage" 
+    style={{ backgroundImage: `linear-gradient(135deg, rgba(119, 54, 151), rgba(74, 20, 140))`,
+}}
+   >
+
       {/* Hero Section */}
       <section
-        className="hero-container-bg"
-        style={{
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          height: '50vh',
-          position: 'relative',
-        }}
-      >
-       <h1 style={{
-            fontSize: '3rem', // Large text for visibility
-            margin: '0',
-            lineHeight: '1.2', // Spacing between lines
-          }}>Unforgettable Experiences Await!</h1>
-          <p style={{
-            fontSize: '1.5rem', // Responsive size
-            margin: '10px 0',
-            maxWidth: '800px', // Limit width for readability
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            color:'white'
-          }}>
+  className="hero-container-bg"
+  style={{
+    backgroundImage: `linear-gradient(135deg, rgba(119, 54, 151, 0), rgba(74, 20, 140, 0)), url(${heroImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    height: "50vh",
+    position: "relative",
+  }}
+>
+
+       <h1 >Unforgettable Experiences Await!</h1>
+          <p className='text-white'>
             Discover your interests and explore exciting categories like culinary tours, sports, virtual reality, family fun etc — all at Enceptics!
           </p>
         <div className="hero-content" style={{
@@ -37,7 +32,7 @@ const HomePage = () => {
           paddingTop: '20%',
         }}>
          
-          <div className="" style={{
+          <div className="bouncer-hero" style={{
             width: '50px',
             height: '50px',
             borderRadius: '100%',
@@ -52,8 +47,9 @@ const HomePage = () => {
             position: 'absolute',
             bottom: '20px',
             left: '50%',
-            transform: 'translateX(-50%)',
-            animation: 'bounce 1s infinite',
+            right: '50%',
+            transform: 'translateY(-50%)',
+            // animation: 'bounce 1s infinite',
             cursor: 'pointer',
           }}>
             ↓

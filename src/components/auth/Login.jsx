@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { useNavigate, useLocation } from "react-router-dom";
-import AuthContext from './AuthContext';  // Import the context
+import { useNavigate, useLocation } from 'react-router-dom';
+import AuthContext from './AuthContext';
 import './Login.css';
 
 const Login = () => {
@@ -9,53 +9,18 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [successMessage, setSuccessMessage] = useState(null); // Store JSX instead of string
+    const [successMessage, setSuccessMessage] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
 
     const handleLogin = async (e) => {
-    e.preventDefault();
-    console.log("Attempting login...");
+        e.preventDefault();
+        console.log("Attempting login...");
 
-    try {
-        const { success, message } = await login(email, password);
-        console.log('Login response:', success, message);
-
-        if (success) {
-            setSuccessMessage(
-                <div>
-                    <span>Success! Redirecting </span>
-                    <div className="dot-loader">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-            );
-            setError('');
-
-            const from = location.state?.from || '/';
-            console.log("Navigating to:", from);
-
-            setTimeout(() => navigate(from), 1500);
-        } else {
-            setError(message);
-            setSuccessMessage(null);
-        }
-    } catch (error) {
-        setError('An error occurred during login.');
-        
-        console.error('Login failed:', error.response ? error.response.data : error.message);
-        setSuccessMessage(null);
-    }
-};
-
-
-    const handleGoogleLoginSuccess = async (credentialResponse) => {
         try {
-            console.log("Google login success:", credentialResponse);
-            const { success, message } = await googleLogin(credentialResponse.credential);
-            
+            const { success, message } = await login(email, password);
+            console.log('Login response:', success, message);
+
             if (success) {
                 setSuccessMessage(
                     <div>
@@ -67,10 +32,45 @@ const Login = () => {
                         </div>
                     </div>
                 );
-                
                 setError('');
-                const from = location.state?.from || '/'; // ✅ Define `from`
-                setTimeout(() => navigate(from), 1500);
+                const from = location.state?.from || '/';
+                setTimeout(() => {
+                    navigate(from, { replace: true });
+                    window.location.reload();
+                }, 1500);
+            } else {
+                setError(message);
+                setSuccessMessage(null);
+            }
+        } catch (error) {
+            setError('An error occurred during login.');
+            console.error('Login failed:', error.response ? error.response.data : error.message);
+            setSuccessMessage(null);
+        }
+    };
+
+    const handleGoogleLoginSuccess = async (credentialResponse) => {
+        try {
+            console.log("Google login success:", credentialResponse);
+            const { success, message } = await googleLogin(credentialResponse.credential);
+
+            if (success) {
+                setSuccessMessage(
+                    <div>
+                        <span>Success! Redirecting </span>
+                        <div className="dot-loader">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                );
+                setError('');
+                const from = location.state?.from || '/';
+                setTimeout(() => {
+                    navigate(from, { replace: true });
+                    window.location.reload();
+                }, 1500);
             } else {
                 setError(message);
                 setSuccessMessage(null);
@@ -93,9 +93,8 @@ const Login = () => {
             <div className="login-page">
                 <div className="login-container">
                     <h1 className="login-title">Welcome Back!</h1>
-
                     {error && <p className="error-message">{error}</p>}
-                    {successMessage && <div className="success-message">{successMessage}</div>} 
+                    {successMessage && <div className="success-message">{successMessage}</div>}
 
                     <form onSubmit={handleLogin} className="login-form">
                         <div className="form-group">
@@ -127,11 +126,7 @@ const Login = () => {
                         <span>OR</span>
                     </div>
 
-                    <GoogleLogin
-                        onSuccess={handleGoogleLoginSuccess}
-                        onError={handleGoogleLoginError}
-                        useOneTap
-                    />
+                    <GoogleLogin onSuccess={handleGoogleLoginSuccess} onError={handleGoogleLoginError} useOneTap />
 
                     <p className="signup-link">
                         Don’t have an account? <a href="/auth/signup">Sign up</a>

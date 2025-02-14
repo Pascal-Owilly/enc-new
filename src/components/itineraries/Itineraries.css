@@ -8,22 +8,16 @@
     background-color: #fff; /* White background for content */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    margin-top: 90px !important;
+    margin-top: 20px !important;
 }
 
 /* Header styles */
 .itinerary-page h1 {
-    font-size: 2.5rem; /* Large title */
+    font-size: 2rem; /* Large title */
     color: #4a4a4a; /* Darker text for contrast */
     margin-bottom: 1rem; /* Space below title */
 }
 
-/* Paragraph styles */
-.itinerary-page p {
-    font-size: 1.2rem; /* Slightly larger text for paragraphs */
-    color: #666; /* Gray text for readability */
-    line-height: 1.6; /* Increase line height for better spacing */
-}
 
 /* List styles */
 .itinerary-page ul {
@@ -41,8 +35,10 @@
 
 /* Rating styles */
 .itinerary-page p:last-of-type {
-    font-weight: bold; /* Bold rating text */
+    font-weight: ; /* Bold rating text */
     color: #ff9800; /* Orange color for rating */
+    font-size: 16px;
+    text-align: left !important;
 }
 
 /* Responsive Styles */
@@ -78,12 +74,6 @@
 .info-section h2 {
     color: #007bff; /* Blue for headings */
     margin-bottom: 1rem;
-}
-
-.info-section p {
-    font-size: 1.1rem;
-    color: #333;
-    margin-bottom: 1.5rem;
 }
 
 .get-started-button {

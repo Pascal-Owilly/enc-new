@@ -48,3 +48,25 @@
   font-size: 1.2rem;
   color: #555;
 }
+
+
+
+.chart-container canvas {
+  height: 300px !important; /* ✅ Force a fixed height */
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.chart-wrapper {
+  width: 100%;
+  min-height: 300px; /* Ensures the chart has a minimum height */
+  height: auto;
+  max-height: 500px; /* Prevents it from becoming too large */
+  position: relative; /* Required for responsive scaling */
+}

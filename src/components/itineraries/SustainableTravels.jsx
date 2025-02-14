@@ -33,7 +33,7 @@ const SustainableDestinations = () => {
 
     return (
         <div className="sustainable-destinations">
-            <h1>Explore Sustainable Destinations</h1>
+            <h1 className='text-dark'>Explore Sustainable Destinations</h1>
 
             {loading ? (
                 <div className="dot-loader">
@@ -56,7 +56,7 @@ const SustainableDestinations = () => {
                 <div className="destinations-list">
                     {tours.map((destination, index) => (
                         <div key={index} className="destination-card">
-                            <img src={destination.pictures} alt={destination.name} className="destination-image" />
+                            <img src={`${BASE_URL}${destination.cover_image}`} alt={destination.name} className="destination-image" />
                             <h2>{destination.name}</h2>
                             <p>{destination.description}</p>
                             <BookingButton place={destination} />

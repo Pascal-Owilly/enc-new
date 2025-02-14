@@ -15,7 +15,7 @@ const PlaceDetails = () => {
     const fetchPlace = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${BASE_URL}api/places/${id}`);
+        const response = await fetch(`${BASE_URL}/api/places/${id}`);
         if (!response.ok) {
           throw new Error(`Failed to fetch place details: ${response.statusText}`);
         }
@@ -38,7 +38,11 @@ const PlaceDetails = () => {
   }, [id]);
 
   if (loading) {
-    return <div className="loading-spinner">Loading...</div>;
+    return  <div className="dot-loader">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>;
   }
 
   if (error) {

@@ -80,6 +80,7 @@ h2 {
     background-color: #fff; /* White background for each testimonial */
     border-radius: 5px; /* Rounded corners for testimonials */
     transition: transform 0.2s; /* Transition for hover effect */
+    width: 90%;
   }
   
   .testimonial:hover {

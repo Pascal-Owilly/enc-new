@@ -45,27 +45,26 @@ const BookingButton = ({ place }) => {
                 </div>
                 {/* Reviews Link */}
                 <div className="view-reviews-link">
-                    <Link to={`/place/${place.id}/reviews`}>
+                    {/*<Link to={`/place/${place.id}/reviews`}>*/}
+                    <span>
                         <span>{place.total_reviews || 0} reviews</span>
-                    </Link>
+                        </span>
+                    {/*</Link>*/}
                 </div>
             </div>
-            <div className="footer">
-                <Link to={`/place/${place.id}`}>
-                    <span className="details-button">
-                    More <br />  <FontAwesomeIcon icon={faArrowRight} className="forward-arrow text-primary" />
-                        
-                        </span>
-                </Link>
-                <Link
-                    to={{
-                        pathname: `/booking`,
-                        search: `?placeName=${encodeURIComponent(place.name)}&placeId=${place.id}`
-                    }}
-                >
-                    <button className="booking-button btn btn-sm">Book Now</button>
-                </Link>
-            </div>
+            <div className="footer" style={{backgroundColor:'transparent', width:'100%'}}>
+    <a href={`/place/${place.id}`}>
+        <span className="details-button">
+            More <br />
+            <FontAwesomeIcon icon={faArrowRight} className="forward-arrow text-primary" />
+        </span>
+    </a>
+    
+    <a href={`/booking?placeName=${encodeURIComponent(place.name)}&placeId=${place.id}`} className="booking-button btn btn-sm">
+        Book Now
+    </a>
+</div>
+
         </div>
     );
 };

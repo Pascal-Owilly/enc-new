@@ -3,6 +3,7 @@ import './MicroAdventure.css';
 import hero2 from '../../assets/hero/hero2.jpg'; // Fallback image
 import { BASE_URL } from '../config/config';
 import BookingButton from '../bookings/BookingButton';
+import { FaInfoCircle } from 'react-icons/fa';
 
 const MicroAdventure = () => {
     const [adventures, setAdventures] = useState([]);
@@ -14,7 +15,7 @@ const MicroAdventure = () => {
         const fetchAdventures = async () => {
             try {
                 setLoading(true); // Start loading
-                const response = await fetch(`${BASE_URL}api/places/filter_by_category/?category=${category}`);
+                const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=${category}`);
                 const data = await response.json();
                 console.log('Backend Response:', data); // Log the data to inspect
                 setAdventures(data);
@@ -38,16 +39,18 @@ const MicroAdventure = () => {
 
     return (
         <div className="micro-adventure-page container m-auto">
-            <header 
-                className="hero-banner text-center" 
+            <span 
+                className="hero-banne text-center" 
                 style={{
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     borderRadius: '100px',
                 }}
             >
-                <h4 className="fade-in text-center page-title all-headings fade-in">Micro-Adventure</h4>
-            </header>
+                <h4 className="text-center text-dark all-headings4 fade-in" style={{textTransform:'capitalize'}}>Micro-Adventure</h4>
+
+               <p> Discovering unique, exciting experiences without the need for extensive planning or long-distance travel. Perfect for busy schedules, these mini escapes allow you to explore hidden gems. Designed to bring a taste of adventure to your everyday life, uncover local secrets, and create lasting memories.</p>
+            </span>
             <br />
 
             {loading ? (
@@ -78,7 +81,11 @@ const MicroAdventure = () => {
                                     />
                                 ))
                             ) : (
-                                <p>No adventures found.</p>
+                                <p className="text-center">
+<FaInfoCircle size={50} color="#6c757d" />
+          <p className="mt-3 text-muted">No adventures found. at the moment. Please check back later!</p>
+                                </p>
+
                             )}
                         </div>
                     </div>  

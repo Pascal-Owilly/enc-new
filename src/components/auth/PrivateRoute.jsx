@@ -4,9 +4,8 @@ import AuthContext from "./AuthContext";
 
 const PrivateRoute = ({ children }) => {
   const { user, token, loading } = useContext(AuthContext);
-  const location = useLocation(); // Get the current location
+  const location = useLocation();
 
-  // If we're still loading user data, don't redirect yet, just render children
   if (loading) {
     return (
       <div className="dot-loader">
@@ -17,9 +16,8 @@ const PrivateRoute = ({ children }) => {
     );
   }
 
-  // If no token or user exists, redirect to login with the current location
   if (!token || !user) {
-    return <Navigate to="/auth/login" state={{ from: location }} />;
+    return <Navigate to="/auth/login" state={{ from: location.pathname }} />;
   }
 
   return children;

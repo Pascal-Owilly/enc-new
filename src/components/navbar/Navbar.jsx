@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Navbar.css"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +9,8 @@ import { FaSearch, FaBars, FaTimes, FaFacebook, FaTwitter, FaInstagram, FaLinked
 import { FaUser, FaHome, FaSignOutAlt, FaSignInAlt, FaUserPlus } from 'react-icons/fa';  // Import icons
 import BottomNav from './BottomNav';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../auth/AuthContext';  // Adjust the import path as needed
+import { MessageCircleMore } from "lucide-react";
 
 const Navbar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -16,11 +18,14 @@ const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const navigate = useNavigate()
+  const { user } = useContext(AuthContext);  // Get user from context
+  const [hovered, setHovered] = useState(false);
 
   const handleLogout = () => {
     // Handle logout and clear auth token
     localStorage.removeItem("authToken");
     setIsAuthenticated(false);
+    window.location.reload();
     console.log("Logged out successfully.");
   };
 
@@ -109,14 +114,14 @@ const Navbar = () => {
             </a>
           </div>
           <div className="tuor-options">
-            <span style={{color:'#FFF'}}>How do you want your vacation?</span>
-            <select>
+            <span style={{color:'#FFF'}}>Join us to have a life time experience</span>
+            {/*<select>
               <option value="" disabled selected>
                 Select an option
               </option>
               <option value="exclusive">Exclusive</option>
               <option value="inclusive">Inclusive</option>
-            </select>
+            </select>*/}
           </div>
         </div>
 
@@ -132,17 +137,18 @@ const Navbar = () => {
           </button>
         </div>
 
-        <div className="actions">
-          <a href="/talks">
-            <div className="messages">
-              <img
-                src={messageIcon}
-                alt="Message Icon"
-              />
-              <div className="notification">5</div>
-            </div>
-          </a>
-        </div>
+        <div className="relative" onClick={() => navigate("/talks")}>
+  <div
+    className="flex items-center justify-center p-1 rounded-full bg-blue-600 hover:bg-blue-700 cursor-pointer transition duration-300 shadow-lg"
+    
+  >
+    <MessageCircleMore className="w-10 h-10 text-white" />
+  </div>
+
+  <span className="absolute top-12 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm px-3 py-1 rounded-lg shadow-md">
+    • Traveler Stories •
+  </span>
+</div>
         &nbsp;
 
         <div className="actions" style={{ zIndex: 1000, display: 'flex', justifyContent: 'flex-end' }}>
@@ -170,24 +176,33 @@ const Navbar = () => {
           boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
           fontFamily: "'Roboto', sans-serif",
         }}>
-          <li>
+        {/*  <li>
             <a className="dropdown-item" href="/auth/profile" style={{ display: "flex", alignItems: "center", color:'#000042' }}>
               <FaUser style={{ marginRight: "10px" }} />
               View Profile
             </a>
-          </li>
-          <li>
-            <hr className="dropdown-divider" />
-          </li>
-          <li>
-            <a className="dropdown-item" href="/management/property-management" style={{ display: "flex", alignItems: "center", color:'#000042' }}>
-              <FaHome style={{ marginRight: "10px" }} />
-              My Properties
-            </a>
-          </li>
-          <li>
-            <hr className="dropdown-divider" />
-          </li>
+          </li>*/}
+         
+    {user && user.role === 'property_manager' && (
+  <>
+    <hr className="dropdown-divider" />
+    <li>
+      <a
+        className="dropdown-item"
+        href="/management/property-management"
+        style={{ display: "flex", alignItems: "center", color: '#000042' }}
+      >
+        <FaHome style={{ marginRight: "10px" }} />
+        My Properties
+      </a>
+    </li>
+    <hr className="dropdown-divider" />
+  </>
+)}
+
+
+
+         
           <li>
           <a className="dropdown-item text-danger" onClick={handleLogout} style={{ display: "flex", alignItems: "center", color:'#000042', cursor: 'pointer' }}>
                       <FaSignOutAlt style={{ marginRight: "10px" }} />
@@ -212,23 +227,7 @@ const Navbar = () => {
   )}
 </div>
 
-        <div className="">
-          <a href="/chats">
-            <div className="mobile-message">
-              <a href="/talks">
-                <div className="messages">
-                  <img
-                    src={messageIcon}
-                    alt="Message Icon"
-                    style={{ width: "25px", height: "20px" }}
-                  />
-                  <div className="notification">5</div>
-                </div>
-              </a>
-            </div>
-          </a>
-        </div>
-
+   
         <button className="burger-icon" style={{background:'transparent'}} onClick={toggleSidebar}>
           <FaBars />
         </button>
@@ -239,14 +238,14 @@ const Navbar = () => {
   <div>
     <div className="sidebar-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
       <div className="tuor-options " style={{background:'#000042', color:'#ddd', marginTop:'-1px', borderRadius:'30px', padding:'3px 15px 3px 15px', width:'100%  '}}>
-        <span style={{ fontWeight: '', marginBottom: '', fontSize:'10px' }}>How do you want your vacation?</span> <br />
-        <select style={{ padding: '5px', width: '100%', marginTop:'10px' }}>
+        <span style={{ fontWeight: '', marginBottom: '', fontSize:'10px' }}>Join us to have a life time experience</span> <br />
+        {/*<select style={{ padding: '5px', width: '100%', marginTop:'10px' }}>
           <option value="" disabled selected>
             Select an option
           </option>
           <option value="exclusive">Exclusive</option>
           <option value="inclusive">Inclusive</option>
-        </select>
+        </select>*/}
       </div> &nbsp;
       <div className="close-btn" onClick={toggleSidebar} style={{ cursor: 'pointer', fontSize: '20px' }}>
         <FaTimes />
@@ -279,24 +278,36 @@ const Navbar = () => {
           boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
           fontFamily: "'Roboto', sans-serif",
         }}>
-          <li>
+          {/*<li>
             <a className="dropdown-item" href="/auth/profile" style={{ display: "flex", alignItems: "center", color:'#000042' }}>
               <FaUser style={{ marginRight: "10px" }} />
               View Profile
             </a>
-          </li>
-          <li>
-            <hr className="dropdown-divider" />
-          </li>
-          <li>
-            <a className="dropdown-item" href="/management/property-management" style={{ display: "flex", alignItems: "center", color:'#000042' }}>
-              <FaHome style={{ marginRight: "10px" }} />
-              My Properties
-            </a>
-          </li>
-          <li>
-            <hr className="dropdown-divider" />
-          </li>
+          </li>*/}
+         
+
+<li>
+{user && user.role === 'property_manager' && (
+  <>
+    <hr className="dropdown-divider" />
+    <li>
+      <a
+        className="dropdown-item"
+        href="/management/property-management"
+        style={{ display: "flex", alignItems: "center", color: '#000042' }}
+      >
+        <FaHome style={{ marginRight: "10px" }} />
+        My Properties
+      </a>
+    </li>
+    <hr className="dropdown-divider" />
+  </>
+)}
+
+</li>
+
+
+        
           <li>
           <a className="dropdown-item text-danger" onClick={handleLogout} style={{ display: "flex", alignItems: "center", color:'#000042', cursor: 'pointer' }}>
                       <FaSignOutAlt style={{ marginRight: "10px" }} />

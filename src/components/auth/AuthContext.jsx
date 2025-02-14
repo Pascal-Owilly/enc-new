@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         setLoading(true);  // Set loading to true while fetching
         try {
-          const response = await axios.get(`${BASE_URL}api/users/`, {
+          const response = await axios.get(`${BASE_URL}/api/users/`, {
             headers: { Authorization: `Token ${token}` },
           });
           setUser(response.data);  // Set user data if successful
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
   const signUp = async (formData) => {
     try {
       const response = await axios.post(
-        `${BASE_URL}api/auth/register/`,
+        `${BASE_URL}/api/auth/register/`,
         formData,
         { headers: { 'Content-Type': 'application/json' } }
       );
@@ -75,35 +75,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Login function
-  // const login = async (email, password) => {
-  //   try {
-  //     const response = await axios.post(
-  //       `${BASE_URL}api/auth/login/`,
-  //       { email, password },
-  //       { headers: { 'Content-Type': 'application/json' } }
-  //     );
-      
-  //     if (response.status === 200) {
-  //       const { token, user } = response.data;
-  //       setToken(token);  // Set the token from response
-  //       setUser(user); // Set user data
-  //       return { success: true };
-  //     } else {
-  //       setError('Login failed');
-  //       return { success: false, message: 'Login failed' };
-  //     }
-  //   } catch (error) {
-  //     console.error("Login error:", error);
-  //     setError(error.response?.data?.detail || "An error occurred during login.");
-  //     return { success: false, message: error.response?.data?.detail || "An error occurred during login." };
-  //   }
-  // };
-
 const login = async (email, password) => {
     try {
         const response = await axios.post(
-            `${BASE_URL}api/auth/login/`,
+            `${BASE_URL}/api/auth/login/`,
             { email, password },
             { headers: { 'Content-Type': 'application/json' } }
         );
@@ -144,7 +119,7 @@ const login = async (email, password) => {
   const resetPassword = async (email) => {
     try {
       const response = await axios.post(
-        `${BASE_URL}api/auth/password/reset/`,
+        `${BASE_URL}/api/auth/password/reset/`,
         { email },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -167,7 +142,7 @@ const login = async (email, password) => {
   const googleLogin = async (token) => {
     try {
       const response = await axios.post(
-        `${BASE_URL}api/auth/google-login/`,
+        `${BASE_URL}/api/auth/google-login/`,
         { token },
         { headers: { 'Content-Type': 'application/json' } }
       );

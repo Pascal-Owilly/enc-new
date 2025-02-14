@@ -42,12 +42,12 @@ const CulinaryToursPage = () => {
   }, []);
 
   return (
-    <Container className="mt-5">
-      <h2 className="text-center my-5">Explore Culinary Tours</h2>
+    <Container fluid className="">
+      <h2 className="text-center my-">Explore Culinary Tours</h2>
       <p className="text-center">
-        Embark on a journey of taste and culture! Our curated culinary tours take you through vibrant markets, world-class kitchens, 
-        and authentic local eateries. Experience the joy of cooking traditional recipes, savor exquisite dishes, and immerse yourself 
-        in the rich flavors of different cuisines. Perfect for food lovers and adventurers alike!
+        Embark on a journey of taste and culture! We take you through vibrant markets, world-class kitchens, 
+        and authentic local eateries. Experience the joy of tasting traditional and modern recipes, savor exquisite dishes, and immerse yourself 
+        in the rich flavors of different cuisines. 
       </p>
       <Row>
         {loading ? (
@@ -72,7 +72,7 @@ const CulinaryToursPage = () => {
                   />
                   <Carousel.Caption>
                     <h3>{adventure.title}</h3>
-                    <p>{adventure.location}</p>
+                    {/*<p>{adventure.location}</p>*/}
                   </Carousel.Caption>
                 </Carousel.Item>
               ))}
@@ -125,20 +125,20 @@ const CulinaryToursPage = () => {
         )}
 
         {/* Sidebar Area */}
-        <Col md={3} className="sticky-sidebar p-0">
-          <div className="testimonial-section my-4">
+        <Col md={3} className="sticky-sideba p-0">
+          <div className="testimonial-sectio my-4">
             <h5 className="text-center testimonial-title">What Our Travelers Say</h5>
-            <div className="testimonial my-3">
-              <p className="text-muted testimonial-quote">“An unforgettable experience, I learned so much!”</p>
-              <p className="text-end testimonial-author">– Jane Doe</p>
+            <div className="testimonial my-">
+              <p className="text-muted testimonial-quote">“An unforgettable experience, I ate a lot”</p>
+              <p className="text-end testimonial-author">– Jane</p>
             </div>
-            <div className="testimonial my-3">
+            <div className="testimonial my-">
               <p className="text-muted testimonial-quote">“Perfectly organized, highly recommend!”</p>
-              <p className="text-end testimonial-author">– John Smith</p>
+              <p className="text-end testimonial-author">– Mike</p>
             </div>
-            <div className="testimonial my-3">
+            <div className="testimonial my-">
               <p className="text-muted testimonial-quote">“Exceeded my expectations! The food was amazing!”</p>
-              <p className="text-end testimonial-author">– Alice Johnson</p>
+              <p className="text-end testimonial-author">– Alice </p>
             </div>
           </div>
         </Col>

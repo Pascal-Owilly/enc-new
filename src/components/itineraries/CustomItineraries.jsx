@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './Itineraries.css'; // Adjust the path as necessary
+import React, { useState, useEffect } from 'react';
+import { BASE_URL } from '../config/config';
 
 const CustomItineraries = () => {
     const [formData, setFormData] = useState({
@@ -8,202 +8,127 @@ const CustomItineraries = () => {
         preferences: '',
         budget: '',
         travelDate: '',
-        travelType: '',
-        interests: {
-            adventure: false,
-            culture: false,
-            food: false,
-            relaxation: false,
-            wildlife: false,
-        },
+        interests: [],  
         additionalNotes: '',
     });
 
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState(null);
+    const [showForm, setShowForm] = useState(true); // Toggle form visibility
+
+    // Fetch interest categories from API
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/api/places/`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const uniqueCategories = [...new Set(data.map(place => place.category_type))].filter(Boolean);
+                    setCategories(uniqueCategories);
+                } else {
+                    console.error('Failed to fetch categories');
+                }
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
+
+    // Handle text input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+        setFormData((prevState) => ({ ...prevState, [name]: value }));
     };
 
+    // Handle interest checkbox selection
     const handleInterestChange = (e) => {
         const { name, checked } = e.target;
         setFormData((prevState) => ({
             ...prevState,
-            interests: {
-                ...prevState.interests,
-                [name]: checked,
-            },
+            interests: checked
+                ? [...prevState.interests, name]
+                : prevState.interests.filter((interest) => interest !== name),
         }));
     };
 
-    const handleSubmit = (e) => {
+    // Submit form
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // You can add form submission logic here (e.g., send data to an API)
-        console.log('Form submitted:', formData);
-    };
+        setLoading(true);
+        setMessage(null);
 
-    const scrollToForm = () => {
-        const formElement = document.getElementById('custom-itinerary-form');
-        if (formElement) {
-            formElement.scrollIntoView({ behavior: 'smooth' });
+        try {
+            const response = await fetch(`${BASE_URL}/api/auth/notify-managers/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                setMessage('✅ Your request has been successfully submitted!');
+                setShowForm(false); // Hide form after successful submission
+            } else {
+                const errorData = await response.json();
+                setMessage(errorData?.error || '❌ Failed to send request. Please try again.');
+            }
+        } catch (error) {
+            setMessage(`⚠️ An error occurred: ${error.message}`);
         }
+
+        setLoading(false);
     };
 
     return (
         <div className="itinerary-page">
-            <h1>Custom Itineraries</h1>
-            <div className="info-section">
+            <h1>Customize your Trip</h1>
             <p>
-                    Our custom itineraries are designed to fit your unique travel preferences and interests. 
-                    Whether you're seeking adventure, relaxation, culture, or culinary delights, we tailor each 
-                    experience to ensure you have the trip of a lifetime. 
-                </p>
-                <p>
-                    Enjoy a one-on-one consultation with our travel experts, who will help you craft a journey 
-                    that resonates with your dreams. With flexible planning, local insights, and tailored experiences, 
-                    your travel will be as unique as you are.
-                </p>
-              
-            </div>
-            
-            <h5>Get Started on Your Custom Itinerary</h5>
-            <form id="custom-itinerary-form" onSubmit={handleSubmit} className="custom-itinerary-form">
-                <div className="form-group">
-                    <label htmlFor="name">Full Name:</label>
-                    <input
-                        type="text" 
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="preferences">Travel Preferences:</label>
-                    <textarea
-                        id="preferences"
-                        name="preferences"
-                        value={formData.preferences}
-                        onChange={handleChange}
-                        required
-                        placeholder="e.g., beach, mountains, cultural experiences"
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="budget">Budget (USD):</label>
-                    <input
-                        type="number"
-                        id="budget"
-                        name="budget"
-                        value={formData.budget}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="travelDate">Preferred Travel Date:</label>
-                    <input
-                        type="date"
-                        id="travelDate"
-                        name="travelDate"
-                        value={formData.travelDate}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="travelType">Type of Travel:</label>
-                    <select
-                        id="travelType"
-                        name="travelType"
-                        value={formData.travelType}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Select...</option>
-                        <option value="adventure">Adventure</option>
-                        <option value="relaxation">Relaxation</option>
-                        <option value="cultural">Cultural</option>
-                        <option value="food">Culinary</option>
-                    </select>
-                </div>
-                <div className="form-group">
-                    <label>Interests:</label>
-                    <div>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="adventure"
-                                checked={formData.interests.adventure}
-                                onChange={handleInterestChange}
-                            />
-                            Adventure
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="culture"
-                                checked={formData.interests.culture}
-                                onChange={handleInterestChange}
-                            />
-                            Culture
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="food"
-                                checked={formData.interests.food}
-                                onChange={handleInterestChange}
-                            />
-                            Culinary
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="relaxation"
-                                checked={formData.interests.relaxation}
-                                onChange={handleInterestChange}
-                            />
-                            Relaxation
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="wildlife"
-                                checked={formData.interests.wildlife}
-                                onChange={handleInterestChange}
-                            />
-                            Wildlife
-                        </label>
-                    </div>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="additionalNotes">Additional Notes:</label>
-                    <textarea
-                        id="additionalNotes"
-                        name="additionalNotes"
-                        value={formData.additionalNotes}
-                        onChange={handleChange}
-                        placeholder="Any special requests or notes..."
-                    />
-                </div>
-                <button type="submit" className="submit-button">Submit Request</button>
-            </form>
+                Experience a journey tailored to your interests—adventure, relaxation, culture, or cuisine.
+                Our experts craft custom itineraries with local insights and flexible planning, ensuring a trip as unique as you.
+            </p>
 
-    
+            {message && <p className="message">{message}</p>}
+
+            {showForm ? (
+                <form onSubmit={handleSubmit} className="custom-itinerary-form">
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Full Name" />
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="Email" />
+                    <textarea name="preferences" value={formData.preferences} onChange={handleChange} required placeholder="Travel Preferences" />
+                    <input type="number" name="budget" value={formData.budget} onChange={handleChange} required placeholder="Budget (KES)" />
+                    <input type="date" name="travelDate" value={formData.travelDate} onChange={handleChange} />
+
+                    <div className="interests-section">
+                        <h4>Select Your Interests</h4>
+                        {categories.length > 0 ? (
+                            categories.map((category) => (
+                                <label key={category}>
+                                    <input
+                                        type="checkbox"
+                                        name={category}
+                                        checked={formData.interests.includes(category)}
+                                        onChange={handleInterestChange}
+                                    />
+                                    {category.replace(/_/g, ' ')}
+                                </label>
+                            ))
+                        ) : (
+                            <p>Loading categories...</p>
+                        )}
+                    </div>
+
+                    <button type="submit" disabled={loading}>
+                        {loading ? 'Submitting...' : 'Submit Request'}
+                    </button>
+                </form>
+            ) : (
+                <div className="success-message">
+                    <h2>🎉 Request Submitted Successfully!</h2>
+                    <p>Thank you for submitting your request. Our team will review it and get back to you shortly.</p>
+                    <button onClick={() => setShowForm(true)}>Submit Another Request</button>
+                </div>
+            )}
         </div>
     );
 };

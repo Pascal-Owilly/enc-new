@@ -41,7 +41,7 @@ const BlogPosts = () => {
     
     try {
       // Fetching blog posts from the backend API
-      const response = await fetch(`${BASE_URL}api/blogposts/`);
+      const response = await fetch(`${BASE_URL}/api/blogposts/`);
       
       // If the response is not successful (status outside 200-299), throw an error
       if (!response.ok) throw new Error('Failed to fetch posts');
@@ -78,52 +78,53 @@ const BlogPosts = () => {
   };
   
   const createPost = async () => {
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-      setError('Please log in first. We’re excited to see what you’ll share!');
-      return;
-    }
-  
-    const formData = new FormData();
-    formData.append('content', storyContent);  // Include the content in the form data
-    if (selectedImage) {
-      formData.append('image', selectedImage);  // Include the image if selected
-    }
-  
-    try {
-      const response = await fetch(`${BASE_URL}api/blogposts/`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Token ${token}`,  // Pass the token in the authorization header
-        },
-        body: formData,  // Send the form data
-      });
-  
-      const responseText = await response.text();
-      console.log('Response Status:', response.status);
-      console.log('Response Body:', responseText);
-      console.log('Request Payload:', formData);
-  
-      if (!response.ok) {
-        let errorMessage;
-        try {
-          const errorData = JSON.parse(responseText);
-          errorMessage = errorData?.detail || 'Failed to create post';
-        } catch {
-          errorMessage = responseText || 'Failed to create post';
-        }
-        throw new Error(errorMessage);
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    setError('Please log in first. We’re excited to see what you’ll share!');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('content', storyContent);
+  if (selectedImage) {
+    formData.append('image', selectedImage);
+  }
+
+  setLoading(true); // Start loading when creating a post
+
+  try {
+    const response = await fetch(`${BASE_URL}/api/blogposts/`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Token ${token}`,
+      },
+      body: formData,
+    });
+
+    const responseText = await response.text();
+
+    if (!response.ok) {
+      let errorMessage;
+      try {
+        const errorData = JSON.parse(responseText);
+        errorMessage = errorData?.detail || 'Failed to create post';
+      } catch {
+        errorMessage = responseText || 'Failed to create post';
       }
-  
-      const newPost = JSON.parse(responseText);
-      setPosts((prev) => [newPost, ...prev]);
-      setStoryContent('');
-      setSelectedImage(null);  // Reset image after post creation
-    } catch (error) {
-      console.error('Post Creation Error:', error);
-      setError(error.message || 'An unknown error occurred');
+      throw new Error(errorMessage);
     }
-  };
+
+    const newPost = JSON.parse(responseText);
+    setPosts((prev) => [newPost, ...prev]);
+    setStoryContent('');
+    setSelectedImage(null); // Reset image after post creation
+  } catch (error) {
+    console.error('Post Creation Error:', error);
+    setError(error.message || 'An unknown error occurred');
+  } finally {
+    setLoading(false); // Stop loading when done
+  }
+};
   
   
   const handleFileChange = (e) => {
@@ -142,7 +143,7 @@ const BlogPosts = () => {
     }
 
     try {
-      const response = await fetch(`${BASE_URL}api/likes/`, {
+      const response = await fetch(`${BASE_URL}/api/likes/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -176,7 +177,7 @@ const BlogPosts = () => {
     }
 
     try {
-      const response = await fetch(`${BASE_URL}api/comments/`, {
+      const response = await fetch(`${BASE_URL}/api/comments/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -216,7 +217,7 @@ const BlogPosts = () => {
     }
 
     try {
-      const response = await fetch(`${BASE_URL}api/blogposts/${postId}/`, {
+      const response = await fetch(`${BASE_URL}/api/blogposts/${postId}/`, {
         method: 'DELETE',
         headers: {
           Authorization: `Token ${token}`, // Add token to the request header
@@ -328,7 +329,7 @@ const BlogPosts = () => {
     posts.map((post) => (
       <div className="post-card" key={post.id}>
         <div className="post-header">
-          <img src={post.image} alt="Author" className="author-image" />
+          <img src={defaultProfile} alt="Author" className="author-image" />
           <div className="author-details">
             <h5 className="text-secondary" style={{ fontFamily: 'verdana', fontSize: '14px' }}>
               {post.author_full_name}
@@ -353,12 +354,12 @@ const BlogPosts = () => {
             <span className="ms-1">{likes[post.id] || 0} </span>
           </div>
 
-          <div className="comments-section d-flex align-items-center">
+          {/*<div className="comments-section d-flex align-items-center">
             <button className="btn btn-link p-0" onClick={() => toggleExpandedComments(post.id)}>
               <FontAwesomeIcon icon={faComment} />
             </button>
             <span className="ms-1">{(post.comments || []).length}</span>
-          </div>
+          </div>*/}
 
           <div className="dropdown">
             <button
@@ -379,12 +380,7 @@ const BlogPosts = () => {
                 >
                   Delete
                 </button>
-                <button
-                  className="dropdown-item"
-                  onClick={() => handleDeleteConfirm(post.id)}
-                >
-                  Archive
-                </button>
+              
               </div>
             )}
           </div>

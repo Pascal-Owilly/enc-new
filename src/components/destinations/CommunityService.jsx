@@ -43,10 +43,11 @@ const CommunityService = () => {
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <Container className="mt-5">
+    <Container fluid className="mt-5">
       <h2 className="text-center my-4">
         <FontAwesomeIcon icon={faHandsHelping} /> Community Service
       </h2>
+      <p></p>
 
       {loading ? (
         <div className="dot-loader">
@@ -68,7 +69,7 @@ const CommunityService = () => {
                   />
                   <h5>{service.name}</h5>
                   <Badge bg="success">⭐ {service.average_rating || 'N/A'}</Badge>
-                  <p>{service.description || 'No description available.'}</p>
+                  <p>{service.description }</p>
                   <p>Duration: {service.duration || 'N/A'}</p>
                   <div className="d-flex justify-content-between mt-3">
                     <div className="card-footer text-center">

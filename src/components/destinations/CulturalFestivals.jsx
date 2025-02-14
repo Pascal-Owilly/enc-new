@@ -45,7 +45,7 @@ const CulturalFestivals = () => {
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <Container className="mt-5">
+    <Container className="">
       <h2 className="text-center my-4">
         <FontAwesomeIcon icon={faMusic} /> Cultural Festivals
       </h2>
@@ -64,7 +64,7 @@ const CulturalFestivals = () => {
                 <div className="festival-card">
                   {/* Image */}
                   <img 
-                    src={`${BASE_URL}${festival.imageUrl || festival.cover_image}`} 
+                    src={`${BASE_URL}${festival.cover_image }`}
                     alt={festival.name} 
                     className="festival-image" 
                   />

@@ -68,6 +68,8 @@ import MicroAdventure from './components/itineraries/MicroAdventure';
 
 // Additional Components
 import Blogs from './components/blogs/Blogs';
+import BlogDetail from './components/blogs/BlogDetail';
+import BlogPosts from './components/blogs/BlogPosts';
 import Partners from './components/partners/Partners';
 import Booking from './components/bookings/Booking';
 import GroupBookings from './components/bookings/GroupBookings';
@@ -146,7 +148,14 @@ export default function App() {
           <Route path="/place/:id" element={<PlaceDetails />} />
           <Route path="/reviews/:id" element={<ReviewPage />} />
 
-          <Route path="/booking" element={<Booking />} />
+          <Route  
+            path="/booking"
+            element={
+              // <PrivateRoute>
+                <Booking />
+              // </PrivateRoute>
+            }
+          />
 
           {/* Project and Demo Routes */}
           <Route path="/project-details/:id" element={<ProjectDetails />} />
@@ -182,7 +191,7 @@ export default function App() {
           {/* Additional Routes */}
           <Route path="/destinations/all-categories" element={<Blogs />} />
           <Route path="/partners" element={<Partners />} />
-          <Route path="/booking" element={<Booking />} />
+          {/*<Route path="/booking" element={<Booking />} />*/}
           <Route path="/destination/group-bookings" element={<GroupBookings />} />
           <Route path="/weather/:place_name" element={<Weather />} />
           <Route path="/talks" element={<Talks />} />
@@ -206,6 +215,10 @@ export default function App() {
           {/*Search*/}
           <Route path="/search" element={<SearchResults />} />
           <Route path="/result/:id" element={<Places />} />
+
+          {/*blogs*/}
+          <Route path="/blogs" element={<BlogPosts />} />
+          <Route path="/blogs/:id" element={<BlogDetail />} />
 
         </Routes>
       </div>

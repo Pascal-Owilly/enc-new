@@ -18,7 +18,7 @@ const GroupBookings = () => {
         const fetchAdventures = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`${BASE_URL}api/places/filter_by_category/?category=${category}`);
+                const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=${category}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch adventures');
                 }
@@ -54,7 +54,7 @@ const GroupBookings = () => {
     const AdventureItem = ({ title, description, size, image, adventure }) => (
         <div className="group-card shadow-sm border-0 w-100"
         style={{margin:'auto', width:'90%'}}> {/* Full width */}
-            <img src={`${BASE_URL}${image}`} alt={title} className="card-img-top" />
+            <img src={`${BASE_URL}${cover_image}`} alt={title} className="card-img-top" />
             <div className="card-header">
                 <h5>{title}</h5>
             </div>
@@ -69,9 +69,9 @@ const GroupBookings = () => {
     );
 
     return (
-        <div className="container-fluid text-center">
-            <h1 className="text-dark mb-2 group-title all-headings4 mb-4">Group Bookings</h1>
-            <p className="lead mb-5">
+        <div className="container-fluid m-1 text-center">
+            <h1 className="text-dark mb- group-title all-headings mb-">Group Bookings</h1>
+            <p className="lea mb-">
                 Plan unforgettable trips with your friends, family, or colleagues. Enjoy exclusive group rates and personalized itineraries!
             </p>
             {loading ? (

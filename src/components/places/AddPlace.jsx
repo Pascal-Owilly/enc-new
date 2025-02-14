@@ -20,6 +20,7 @@ const AddPlace = () => {
     const [pictures, setPictures] = useState([]);
     const [videos, setVideos] = useState([]);
     const [error, setError] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Categories based on your Place model CATEGORY_CHOICES
     const CATEGORY_CHOICES = [
@@ -50,10 +51,12 @@ const AddPlace = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setIsSubmitting(true);
     
         const token = getAuthToken();
         if (!token) {
             alert('Please log in first. We’re excited to see what you’ll share!');
+            setIsSubmitting(false);
             return;
         }
     
@@ -65,14 +68,13 @@ const AddPlace = () => {
         formData.append('size', size);
         formData.append('cover_image', coverImage);
         formData.append('destination', destination);
-        formData.append('category_type', selectedCategory); // Ensure this matches the backend field name
+        formData.append('category_type', selectedCategory);
     
-        // Append pictures and videos
         pictures.forEach((pic) => formData.append('pictures', pic));
         videos.forEach((vid) => formData.append('videos', vid));
     
         try {
-            const response = await axios.post(`${BASE_URL}profile/places/`, formData, {
+            const response = await axios.post(`${BASE_URL}/profile/places/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Token ${token}`,
@@ -83,15 +85,12 @@ const AddPlace = () => {
             window.location.href = '/management/property-management/';
         } catch (error) {
             console.error('Error submitting form:', error);
-            if (error.response && error.response.data) {
-                const errorMessage = error.response.data.error || 'There was an error submitting the form.';
-                alert(errorMessage);
-            } else {
-                alert('There was an error submitting the form.');
-            }
+            alert('There was an error submitting the form.');
+        } finally {
+            setIsSubmitting(false);
         }
     };
-    
+
     return (
         <div className='mb-5' style={{ marginTop: '20px', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '500px', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
@@ -142,12 +141,11 @@ const AddPlace = () => {
                 </label>
 
                 <label style={{ display: 'block', marginBottom: '10px' }}>
-                    Size:
+                    Size (Add size only if you offer groups e.g 3-4 people):
                     <input
                         type="text"
                         value={size}
                         onChange={(e) => setSize(e.target.value)}
-                        required
                         style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginTop: '5px' }}
                     />
                 </label>
@@ -157,17 +155,6 @@ const AddPlace = () => {
                     <input
                         type="file"
                         onChange={(e) => setCoverImage(e.target.files[0])}
-                        required
-                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginTop: '5px' }}
-                    />
-                </label>
-
-                <label style={{ display: 'block', marginBottom: '10px' }}>
-                    Destination:
-                    <input
-                        type="text"
-                        value={destination}
-                        onChange={(e) => setDestination(e.target.value)}
                         required
                         style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginTop: '5px' }}
                     />
@@ -184,15 +171,6 @@ const AddPlace = () => {
                     />
                 </label>
 
-                <label style={{ display: 'block', marginBottom: '10px' }}>
-                    Videos:
-                    <input
-                        type="file"
-                        multiple
-                        onChange={(e) => setVideos(Array.from(e.target.files))}
-                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginTop: '5px' }}
-                    />
-                </label>
 
                 <label style={{ display: 'block', marginBottom: '10px' }}>
                     Category:
@@ -211,19 +189,8 @@ const AddPlace = () => {
                     </select>
                 </label>
 
-                <button
-                    type="submit"
-                    style={{
-                        width: '100%',
-                        padding: '10px',
-                        backgroundColor: '#ffd700',
-                        color: '#333',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                    }}
-                >
-                    Add Place
+              <button type="submit" disabled={isSubmitting} style={{ width: '100%', padding: '10px', backgroundColor: '#ffd700', color: '#333', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                    {isSubmitting ? 'Adding Place...' : 'Add Place'}
                 </button>
             </form>
         </div>

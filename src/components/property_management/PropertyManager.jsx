@@ -18,7 +18,7 @@ function PropertyManager() {
       const authToken = localStorage.getItem('authToken'); // Get token
   
       try {
-        const response = await axios.get(`${BASE_URL}api/manager/places/`, {
+        const response = await axios.get(`${BASE_URL}/api/manager/places/`, {
           headers: {
             Authorization: `Token ${authToken}`, // Send token in headers
           },
@@ -170,32 +170,30 @@ function PropertyManager() {
 
           <h6 className="mt-5">My Properties</h6>
           <div className="property-grid">
-  {safeProperties.map((property) => (
-    <div className="property-card" key={property.id}>
-      <div className="property-image">
-        {/* Only render the image if the image URL exists */}
-        {property.image && (
-          <img
-          src={`${BASE_URL}${property.image}`} 
-          alt={property.name}
-            className="property-img"
-          />
-        )}
-        <h4 className="property-name all-headings text-white">{property.name}</h4>
-      </div>
-      <div className="property-details">
-        <span className="badge">📍 {property.location}</span>
-        <span className="badge">📅 {property.bookings} Bookings</span>
-        <span className="badge">💵 ${property.earnings} Earnings</span>
-        <span className="badge">👥 {property.visitors} Visitors</span>
-        <span className="badge">⭐ {property.average_rating} Rating</span>
-        <span className="badge">💬 {property.total_reviews} Reviews</span>
-        <span className="badge">⏳ {property.pendingBookings} Pending</span>
-      </div>
-    </div>
-  ))}
-</div>
-
+            {safeProperties.map((property) => (
+              <div className="property-card" key={property.id}>
+                <div className="property-image">
+                  {/* Ensure the image is always rendered */}
+                  <img
+                    src={`${BASE_URL}${property.image}`}  // Make sure the field name matches the data
+                    alt={property.name}
+                    className="property-img"
+                    onError={(e) => e.target.style.display = 'none'} // Hide image if it fails to load
+                  />
+                  <h4 className="property-name all-headings text-white">{property.name}</h4>
+                </div>
+                <div className="property-details">
+                  <span className="badge">📍 {property.location}</span>
+                  <span className="badge">📅 {property.bookings} Bookings</span>
+                  <span className="badge">💵 ${property.earnings} Earnings</span>
+                  <span className="badge">👥 {property.visitors} Visitors</span>
+                  <span className="badge">⭐ {property.average_rating} Rating</span>
+                  <span className="badge">💬 {property.total_reviews} Reviews</span>
+                  <span className="badge">⏳ {property.pendingBookings} Pending</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

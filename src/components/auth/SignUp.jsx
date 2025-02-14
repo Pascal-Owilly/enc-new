@@ -29,56 +29,72 @@ const SignUp = () => {
     };
 
     const handleSignUp = async (e) => {
-        e.preventDefault();
-        setError('');
-        setSuccess('');
-        setLoading(true);
-        try {
-            const response = await fetch(`${BASE_URL}api/auth/register/`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    setLoading(true);
 
-            if (response.ok) {
-                setSuccess('Sign up successful! Redirecting to login...');
-                navigate('/auth/login');
-            } else {
-                const errorData = await response.json();
-                setError(errorData.message || 'Registration failed.');
-            }
-        } catch (err) {
-            setError('Network error. Please try again later.');
-        } finally {
-            setLoading(false);
+    // Create a copy of formData and remove image if it's null
+    const submitData = { ...formData };
+    if (!submitData.image) {
+        delete submitData.image;
+    }
+
+    console.log("Submitting data:", submitData); // Log request data
+
+    try {
+        const response = await fetch(`${BASE_URL}/api/auth/register/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(submitData),
+        });
+
+        const responseData = await response.json();
+        console.log("Response:", responseData); // Log full backend response
+
+        if (response.ok) {
+            setSuccess('Sign up successful! Redirecting to login...');
+            navigate('/auth/login');
+        } else {
+            // Extract and display detailed error message
+            const errorMessage = responseData?.message || responseData?.error || JSON.stringify(responseData);
+            setError(errorMessage);
+            console.error("Sign up error:", errorMessage);
         }
-    };
+    } catch (err) {
+        console.error("Network error:", err);
+        setError('Network error. Please try again later.');
+    } finally {
+        setLoading(false);
+    }
+};
 
     const handleGoogleLoginSuccess = async (response) => {
     setLoading(true);
-    setError(''); // Clear previous errors
+    setError('');
 
     const { credential } = response;
     try {
-        const apiResponse = await fetch(`${BASE_URL}api/auth/google-login/`, {
+        const apiResponse = await fetch(`${BASE_URL}/api/auth/google-login/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ token: credential }),
         });
 
-        const data = await apiResponse.json(); // Directly parse JSON response
-        
+        const data = await apiResponse.json();
         console.log("Google login response:", data);
 
         if (apiResponse.ok) {
             if (data.user && data.token) {
-                data.user.role = data.user.role || 'customer'; // Default role
-                setToken(data.token);
-                setUser(data.user);
-                console.log("setToken:", setToken);
-                console.log("setUser:", setUser);
+                console.log("Setting token and user...");
 
-                navigate('/');
+                if (typeof setToken === "function" && typeof setUser === "function") {
+                    setToken(data.token);
+                    setUser(data.user);
+                    navigate('/');
+                } else {
+                    console.error("setToken or setUser is not a function");
+                }
             } else {
                 setError("Unexpected response format.");
             }
@@ -86,7 +102,7 @@ const SignUp = () => {
             setError(data.message || "Google login failed.");
         }
     } catch (networkError) {
-        console.error("Network error:", networkError);
+        console.error("Network error during Google login:", networkError);
         setError("Network error during Google login. Please try again later.");
     } finally {
         setLoading(false);
@@ -94,6 +110,7 @@ const SignUp = () => {
 };
 
     const handleGoogleLoginError = (error) => {
+        console.error("Google login error:", error);
         setError('Google login failed. Please try again.');
     };
 
@@ -173,8 +190,8 @@ const SignUp = () => {
                         </div>
                         <button type="submit" className="signup-button">Sign Up</button>
                     </form>
-                    <div className="divider"><span>OR</span></div>
-                    <GoogleLogin onSuccess={handleGoogleLoginSuccess} onError={handleGoogleLoginError} useOneTap disabled={loading} />
+                    {/*<div className="divider"><span>OR</span></div>
+                    <GoogleLogin onSuccess={handleGoogleLoginSuccess} onError={handleGoogleLoginError} useOneTap disabled={loading} />*/}
                     <p className="login-link">Already have an account? <a href="/auth/login">Log in</a></p>
                 </div>
             </div>

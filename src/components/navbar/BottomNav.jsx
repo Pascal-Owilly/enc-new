@@ -9,6 +9,8 @@ const NavigationBar = () => {
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
     { href: "/faqs", label: "FAQs" },
+    { href: "/blogs", label: "Blogs" },
+
   ];
 
   const socialLinks = [

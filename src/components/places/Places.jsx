@@ -22,7 +22,7 @@ const Places = () => {
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
-        const response = await fetch(`${BASE_URL}places/`);
+        const response = await fetch(`${BASE_URL}/places/`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -38,7 +38,11 @@ const Places = () => {
     fetchPlaces();
   }, []);
 
-  if (loading) return <div className="loading-message">Loading...</div>;
+  if (loading) return  <div className="dot-loader">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>;
   if (error) return <div className="error-message">Error: {error}</div>;
 
   if (places.length === 0) {
