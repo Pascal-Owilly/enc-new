@@ -44,7 +44,7 @@ const HistoricalTours = () => {
   return (
     <div className="container">
       <div className="jumbotron">
-        <h2 className="all-headings text-dark">Historical Tours</h2>
+        <h5 className="all-headi text-dark">Historical Tours</h5>
         <p className="text-dark" style={{ color: "#5e5e5e", fontSize: "", marginBottom: "1rem" }}>
           Discover the hidden stories and legends of ancient sites. Our historical tours take you through landmarks and tales that shaped the world, providing a journey through time and culture.
         </p>

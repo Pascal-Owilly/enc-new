@@ -50,7 +50,7 @@ const FarmersMarketsPage = () => {
 
   return (
     <Container fluid className="farmers-market-page">
-      <h2 className="text-center my- farmers-market-title">Discover Farmers Markets</h2>
+      <h3 className="text-center my- farmers-market-titl text-dark">Discover Farmers Markets</h3>
         <p className='text-center'>Explore vibrant farmers markets offering fresh produce, unique crafts, and top-rated experiences—all in one place.</p>
       {loading ? (
         <div className="dot-loader">
@@ -60,7 +60,7 @@ const FarmersMarketsPage = () => {
         </div>
       ) : adventures.length === 0 ? (
         <div className="no-data text-center mt-5">
-          <FaInfoCircle size={50} color="#6c757d" />
+          <FaInfoCircle size={50} colo  r="#6c757d" />
           <p className="mt-3 text-muted">No farmers markets available at the moment. Please check back later!</p>
         </div>
       ) : (

@@ -18,7 +18,7 @@ const FAQs = () => {
         {/* Parallax Header */}
         <Parallax speed={-5}>
           <header className="faqs-header">
-            <h1>FAQs</h1>
+            <h5>FAQs</h5>
             <p>Your Questions Answered</p>
           </header>
         </Parallax>

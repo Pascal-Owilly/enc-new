@@ -244,7 +244,7 @@ const BlogPosts = () => {
   <div className="chat-container">
     <div className="row">
       <div className="col-md-8">
-        <h1 className="text-dark travel-stories text-left">Travel Stories</h1>
+        <h5 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-500 mx-2 text-dark text-muted">Travel Stories</h5>
         <hr />
         <div className="input-group blogpost-input m-auto" style={{ width: '97%' }}>
   <img

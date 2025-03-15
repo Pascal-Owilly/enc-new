@@ -5,28 +5,29 @@ import heroImage from "../../assets/hero/hero2.jpg"; // Import the image
 const HomePage = () => {
   return (
    <div className="homepage" 
-    style={{ backgroundImage: `linear-gradient(135deg, rgba(119, 54, 151), rgba(74, 20, 140))`,
+    style={{ backgroundImage: `linear-gradient(135deg, rgba(255, 255, 255), rgba(255, 255, 255))`,
 }}
    >
 
       {/* Hero Section */}
       <section
-  className="hero-container-bg"
-  style={{
-    backgroundImage: `linear-gradient(135deg, rgba(119, 54, 151, 0), rgba(74, 20, 140, 0)), url(${heroImage})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    height: "50vh",
-    position: "relative",
-  }}
->
+        className="hero-container-bg"
+        style={{
+          backgroundImage: `linear-gradient(135deg, rgba(119, 54, 151, 0), rgba(74, 20, 140, 0)), url(${heroImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          height: "auto",
+          position: "relative",
+        }}
+      >
 
-       <h1 >Unforgettable Experiences Await!</h1>
-          <p className='text-white'>
-            Discover your interests and explore exciting categories like culinary tours, sports, virtual reality, family fun etc — all at Enceptics!
-          </p>
-        <div className="hero-content" style={{
+       <h1 style={{textAlign:'left'}} className=''>Why just take a vacation when you can truly experience?</h1><br />
+          <p style={{textAlign:'left', width:'80%'}} className='text-white sub-titl'>
+
+           Select your favourite category and have experience of a lifetime
+                     </p>
+       {/* <div className="hero-content" style={{
           textAlign: 'center',
           color: '#fff',
           paddingTop: '20%',
@@ -54,7 +55,7 @@ const HomePage = () => {
           }}>
             ↓
           </div>
-        </div>
+        </div>*/}
       </section>
     </div>
   );

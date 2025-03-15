@@ -34,14 +34,14 @@ const VacationPage = () => {
     {
       name: 'Culinary Tours',
       description: 'Taste the local flavors and enjoy cooking classes.',
-      price: '$300',
+      // price: '$300',
       link: '/destinations/culinary-tours',
       image: culinary,
     },
      {
       name: 'Virtual Reality',
       description: 'Experience immersive virtual reality adventures.',
-      price: '300',
+      // price: '300',
       link: '/destinations/vr-2',
       image: vr,
     },
@@ -49,132 +49,143 @@ const VacationPage = () => {
     {
       name: 'Farmers\' Markets',
       description: 'Experience the best of local produce and artisan products.',
-      price: '$50',
+      // price: '$50',
       link: '/destinations/farmers-markets',
       image: farming,
     },
     {
       name: 'Nature Hikes',
       description: 'Explore breathtaking nature trails and serene landscapes.',
-      price: '$120',
+      // price: '$120',
       link: '/destinations/nature-hikes',
       image: nature2,
     },
         {
       name: 'Micro-Adventure',
       description: 'Embark on small adventures that bring big experiences.',
-      price: '150',
+      // price: '150',
       link: '/destinations/micro-adventure',
       image: adventure,
     },
     {
       name: 'Art Workshops',
       description: 'Get creative with hands-on art sessions and local artists.',
-      price: '$200',
+      // price: '$200',
       link: '/destinations/art-workshops',
       image: art,
     },
     {
       name: 'Cultural Festivals',
       description: 'Dive into the rich culture through vibrant festivals.',
-      price: '$180',
+      // price: '$180',
       link: '/destinations/cultural-festivals',
       image: cultural,
     },
     {
       name: 'Historical Tours',
       description: 'Discover the history and landmarks of the area.',
-      price: '$250',
+      // price: '$250',
       link: '/destinations/historical-tours',
       image: historical,
     },
     {
       name: 'Community Service',
       description: 'Engage in activities that benefit local communities.',
-      price: '$100',
+      // price: '$100',
       link: '/destinations/community-service',
       image: community,
     },
     {
       name: 'Outdoor Adventures',
       description: 'Experience thrilling outdoor activities and nature.',
-      price: '$220',
+      // price: '$220',
       link: '/destinations/outdoor-adventures',
       image: outdoor,
     },
     {
       name: 'Group Booking',
       description: 'Organize trips for large groups at discounted rates.',
-      price: '500',
+      // price: '500',
       link: '/destination/group-bookings',
       image: group,
     },
     {
       name: 'Wellness Retreats',
       description: 'Relax and rejuvenate with wellness programs.',
-      price: '$400',
+      // price: '$400',
       link: '/destinations/wellness-retreats',
       image: retreats3,
     },
     {
       name: 'Local Sports Events',
       description: 'Experience the excitement of local sports events.',
-      price: '$75',
+      // price: '$75',
       link: '/destinations/local-sports',
       image: sports,
     },
     {
-      name: 'Music and Dance Classes',
+      name: 'Music and Dance',
       description: 'Learn music and dance from local experts.',
-      price: '$150',
+      // price: '$150',
       link: '/destinations/music-dance',
       image: music,
     },
     {
       name: 'Local Artisan Tours',
       description: 'Explore the craftsmanship of local artisans.',
-      price: '130',
+      // price: '130',
       link: '/destinations/artisan-tours',
       image: artisan,
     },
     {
       name: 'Themed Photo Walks',
       description: 'Capture beautiful moments on guided photo walks.',
-      price: '80',
+      // price: '80',
       link: '/destinations/photo-walks',
       image: photo,
     },
+
     {
       name: 'Wildlife Spotting',
       description: 'Observe and learn about local wildlife.',
-      price: '200',
+      // price: '200',
       link: '/destinations/wildlife-spotting',
       image: wildlife,
     },
     {
       name: 'Cultural Exchange',
       description: 'Engage in cultural exchanges with locals.',
-      price: '150',
+      // price: '150',
       link: '/destinations/cultural-exchange',
       image: cultural,
     },
     {
-      name: 'Storytelling Nights',
-      description: 'Enjoy evenings of storytelling and local tales.',
-      price: '50',
+      name: 'Storytelling Sessions',
+      description: 'Enjoy sessions of storytelling and local tales.',
+      // price: '50',
       link: '/destinations/storytelling',
       image: story,
     },
    
   ];
 
-  const itineraries = [
-    { href: '/itineraries/sustainable', title: 'Sustainable Travels', image: heroImage3 },
-    { href: '/itineraries/custom', title: 'Custom Itineraries', image: heroImage2 },
-    // { href: '/destinations/tour-and-learn', title: 'Tour & Learn' , image: heroImage3},
-  ];
+const itineraries = [
+  { 
+    href: '/itineraries/sustainable', 
+    title: 'Sustainable Travels', 
+    image: heroImage3, 
+    description: "Explore the world responsibly with our eco-friendly travel options. Enjoy breathtaking destinations while minimizing your environmental impact." 
+  },
+  { 
+    href: '/itineraries/custom', 
+    title: 'Custom Itineraries', 
+    image: heroImage2, 
+    description: "Tailor your journey to match your unique travel style. From luxury escapes to adventure-packed trips, design an itinerary that’s truly yours." 
+  },
+];
 
-  const [welcomeText, setWelcomeText] = useState('Discover Your   Adventure');
+
+  const [welcomeText, setWelcomeText] = useState('Discover Your Adventure');
 
   const texts = [
     'Explore Categories ',
@@ -295,7 +306,9 @@ const VacationPage = () => {
         <main>
           {/* Featured Destinations */}
         <section className="destination-showcase" style={{ position: 'relative' }}>
-    <h3 className="all-headi text-dark">Explore Categories</h3>
+    <h3 className="text-dark">Explore Categories</h3>
+        <p className=" text-dark">Explore your interest  and take a journey of your dreams </p>
+
     <div className="cards-container">
         {cards.map((card, index) => (
             <a href={card.link} className="card" style={{ textDecoration: 'none', width: '300px' }} key={index}>
@@ -362,8 +375,8 @@ const VacationPage = () => {
         <hr />
 
         <section className="itineraries-showcase">
-          <h3 className="all-head text-dark">Custom Itineraries</h3>
-
+          <h5 className="all-head text-dark">Custom Itineraries & <br /> Sustainable Travels</h5 >
+            <p>Customize your trip, take a journey while preserving the environment </p>
           <div className="cards-container">
             {itineraries.map((itinerary, index) => (
             <a href={itinerary.href} className="card" style={{textDecoration:'none'}}>
@@ -375,7 +388,8 @@ const VacationPage = () => {
                 <div className="image-placeholder">
                   <img src={itinerary.image} alt={itinerary.title} style={{ width: '100%' }} />
                 </div>
-                <h3>{itinerary.title}</h3>
+                <h3 className='text-dark'>{itinerary.title}</h3>
+                <p>{itinerary.description}</p>
                 <a href={itinerary.href} className="btn">
                   View Details
                 </a>

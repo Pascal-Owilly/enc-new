@@ -55,35 +55,38 @@ const CustomItineraries = () => {
     };
 
     // Submit form
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setMessage(null);
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage(null);
 
-        try {
-            const response = await fetch(`${BASE_URL}/api/auth/notify-managers/`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
+    try {
+        const response = await fetch(`${BASE_URL}/api/auth/notify-managers/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+        });
 
-            if (response.ok) {
-                setMessage('✅ Your request has been successfully submitted!');
-                setShowForm(false); // Hide form after successful submission
-            } else {
-                const errorData = await response.json();
-                setMessage(errorData?.error || '❌ Failed to send request. Please try again.');
-            }
-        } catch (error) {
-            setMessage(`⚠️ An error occurred: ${error.message}`);
+        if (response.ok) {
+            setMessage('');
+            setShowForm(false); // Hide form after successful submission
+
+            // Scroll to top after successful submission
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            const errorData = await response.json();
+            setMessage(errorData?.error || '❌ Failed to send request. Please try again.');
         }
+    } catch (error) {
+        setMessage(`⚠️ An error occurred: ${error.message}`);
+    }
 
-        setLoading(false);
-    };
+    setLoading(false);
+};
 
     return (
-        <div className="itinerary-page">
-            <h1>Customize your Trip</h1>
+        <div className="itinerary-page m-auto">
+            <h5>Customize your Trip</h5>
             <p>
                 Experience a journey tailored to your interests—adventure, relaxation, culture, or cuisine.
                 Our experts craft custom itineraries with local insights and flexible planning, ensuring a trip as unique as you.
@@ -92,7 +95,7 @@ const CustomItineraries = () => {
             {message && <p className="message">{message}</p>}
 
             {showForm ? (
-                <form onSubmit={handleSubmit} className="custom-itinerary-form">
+                <form onSubmit={handleSubmit} className="custom-itinerary-for p-2">
                     <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Full Name" />
                     <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="Email" />
                     <textarea name="preferences" value={formData.preferences} onChange={handleChange} required placeholder="Travel Preferences" />

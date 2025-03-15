@@ -8,8 +8,6 @@ const Booking = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
-  const redirectPath = searchParams.get("redirect"); // Preserve redirect
-
   const placeId = searchParams.get("placeId");
   const placeName = searchParams.get("placeName");
   const placePrice = searchParams.get("price");
@@ -34,11 +32,11 @@ const Booking = () => {
   // Redirect to login if not authenticated
   useEffect(() => {
     if (!authToken) {
-      // Save current path and query params before redirecting
       navigate(`/auth/login?redirect=${encodeURIComponent(location.pathname + location.search)}`);
     }
   }, [authToken, navigate, location.pathname, location.search]);
 
+  // Fetch place data
   useEffect(() => {
     if (placeId) {
       axios
@@ -80,11 +78,11 @@ const Booking = () => {
         setMessageType("success");
         setShowPaymentMethods(true);
         fetchPesapalButton();
+        scrollToTop();  // Scroll to top on successful booking
       })
       .catch((error) => {
         console.error("Booking error:", error);
-        const errorMsg =
-          error.response?.data?.detail || "An error occurred while booking.";
+        const errorMsg = error.response?.data?.detail || "An error occurred while booking.";
         setMessage(errorMsg);
         setMessageType("error");
       })
@@ -96,14 +94,8 @@ const Booking = () => {
     try {
       const response = await axios.post(
         `${BASE_URL}/api/auth/pesapal/payment/`,
-        {
-          place_id: placeId,
-        },
-        {
-          headers: {
-            Authorization: `Token ${authToken}`,
-          },
-        }
+        { place_id: placeId },
+        { headers: { Authorization: `Token ${authToken}` } }
       );
 
       if (response.data.pesapal_button_html) {
@@ -121,62 +113,94 @@ const Booking = () => {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
-    <div className="container booking-container">
-      <div className="booking-form">
-        <h3>Booking for {bookingData.name}</h3>
-        <p className="price">Price: KES {bookingData.price}</p>
+    <div className="container-fluid booking-container">
+      <div
+        className="booking-form"
+        style={{
+          maxWidth: "400px",
+          margin: "15px auto",
+          padding: "20px",
+          borderRadius: "10px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          backgroundColor: "#fff",
+          textAlign: "center",
+        }}
+      >
+        <h3 className="text-dark">Booking for {bookingData.name}</h3>
+        <p className="price text-success">Kes {bookingData.price}</p>
 
-        <form onSubmit={handleBookingSubmit}>
-          <label>Check-in Date:</label>
-          <input
-            type="date"
-            name="checkin_date"
-            value={bookingData.checkin_date}
-            onChange={handleInputChange}
-            required
-          />
+        {!showPaymentMethods ? (
+          <form onSubmit={handleBookingSubmit}>
+            <input
+              type="date"
+              name="checkin_date"
+              value={bookingData.checkin_date}
+              onChange={handleInputChange}
+              required
+              placeholder="Check-in Date"
+              style={{ width: "100%", marginBottom: "10px" }}
+            />
 
-          <label>Check-out Date:</label>
-          <input
-            type="date"
-            name="checkout_date"
-            value={bookingData.checkout_date}
-            onChange={handleInputChange}
-            required
-          />
+            <input
+              type="date"
+              name="checkout_date"
+              value={bookingData.checkout_date}
+              onChange={handleInputChange}
+              required
+              placeholder="Check-out Date"
+              style={{ width: "100%", marginBottom: "10px" }}
+            />
 
-          <label>Phone:</label>
-          <input
-            type="tel"
-            name="phone"
-            value={bookingData.phone}
-            onChange={handleInputChange}
-            required
-          />
+            <input
+              type="tel"
+              name="phone"
+              value={bookingData.phone}
+              onChange={handleInputChange}
+              required
+              placeholder="Phone Number"
+              style={{ width: "100%", marginBottom: "10px" }}
+            />
 
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={bookingData.email}
-            onChange={handleInputChange}
-          />
+            <input
+              type="email"
+              name="email"
+              value={bookingData.email}
+              onChange={handleInputChange}
+              required
+              placeholder="Email Address"
+              style={{ width: "100%", marginBottom: "10px" }}
+            />
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Processing..." : "Book Now"}
-          </button>
-        </form>
-
-        {showPaymentMethods && (
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                width: "100%",
+                padding: "10px",
+                backgroundColor: "#28a745",
+                color: "#fff",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              {loading ? "Processing..." : "Book Now"}
+            </button>
+          </form>
+        ) : (
           <div className="payment-options">
             <h4>Select Payment Method</h4>
             {message && <div className={`message ${messageType}`}>{message}</div>}
-
             {pesapalButtonHtml ? (
-              <div className="pesapal-button-wrapper">
-                <div dangerouslySetInnerHTML={{ __html: pesapalButtonHtml }} />
-              </div>
+              <div className="pesapal-button-wrapper" dangerouslySetInnerHTML={{ __html: pesapalButtonHtml }} />
             ) : (
               <div className="dot-loader">
                 <span></span>

@@ -36,6 +36,8 @@ import ReviewPage from './components/places/ReviewPage';
 import ProjectDetails from './components/projects/ProjectDetails';
 import RequestDemo from './components/projects/RequestDemoForm';
 import ThankYou from './components/projects/ThankYou';
+import Contract from './components/contract/Contract';
+
 
 // Destination Activities
 import CulinaryTours from './components/culinary_tours/CulinaryTours';
@@ -90,6 +92,9 @@ import PropertyManager from './components/property_management/PropertyManager';
 // Authentication
 import { AuthProvider } from "./components/auth/AuthContext";
 import PrivateRoute from "./components/auth/PrivateRoute";
+
+import NotFound from './components/errors/NotFound';
+
 
 export default function App() {
   useEffect(() => {
@@ -148,12 +153,12 @@ export default function App() {
           <Route path="/place/:id" element={<PlaceDetails />} />
           <Route path="/reviews/:id" element={<ReviewPage />} />
 
-          <Route  
+            <Route  
             path="/booking"
             element={
-              // <PrivateRoute>
+              <PrivateRoute>
                 <Booking />
-              // </PrivateRoute>
+              </PrivateRoute>
             }
           />
 
@@ -210,6 +215,7 @@ export default function App() {
           {/* Property Management */}
           
           <Route path="/management/property-management" element={<PrivateRoute><PropertyManager /></PrivateRoute>} />
+
           <Route path="/management/property-management/add-place" element={<PrivateRoute><AddPlace /></PrivateRoute>} />
           
           {/*Search*/}
@@ -219,6 +225,13 @@ export default function App() {
           {/*blogs*/}
           <Route path="/blogs" element={<BlogPosts />} />
           <Route path="/blogs/:id" element={<BlogDetail />} />
+
+          {/*Contract*/}
+          <Route path="/contract-signing" element={<PrivateRoute><Contract /></PrivateRoute>} />
+
+          {/*Not found*/}
+          <Route path="*" element={<NotFound />} />
+
 
         </Routes>
       </div>

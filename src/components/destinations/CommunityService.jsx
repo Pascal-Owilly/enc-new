@@ -43,10 +43,10 @@ const CommunityService = () => {
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <Container fluid className="mt-5">
-      <h2 className="text-center my-4">
+    <Container fluid className="">
+      <h5 className="text-center ">
         <FontAwesomeIcon icon={faHandsHelping} /> Community Service
-      </h2>
+      </h5>
       <p></p>
 
       {loading ? (

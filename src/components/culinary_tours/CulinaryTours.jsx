@@ -37,18 +37,12 @@ const CulinaryToursPage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setImageSwitch((prev) => !prev);
-    }, 3000); // Switch every 3 seconds
+    }, 5000); // Switch every 5 seconds
     return () => clearInterval(interval); // Clean up interval on unmount
   }, []);
 
   return (
-    <Container fluid className="">
-      <h2 className="text-center my-">Explore Culinary Tours</h2>
-      <p className="text-center">
-        Embark on a journey of taste and culture! We take you through vibrant markets, world-class kitchens, 
-        and authentic local eateries. Experience the joy of tasting traditional and modern recipes, savor exquisite dishes, and immerse yourself 
-        in the rich flavors of different cuisines. 
-      </p>
+    <Container fluid>
       <Row>
         {loading ? (
           <div className="dot-loader">
@@ -57,22 +51,26 @@ const CulinaryToursPage = () => {
             <span></span>
           </div>
         ) : (
-          <Col lg={9} md={9}>
+          <Col lg={12}>
             {/* Carousel */}
-            <Carousel className="mb-4"
-            style={{borderRadius:'100px 0 0 0'}}
-            >
+            <Carousel className="mb-4" controls={true} indicators={false}>
               {adventures.map((adventure) => (
                 <Carousel.Item key={adventure.id}>
                   <img
                     className="d-block w-100"
                     src={`${BASE_URL}${imageSwitch ? adventure.cover_image : adventure.pictures}`}
                     alt={adventure.title}
-                    style={{ maxHeight: '400px', objectFit: 'cover', borderRadius:'100px 0 0 0' }}
+                    style={{ maxHeight: '400px', objectFit: 'cover' }}
                   />
                   <Carousel.Caption>
+                    <h3 style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#fff', textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>
+                      Culinary Tours
+                    </h3>
+                    <p className="text-left">
+                      Experience the joy of tasting traditional and modern recipes, savor exquisite dishes, and immerse yourself 
+                      in the rich flavors of different cuisines. 
+                    </p>
                     <h3>{adventure.title}</h3>
-                    {/*<p>{adventure.location}</p>*/}
                   </Carousel.Caption>
                 </Carousel.Item>
               ))}
@@ -81,7 +79,7 @@ const CulinaryToursPage = () => {
             {/* Tour Cards */}
             <Row>
               {adventures.map((adventure) => (
-                <Col md={6} className="mb-4" key={adventure.id}>
+                <Col md={6} className="mb-2" key={adventure.id}>
                   <Card className="tour-card shadow-lg">
                     <Card.Img
                       variant="top"
@@ -95,17 +93,11 @@ const CulinaryToursPage = () => {
                       </Badge>
                       <Card.Title className="tour-title">{adventure.name}</Card.Title>
                       <Card.Text>
-                        <FontAwesomeIcon
-                          icon={faMapMarkerAlt}
-                          className="text-primary me-2"
-                        />
+                        <FontAwesomeIcon icon={faMapMarkerAlt} className="text-primary me-2" />
                         {adventure.location}
                       </Card.Text>
                       <Card.Text>
-                        <FontAwesomeIcon
-                          icon={faClock}
-                          className="text-warning me-2"
-                        />
+                        <FontAwesomeIcon icon={faClock} className="text-warning me-2" />
                         Duration: {adventure.duration}
                       </Card.Text>
                       <Card.Text className="tour-description">
@@ -123,25 +115,6 @@ const CulinaryToursPage = () => {
             </Row>
           </Col>
         )}
-
-        {/* Sidebar Area */}
-        <Col md={3} className="sticky-sideba p-0">
-          <div className="testimonial-sectio my-4">
-            <h5 className="text-center testimonial-title">What Our Travelers Say</h5>
-            <div className="testimonial my-">
-              <p className="text-muted testimonial-quote">“An unforgettable experience, I ate a lot”</p>
-              <p className="text-end testimonial-author">– Jane</p>
-            </div>
-            <div className="testimonial my-">
-              <p className="text-muted testimonial-quote">“Perfectly organized, highly recommend!”</p>
-              <p className="text-end testimonial-author">– Mike</p>
-            </div>
-            <div className="testimonial my-">
-              <p className="text-muted testimonial-quote">“Exceeded my expectations! The food was amazing!”</p>
-              <p className="text-end testimonial-author">– Alice </p>
-            </div>
-          </div>
-        </Col>
       </Row>
     </Container>
   );

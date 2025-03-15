@@ -51,8 +51,8 @@ const LocalSports = () => {
   };
 
   return (
-    <Container className="mt-5">
-      <h2 className="text-center my-4"><FontAwesomeIcon icon={faFutbol} /> Local Sports</h2>
+    <Container className="">
+      <h5 className="text-center "><FontAwesomeIcon icon={faFutbol} /> Local Sports</h5>
 
       {loading ? (
         <div className="dot-loader">

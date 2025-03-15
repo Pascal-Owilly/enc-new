@@ -43,10 +43,10 @@ const NatureHikes = () => {
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <Container className="mt-5">
-      <h2 className="text-center my-4">
+    <Container className="">
+      <h5 className="text-center">
         <FontAwesomeIcon icon={faPaw} /> Wildlife spotting
-      </h2>
+      </h5>
       
       {loading ? (
         <div className="dot-loader">

@@ -1,12 +1,6 @@
-header {
-  background: linear-gradient(to bottom, #87CEEB, #ffffff);
-  padding: 20px;
-  color: white;
-}
-
 .destination-showcase {
   /* padding: 20px 10px; */
-  background: #f9f9f9;
+/*  background: #f9f9f9;*/
   border-radius: 10px;
 }
 
@@ -16,17 +10,17 @@ header {
   width: 100%;
   overflow-x: auto;  /* Allow horizontal scrolling */
   scroll-snap-type: x mandatory; /* Enabling smooth snapping for sliding cards */
-  padding-bottom: 10px;  /* Optional, just to ensure the scrollbar isn't cut off */
+  padding-bottom: 10px;  
 }
 
 .card {
-  flex: 0 0 250px;  /* Each card takes up 250px width */
+  flex: 0 0 250px !important;  /* Each card takes up 250px width */
   border: 1px solid #ccc;
   border-radius: 8px;
   background: #fff;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 5px;
+  padding: 2px;
   transition: transform 0.3s;
   scroll-snap-align: start;  /* Ensures the cards align nicely when scrolling */
 }
@@ -93,9 +87,14 @@ padding: 50px;
   margin-bottom: 10px;
 }
 
-.card h3 {
-  margin: 10px 0;
-  color: #333;
+h3 {
+    margin-bottom: 10px;
+      font-family: verdana !important;
+      font-weight: 700;
+      margin-top: 1rem;
+/*      text-shadow: 0px 0px 8px #777777;*/
+      line-height: 1em;
+      color: white !important;
 }
 
 .card p {
@@ -121,7 +120,7 @@ padding: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f4f4f4;
+/*  background: #f4f4f4;*/
   border: 1px solid #ddd;
   /* padding: 20px; */
   border-radius: 8px;
@@ -333,7 +332,7 @@ padding: 50px;
     padding: 5px;
   } */
   .image-placeholder {
-    height: 100px; /* Reduce image placeholder size */
+    height: auto; /* Reduce image placeholder size */
   }
   .special-offers {
     padding: 10px;

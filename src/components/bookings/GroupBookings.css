@@ -36,7 +36,6 @@
 }
 
 
-
 /* Ensure the card image doesn't exceed its parent's height on smaller screens */
 .card img {
     object-fit: cover;

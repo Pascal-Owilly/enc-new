@@ -46,9 +46,9 @@ const CulturalFestivals = () => {
 
   return (
     <Container className="">
-      <h2 className="text-center my-4">
+      <h5 className="text-center ">
         <FontAwesomeIcon icon={faMusic} /> Cultural Festivals
-      </h2>
+      </h5>
 
       {loading ? (
         <div className="dot-loader">

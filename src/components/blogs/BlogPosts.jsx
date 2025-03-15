@@ -22,7 +22,7 @@ const Blog = () => {
 
   return (
     <div style={styles.container}>
-      <h1 className='text-dark' style={styles.title}>🌍 Travel Blog</h1>
+      <h5 className='text-dark' >🌍 Travel Blog</h5>
 
       {loading ? (
         <div style={styles.loader}>
@@ -52,9 +52,10 @@ const Blog = () => {
                   <p style={styles.cardText}>
                     {post.excerpt || post.content.substring(0, 120) + "..."}
                   </p>
-                  <Link to={`/blogs/${post.id}`} style={styles.readMoreButton}>
+                  <a href={`/blogs/${post.id}`} style={styles.readMoreButton}>
                     Read More
-                  </Link>
+                  </a>
+
                 </div>
               </div>
             </div>

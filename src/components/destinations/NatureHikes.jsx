@@ -33,20 +33,24 @@
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
-
     // Pagination logic
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentHikes = hikes.slice(indexOfFirstItem, indexOfLastItem);
     const totalPages = Math.ceil(hikes.length / itemsPerPage);
-
     const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-      <Container className="mt-5">
-        <h2 className="text-center my-4">
+      <Container className="">
+        <h5 className="text-center ">
           <FontAwesomeIcon icon={faTree} /> Nature Hikes
-        </h2>
+        </h5>
+        <p className="text-center lea">
+        Escape the everyday hustle and reconnect with nature! Whether you crave 
+        breathtaking mountain views, lush forest trails, or the calming sound of a 
+        riverside path, nature hikes offer the perfect getaway to refresh your mind 
+        and body. 🌿🥾
+      </p>
         
         {loading ? (
           <div className="dot-loader">

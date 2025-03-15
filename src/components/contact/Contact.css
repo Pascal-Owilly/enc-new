@@ -4,18 +4,15 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  margin-top: 50px;
   background-color: ; /* Light background for contrast */
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   margin: auto;
   position: relative; /* Enables positioning for overlay */
-  margin-top: 50px;
 }
 
 .contact-title {
-  font-size: 2.5rem;
   color: #000042; /* Dark blue for title */
   margin-bottom: 0.5rem;
   text-align: center;

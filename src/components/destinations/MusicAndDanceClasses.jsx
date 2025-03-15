@@ -49,8 +49,8 @@ const MusicAndDanceClasses = () => {
   };
 
   return (
-    <Container className="mt-5">
-      <h2 className="text-center my-4"><FontAwesomeIcon icon={faTheaterMasks} /> Music and Dance Classes</h2>
+    <Container className="">
+      <h5 className="text-center "><FontAwesomeIcon icon={faTheaterMasks} /> Music and Dance </h5>
 
       {loading ? (
         <div className="dot-loader">

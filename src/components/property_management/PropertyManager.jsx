@@ -114,43 +114,44 @@ function PropertyManager() {
     <div className="manage-container mt-3">
       <div className="dashboard">
         <div className="main-content">
-          <div className="property-navbar d-flex property-header">
-            <h2>
-              <FaTachometerAlt style={{ marginRight: '10px' }} />
-              Admin
-            </h2>
+          <div className="property-navbar d-flex property-header  ">
+            <h6 className='text-primary text-muted'>
+              <FaTachometerAlt size={20} style={{ marginRight: '1px' }} />&nbsp;
+              Manage properties
+            </h6>
             <a href="/management/property-management/add-place">
-              <button className="manage-btn btn-primary btn btn-sm">
-                <FaPlusCircle /> &nbsp; Add Property
+              <button className=" text-dark" style={{fontSize:'12px', backgroundColor:'#FFD700'}}>
+                <FaPlusCircle size={16} /> &nbsp; Add Property
               </button>
             </a>
-          </div>
+          </div>    
 
           <div className="statistics-row">
             <div className="stat-card">
-              <FaCalendarCheck size={30} />
-              <h4>Total Bookings</h4>
+              <FaBuilding className='mb-2' size={25} style={{color:'#FFD700'}}/>
+              <h6 className='text-primary'>Properties Managed</h6>
+              <p>{safeProperties.length}</p>
+              <span className="badge badge-primary">Properties</span>
+            </div>
+            <div className="stat-card">
+              <FaCalendarCheck size={25} className='mb-2' size={25} style={{color:'#FFD700'}} />
+              <h6 className='text-primary'>Total Bookings</h6>
               <p>{totalBookings}</p>
-              <span className="badge">Bookings</span>
+              <span className="badge">Bookings</span> 
             </div>
             <div className="stat-card">
-              <FaDollarSign size={30} />
-              <h4>Total Earnings</h4>
-              <p>${totalEarnings.toLocaleString()}</p>
-              <span className="badge">Earnings</span>
+              <FaDollarSign size={25} className='mb-2' size={25} style={{color:'#FFD700'}}/>
+              <h6 className='text-primary'>Total Earnings</h6>
+              <p>KES {totalEarnings.toLocaleString()}</p>
+              <span className="badge"> Earnings</span>
             </div>
             <div className="stat-card">
-              <FaUsers size={30} />
-              <h4>Total Visitors</h4>
+              <FaUsers size={25} className='mb-2' size={25} style={{color:'#FFD700'}}/>
+              <h6 className='text-primary'>Total Visitors</h6>
               <p>{totalVisitors}</p>
               <span className="badge">Visitors</span>
             </div>
-            <div className="stat-card">
-              <FaBuilding size={30} />
-              <h4>Properties Managed</h4>
-              <p>{safeProperties.length}</p>
-              <span className="badge">Properties</span>
-            </div>
+          
           </div>
 
           <div className="graph-grid mt-3">

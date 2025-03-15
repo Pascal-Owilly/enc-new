@@ -85,7 +85,7 @@ const FAQ = () => {
       <div className="faq-page">
         <Parallax speed={-5}>
           <header className="faq-header">
-            <h1>Welcome to Enceptics</h1>
+            <h5>Welcome to Enceptics</h5>
             <p>Your Purpose-Driven Vacation Partner</p>
           </header>
         </Parallax>
@@ -116,7 +116,7 @@ const FAQ = () => {
     {/* Adventure Enthusiasts */}
     <AccordionItem>
       <AccordionItemHeading>
-        <AccordionItemButton>🏕️ Adventure Enthusiasts</AccordionItemButton>
+        <AccordionItemButton>Adventure Enthusiasts</AccordionItemButton>
       </AccordionItemHeading>
       <AccordionItemPanel>
         <p>
@@ -130,7 +130,7 @@ const FAQ = () => {
     {/* Food Lovers & Culinary Explorers */}
     <AccordionItem>
       <AccordionItemHeading>
-        <AccordionItemButton>🍲 Food Lovers & Culinary Explorers</AccordionItemButton>
+        <AccordionItemButton>Food Lovers & Culinary Explorers</AccordionItemButton>
       </AccordionItemHeading>
       <AccordionItemPanel>
         <p>
@@ -144,7 +144,7 @@ const FAQ = () => {
     {/* Culture & Art Seekers */}
     <AccordionItem>
       <AccordionItemHeading>
-        <AccordionItemButton>🎨 Culture & Art Seekers</AccordionItemButton>
+        <AccordionItemButton>Culture & Art Seekers</AccordionItemButton>
       </AccordionItemHeading>
       <AccordionItemPanel>
         <p>
@@ -158,7 +158,7 @@ const FAQ = () => {
     {/* History & Heritage Enthusiasts */}
     <AccordionItem>
       <AccordionItemHeading>
-        <AccordionItemButton>🏛️ History & Heritage Enthusiasts</AccordionItemButton>
+        <AccordionItemButton>History & Heritage Enthusiasts</AccordionItemButton>
       </AccordionItemHeading>
       <AccordionItemPanel>
         <p>
@@ -172,7 +172,7 @@ const FAQ = () => {
     {/* Wellness & Mindfulness Seekers */}
     <AccordionItem>
       <AccordionItemHeading>
-        <AccordionItemButton>💆 Wellness & Mindfulness Seekers</AccordionItemButton>
+        <AccordionItemButton>Wellness & Mindfulness Seekers</AccordionItemButton>
       </AccordionItemHeading>
       <AccordionItemPanel>
         <p>
@@ -186,7 +186,7 @@ const FAQ = () => {
     {/* Entertainment & Performance Lovers */}
     <AccordionItem>
       <AccordionItemHeading>
-        <AccordionItemButton>🎭 Entertainment & Performance Lovers</AccordionItemButton>
+        <AccordionItemButton>Entertainment & Performance Lovers</AccordionItemButton>
       </AccordionItemHeading>
       <AccordionItemPanel>
         <p>
@@ -200,7 +200,7 @@ const FAQ = () => {
     {/* Community & Social Impact Travelers */}
     <AccordionItem>
       <AccordionItemHeading>
-        <AccordionItemButton>🌱 Community & Social Impact Travelers</AccordionItemButton>
+        <AccordionItemButton>Community & Social Impact Travelers</AccordionItemButton>
       </AccordionItemHeading>
       <AccordionItemPanel>
         <p>
@@ -213,7 +213,7 @@ const FAQ = () => {
     {/* Digital & Virtual Explorers */}
     <AccordionItem>
       <AccordionItemHeading>
-        <AccordionItemButton>📸 Digital & Virtual Explorers</AccordionItemButton>
+        <AccordionItemButton>Digital & Virtual Explorers</AccordionItemButton>
       </AccordionItemHeading>
       <AccordionItemPanel>
         <p>

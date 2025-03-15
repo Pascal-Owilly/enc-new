@@ -33,7 +33,7 @@ function VRPageTwo() {
   return (
     <div className="page-two">
      <div className="text-center my-4">
-        <h2 className="vr-heading">Step into the Future: The Joy of Virtual Reality</h2>
+        <h5 className="vr-heading">Step into the Future: The Joy of Virtual Reality</h5>
         <p className="vr-intro m-auto" style={{maxWidth:'800px'}}>Experience a world beyond imagination, where adventure, creativity, and limitless possibilities come to life. Whether you're soaring through space, exploring ancient ruins, or playing in a virtual playground, VR takes entertainment to a whole new level.</p>
       </div>
       

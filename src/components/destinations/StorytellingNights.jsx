@@ -45,10 +45,10 @@ const StorytellingNights = () => {
   };
 
   return (
-    <Container className="mt-5">
-      <h2 className="text-center my-4">
-        <FontAwesomeIcon icon={faBook} /> Storytelling Nights
-      </h2>
+    <Container className="">
+      <h5 className="text-center ">
+        <FontAwesomeIcon icon={faBook} /> Storytelling Sessions
+      </h5>
 
       {loading ? (
         <div className="dot-loader">

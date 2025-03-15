@@ -9,6 +9,9 @@ const BlogDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     axios.get(`${BASE_URL}/api/blogs/${id}/`)
       .then(response => {
         setPost(response.data);

@@ -137,21 +137,21 @@ const Navbar = () => {
           </button>
         </div>
 
-        <div className="relative" onClick={() => navigate("/talks")}>
+        <div className="relative" onClick={() => navigate("/talks")} style={{cursor:'pointer'}}>
   <div
     className="flex items-center justify-center p-1 rounded-full bg-blue-600 hover:bg-blue-700 cursor-pointer transition duration-300 shadow-lg"
     
   >
-    <MessageCircleMore className="w-10 h-10 text-white" />
+    <MessageCircleMore className="w-5 h-5 " style={{color:'#FFD700'}}/>
   </div>
 
-  <span className="absolute top-12 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm px-3 py-1 rounded-lg shadow-md">
+  <span className="absolute top-12 left-1/2 transform -translate-x-1/2 bg-gray-800 text-sm px-3 py-1 rounded-lg shadow-md" style={{fontSize:'12px', color:'#FFD700'}}>
     • Traveler Stories •
   </span>
 </div>
         &nbsp;
 
-        <div className="actions" style={{ zIndex: 1000, display: 'flex', justifyContent: 'flex-end' }}>
+<div className="actions" style={{ zIndex: 1000, display: 'flex', justifyContent: 'flex-end' }}>
   {isAuthenticated ? (
     <>
       <div className="dropdown">
@@ -197,12 +197,22 @@ const Navbar = () => {
       </a>
     </li>
     <hr className="dropdown-divider" />
+
+        <li>
+      <a
+        className="dropdown-item"
+        href="/contract-signing"
+        style={{ display: "flex", alignItems: "center", color: '#000042' }}
+      >
+        <FaHome style={{ marginRight: "10px" }} />
+        My Contract
+      </a>
+    </li>
+    <hr className="dropdown-divider" />
+
+    
   </>
 )}
-
-
-
-         
           <li>
           <a className="dropdown-item text-danger" onClick={handleLogout} style={{ display: "flex", alignItems: "center", color:'#000042', cursor: 'pointer' }}>
                       <FaSignOutAlt style={{ marginRight: "10px" }} />
@@ -226,8 +236,6 @@ const Navbar = () => {
     </>
   )}
 </div>
-
-   
         <button className="burger-icon" style={{background:'transparent'}} onClick={toggleSidebar}>
           <FaBars />
         </button>
@@ -298,6 +306,17 @@ const Navbar = () => {
       >
         <FaHome style={{ marginRight: "10px" }} />
         My Properties
+      </a>
+    </li>
+    <hr className="dropdown-divider" />
+     <li>
+      <a
+        className="dropdown-item"
+        href="/contract-signing"
+        style={{ display: "flex", alignItems: "center", color: '#000042' }}
+      >
+        <FaHome style={{ marginRight: "10px" }} />
+        My Contract
       </a>
     </li>
     <hr className="dropdown-divider" />

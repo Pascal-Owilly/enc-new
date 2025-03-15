@@ -27,7 +27,7 @@
 body {
   margin: 0;
   overflow-x: hidden;
-  background-color: #f4f4f9 !important;
+  background-color: #fff !important;
   transition: 0.3s ease-in-out;
 }
 
@@ -129,8 +129,45 @@ p,h1, h2, h3, h4, h5, h6{
 
 }
 
-.dot-loader{
+.dot-loader {
   min-height: 70vh;
+  display: flex; /* Use flex without quotes */
+  justify-content: center; /* Use hyphenated syntax */
+  align-items: center; /* Use hyphenated syntax */
+  height: 100vh; /* Full viewport height */
+  position: absolute; /* Position to cover the screen */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8); /* Use hyphenated syntax */
+  z-index: 1000; /* Use hyphenated syntax */
 }
 
 /* new */
+
+
+/* styles.css */
+.custom-heading {
+    font-size: 1.5rem !important; /* text-2xl */
+}
+
+@media (min-width: 768px) {
+    h2 {
+        font-size: 1.875rem !important; /* md:text-3xl */
+    }
+}
+
+@media (min-width: 1024px) {
+    h2 {
+        font-size: 2.25rem !important; /* lg:text-4xl */
+    }
+}
+
+.custom-heading {
+    font-weight: bold !important; /* font-bold */
+    color: #4A5568 !important; /* text-gray-800 */
+    text-align: center !important; /* text-center */
+    margin-top: 1rem !important; /* my-4 */
+    margin-bottom: 1rem !important; /* my-4 */
+}

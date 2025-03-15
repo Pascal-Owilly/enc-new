@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+ import React, { useEffect, useState, useRef } from 'react';
 import './AllPlaces.css';
 import { FaFrown } from 'react-icons/fa';
 import { BASE_URL } from '../config/config';

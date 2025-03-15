@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { useNavigate, useLocation } from 'react-router-dom';
 import AuthContext from './AuthContext';
@@ -12,6 +12,19 @@ const Login = () => {
     const [successMessage, setSuccessMessage] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
+
+    const redirectUser = () => {
+        const from = location.state?.from || '/';
+        setTimeout(() => {
+            navigate(from, { replace: true });
+            window.location.reload(); // Reload to show updated auth state
+        }, 1500);
+    };
+
+    useEffect(() => {
+        // Scroll to top when component mounts
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -33,11 +46,7 @@ const Login = () => {
                     </div>
                 );
                 setError('');
-                const from = location.state?.from || '/';
-                setTimeout(() => {
-                    navigate(from, { replace: true });
-                    window.location.reload();
-                }, 1500);
+                redirectUser();
             } else {
                 setError(message);
                 setSuccessMessage(null);
@@ -66,11 +75,7 @@ const Login = () => {
                     </div>
                 );
                 setError('');
-                const from = location.state?.from || '/';
-                setTimeout(() => {
-                    navigate(from, { replace: true });
-                    window.location.reload();
-                }, 1500);
+                redirectUser();
             } else {
                 setError(message);
                 setSuccessMessage(null);

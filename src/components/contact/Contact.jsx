@@ -12,48 +12,48 @@ export default function Contact() {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false); // Toggle form visibility
 
   // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
 
-    // Create the data object to send in the POST request
-    const contactData = {
-      name,
-      email,
-      message,
-    };
-
-    try {
-      // Use BASE_URL for API request
-      const response = await fetch(`${BASE_URL}/api/auth/contact-us/create/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(contactData),
-      });
-
-      // Check if the request was successful
-      const result = await response.json();
-
-      if (response.ok) {
-        setResponseMessage('Message sent successfully! We will get back to you ASAP.');
-        setIsFormSubmitted(true); // Hide form
-      } else {
-        // Display error message from API response
-        setResponseMessage(result.error || 'Failed to send message. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error sending message:', error);
-      setResponseMessage('An error occurred. Please check your connection and try again.');
-    }
-
-    setIsLoading(false);
+  const contactData = {
+    name,
+    email,
+    message,
   };
+
+  try {
+    const response = await fetch(`${BASE_URL}/api/auth/contact-us/create/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(contactData),
+    });
+    
+    const result = await response.json();
+
+    if (response.ok) {
+      setResponseMessage('Message sent successfully! We will get back to you ASAP.');
+      setIsFormSubmitted(true);
+      
+      // Scroll to top after successful submission
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      setResponseMessage(result.error || 'Failed to send message. Please try again.');
+    }
+  } catch (error) {
+    console.error('Error sending message:', error);
+    setResponseMessage('An error occurred. Please check your connection and try again.');
+  }
+
+  setIsLoading(false);
+};
+
 
   return (
     <div className="contact-container" style={{minHeight:'80vh'}}>
-      <h1 className="contact-title">Contact Us</h1>
+      <h5 className="contact-title">Contact Us</h5>
 
       {isFormSubmitted ? (
         // Show success message after form submission

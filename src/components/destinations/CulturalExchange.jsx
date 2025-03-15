@@ -45,10 +45,10 @@ const CulturalExchange = () => {
   };
 
   return (
-    <Container className="mt-5">
-      <h2 className="text-center my-4">
+    <Container className="">
+      <h5 className="text-center ">
         <FontAwesomeIcon icon={faExchangeAlt} /> Cultural Exchange
-      </h2>
+      </h5>
 
       {loading ? (
         <div className="dot-loader">
