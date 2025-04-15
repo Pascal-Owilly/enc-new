@@ -1,72 +1,91 @@
+.booking-component {
+    background: transparent;
+    border-radius: 10px;
+/*    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);*/
+    padding: 20px;
+    max-width: 400px;
+    transition: transform 0.2s;
+}
+
 .booking-component:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .place-detail {
-    flex: 1;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .rating {
     display: flex;
-    justify-content: space-between; /* Align ratings and wishlist to opposite sides */
     align-items: center;
-    margin: 10px 0;
+    margin-bottom: 10px;
 }
 
-.ratings {
+.stars {
     display: flex;
-    align-items: center;
+    margin-right: 10px;
+}
+
+.rating-value {
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
 }
 
 .views {
-    margin-left: 10px;
     font-size: 0.9em;
     color: #666;
 }
 
 .wishlist-button {
-    background: none; 
-    color: red;
-    border: none;
     cursor: pointer;
-    font-size: 1.2em;
+    margin-left: auto;
+    color: #e74c3c;
     transition: color 0.3s;
 }
 
-.wishlist-button:hover {
-    color: #FF4081; /* Change color on hover */
+.wishlist-button.wished {
+    color: #2ecc71;
+}
+
+.view-reviews-link {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #007bff;
+    cursor: pointer;
 }
 
 .footer {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space out items */
-    align-items: center; /* Center items vertically */
-    padding: 10px 20px; /* Add padding for spacing */
-    border-top: 1px solid #ddd; /* Optional: Add a border at the top */
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: center;
 }
 
 .details-button {
-    font-size: 1em; /* Adjust font size if needed */
-    color: #1e90ff; /* Bright blue color */
-    text-decoration: none; /* Remove underline for link */
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.forward-arrow {
+    margin-left: 5px;
 }
 
 .booking-button {
-    background-color: #1e90ff; /* Bright blue */
+    background-color: blue;
     color: white;
-    border: none;
+    padding: 10px 15px;
     border-radius: 5px;
-    cursor: pointer;
-    font-size: 11px !important;
+    text-decoration: none;
+    font-weight: bold;
     transition: background-color 0.3s;
 }
 
 .booking-button:hover {
-    background-color: blue !important; /* Darker blue on hover */
-}
-
-.wished {
-    color: #FF4081; /* Different color when wished */
+    background-color: #218838;
 }

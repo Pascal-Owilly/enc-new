@@ -1,64 +1,108 @@
-import React from "react";
-import './HeroBakup.css';
-import heroImage from "../../assets/hero/hero2.jpg"; // Import the image
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { ArrowRight, ArrowLeft } from 'lucide-react';
+import './Hero.css';
+import culinary from './hero1.jpg';
+import vr from './hero2.jpg';
+import farm from './farm.jpg';
+import hiking from './hiking.jpg';
+import car from './car.jpg';
 
-const HomePage = () => {
+const images = [
+  culinary,
+  vr,
+  farm,
+  hiking,
+  car
+];
+
+const captions = [
+  "Indulge in Exquisite Culinary Delights!",
+  "Explore the Wonders of Virtual Reality!",
+  "Discover Vibrant Farmers Markets!",
+  "Embark on Breathtaking Nature Hikes!",
+  "Unleash Your Spirit of Adventure on the Road!"
+];
+
+// Define links for each slide
+const links = [
+  '/destinations/culinary-tours',  // Link for culinary image
+  '/destinations/vr-2',  // Link for VR image
+  '/destinations/farmers-markets',  
+  '/destinations/nature-hikes',  // Link for hiking image
+  '/destinations/outdoor-adventures'  // Link for car image
+];
+
+export default function HeroSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const goToPreviousSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  };
+
+  const goToNextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
+
   return (
-   <div className="homepage" 
-    style={{ backgroundImage: `linear-gradient(135deg, rgba(255, 255, 255), rgba(255, 255, 255))`,
-}}
-   >
-
-      {/* Hero Section */}
-      <section
-        className="hero-container-bg"
+    <div className="position-relative hero-section" style={{ height: '100vh', overflow: 'hidden' }}>
+      <div
+        className="position-absolute w-100 h-100"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(119, 54, 151, 0), rgba(74, 20, 140, 0)), url(${heroImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          height: "auto",
-          position: "relative",
+          backgroundImage: `url(${images[currentIndex]})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
-      >
+      />
+      <div
+        className="position-absolute bottom-0 w-100"
+        style={{
+          height: '90%',
+          background: 'linear-gradient(to top, rgba(0, 0, 139, 0.9), transparent)',
+        }}
+      ></div>
+      <div className="d-flex flex-column justify-content-center align-items-center h-100 text-white text-center p-4 position-relative">
+        <h3 className="display-3 font-weight-bold mb-4 text-white">
+          {captions[currentIndex]}
+        </h3>
 
-       <h1 style={{textAlign:'left'}} className=''>Why just take a vacation when you can truly experience?</h1><br />
-          <p style={{textAlign:'left', width:'80%'}} className='text-white sub-titl'>
+        <p className="lead mb-4 text-white" style={{ fontFamily: 'Roboto, sans-serif' }}>
+          Explore stunning destinations and create unforgettable memories.
+        </p>
 
-           Select your favourite category and have experience of a lifetime
-                     </p>
-       {/* <div className="hero-content" style={{
-          textAlign: 'center',
-          color: '#fff',
-          paddingTop: '20%',
-        }}>
-         
-          <div className="bouncer-hero" style={{
-            width: '50px',
-            height: '50px',
-            borderRadius: '100%',
-            backgroundColor: 'transparent',
-            border: '1px solid #fff',
-            color: '#fff',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'center',
-            fontWeight: 'bold',
-            position: 'absolute',
-            bottom: '20px',
-            left: '50%',
-            right: '50%',
-            transform: 'translateY(-50%)',
-            // animation: 'bounce 1s infinite',
-            cursor: 'pointer',
-          }}>
-            ↓
-          </div>
-        </div>*/}
-      </section>
+        <Link to={links[currentIndex]} style={{ listStyleType: 'none', textDecoration: 'none' }}>
+          <button className="btn btn-light get-started-btn btn-lg d-flex align-items-center">
+            <span>Explore</span>
+            <ArrowRight className="ml-2" />
+          </button>
+        </Link>
+
+        {/* Controls */}
+        <div className="position-absolute bottom-4 w-100 d-flex justify-content-between px-4">
+          <button 
+            className="control-btn prev-btn mt-3"
+            onClick={goToPreviousSlide}
+            aria-label="Previous Slide"
+          >
+            <ArrowLeft />
+          </button>
+          <button 
+            className="control-btn next-btn mt-3"
+            onClick={goToNextSlide}
+            aria-label="Next Slide"
+          >
+            <ArrowRight />
+          </button>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default HomePage;
+}

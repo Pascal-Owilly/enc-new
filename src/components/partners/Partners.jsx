@@ -43,7 +43,6 @@ const PartnersSlider = () => {
 
   return (
     <div className="partners-container text-center py-5">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-5">Our Trusted Partners</h2>
       <Slider {...settings}>
         {partnersData.map((partner, index) => (
           <div key={index} className="partner-slide flex justify-center">
@@ -72,13 +71,14 @@ const TestimonialsSlider = () => {
 
   return (
     <div className="testimonials-container py-5">
-      <h2 className="text-2xl font-semibold text-gray-800 text-center mb-5">What Our Clients Say</h2>
+      <h3 className=" text-center showcase-beautiful-cards mb-5">What Our Clients Say</h3>
       <Slider {...settings}>
         {testimonialsData.map((testimonial, index) => (
-          <div key={index} className="testimonial-slide flex flex-col items-center text-center p-6 bg-white shadow-lg rounded-lg mx-4">
-            <img src={testimonial.avatar} alt={`${testimonial.name} avatar`} className="w-16 h-16 rounded-full shadow-md mb-4" />
+          <div key={index} className="testimonial-slide flex flex-col items-center text-center p- bg-white shadow-lg rounded-lg mx-" >
+            <img src={testimonial.avatar} alt={`${testimonial.name} avatar`} className=" rounded-full rounded-circle shadow-md mb-" style={{width:'120px', height:'120px'}}/>
             <p className="text-gray-700 italic text-lg">"{testimonial.text}"</p>
-            <h3 className="text-gray-900 font-medium mt-3">- {testimonial.name}</h3>
+            <h3 className="text-gray-900 font-medium mt-3" style={{fontSize:'20px'}}>- {testimonial.name}</h3>
+
           </div>
         ))}
       </Slider>

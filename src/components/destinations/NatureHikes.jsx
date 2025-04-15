@@ -2,9 +2,9 @@
   import { Container, Row, Col, Badge, Button, Pagination } from 'react-bootstrap';
   import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
   import { faTree, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
-  import './Destinations.css';
   import { BASE_URL } from '../config/config';
   import BookingButton from '../bookings/BookingButton';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
   const NatureHikes = () => {
     const [hikes, setHikes] = useState([]);
@@ -32,7 +32,7 @@
     }, [category]);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 6;
+    const itemsPerPage = 9;
     // Pagination logic
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -41,16 +41,14 @@
     const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-      <Container className="">
+      <Container fluid className="">
         <h5 className="text-center ">
           <FontAwesomeIcon icon={faTree} /> Nature Hikes
         </h5>
         <p className="text-center lea">
-        Escape the everyday hustle and reconnect with nature! Whether you crave 
-        breathtaking mountain views, lush forest trails, or the calming sound of a 
-        riverside path, nature hikes offer the perfect getaway to refresh your mind 
-        and body. 🌿🥾
-      </p>
+  Reconnect with nature on scenic trails—mountains, forests, and rivers await to refresh your mind and soul. 🌿🥾
+</p>
+
         
         {loading ? (
           <div className="dot-loader">
@@ -60,29 +58,49 @@
           </div>
         ) : hikes.length > 0 ? (
           <>
-            <Row xs={1} sm={2} md={3} className="g-4">
-              {currentHikes.map((hike) => (
-                <Col key={hike.id}>
-                  <div className="destination-card">
-                    <img
-                      src={`${BASE_URL}${hike.imageUrl || hike.cover_image}`}
-                      alt={hike.name}
-                      className="hike-image"
-                      style={{ width: '100%' }}
-                    />
-                    <h5>{hike.name}</h5>
-                    <Badge bg="success">⭐ {hike.rating || 'N/A'}</Badge>
-                    <p>{hike.description || 'No description available.'}</p>
-                    <p>Duration: {hike.duration || 'N/A'}</p>
-                    <div className="d-flex justify-content-between mt-3">
-                    <div className="card-footer text-center">
-                          <BookingButton place={hike} />
-                        </div>
-                    </div>
-                  </div>
-                </Col>
-              ))}
-            </Row>
+           <Row xs={1} sm={2} md={3} className="g-2">
+  {currentHikes.map((hike) => (
+    <Col key={hike.id} className="mb-2">
+      <div className="destination-card w-100">
+        <img
+          src={`${BASE_URL}${hike.imageUrl || hike.cover_image}`}
+          alt={hike.name}
+          className="hike-image"
+          style={{ width: '100%' }}
+        />
+        <h5>{hike.name}</h5>
+       <div
+  style={{
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: '1rem',
+    padding: '0.75rem',
+    borderTop: '1px solid #e0e0e0',
+    background: '#f9f9f9',
+    borderRadius: '8px',
+  }}
+>
+  <span style={{ color: '#4CAF50', fontWeight: '600', fontSize: '1rem' }}>
+    KES {hike.price}
+  </span>
+  
+  <span style={{ color: '#757575', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+    <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: '#ff5722' }} />
+    {hike.location || 'Unknown'}
+  </span>
+</div>
+
+<div style={{ textAlign: 'center', marginTop: '0.5rem' }}>
+  <BookingButton place={hike} />
+</div>
+
+
+      </div>
+    </Col>
+  ))}
+</Row>
+
 
             <Pagination className="justify-content-center mt-4">
               {Array.from({ length: totalPages }, (_, index) => (

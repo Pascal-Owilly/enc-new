@@ -1,443 +1,135 @@
-.hero-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 60vh;
-    width: 100%;
-    background-color: #f0f8ff;
-    color: #333;
-    position: relative;
-    /* margin-top: 60px ; */
-  }
-  
-  .hero-content {
-    display: flex;
-    flex-direction: column; /* Make the content layout horizontal */
-    justify-content: space-between; /* Space out text and button */
-    align-items: center; /* Align items vertically in the middle */
-    padding: 40px;
-    z-index: 2;
-    margin-top: 10px;
-  }
-  
-  .hero-text {
-    max-width: 100%; 
-  }
-  
-  .hero-text > h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
+@font-face {
+    font-family: 'RomanseAfthero';
+    src: url('RomanseAfthero-BF67db9ab90cde5.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Fontspring-DEMO-theseasons-bd';
+    src: url('Fontspring-DEMO-theseasons-bd.otf') format('opentype');
     font-weight: bold;
-    color: #f0f8ff;
-  }
-  
-  .hero-text > p {
-    margin-bottom: 30px;
-    color: #f0f8ff;
-    width: 90%
-  }
-
-  .hero-text > .btn-explore{
-    background-color: blue;
-    color: white;
-  }
-  
-  .hero-image-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-  
-/* Add a container for the forward arrow to ensure proper spacing */
-.forward-arrow-container {
-  display: inline-block;
-  margin-left: 10px; /* Adjust as needed */
-  border: 2px solid #fff;
-  border-radius: 100%;
-  padding: 10px 15px;
+    font-style: italic;
 }
 
-/* Styling for the forward arrow */
-.forward-arrow {
-  color: white;     /* Set the color for visibility */
+@font-face {
+  font-family: 'Monesta-Light';
+  src: url('Monesta-Light-DEMO.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Shathika';
+  src: url('Shathika.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Base styles for all screens */
+.hero-section {
+  min-height: 100vh; /* Ensures full viewport height */
+  background: blue;
+}
+
+  .hero-section p {
+      font-family: 'Shathika' !important;
+      letter-spacing: 4px;
+  }
+
+.hero-section h1 {
+    font-family: 'Monesta-Light' !important;
+  }
+
+  .get-started-btn{
+    font-family: 'Monesta-Light' !important;
+  }
+
+
+/* Hero.css */
+
+/* Base styles for control buttons */
+.control-btn {
+  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent background */
+  border: none;
+  padding: 12px;
+  border-radius: 50%; /* Circular buttons */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: background-color 0.3s, transform 0.3s;
+  color: #003366; /* Dark blue color for the icon */
+  font-size: 1.5rem;
 }
 
-/* Optional: Hover effect for smooth animation */
-.forward-arrow:hover {
-  transform: translateX(5px); /* Adds a smooth hover effect */
+/* Styles for the 'previous' button */
+.prev-btn {
+/*  margin-left: 20px; */ 
 }
 
-  
-  .forward-arrow-btn {
-    background-color: transparent;
-    border: none;
-    font-size: 30px;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .forward-arrow-btn:hover {
-    transform: translateX(10px);
-  }
-  
-  
-  /* Hero Image */
-  .hero-image {
-    background-size: cover;
-    background-position: center;
-    position: absolute; 
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-    transition: background-image 1s ease-in-out;
-    /* border-radius:  30px; */
-    margin-bottom: 13px;
-    /* margin: 15px; */
-  }
-  
-/* Cloud image with fade in and out */
-
-
-/* Keyframes for fading effect */
-@keyframes fadeClouds {
-  0% {
-    opacity: 1; /* Fully visible */
-  }
-  90% {
-    opacity: 0; /* Invisible */
-  }
-  100% {
-    opacity: 1  ; /* Back to fully visible */
-  }
+/* Styles for the 'next' button */
+.next-btn {
+/*  margin-right: 20px; */
 }
 
-  /* Styling for the particle effect */
-  .particle-effect {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    pointer-events: none;
-  }
-  
-  /* Hero Controls (Previous/Next arrows and indicators) */
-  .hero-controls {
-    position: absolute;
-    bottom: 30px; /* Distance from the bottom */
-    right: 10%; /* Distance from the right */
-    display: flex;
-    align-items: center; /* Align items vertically */
-    gap: 10px; /* Space between the arrows and indicators */
-    z-index: 5; /* Ensure it appears above other elements */
-  }
-  
-  .next-btn {
-    background-color: transparent;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    border-radius: 100%;
-    border: 3px solid #f0f0f0;
-    padding:  10px 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-  }
-
-  .prev-btn{
-    background-color: transparent;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border: 3px solid #f0f0f0;
-    transition: background-color 0.3s;
-    border-radius: 100%;
-    padding:  10px 15px;
-
-  }
-  
-  .indicator-container {
-    display: flex;
-    gap: 10px; /* Space between the indicators */
-  }
-  
-  .indicator {
-    width: 10px;
-    height: 10px;
-    background-color: #d9d9d9;
-    border-radius: 50%;
-    transition: background-color 0.3s;
-  }
-  
-  .indicator.active {
-    background-color: #FFD700;
-  }
-
-  .particle-effect {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 50vh;
-    z-index: 3;
-    pointer-events: none; /* Make particles non-interactive */
-  }
-  
-  /* Media  Queries */
-  /* Base styles for larger screens (default styles) */
-
-/* Extra large screens (Desktops - 1200px and above) */
-@media (min-width: 1200px) {
-  .hero-container {
-    height: 50vh;
-    grid-template-columns: 1fr 1fr;
-  }
-  
-
-  .hero-text > h1 {
-    font-size: 3.5rem;
-  }
-
-  .hero-text > p {
-    font-size: 1.25rem;
-  }
+/* Hover and active states */
+.control-btn:hover {
+  background-color: rgba(255, 255, 255, 0.9); /* Darken the background on hover */
+  transform: scale(1.1); /* Slight zoom effect */
 }
 
-/* Large screens (Laptops - 992px to 1200px) */
-@media (min-width: 992px) and (max-width: 1199px) {
-  .hero-container {
-    height: 45vh;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .hero-text {
-    max-width: 100%;
-  }
-
-  .hero-text > h1 {
-    font-size: 3rem;
-  }
-
-  .hero-text > p {
-    font-size: 1.15rem;
-  }
-
-  .cloud-image {
-    filter: blur(8px);
-  }
+.control-btn:focus {
+  outline: none; /* Remove focus outline */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); /* Add a subtle shadow when focused */
 }
 
-/* Medium screens (Tablets - 768px to 991px) */
-@media (min-width: 768px) and (max-width: 991px) {
-  .hero-container {
-    grid-template-columns: 1fr;
-    height: 40vh;
+/* Add some spacing between the Explore button and the control buttons */
+.get-started-btn {
+  margin-bottom: 20px; /* Adds space between the Explore button and controls */
+}
+
+/* For mobile devices (max-width: 768px) */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 80vh; /* Adjust height for mobile */
   }
 
-  .hero-image {
-    margin-top: 13px;
-  }
-
-  .hero-controls {
-    display: block !important;
-  }
-
-  .hero-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .hero-text {
-    max-width: 80%;
-    margin-bottom: 20px;
-  }
-
-  .hero-text > h1 {
+  .hero-section h1 {
+    font-family: 'RomanseAfthero' !important;
     font-size: 2.5rem;
   }
 
-  .hero-text > p {
-    font-size: 1rem;
-  }
-
-  .cloud-image {
-    filter: blur(6px);
-    opacity: 0.7;
+  .hero-section p {
+    font-size: 1rem; /* Smaller font size for the paragraph */
   }
 }
 
-/* Small screens (Phones - 576px to 767px) */
-@media (min-width: 576px) and (max-width: 767px) {
-  .hero-container {
-    grid-template-columns: 1fr;
-    height: 35vh;
+/* For tablet devices (min-width: 769px and max-width: 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-section {
+    min-height: 80vh; /* Height for tablets */
   }
 
-  .hero-controls {
-    display: none !important;
+  .hero-section h1 {
+    font-size: 3rem; /* Medium font size for the heading */
   }
 
-  .hero-image {
-    margin-top: 30px !important;
-  }
-
-  .hero-content {
-    padding: 30px;
-  }
-
-  .hero-text {
-    max-width: 90%;
-  }
-
-  .hero-text > h1 {
-    font-size: 2rem;
-  }
-
-  .hero-text > p {
-    font-size: 0.9rem;
-  }
-
-  .next-btn,
-  .prev-btn {
-    padding: 8px;
-    font-size: 18px;
+  .hero-section p {
+    font-size: 1.25rem; /* Medium font size for the paragraph */
   }
 }
 
-/* Extra small screens (Phones - up to 575px) */
-@media (max-width: 575px) {
-  .hero-container {
-    height: 30vh;
-    grid-template-columns: 1fr;
+/* For desktop devices (min-width: 1025px) */
+@media (min-width: 1025px) {
+  .hero-section {
+    min-height: 100vh; /* Full height for desktops */
+/*    padding: 3rem; */
   }
 
-  .hero-controls {
-    display: none !important;
+  .hero-section h1 {
+    font-size: 4rem; /* Larger font size for the heading */
   }
 
-  .hero-image {
-    margin-top: 13px;
-  }
-
-  .hero-content {
-    padding: 20px;
-    text-align: center;
-  }
-
-  .hero-text {
-    max-width: 100%;
-  }
-
-  .hero-text > h1 {
-    font-size: 1.8rem;
-  }
-
-  .hero-text > p {
-    font-size: 0.8rem;
-  }
-
-  .next-btn,
-  .prev-btn {
-    padding: 6px;
-    font-size: 16px;
-  }
-
-  .cloud-image {
-    filter: blur(4px);
-    opacity: 0.6;
-  }
-}
-
-
-
-****************************************************************************************************************
-
-.category-icons {
-  display: flex;
-  justify-content: center;
-}
-
-.category-button {
-  background: #FFD700 ; 
-  color: #333;
-  margin: 4px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: 0.3s;
-  font-size: 0.9em; 
-}
-  
-.category-button-arrow {
-  color: #333;
-  /* padding: 10px; */
-  width: 40px;
-  height: 40px;
-  margin-top: 5px !important;
-  margin-bottom: auto;
-  margin: 0 4px;
-  cursor: pointer;
-  border-radius: 100%;
-  transition: 0.3s;
-  font-size: 0.9em; 
-}
-
-@keyframes moveRight {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(10px); /* Adjust the distance as needed */
-  }
-}
-
-.forward-arrow {
-  animation: moveRight 1.5s linear infinite alternate;
-}
-
-.hero-container {
-  /* position: relative; */
-  /* height: 100vh; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #003f5c; /* Dark blue from the logo */
-}
-
-.category-icons {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.category-button:hover {
-  background: #0080ff; /* Darker blue */
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 1.5em; /* Smaller font size for mobile */
-  }
-  
-  .category-button {
-    padding: 4px 5px;
-  }
-  .category-button-arrow{
-    margin-top: 12px !important;
-  }
-}
-
-@media (min-width: 768px) {
-
-  .category-button-arrow{
-    margin-top: 5px !important;
+  .hero-section p {
+    font-size: 1.5rem; /* Larger font size for the paragraph */
   }
 }

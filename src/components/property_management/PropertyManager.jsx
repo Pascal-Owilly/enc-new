@@ -134,19 +134,19 @@ function PropertyManager() {
               <span className="badge badge-primary">Properties</span>
             </div>
             <div className="stat-card">
-              <FaCalendarCheck size={25} className='mb-2' size={25} style={{color:'#FFD700'}} />
+              <FaCalendarCheck size={25} className='mb-2' style={{color:'#FFD700'}} />
               <h6 className='text-primary'>Total Bookings</h6>
               <p>{totalBookings}</p>
               <span className="badge">Bookings</span> 
             </div>
             <div className="stat-card">
-              <FaDollarSign size={25} className='mb-2' size={25} style={{color:'#FFD700'}}/>
+              <FaDollarSign className='mb-2' size={25} style={{color:'#FFD700'}}/>
               <h6 className='text-primary'>Total Earnings</h6>
               <p>KES {totalEarnings.toLocaleString()}</p>
               <span className="badge"> Earnings</span>
             </div>
             <div className="stat-card">
-              <FaUsers size={25} className='mb-2' size={25} style={{color:'#FFD700'}}/>
+              <FaUsers size={25} className='mb-2' style={{color:'#FFD700'}}/>
               <h6 className='text-primary'>Total Visitors</h6>
               <p>{totalVisitors}</p>
               <span className="badge">Visitors</span>

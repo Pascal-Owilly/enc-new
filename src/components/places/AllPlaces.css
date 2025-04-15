@@ -1,224 +1,189 @@
-/* src/AllPlaces.css */
 
-.all-places-container {
-  background-color: white;
-  padding: 20px;
-  color: #333;
-  /* margin-top: 60px; */
 
-}
-
-.filter-sort-section {
-    display: flex;                     /* Use flexbox for a row layout */
-    justify-content: center;           /* Center items horizontally */
-    align-items: center;               /* Center items vertically */
-    margin-bottom: 20px;               /* Add some space below */
-}
-
-.filter-options,
-.sort-options {
-    display: flex;                     /* Use flexbox for alignment */
-    align-items: center;               /* Center items vertically */
-    gap: 10px;                        /* Add space between items */
-}
-
-.filter-options input,
-.filter-options select,
-.sort-options select {
-    padding: 10px;                    /* Add padding for inputs and selects */
-    border: 1px solid #ccc;           /* Border style */
-    border-radius: 5px;               /* Rounded corners */
-    width: 150px;                     /* Set a consistent width */
-}
-
-input[type="text"],
-select {
-  padding: 8px;  /* Reduced padding for smaller text */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 0.9em; /* Smaller text */
-}
-
-input[type="text"]:focus,
-select:focus {
-  border-color: #1e90ff; /* Bright blue */
-}
-
-.places-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.place-card {
-  position: relative;
-  width: 300px; /* Adjust width as needed */
-  height: 400px; /* Adjust height as needed */
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  color: white;
-}
-
-.place-image {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.5; 
-  z-index: 1;
-}
-
-.place-details {
-  position: relative;
-  z-index: 2;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-
-h4 {
-  margin: 0;
-  font-size: 1.5em;
-}
-
-.price-button-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.destination-price {
-  font-size: 1.2em;
-}
-
-.booking-button {
-  background-color: #ff6200; /* Button color */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  text-align: center;
-  transition: background-color 0.3s;
-}
-
-.booking-button:hover {
-  background-color: #e55b00; /* Darker shade on hover */
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination button {
-  background-color: #1e90ff; /* Bright blue */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  margin: 0 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.pagination button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-}
-
-.pagination .active {
-  background-color: #FFD700; /* Gold for active page */
-  color: #333;
-}
-
-/* Additional styles for smaller screens */
-@media (max-width: 600px) {
-  .filter-sort-section {
-      flex-direction: column; /* Stack vertically on small screens */
-  }
-
-  .filter-options,
-  .sort-options {
-      justify-content: space-between; /* Align options */
-  }
-
-  input[type="text"],
-  select {
-      font-size: 0.8em; /* Smaller text for mobile */
-      width: 100%; /* Full width for inputs */
-      margin-bottom: 10px; /* Space between stacked items */
-  }
+.new-places-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .page-title {
-  font-size: 2.5em;
-  text-align: center;
-  margin: 20px 0;
-  color: #333; /* Adjust color as needed */
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ffd700; /* Gold color for title */
 }
 
-/* Media queries for responsiveness */
-@media (max-width: 1200px) {
-  .page-title {
-    font-size: 2.2em; /* Slightly smaller for medium screens */
-  }
+.filter-options {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between input and select */
 }
 
-@media (max-width: 992px) {
-  .page-title {
-    font-size: 2em; /* Smaller for tablets */
-  }
+.filter-options input {
+    padding: 12px 15px;
+    border: 2px solid #ffd700; /* Gold border */
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%; /* Full width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-options input::placeholder {
+    color: #aaa; /* Light gray for placeholder */
+}
+
+.filter-options input:focus {
+    border-color: #004e92; /* Dark blue on focus */
+    box-shadow: 0 0 5px rgba(0, 78, 146, 0.5);
+    outline: none; /* Remove default outline */
+}
+
+.sort-options {
+    flex: 1; /* Allow it to grow, if necessary */
+}
+
+.sort-options select {
+    padding: 12px 15px;
+    border: 2px solid #ffd700; /* Gold border */
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%; /* Full width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sort-options select:focus {
+    border-color: #004e92; /* Dark blue on focus */
+    box-shadow: 0 0 5px rgba(0, 78, 146, 0.5);
+    outline: none; /* Remove default outline */
+}
+
+.sort-options select option {
+    padding: 10px; /* Padding for options */
+}
+.new-places-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.new-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.new-card:hover {
+    transform: scale(1.02);
+}
+
+.image-container {
+    height: 200px;
+    position: relative;
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+background: rgba(0, 78, 146, 0.7); /* Blue with 70% opacity */    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.location-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.location-icon {
+    margin-right: 5px;
+}
+
+.price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding: 10px;
+    color: #004e92; /* Dark blue for price */
+}
+
+.see-all-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.see-all-btn {
+    background-color: #ffd700; /* Gold button */
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.see-all-btn:hover {
+    background-color: #ffa500; /* Darker gold on hover */
+}
+
+.dot-loader {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.dot-loader span {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background: #ffd700; /* Gold loader dots */
+    animation: dotPulse 1s infinite;
+}
+
+.dot-loader span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dot-loader span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
 }
 
 @media (max-width: 768px) {
-  .page-title {
-    font-size: 1em !important; /* Smaller for small tablets and large phones */
-    padding: 15px; /* Add padding for the card effect */
-    background-color: white; /* Card background color */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
-    text-align: center; /* Center text */
-    margin: 20px; /* Space around the card */
-  }
+    .filter-sort-section {
+        flex-direction: column;
+    }
+
+    .filter-options,
+    .sort-options {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
 
-@media (max-width: 576px) {
-  .page-title {
-    font-size: 1.6em; /* Smaller for mobile phones */
-    margin: 15px 0; /* Adjust margin for better spacing */
-  }
-}
-
-.all-places-grid {
+.card-overlay {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px; /* Space between cards */
-}
-
-.all-places-card {
-    transition: transform 0.3s, box-shadow 0.3s;
-    width: 300px; /* Default width for larger screens */
-}
-
-.all-places-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-}
-
-/* Media query for mobile devices */
-@media (max-width: 600px) {
-    .all-places-card {
-        width: 100%; /* Full width on mobile */
-        margin: 0;   /* Remove margin for full width */
-    }
-
-    .all-places-grid {
-        flex-direction: column; /* Stack cards vertically */
-        align-items: center;     /* Center items */
-    }
+    justify-content: space-between; /* Space between location and name */
+    align-items: center; /* Center vertically */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 78, 146, 0.7); /* Semi-transparent blue */
+    color: white;
+    padding: 10px;
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import gsap from 'gsap';
-import './Blogs.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import heroImage2 from '../../assets/hero/hero.jpg';
@@ -8,7 +7,8 @@ import heroImage3 from '../../assets/hero/hero3.jpg';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import './Blogs.css';
+// import Slides from './Slides';
 import adventure from '../../assets/categories/adventure.jpg';
 import vr from '../../assets/categories/vr.jpg';
 import story from '../../assets/categories/story.jpg';
@@ -32,7 +32,7 @@ const VacationPage = () => {
   // Titles, descriptions, and links for the cards
   const cards = [
     {
-      name: 'Culinary Tours',
+      name: 'Culinary Dishes',
       description: 'Taste the local flavors and enjoy cooking classes.',
       // price: '$300',
       link: '/destinations/culinary-tours',
@@ -180,182 +180,101 @@ const itineraries = [
     href: '/itineraries/custom', 
     title: 'Custom Itineraries', 
     image: heroImage2, 
-    description: "Tailor your journey to match your unique travel style. From luxury escapes to adventure-packed trips, design an itinerary that’s truly yours." 
+    description: "Tailor your journey to match your unique travel style. From luxury escapes to adventure-packed trips, design an itinerary that's truly yours." 
   },
 ];
 
-
-  const [welcomeText, setWelcomeText] = useState('Discover Your Adventure');
-
-  const texts = [
-    'Explore Categories ',
-    'Find Your Perfect Match',
-    'Create Memories to Cherish Forever',
-  ];
-
-  useEffect(() => {
-    gsap.from('.welcome-text', {
-      duration: 1.5,
-      opacity: 0,
-      y: -100,
-      ease: 'bounce.out',
-    }); 
-
-    const textInterval = setInterval(() => {
-      setWelcomeText((prevText) => {
-        const currentIndex = texts.indexOf(prevText);
-        const nextIndex = (currentIndex + 1) % texts.length;
-        return texts[nextIndex];
-      });
-    }, 4000);
-
-    return () => clearInterval(textInterval);
-  }, []);
-
-  useEffect(() => {
-    gsap.fromTo(
-      '.welcome-text',
-      { opacity: 0, y: -100 },
-      { opacity: 1, y: 0, duration: 1.5, ease: 'bounce.out' }
-    );
-  }, [welcomeText]);
-
-  useEffect(() => {
-    gsap.to('.clouds', {
-      x: '+=1000',
-      duration: 30,
-      repeat: -1,
-      ease: 'linear',
-      repeatDelay: 2,
-    });
-  }, []);
-
-  useEffect(() => {
-    gsap.to('.offer-card', {
-      scrollTrigger: {
-        trigger: '.special-offers',
-        start: 'top 0%',
-        end: 'bottom 20%',
-        toggleActions: 'play none none none',
-      },
-      scale: 1.1,
-      repeat: -1,
-      yoyo: true,
-      duration: 3,
-      ease: 'power1.inOut',
-    });
-  }, []);
-
-  const testimonials = [
-    {
-      quote: "The service was amazing! I've never had such a smooth experience with any company. Highly recommend!",
-      author: "John Doe",
-      image: "https://via.placeholder.com/80", // Replace with your image URL
-    },
-    {
-      quote: "Their attention to detail and customer service are unparalleled. I felt valued and appreciated.",
-      author: "Jane Smith",
-      image: "https://via.placeholder.com/80", // Replace with your image URL
-    },
-    {
-      quote: "Fantastic experience! I'll definitely be returning for more. Thank you for going above and beyond.",
-      author: "Emily Johnson",
-      image: "https://via.placeholder.com/80", // Replace with your image URL
-    },
-  ];
-
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const goToNextSlide = () => {
-    setActiveIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-  };
-
-  const goToPrevSlide = () => {
-    setActiveIndex((prevIndex) => 
-      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
+  const PrevArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", background: "gray", borderRadius: "50%" }}
+        onClick={onClick}
+      />
     );
   };
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
+  const NextArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", background: "gray", borderRadius: "50%" }}
+        onClick={onClick}
+      />
+    );
   };
 
-  const partners = [
-    { name: "Partner 1", logo: "https://via.placeholder.com/100x50" }, // Replace with partner logo URL
-    { name: "Partner 2", logo: "https://via.placeholder.com/100x50" },
-    { name: "Partner 3", logo: "https://via.placeholder.com/100x50" },
-    { name: "Partner 4", logo: "https://via.placeholder.com/100x50" },
-    { name: "Partner 5", logo: "https://via.placeholder.com/100x50" },
-    { name: "Partner 6", logo: "https://via.placeholder.com/100x50" },
-  ];
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 2000,
+  prevArrow: <PrevArrow />,
+  nextArrow: <NextArrow />,
+  customPaging: (i) => <button>{i + 1}</button>, // optional custom numbering
+  appendDots: dots => (
+    <div>
+      <ul className="custom-dots">{dots}</ul>
+    </div>
+  ),
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        dots: true
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1
+      }
+    }
+  ]
+};
+
 
   return (
-    <div className="container-fluid categories">
+    <div className="container-fluid ">
       <div className="jumbotron">
-        <header>
-          {/* <h3 className="welcome-text m-auto" style={{ maxWidth: '70%' }}>
-            {welcomeText}
-          </h3> */}
-        </header>
         <main>
+        {/*<Slides />*/}
           {/* Featured Destinations */}
         <section className="destination-showcase" style={{ position: 'relative' }}>
-    <h3 className="text-dark">Explore Categories</h3>
-        <p className=" text-dark">Explore your interest  and take a journey of your dreams </p>
+    <h3 className="text-dark">Explore All Categories</h3>
 
-    <div className="cards-container">
+        <Slider {...settings}>
         {cards.map((card, index) => (
-            <a href={card.link} className="card" style={{ textDecoration: 'none', width: '300px' }} key={index}>
+            <div key={index} className="card-wrapper">
+              <a href={card.link} className="card-link">
                 <div
-                    className={`category-${card.title ? card.title.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
+                    className={`category-card category-${card.name ? card.name.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
                     style={{
                         backgroundImage: `url(${card.image})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        height: '300px',
-                        color: 'white',
-                        borderRadius: '10px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'flex-end',
-                        padding: '20px',
-                        boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
-                        transition: 'transform 0.3s, box-shadow 0.3s',
                     }}
                 >
-                    <h3 style={{ margin: '0', fontSize: '1.5em', fontWeight: 'bold', color: '#fff', textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>{card.name}</h3>
-                    <p style={{ margin: '5px 0', fontSize: '0.9em', color: '#ddd', textShadow: '1px 1px 2px rgba(0,0,0,0.5)' }}>{card.description}</p>
-                    <span className="price" style={{ fontSize: '1.2em', fontWeight: 'bold' }}>
-                        <span className="discount-price" style={{ textDecoration: 'line-through', marginRight: '5px', color: 'rgba(255,255,255,0.7)' }}>${card.originalPrice}</span>
-                        <b style={{ color: '#ffcc00' }}>{card.price}</b>
-                    </span>
-                    <span className="rating" style={{ fontSize: '0.9em', marginTop: '5px' }}>⭐ {card.rating} / 5</span>
-                    <a href={card.link} className="explore-btn" style={{
-                        marginTop: '10px',
-                        padding: '10px 15px',
-                        backgroundColor: 'transparent',
-                        border: '1px solid #ddd',
-                        color: '#fff',
-                        borderRadius: '5px',
-                        textAlign: 'center',
-                        textDecoration: 'none',
-                        fontWeight: 'bold',
-                        transition: 'background-color 0.3s',
-                    }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'transparent'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}>
-                        Plan My Adventure
-                    </a>
+                    <div className="card-content">
+                      <h3 className="card-title">{card.name}</h3>
+                      <p className="card-description " style={{color:'#FFD700', fontWeight:'bold'}}>{card.description}</p>
+                      <a href={card.link} className="explore-btn" style={{fontWeight:'bold', letterSpacing:'1px'}}>
+                          Plan My Adventure
+                      </a>
+                    </div>
                 </div>
-            </a>
+              </a>
+            </div>
         ))}
-    </div>
+    </Slider>
     
-   {/* <a href="/all-places" style={{
+    <a href="/all-places" style={{
         position: 'absolute',
         bottom: '-10px',
         right: '20px',
@@ -368,36 +287,12 @@ const itineraries = [
         transition: 'background-color 0.3s',
     }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0056b3'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#007bff'}>
         Explore All
-    </a>*/}
+    </a>
 </section>
 
         {/* Custom Itineraries */}
-        <hr />
+       <hr />
 
-        <section className="itineraries-showcase">
-          <h5 className="all-head text-dark">Custom Itineraries & <br /> Sustainable Travels</h5 >
-            <p>Customize your trip, take a journey while preserving the environment </p>
-          <div className="cards-container">
-            {itineraries.map((itinerary, index) => (
-            <a href={itinerary.href} className="card" style={{textDecoration:'none'}}>
-
-            <div
-            className={` category-${itinerary.  title ? itinerary.title.replace(/\s+/g, '-').toLowerCase() : 'unknown'}`}
-            key={index}
-          >
-                <div className="image-placeholder">
-                  <img src={itinerary.image} alt={itinerary.title} style={{ width: '100%' }} />
-                </div>
-                <h3 className='text-dark'>{itinerary.title}</h3>
-                <p>{itinerary.description}</p>
-                <a href={itinerary.href} className="btn">
-                  View Details
-                </a>
-              </div>
-              </a>
-            ))}
-          </div>
-        </section>
         </main>
       </div>
     </div>

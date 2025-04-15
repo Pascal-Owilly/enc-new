@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpa } from '@fortawesome/free-solid-svg-icons';
 import { BASE_URL } from '../config/config';
 import BookingButton from '../bookings/BookingButton';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 const WellnessRetreats = () => {
   const [retreats, setRetreats] = useState([]); // State to store fetched retreats
@@ -49,7 +50,7 @@ const WellnessRetreats = () => {
   };
 
   return (
-    <Container className="">
+    <Container fluid className="">
       <h5 className="text-center "><FontAwesomeIcon icon={faSpa} /> Wellness Retreats</h5>
 
       {loading ? (
@@ -70,16 +71,19 @@ const WellnessRetreats = () => {
         <Row xs={1} sm={2} md={3} className="g-4">
           {currentRetreats.map(retreat => (
             <Col key={retreat.id}>
-              <div className="destination-card">
+              <div className="destination-card w-100">
                 <img 
-                  src={retreat.imageUrl || 'https://via.placeholder.com/600x400'} 
+                  src={`${BASE_URL}${retreat.cover_image }`}
                   alt={retreat.name} 
                   className="img-fluid mb-3" 
                 />
                 <h5>{retreat.name}</h5>
-                <Badge bg="success">⭐ {retreat.rating}</Badge>
-                <p>{retreat.description}</p>
-                <p>Duration: {retreat.duration}</p>
+                <div className="price-location d-flex justify-content-between align-items-center mb-2">
+                  <span className="retreat-price">KES {retreat.price}</span>
+
+                  <span className="retreat-location text-muted"><FaMapMarkerAlt style={{ color: '#e91e63', marginRight: '4px' }} /> {retreat.location}</span>
+                </div>
+
                 <BookingButton place={retreat} />
               </div>
             </Col>

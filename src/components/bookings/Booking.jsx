@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
-import { BASE_URL } from "../config/config";
-import "./Booking.css";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Button, Card, Form } from 'react-bootstrap';
+import { BASE_URL } from '../config/config';
+import { Calendar } from "lucide-react";
 
-const Booking = () => {
+const BookingPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
@@ -29,14 +30,12 @@ const Booking = () => {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
 
-  // Redirect to login if not authenticated
   useEffect(() => {
     if (!authToken) {
       navigate(`/auth/login?redirect=${encodeURIComponent(location.pathname + location.search)}`);
     }
   }, [authToken, navigate, location.pathname, location.search]);
 
-  // Fetch place data
   useEffect(() => {
     if (placeId) {
       axios
@@ -50,7 +49,6 @@ const Booking = () => {
           }));
         })
         .catch((error) => {
-          console.error("Error fetching place data:", error);
           setMessage("Failed to fetch place details.");
           setMessageType("error");
         });
@@ -78,10 +76,8 @@ const Booking = () => {
         setMessageType("success");
         setShowPaymentMethods(true);
         fetchPesapalButton();
-        scrollToTop();  // Scroll to top on successful booking
       })
       .catch((error) => {
-        console.error("Booking error:", error);
         const errorMsg = error.response?.data?.detail || "An error occurred while booking.";
         setMessage(errorMsg);
         setMessageType("error");
@@ -105,7 +101,6 @@ const Booking = () => {
         setMessageType("error");
       }
     } catch (error) {
-      console.error("Pesapal Payment Error:", error);
       setMessage("Failed to fetch payment options.");
       setMessageType("error");
     } finally {
@@ -113,106 +108,100 @@ const Booking = () => {
     }
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
   return (
-    <div className="container-fluid booking-container">
-      <div
-        className="booking-form"
-        style={{
-          maxWidth: "400px",
-          margin: "15px auto",
-          padding: "20px",
-          borderRadius: "10px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          backgroundColor: "#fff",
-          textAlign: "center",
-        }}
-      >
-        <h3 className="text-dark">Booking for {bookingData.name}</h3>
-        <p className="price text-success">Kes {bookingData.price}</p>
-
+    <Card className="w-full max-w-2xl mx-auto mt-10 m-4">
+      <Card.Header className="bg-light p-3 text-center">
+        <Card.Title className="text-md font-weight-bold">
+          <span className="text-info font-italic">{bookingData.name}</span>
+        </Card.Title>
+        <Card.Subtitle className="mb-2 text-success font-italic font-weight-bold">
+          Kes {bookingData.price}
+        </Card.Subtitle>
+      </Card.Header>
+      <Card.Body>
         {!showPaymentMethods ? (
-          <form onSubmit={handleBookingSubmit}>
-            <input
-              type="date"
-              name="checkin_date"
-              value={bookingData.checkin_date}
-              onChange={handleInputChange}
-              required
-              placeholder="Check-in Date"
-              style={{ width: "100%", marginBottom: "10px" }}
-            />
-
-            <input
-              type="date"
-              name="checkout_date"
-              value={bookingData.checkout_date}
-              onChange={handleInputChange}
-              required
-              placeholder="Check-out Date"
-              style={{ width: "100%", marginBottom: "10px" }}
-            />
-
-            <input
-              type="tel"
-              name="phone"
-              value={bookingData.phone}
-              onChange={handleInputChange}
-              required
-              placeholder="Phone Number"
-              style={{ width: "100%", marginBottom: "10px" }}
-            />
-
-            <input
-              type="email"
-              name="email"
-              value={bookingData.email}
-              onChange={handleInputChange}
-              required
-              placeholder="Email Address"
-              style={{ width: "100%", marginBottom: "10px" }}
-            />
-
-            <button
-              type="submit"
-              disabled={loading}
-              style={{
-                width: "100%",
-                padding: "10px",
-                backgroundColor: "#28a745",
-                color: "#fff",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-              }}
-            >
+          <Form onSubmit={handleBookingSubmit}>
+            <Form.Group controlId="checkin_date">
+              <Form.Label>Check-in Date</Form.Label>
+              <div className="input-group">
+                <span className="input-group-text">
+                  <Calendar className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                </span>
+                <Form.Control
+                  type="date"
+                  name="checkin_date"
+                  value={bookingData.checkin_date}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </Form.Group>
+            <Form.Group controlId="checkout_date">
+              <Form.Label>Check-out Date</Form.Label>
+              <div className="input-group">
+                <span className="input-group-text">
+                  <Calendar className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                </span>
+                <Form.Control
+                  type="date"
+                  name="checkout_date"
+                  value={bookingData.checkout_date}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </Form.Group>
+            <Form.Group controlId="phone">
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control
+                type="tel"
+                name="phone"
+                value={bookingData.phone}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="email">
+              <Form.Label>Email Address</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={bookingData.email}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+            <br />
+            <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Processing..." : "Book Now"}
-            </button>
-          </form>
+            </Button>
+            {message && (
+              <div className={`mt-3 alert ${messageType === "success" ? "alert-success" : "alert-danger"}`}>
+                {message}
+              </div>
+            )}
+          </Form>
         ) : (
           <div className="payment-options">
-            <h4>Select Payment Method</h4>
-            {message && <div className={`message ${messageType}`}>{message}</div>}
+            <h4>Continue booking</h4>
+            <br />
             {pesapalButtonHtml ? (
               <div className="pesapal-button-wrapper" dangerouslySetInnerHTML={{ __html: pesapalButtonHtml }} />
             ) : (
-              <div className="dot-loader">
-                <span></span>
-                <span></span>
-                <span></span>
+              <div className="text-center">
+                <div style={{ fontSize: '12px', marginBottom: '10px' }}>Loading payment options...</div>
+                <div className="dot-loader" style={{height:'auto !important'}}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               </div>
             )}
           </div>
         )}
-      </div>
-    </div>
+      </Card.Body>
+    </Card>
   );
 };
 
-export default Booking;
+export default BookingPage;

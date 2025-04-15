@@ -95,7 +95,6 @@ import PrivateRoute from "./components/auth/PrivateRoute";
 
 import NotFound from './components/errors/NotFound';
 
-
 export default function App() {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {

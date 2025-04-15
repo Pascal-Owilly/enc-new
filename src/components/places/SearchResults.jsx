@@ -65,9 +65,20 @@ function SearchResults() {
                     }}
                     className="list-group-item list-group-item-action"
                   >
-                    <h5 className="mb-1 text-primary">{result.name}</h5>
-                    <p className="mb-1 text-muted">{result.description}</p>c
-                    <small className="text-success fw-bold">Price: KES {result.price}</small>
+                    <div className="d-flex align-items-center">
+                      {/* Display cover image */}
+                      <img
+                        src={result.cover_image ? `${BASE_URL}${result.cover_image}` : "/placeholder.jpg"}
+                        alt={result.name}
+                        className="rounded m-2 "
+                        style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                      />
+                      <div>
+                        <h5 className="mb-1 text-primary">{result.name}</h5>
+                        <p className="mb-1 text-muted">{result.description}</p>
+                        <small className="text-success fw-bold">Price: KES {result.price}</small>
+                      </div>
+                    </div>
                   </Link>
                 ))}
               </div>

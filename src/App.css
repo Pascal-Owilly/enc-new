@@ -1,3 +1,33 @@
+/* Font Face Definitions */
+@font-face {
+    font-family: 'RomanseAfthero';
+    src: url('../hero/RomanseAfthero-BF67db9ab90cde5.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Fontspring-DEMO-theseasons-bd';
+    src: url('../hero/Fontspring-DEMO-theseasons-bd.otf') format('opentype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Monesta-Light';
+    src: url('../hero/Monesta-Light-DEMO.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Shathika';
+    src: url('../hero/Shathika.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* Apply Fonts to Elements */
+
 ::selection {
   background: #de7cfc28;
 }
@@ -49,7 +79,7 @@ body {
 }
 
 .all-headings4{
-  font-family: Caladea;
+  font-family: Fontspring-DEMO-theseasons-bd;
   font-size: 1.5rem !important;         
   font-Weight: bold;
   letter-spacing: 0.15em;      
@@ -62,7 +92,7 @@ body {
 }
 
 .all-headings5{
-  font-family: Caladea;
+  font-family: Fontspring-DEMO-theseasons-bd;
   font-size: 1rem !important;         
   font-Weight: bold;
   letter-spacing: 0.15em;      
@@ -75,7 +105,7 @@ body {
 }
 
 .book-now-btn{
-  font-family: Caladea;
+  font-family: Fontspring-DEMO-theseasons-bd;
   font-size: 0.8rem;         
   font-Weight: bold;
   letter-spacing: 0.15em;      
@@ -130,22 +160,25 @@ p,h1, h2, h3, h4, h5, h6{
 }
 
 .dot-loader {
-  min-height: 70vh;
-  display: flex; /* Use flex without quotes */
-  justify-content: center; /* Use hyphenated syntax */
-  align-items: center; /* Use hyphenated syntax */
-  height: 100vh; /* Full viewport height */
-  position: absolute; /* Position to cover the screen */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.8); /* Use hyphenated syntax */
-  z-index: 1000; /* Use hyphenated syntax */
+  background-color: #fffaf0; /* Soft creamy background */
+  background-image: radial-gradient(circle, blue 1.5px, transparent 1.5px);
+  background-size: 40px 40px; /* Controls spacing of the dots */
+  z-index: 1000;
+  animation: fadeIn 0.6s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  border-radius: 8px;
 }
-
-/* new */
-
 
 /* styles.css */
 .custom-heading {
@@ -171,3 +204,4 @@ p,h1, h2, h3, h4, h5, h6{
     margin-top: 1rem !important; /* my-4 */
     margin-bottom: 1rem !important; /* my-4 */
 }
+

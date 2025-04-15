@@ -1,100 +1,77 @@
 import React, { useState, useEffect } from 'react';
-import { Carousel, Button, Card } from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap';
 import './Vr.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook } from '@fortawesome/free-solid-svg-icons';
 import { BASE_URL } from '../config/config';
 import BookingButton from '../bookings/BookingButton';
 
 function VRPageTwo() {
-  const [vr, setVr] = useState([]); // State to store fetched VR data
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
-  const category = "virtual_reality"; // Correct category spelling
-  const itemsPerPage = 6; // Number of items per page
+  const [vr, setVr] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const category = "virtual_reality";
 
   useEffect(() => {
     const fetchVrData = async () => {
       try {
         const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=${category}`);
         const data = await response.json();
-        
-        setVr(data); // Set VR data to the state
+        setVr(data);
         setLoading(false);
       } catch (error) {
         setError('Failed to fetch data. Please try again later.');
         setLoading(false);
       }
     };
-
-    fetchVrData(); // Fetch VR data on mount
+    fetchVrData();
   }, []);
 
   return (
-    <div className="page-two">
-     <div className="text-center my-4">
+    <div className="page-two modern-look">
+      <div className="text-center my-4">
         <h5 className="vr-heading">Step into the Future: The Joy of Virtual Reality</h5>
-        <p className="vr-intro m-auto" style={{maxWidth:'800px'}}>Experience a world beyond imagination, where adventure, creativity, and limitless possibilities come to life. Whether you're soaring through space, exploring ancient ruins, or playing in a virtual playground, VR takes entertainment to a whole new level.</p>
+        <p className="vr-intro m-auto" style={{ maxWidth: '800px' }}>
+          Experience a world beyond imagination, where adventure, creativity, and limitless possibilities come to life.
+        </p>
       </div>
-      
+
       {loading ? (
-        <div className="dot-loader">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        <div className="dot-loader"><span></span><span></span><span></span></div>
       ) : error ? (
-        <p className="text-danger">{error}</p>
+        <p className="text-danger text-center">{error}</p>
       ) : vr.length === 0 ? (
         <div className="text-center mt-5">
           <h4>No VRs Available</h4>
           <p>Currently, there are no Virtual Reality events to display. Please check back later.</p>
         </div>
       ) : (
-        <div className="vr-backgroun">
-          <Carousel indicators={true} controls={true} interval={3000} nextIcon={<span className="carousel-control-next-icon" />} prevIcon={<span className="carousel-control-prev-icon" />} fade>
-            {vr.slice(0, itemsPerPage).map((item, index) => (
-              <Carousel.Item key={index}>
-                <img
-                  className="d-block w-100"
-                  src={`${BASE_URL}${item.pictures }`}
-                  alt={`Slide ${index + 1}`}
-                />
-                
-                <Carousel.Caption>
-                  <h3>{item.name}</h3>
-                  <p>{item.description}</p>
-                  <BookingButton place={item} />
+        <>
+          <div className="vr-carousel">
+            <Carousel indicators controls interval={3000} fade>
+              {vr.slice(0, 3).map((item, index) => (
+                <Carousel.Item key={index}>
+                  <img className="d-block w-100" src={`${BASE_URL}${item.pictures}`} style={{ height: '300px', objectFit: 'cover' }} alt={item.name} />
+                  <Carousel.Caption>
+                    <h3>{item.name}</h3>
+                    <p>{item.description}</p>
+                    <BookingButton place={item} />
+                  </Carousel.Caption>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          </div>
 
-                </Carousel.Caption>
-              </Carousel.Item>
+          <div className="vr-grid container my-5">
+            {vr.map((item, index) => (
+              <div key={index} className="vr-card">
+                <img className="symbol" src={`${BASE_URL}${item.cover_image}`} alt={item.name} />
+                <h6>{item.name}</h6>
+                <p className="description">{item.price}</p>
+                <BookingButton place={item} />
+              </div>
             ))}
-          </Carousel>
-
-        </div>
+          </div>
+        </>
       )}
-
-<div className="container">
-  <div className="row g-3">
-    {vr.slice(0, itemsPerPage).map((item, index) => (
-      <div key={index} className="col-lg-4 col-md-6 col-sm-12">
-        <div className="angel-card p-3 shadow rounded">
-          <img
-            className="symbol img-fluid"
-            src={`${BASE_URL}${item.cover_image}`}
-            style={{ width: "100%", maxHeight: "300px", objectFit: "cover" }}
-            alt={item.name}
-          />
-          <h6 className="mt-2">{item.name}</h6>
-          <p className="description">{item.description}</p>
-          <BookingButton className="p-2" place={item} />
-        </div>
-      </div>
-    ))}
-  </div>
-</div>
-
-
     </div>
   );
 }

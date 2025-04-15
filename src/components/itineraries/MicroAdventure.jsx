@@ -49,7 +49,7 @@ const MicroAdventure = () => {
             >
                 <h4 className="text-center text-dark all-headings4 fade-in" style={{textTransform:'capitalize'}}>Micro-Adventure</h4>
 
-               <p> Discovering unique, exciting experiences without the need for extensive planning or long-distance travel. Perfect for busy schedules, these mini escapes allow you to explore hidden gems. Designed to bring a taste of adventure to your everyday life, uncover local secrets, and create lasting memories.</p>
+<p>Quick, exciting escapes close to home—perfect for busy schedules. Discover hidden gems, local secrets, and make lasting memories without the hassle.</p>
             </span>
             <br />
 
@@ -169,7 +169,26 @@ const AdventureItem = ({ title, description, rating, reviewCount, image, wishlis
                 </div>
                 <div className="adventure-text ms-md-3 mt-3 mt-md-0">
                     <h4 className="text-secondary" style={{fontSize:'18px', fontWeight:'600'}}>{title}</h4>
-                    <p className="text-dark">{description}</p>
+                    <p
+  className="adventure-meta text-secondary"
+  title={`KES ${adventure.price} | ${adventure.location}`}
+>
+  <span style={{ fontWeight: '600', color: '#4CAF50' }}>KES {adventure.price}</span>
+  <span style={{ margin: '0 8px', color: '#ccc' }}>|</span>
+  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#555' }}>
+    <i className="bi bi-geo-alt-fill" style={{ color: '#e91e63' }}></i> 
+    <span style={{
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      maxWidth: '120px',
+      display: 'inline-block',
+    }}>
+      {adventure.location}
+    </span>
+  </span>
+</p>
+
                     <div className="d-flex align-items-center mt-3">
                         <BookingButton place={adventure} />
                     </div>

@@ -22,7 +22,7 @@ const Blog = () => {
 
   return (
     <div style={styles.container}>
-      <h5 className='text-dark' >🌍 Travel Blog</h5>
+      <h5 style={styles.title}>🌍 Travel Blog</h5>
 
       {loading ? (
         <div style={styles.loader}>
@@ -55,7 +55,6 @@ const Blog = () => {
                   <a href={`/blogs/${post.id}`} style={styles.readMoreButton}>
                     Read More
                   </a>
-
                 </div>
               </div>
             </div>
@@ -66,19 +65,21 @@ const Blog = () => {
   );
 };
 
-// ✅ Inline Styles (Prevents Squeezing & Ensures Responsiveness)
+// Enhanced Inline Styles
 const styles = {
   container: {
     maxWidth: "1200px",
     margin: "0 auto",
-    padding: "20px",
+    padding: "40px 20px",
     fontFamily: "Arial, sans-serif",
     minHeight: "80vh",
+    backgroundColor: "#f8f9fa",
   },
   title: {
     fontSize: "36px",
     textAlign: "center",
     marginBottom: "30px",
+    color: "#343a40",
   },
   loader: {
     display: "flex",
@@ -89,23 +90,24 @@ const styles = {
   cardGrid: {
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "center", // ✅ Center aligns cards
-    gap: "20px", // ✅ Adds spacing
+    justifyContent: "center",
+    gap: "20px",
   },
   cardWrapper: {
-    flex: "1 1 300px", // ✅ Ensures cards don't squeeze
-    maxWidth: "400px", // ✅ Prevents excessive widening
-    minWidth: "300px", // ✅ Ensures minimum readable width
+    flex: "1 1 300px",
+    maxWidth: "400px",
+    minWidth: "300px",
   },
   card: {
     border: "1px solid #ddd",
     borderRadius: "8px",
     overflow: "hidden",
     backgroundColor: "#fff",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
     display: "flex",
     flexDirection: "column",
     height: "100%",
+    transition: "transform 0.2s",
   },
   cardImage: {
     width: "100%",
@@ -116,20 +118,21 @@ const styles = {
     padding: "20px",
     display: "flex",
     flexDirection: "column",
-    flexGrow: 1, // ✅ Keeps button at bottom
+    flexGrow: 1,
   },
   cardTitle: {
     fontSize: "22px",
     marginBottom: "10px",
+    color: "#495057",
   },
   cardDate: {
-    color: "gray",
+    color: "#6c757d",
     fontSize: "14px",
   },
   cardText: {
     fontSize: "16px",
     lineHeight: "1.6",
-    flexGrow: 1, // ✅ Pushes button down
+    flexGrow: 1,
   },
   readMoreButton: {
     display: "block",
@@ -141,13 +144,28 @@ const styles = {
     textDecoration: "none",
     borderRadius: "5px",
     fontWeight: "bold",
-    transition: "background-color 0.3s ease-in-out",
+    transition: "background-color 0.3s ease-in-out, transform 0.2s",
   },
 };
 
-// ✅ Override hover styles
-styles.readMoreButton[":hover"] = {
-  backgroundColor: "#0056b3",
+// Hover effects
+const hoverStyles = {
+  card: {
+    transform: "scale(1.02)",
+  },
+  readMoreButton: {
+    backgroundColor: "#0056b3",
+  },
+};
+
+// Apply hover effects using JavaScript or CSS-in-JS approach
+const applyHoverEffects = (card) => {
+  card.onmouseover = () => {
+    Object.assign(card.style, hoverStyles.card);
+  };
+  card.onmouseout = () => {
+    Object.assign(card.style, { transform: "scale(1)" });
+  };
 };
 
 export default Blog;

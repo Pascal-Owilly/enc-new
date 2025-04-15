@@ -6,6 +6,7 @@ import Section1 from '../../components/about/Section1';
 import Footer from '../../components/footer/Footer';
 import Projects from '../../components/projects/Projects';
 import Places from '../../components/places/Places';
+import Sections from '../../components/places/Sections';
 import Blogs from '../../components/blogs/Blogs';
 import Partners from '../../components/partners/Partners';
 import BottomNav from '../../components/navbar/BottomNav';
@@ -33,6 +34,7 @@ export default function Home() {
           <div >
             <Hero />
             <Blogs />
+            <Sections />
             <Partners />
           </div>
         </div>

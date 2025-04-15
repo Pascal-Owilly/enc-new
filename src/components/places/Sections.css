@@ -1,0 +1,105 @@
+/* Blogs.css */
+
+@font-face {
+    font-family: 'RomanseAfthero';
+    src: url('../hero/RomanseAfthero-BF67db9ab90cde5.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Fontspring-DEMO-theseasons-bd';
+    src: url('../hero/Fontspring-DEMO-theseasons-bd.otf') format('opentype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+  font-family: 'Monesta-Light';
+  src: url('../hero/Monesta-Light-DEMO.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Shathika';
+  src: url('../hero/Shathika.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.showcase-intro {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.showcase-intro h1, h3 {
+    font-size: 2.5em;
+    color: #333;
+    margin: 0;
+    font-family: 'Fontspring-DEMO-theseasons-bd' !important;
+}
+
+.showcase-intro p {
+    font-family: 'Shathika' !important;
+    letter-spacing: 2px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.showcase-beautiful-cards p {
+    font-family: 'Shathika' !important;
+    letter-spacing: 2px;
+    font-size: 1.2em;
+    color: #333; 
+}
+
+.showcase-large-cards {
+    width: 100%;
+    max-width: 97%; 
+    margin: auto;
+}
+
+
+.showcase-large-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.showcase-large-card:hover {
+    transform: scale(1.05);
+}
+
+.showcase-large-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.showcase-large-card-content {
+    padding: 20px;
+}
+
+.showcase-large-card-title {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.showcase-large-card-location {
+    color: #777;
+    margin: 5px 0;
+}
+
+.showcase-large-card-price {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+}
+
+.showcase-large-card-rating {
+    color: #ff9800;
+}
+
+

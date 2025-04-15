@@ -1,8 +1,6 @@
 import './Footer.css';
-import Contact from '../contact/Contact.jsx';
 import { useState } from 'react';
 import axios from 'axios';
-
 import { BASE_URL } from '../config/config';
 
 export default function Footer() {
@@ -12,7 +10,6 @@ export default function Footer() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!email) {
       setMessage('Please enter a valid email.');
       return;
@@ -39,81 +36,90 @@ export default function Footer() {
   };
 
   return (
-    <div className="container-fluid p-5" style={{ backgroundColor: '#ddd', color: '#333' }}>
-      <footer className="rounded-4 ">
-        <div className="row align-items-center text-center ">
+    <div
+      className="container-fluid py-5 text-white"
+      style={{
+        background: 'linear-gradient(135deg, #001f3f, #004d66, #00a896)',
+        borderTopLeftRadius: '30px',
+        borderTopRightRadius: '30px',
+      }}
+    >
+      <footer className="text-center text-md-start">
+        <div className="row justify-content-around align-items-start px-3 px-md-5">
+
           {/* Quick Links */}
-          <div className="col-md-4 mb-4 mb-md-0">
-            <h4 className="fw-bold text-uppercase mb-4" style={{ color: '#000' }}>Quick Links</h4>
+          <div className="col-12 col-md-3 mb-4">
+            <h3 className="fw-bold text-uppercase mb-3 text-white" style={{fontSize:'20px'}}>Quick Links</h3>
             <ul className="list-unstyled">
-              <li className="mb-2">
-                <a href="/about" className="text-decoration-none" style={{ color: '#333' }}>
-                  About Us
-                </a>
-              </li>
-              <li className="mb-2">
-                <a href="/faqs" className="text-decoration-none" style={{ color: '#333' }}>
-                  FAQs
-                </a>
-              </li>
-              <li className="mb-2">
-                <a href="/blogs" className="text-decoration-none" style={{ color: '#333' }}>
-                  Blog
-                </a>
-              </li>
+              <li><a href="/about" className="text-decoration-none text-light">About Us</a></li>
+              <li><a href="/faqs" className="text-decoration-none text-light">FAQs</a></li>
+              <li><a href="/blogs" className="text-decoration-none text-light">Blog</a></li>
             </ul>
           </div>
 
-          {/* Email Subscription */}
-          <div className="col-md-4 mb-4 mb-md-0">
-            {message && <p style={{ marginTop: '10px', color: '#000' }}>{message}</p>}
-
-            <h4 className="fw-bold text-uppercase mb-4" style={{ color: '#000' }}>Stay Updated</h4>
-            <form className="input-group" onSubmit={handleSubmit}>
+          {/* Stay Updated */}
+          <div className="col-12 col-md-4 mb-4">
+            <h3 className="fw-bold text-uppercase mb-3 text-white" style={{fontSize:'20px'}}>Stay Updated</h3>
+            <form onSubmit={handleSubmit} className="d-flex flex-column flex-sm-row">
               <input
                 type="email"
-                className="form-control"
+                className="form-control me-sm-2 mb-2 mb-sm-0"
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                style={{ borderRadius: '30px 0 0 30px', border: 'none', padding: '12px' }}
+                style={{
+                  borderRadius: '30px',
+                  border: 'none',
+                  backgroundColor: '#f4f4f4',
+                  color: '#000',
+                  padding: '10px 15px',
+                }}
               />
               <button
                 type="submit"
-                className="btn fw-bold"
-                style={{ borderRadius: '0 30px 30px 0', backgroundColor: '#000', color: '#ddd' }}
+                className="btn"
+                style={{
+                  backgroundColor: '#FFD700',
+                  color: '#003B46',
+                  fontWeight: '600',
+                  borderRadius: '30px',
+                  padding: '10px 20px',
+                }}
               >
                 Subscribe
               </button>
             </form>
+            {message && <p className="mt-2 text-white small">{message}</p>}
           </div>
 
-          {/* Contact Us Section */}
-          <div className="col-md-4">
-            <h4 className="fw-bold text-uppercase mb-4" style={{ color: '#000' }}>Contact Us</h4>
+          {/* Contact Us */}
+          <div className="col-12 col-md-3 mb-4">
+            <h3 className="fw-bold text-uppercase mb-3 text-white" style={{fontSize:'20px'}}>Contact Us</h3>
             <a
               href="/contact"
-              className="btn fw-bold"
-              style={{ borderRadius: '30px', backgroundColor: '#000', color: '#ddd' }}
+              className="btn btn-sm"
+              style={{
+                backgroundColor: '#FFD700',
+                color: '#003B46',
+                fontWeight: '600',
+                borderRadius: '25px',
+                padding: '10px 20px',
+              }}
             >
               Go to Contact
             </a>
 
-            <div className="mt-4">
-              {['Privacy', 'Policy'].map((item, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="text-decoration-none mx-2"
-                  style={{ color: '#333' }}
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
+            {/*<div className="mt-3">
+              <a href="#" className="text-light text-decoration-none me-3">Privacy</a>
+              <a href="#" className="text-light text-decoration-none">Policy</a>
+            </div>*/}
           </div>
         </div>
-        <p className="mt-4 text-center">&copy; Enceptics {`2023 - ${currentYear}`}</p>
+
+        <div className="text-center mt-4 pt-3 border-top border-light text-light small">
+          &copy; Enceptics 2023 - {currentYear}. All rights reserved.
+          
+        </div>
       </footer>
     </div>
   );

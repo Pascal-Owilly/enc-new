@@ -1,108 +1,249 @@
-/* src/styles/Destinations.css */
-.destination-card {
-    border: 1px solid #773697;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    background-color: #f9f9f9;
-    transition: transform 0.2s;
-    width: 100%;
-  }
-  
-  .destination-card:hover {
-    transform: scale(1.01);
-  }
-  
-  h2 {
-    color: #773697;
-  }
-  
-  .container {
-    margin: 20px;
-  }
-
-  .see-more-btn {
-    background-color: #007bff;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-  }
-  
-  .see-more-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .book-btn {
-    background-color: #28a745;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-  }
-  
-  .book-btn:hover {
-    background-color: #218838;
-  }
-  
-  .see-more-btn {
-  background-color: #007bff;
-  border: none;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.9rem;
-}
-
-.see-more-btn:hover {
-  background-color: #0056b3;
-}
-
-.book-btn {
-  background-color: #28a745;
-  border: none;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.9rem;
-}
-
-.book-btn:hover {
-  background-color: #218838;
+/* ArtWorkshops.css */
+body {
+  background: linear-gradient(135deg, #f0f0f5, #f8e8ff);
+  font-family: 'Poppins', sans-serif;
 }
 
 .destination-card {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background: #fff;
-  transition: transform 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%;
-}
-
-.destination-card:hover {
-  transform: scale(1.03);
-}
-
-.hike-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.destination-content {
-  padding: 15px;
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
+.destination-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.workshop-image {
+  border-radius: 12px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+h5 {
+  color: #773697;
+  font-weight: 600;
+}
+
 .card-footer {
   margin-top: auto;
-  padding-top: 10px;
+}
+
+.dot-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 3rem;
+}
+
+.dot-loader span {
+  width: 12px;
+  height: 12px;
+  background-color: #773697;
+  border-radius: 50%;
+  animation: bounce 0.6s infinite alternate;
+}
+
+.dot-loader span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dot-loader span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  to {
+    transform: translateY(-12px);
+  }
+}
+
+.pagination .page-item .page-link {
+  color: #773697;
+  border: none;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #773697;
+  border-radius: 50%;
+  color: #fff;
+}
+
+/*Wellness retrats */
+/* Base container styling */
+.container {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Title styling */
+h5.text-center {
+  font-size: 2.2rem;
+  color: #6A89CC;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  position: relative;
+}
+h5.text-center::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(to right, #6a89cc, #b8e994);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* Dot loader animation */
+.dot-loader span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 3px;
+  border-radius: 50%;
+  background-color: #6a89cc;
+  animation: bounce 1s infinite ease-in-out;
+}
+.dot-loader span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.dot-loader span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  } 40% {
+    transform: scale(1);
+  }
+}
+
+/* Card styling */
+.destination-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(106, 137, 204, 0.1);
+  transition: all 0.3s ease;
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.destination-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(106, 137, 204, 0.15);
+}
+.destination-card img {
+  border-radius: 12px;
+  object-fit: cover;
+  height: 200px;
+  width: 100%;
+}
+
+/* Typography */
+.destination-card h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #34495e;
+  margin-top: 0.5rem;
+}
+.destination-card p {
+  font-size: 0.95rem;
+  color: #7f8c8d;
+}
+
+/* Booking button container (optional tweaks) */
+.booking-button {
+  margin-top: auto;
+}
+
+/* Pagination */
+.pagination button {
+  margin: 0 10px;
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-weight: 500;
+  background: linear-gradient(to right, #6a89cc, #b8e994);
+  border: none;
+  color: white;
+}
+.pagination span {
+  font-weight: 500;
+  color: #34495e;
+}
+
+/*Group*/
+.retreat-image {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.destination-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid #eee;
+}
+
+.destination-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+}
+
+.price-location {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.retreat-price {
+  color: #38ada9;
+}
+
+.retreat-location {
+  font-size: 0.9rem;
+  color: #95a5a6;
+}
+
+/*music*/
+.music-dance-card {
+  background: linear-gradient(135deg, #f9f9f9, #fff);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #eee;
+  border-radius: 18px;
+}
+
+.music-dance-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.music-dance-image {
+  height: 220px;
+  width: 100%;
+  object-fit: cover;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+
+.class-title {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.text-pink {
+  color: #e91e63;
 }

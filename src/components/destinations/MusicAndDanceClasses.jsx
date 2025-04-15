@@ -49,7 +49,7 @@ const MusicAndDanceClasses = () => {
   };
 
   return (
-    <Container className="">
+    <Container fluid className="">
       <h5 className="text-center "><FontAwesomeIcon icon={faTheaterMasks} /> Music and Dance </h5>
 
       {loading ? (
@@ -67,19 +67,31 @@ const MusicAndDanceClasses = () => {
           <p>Currently, there are no music and dance classes to display. Please check back later.</p>
         </div>
       ) : (
-        <Row xs={1} sm={2} md={3} className="g-4">
-          {currentClasses.map(cl => (
-            <Col key={cl.id}>
-              <div className="destination-card">
-                <h5>{cl.name}</h5>
-                <Badge bg="success">⭐ {cl.rating}</Badge>
-                <p>{cl.description}</p>
-                <p>Duration: {cl.duration}</p>
-              </div>
-              <BookingButton place={cl} />
-            </Col>
-          ))}
-        </Row>
+        <Row xs={1} sm={2} md={3} className="g-4 mt-4">
+  {currentClasses.map(cl => (
+    <Col key={cl.id}>
+      <div className="music-dance-card shadow-sm rounded overflow-hidden h-100">
+        <img
+          src={`${BASE_URL}${cl.cover_image}`}
+          alt={cl.name}
+          className="music-dance-image"
+        />
+        <div className="p-3">
+          <h5 className="class-title">{cl.name}</h5>
+          <div className="d-flex justify-content-between align-items-center mb-2">
+            <span className="text-success fw-semibold">KES {cl.price}</span>
+            <span className="text-muted d-flex align-items-center">
+              <FontAwesomeIcon icon={faTheaterMasks} className="me-1 text-pink" />
+              {cl.location}
+            </span>
+          </div>
+          <BookingButton place={cl} />
+        </div>
+      </div>
+    </Col>
+  ))}
+</Row>
+
       )}
 
       {/* Pagination */}

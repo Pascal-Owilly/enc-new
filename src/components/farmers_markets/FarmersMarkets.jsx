@@ -59,15 +59,15 @@ const FarmersMarketsPage = () => {
           <span></span>
         </div>
       ) : adventures.length === 0 ? (
-        <div className="no-data text-center mt-5">
+        <div className="no-data text-center mt-">
           <FaInfoCircle size={50} colo  r="#6c757d" />
           <p className="mt-3 text-muted">No farmers markets available at the moment. Please check back later!</p>
         </div>
       ) : (
         <>
-          <Row xs={1} sm={2} md={4} className="g-4 m-2">
+          <Row xs={1} sm={2} md={4} className="g- m-2">
             {currentMarkets.map((market) => (
-              <Col key={market.id} className="mb-4">
+              <Col key={market.id} className="mb-">
                 <div className="market-card shadow-sm rounded">
                   <img
                     src={`${BASE_URL}${market.imageUrl || market.cover_image}`}
@@ -75,12 +75,9 @@ const FarmersMarketsPage = () => {
                     className="market-image rounded-top"
                   />
                   <div className="p-3">
-                    <Badge bg="success" className="mb-2">
-                      ⭐ {market.average_rating || 'N/A'}
-                    </Badge>
+                   
                     <h5 className="market-name">{market.name}</h5>
                     <p className="market-location">📍 {market.location || 'Unknown Location'}</p>
-                    <p className="market-description">{market.description || 'No description available.'}</p>
                     <div className="d-flex align-items-center justify-content-between mt-3">
                       <div className="card-footer text-center">
                         <BookingButton place={market} />

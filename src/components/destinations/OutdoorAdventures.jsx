@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Badge, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Badge } from 'react-bootstrap';
 import './Destinations.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMountain, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { BASE_URL } from '../config/config';
 import BookingButton from '../bookings/BookingButton';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 const OutdoorAdventures = () => {
   const [adventures, setAdventures] = useState([]); // State to store fetched adventures
@@ -12,7 +13,7 @@ const OutdoorAdventures = () => {
   const [loading, setLoading] = useState(true); // State to show loading indicator
   const category = "outdoor_adventures";
   const [error, setError] = useState(null); // State for any errors during data fetching
-  const itemsPerPage = 6; // Items per page for pagination
+  const itemsPerPage = 8; // Items per page for pagination
 
   // Fetch outdoor adventures from backend API
   useEffect(() => {
@@ -49,11 +50,14 @@ const OutdoorAdventures = () => {
   };
 
   return (
-    <Container className="">
-      <h5 className="text-center ">
+    <Container fluid className="mt-2">
+      <h5 className="text-center mb-3">
         <FontAwesomeIcon icon={faMountain} /> Outdoor Adventures
       </h5>
-
+     {/* Short paragraph about outdoor adventures */}
+      <p className="adventure-info-text text-center">
+        Embark on thrilling journeys, explore breathtaking landscapes, and create unforgettable memories with our carefully selected outdoor adventures.
+      </p>
       {loading ? (
         <div className="dot-loader">
           <span></span>
@@ -69,22 +73,33 @@ const OutdoorAdventures = () => {
           <p>Currently, there are no outdoor adventures to display. Please check back later.</p>
         </div>
       ) : (
-        <Row xs={1} sm={2} md={3} className="g-4">
+        <Row xs={1} sm={2} md={3} lg={4} className="g-4">
           {currentAdventures.map(adventure => (
-            <Col key={adventure.id}>
-              <div className="destination-card">
-                <img 
-                  src={adventure.imageUrl || 'https://assets.codepen.io/4787486/oak_1.jpg'} 
-                  alt={adventure.name} 
-                  className="img-fluid mb-3" 
-                />
-                <h5>{adventure.name}</h5>
-                <Badge bg="success">⭐ {adventure.rating}</Badge>
-                <p>{adventure.description}</p>
-                <p>Duration: {adventure.duration}</p>
-                <BookingButton place={adventure} />
-              </div>
-            </Col>
+<Col key={adventure.id}>
+  <div className="destination-card w-100 shadow-sm rounded" style={{ border: '1px solid #ddd', backgroundColor: '#fff' }}>
+    <img 
+      src={adventure.imageUrl || 'https://assets.codepen.io/4787486/oak_1.jpg'} 
+      alt={adventure.name} 
+      className="img-fluid mb-3 rounded-top"
+      style={{ objectFit: 'cover', height: '250px' }}
+    />
+    <div className="p-3">
+      <h5 className="font-weight-bold" style={{ color: '#333' }}>{adventure.name}</h5>
+    
+
+      {/* Price and Location alignment */}
+      <div className="d-flex justify-content-between align-items-center">
+        <p className="price">KES {adventure.price}</p>
+        <p className="location text-muted"> <FaMapMarkerAlt style={{ marginRight: '5px', color: '#e91e63' }} /> {adventure.location}</p>
+      </div>
+
+      <div className="d-flex justify-content-between align-items-center mt-3">
+        <BookingButton place={adventure} />
+      </div>
+    </div>
+  </div>
+</Col>
+
           ))}
         </Row>
       )}

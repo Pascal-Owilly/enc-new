@@ -7,6 +7,7 @@ import { faPaintBrush, faExclamationCircle } from '@fortawesome/free-solid-svg-i
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import { BASE_URL } from '../config/config';
 import BookingButton from '../bookings/BookingButton';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 const CulturalFestivals = () => {
   const [festivals, setFestivals] = useState([]);
@@ -45,10 +46,14 @@ const CulturalFestivals = () => {
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <Container className="">
-      <h5 className="text-center ">
-        <FontAwesomeIcon icon={faMusic} /> Cultural Festivals
-      </h5>
+    <Container fluid className="mt-2">
+<h5 className="text-center">
+  <FontAwesomeIcon icon={faMusic} /> Cultural Festivals
+</h5>
+<p className="text-center" style={{ fontStyle: 'italic', color: '#555', maxWidth: '600px', margin: '0 auto 1.5rem' }}>
+  Experience the rhythm, color, and spirit of local traditions through vibrant festivals that celebrate art, music, and community.
+</p>
+
 
       {loading ? (
         <div className="dot-loader">
@@ -69,18 +74,36 @@ const CulturalFestivals = () => {
                     className="festival-image" 
                   />
 
-                  <div className="festival-details p-3">
-                    <h5>{festival.name}</h5>
-                    <Badge bg="success">⭐ {festival.average_rating || 'N/A'}</Badge>
-                    <p>{festival.description || 'No description available.'}</p>
-                    <p><strong>Duration:</strong> {festival.duration || 'N/A'}</p>
+<div className="festival-details p-3" style={{ fontFamily: "'Poppins', sans-serif" }}>
+  <h5 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>{festival.name}</h5>
 
-                    <div className="d-flex justify-content-between mt-3">
-                      <div className="card-footer text-center">
-                        <BookingButton place={festival} />
-                      </div>
-                    </div>
-                  </div>
+  {/* Price and location in one line */}
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      fontSize: '0.95rem',
+      marginBottom: '0.8rem',
+      color: '#444',
+    }}
+  >
+    <span style={{ color: '#773697', fontWeight: '500' }}>
+      {festival.price ? `KES ${festival.price}` : 'Free'}
+    </span>
+
+    <span style={{ display: 'flex', alignItems: 'center' }}>
+      <FaMapMarkerAlt style={{ color: '#e91e63', marginRight: '4px' }} />
+      {festival.location || 'N/A'}
+    </span>
+  </div>
+
+  {/* Booking Button */}
+  <div className="text-center mt-3">
+    <BookingButton place={festival} />
+  </div>
+</div>
+
                 </div>
               </Col>
             ))}

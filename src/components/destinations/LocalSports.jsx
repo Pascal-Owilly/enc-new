@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFutbol } from '@fortawesome/free-solid-svg-icons';
 import { BASE_URL } from '../config/config';
 import BookingButton from '../bookings/BookingButton';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 const LocalSports = () => {
   const [sports, setSports] = useState([]); // State to store fetched sports
@@ -51,7 +52,7 @@ const LocalSports = () => {
   };
 
   return (
-    <Container className="">
+    <Container fluid className="">
       <h5 className="text-center "><FontAwesomeIcon icon={faFutbol} /> Local Sports</h5>
 
       {loading ? (
@@ -83,9 +84,8 @@ const LocalSports = () => {
                   </Col>
                   <Col md={6}>
                     <h5>{sport.name}</h5>
-                    <Badge bg="success" className="mb-3">⭐ {sport.rating}</Badge>
-                    <p>{sport.description}</p>
-                    <p><strong>Duration:</strong> {sport.duration}</p>
+                    <p>{sport.price}</p>
+                    <p> <FaMapMarkerAlt style={{ color: '#e91e63', marginRight: '4px' }} /> {sport.location}</p>
                     <div className="d-flex">
                     <BookingButton place={sport} />
 

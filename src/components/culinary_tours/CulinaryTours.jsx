@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Badge, Carousel } from 'react-bootstrap';
+import { Container, Row, Col, Card, Badge, Carousel, Button } from 'react-bootstrap';
 import { BASE_URL } from '../config/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faClock, faStar } from '@fortawesome/free-solid-svg-icons';
@@ -10,18 +10,18 @@ const CulinaryToursPage = () => {
   const [adventures, setAdventures] = useState([]);
   const [loading, setLoading] = useState(true);
   const [imageSwitch, setImageSwitch] = useState(true);
-  const category = "culinary_tours";
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8; // Number of cards per page
 
   useEffect(() => {
     const fetchAdventures = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=${category}`);
+        const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=culinary_tours`);
         if (!response.ok) {
           throw new Error('Failed to fetch adventures');
         }
         const data = await response.json();
-        console.log('Culinary tours', data);
         setAdventures(data);
       } catch (error) {
         console.error('Error fetching adventures:', error);
@@ -31,18 +31,31 @@ const CulinaryToursPage = () => {
     };
 
     fetchAdventures();
-  }, [category]);
+  }, []);
 
-  // Image toggle logic
   useEffect(() => {
     const interval = setInterval(() => {
       setImageSwitch((prev) => !prev);
-    }, 5000); // Switch every 5 seconds
-    return () => clearInterval(interval); // Clean up interval on unmount
+    }, 4000);
+    return () => clearInterval(interval);
   }, []);
 
+  // Calculate the current items to display
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = adventures.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(adventures.length / itemsPerPage);
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
   return (
-    <Container fluid>
+    <Container fluid className="full-background">
       <Row>
         {loading ? (
           <div className="dot-loader">
@@ -63,10 +76,8 @@ const CulinaryToursPage = () => {
                     style={{ maxHeight: '400px', objectFit: 'cover' }}
                   />
                   <Carousel.Caption>
-                    <h3 style={{ fontSize: '1.5em', fontWeight: 'bold', color: '#fff', textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>
-                      Culinary Tours
-                    </h3>
-                    <p className="text-left">
+                    <h3 className="carousel-title text-white  ">Culinary Tours</h3>
+                    <p className="text-left" style={{color:'yellow', fontWeight:'bold'}}>
                       Experience the joy of tasting traditional and modern recipes, savor exquisite dishes, and immerse yourself 
                       in the rich flavors of different cuisines. 
                     </p>
@@ -77,42 +88,43 @@ const CulinaryToursPage = () => {
             </Carousel>
 
             {/* Tour Cards */}
-            <Row>
-              {adventures.map((adventure) => (
-                <Col md={6} className="mb-2" key={adventure.id}>
-                  <Card className="tour-card shadow-lg">
-                    <Card.Img
-                      variant="top"
-                      src={`${BASE_URL}${adventure.pictures}`}
-                      alt={adventure.title}
-                      className="tour-image"
-                    />
-                    <Card.Body>
-                      <Badge bg="success" className="mb-2">
-                        <FontAwesomeIcon icon={faStar} /> {adventure.average_rating}
-                      </Badge>
-                      <Card.Title className="tour-title">{adventure.name}</Card.Title>
-                      <Card.Text>
-                        <FontAwesomeIcon icon={faMapMarkerAlt} className="text-primary me-2" />
-                        {adventure.location}
-                      </Card.Text>
-                      <Card.Text>
-                        <FontAwesomeIcon icon={faClock} className="text-warning me-2" />
-                        Duration: {adventure.duration}
-                      </Card.Text>
-                      <Card.Text className="tour-description">
-                        {adventure.description}
-                      </Card.Text>
-                      <div className="d-flex align-items-center">
-                        <div className="card-footer text-center">
-                          <BookingButton place={adventure} />
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
+           <Row>
+            {currentItems.map((adventure) => (
+              <Col xs={12} sm={6} md={4} lg={3} className="mb-4" key={adventure.id}>
+                <Card className="tour-card shadow-lg">
+                  <Card.Img
+                    variant="top"
+                    src={`${BASE_URL}${adventure.pictures}`}
+                    alt={adventure.title}
+                    className="tour-image"
+                  />
+                  <Card.Body>
+                    <Card.Title className="tour-title">{adventure.name}</Card.Title>
+                    <Card.Text>
+                      <FontAwesomeIcon icon={faMapMarkerAlt} className="text-primary me-2" />
+                      {adventure.location}
+                    </Card.Text>
+                  {/*  <Card.Text className="tour-description">
+                      {adventure.price}
+                    </Card.Text>*/}
+                    <div className="text-center">
+                      <BookingButton place={adventure} />
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+
+            {/* Pagination Buttons */}
+            <div className="d-flex justify-content-between mt-4">
+              <Button onClick={handlePrev} disabled={currentPage === 1}>
+                Previous
+              </Button>
+              <Button onClick={handleNext} disabled={currentPage === totalPages}>
+                Next
+              </Button>
+            </div>
           </Col>
         )}
       </Row>
