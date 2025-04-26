@@ -3,77 +3,64 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  background-color: ; /* Light background for contrast */
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  margin: auto;
-  position: relative; /* Enables positioning for overlay */
+  padding: 20px;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
 }
 
 .contact-title {
-  color: #000042; /* Dark blue for title */
-  margin-bottom: 0.5rem;
-  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
 }
 
 .contact-description {
-  font-size: 1.1rem;
-  color: #666; /* Gray for description */
-  text-align: center;
-  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.contact-info {
+  margin-bottom: 20px;
 }
 
 .contact-form {
   width: 100%;
+  max-width: 500px;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
-}
-
-label {
-  font-size: 1.1rem;
-  color: #000042; /* Dark blue for label */
-  display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 15px;
 }
 
 input,
 textarea {
   width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ddd; /* Light border */
+  padding: 10px;
   border-radius: 5px;
+  border: none;
   font-size: 1rem;
-  transition: border-color 0.3s;
 }
 
-input:focus,
-textarea:focus {
-  border-color: #fdeb3d; /* Yellow border on focus */
-  outline: none; /* Remove default outline */
+textarea {
+  resize: none;
 }
 
 .contact-btn {
-  padding: 1rem;
-  background-color: #000042; /* Dark blue button */
-  color: white;
+  background-color: #fff;
+  color: #333;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.contact-btn:hover {
-  background-color: #fdeb3d; /* Yellow on hover */
-}
-
-.response-message {
-  margin-top: 1rem;
   font-size: 1rem;
-  color: #28a745; /* Green for success message */
-  text-align: center;
+}
+
+.contact-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.success-message {
+  color: #4CAF50; /* Green color for success messages */
+  margin-top: 20px;
 }

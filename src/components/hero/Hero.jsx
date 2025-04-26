@@ -16,12 +16,27 @@ const images = [
   car
 ];
 
-const captions = [
-  "Indulge in Exquisite Culinary Delights!",
-  "Explore the Wonders of Virtual Reality!",
-  "Discover Vibrant Farmers Markets!",
-  "Embark on Breathtaking Nature Hikes!",
-  "Unleash Your Spirit of Adventure on the Road!"
+const badgeDetails = [
+  {
+    name: "🍲 The Flavor Hunter",
+    description: "For those who chase spices, stories, and secret recipes."
+  },
+  {
+    name: "🧠 Mind-Bender Explorer",
+    description: "Reality? Overrated. You see dimensions the rest of us dream about."
+  },
+  {
+    name: "🥕 Harvest Hopper",
+    description: "You don’t shop—you forage with flair and local love."
+  },
+  {
+    name: "🏞️ Trail Whisperer",
+    description: "Your footprints belong in poetry and pine needles."
+  },
+  {
+    name: "🛣️ Roam Commander",
+    description: "You live off maps, detours, and unforgettable playlists."
+  }
 ];
 
 // Define links for each slide
@@ -71,11 +86,10 @@ export default function HeroSection() {
       ></div>
       <div className="d-flex flex-column justify-content-center align-items-center h-100 text-white text-center p-4 position-relative">
         <h3 className="display-3 font-weight-bold mb-4 text-white">
-          {captions[currentIndex]}
+          {badgeDetails[currentIndex].name}
         </h3>
-
         <p className="lead mb-4 text-white" style={{ fontFamily: 'Roboto, sans-serif' }}>
-          Explore stunning destinations and create unforgettable memories.
+          {badgeDetails[currentIndex].description}
         </p>
 
         <Link to={links[currentIndex]} style={{ listStyleType: 'none', textDecoration: 'none' }}>
@@ -105,4 +119,4 @@ export default function HeroSection() {
       </div>
     </div>
   );
-}
+} 

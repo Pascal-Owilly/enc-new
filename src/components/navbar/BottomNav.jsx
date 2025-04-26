@@ -69,7 +69,7 @@ const NavigationBar = () => {
         width: "100%",
       }}
     >
-   <div
+   <div className='bottom-nav-link'
   style={{
     fontSize: "0.9rem",  // Smaller font size
     fontWeight: "600",   // Slightly bolder text
@@ -86,15 +86,15 @@ const NavigationBar = () => {
 
       <div className="d-none d-sm-block" style={{ display: "flex", gap: "10px" }}>
         {links.map((link) => (
-          <a
-          className="mx-2"
+          <a 
+          className="mx-2 bottom-nav-link"
             key={link.href}
             href={link.href}
             style={{
               textDecoration: "none",
-              color: "#333",
-              fontSize: "1rem",
-              fontWeight: "500",
+              
+              // fontSize: "1rem",
+              // fontWeight: "500",
             }}
           >
             {link.label}

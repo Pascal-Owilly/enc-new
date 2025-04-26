@@ -85,23 +85,20 @@ const FAQ = () => {
       <div className="faq-page">
         <Parallax speed={-5}>
           <header className="faq-header">
-            <h5>Welcome to Enceptics</h5>
-            <p>Your Purpose-Driven Vacation Partner</p>
+            <h3 className='text-white'>Welcome to Enceptics</h3>
+            <p>The “Vacation With a Purpose” Movement</p>
           </header>
         </Parallax>
 
         <animated.section style={fadeIn} className="faq-intro">
           <p>
-            At Enceptics, we specialize in vacations with a purpose. Whether
-            you're an agriculture lover seeking insight into farming, a
-            culinary enthusiast exploring local flavors, or a nature lover
-            immersing in serene landscapes, we have something for everyone.
+           
+            We’re not selling vacations. We’re unlocking people’s inner artist, foodie, adventurer, and learner.
+            So, instead of pushing bookings, we’ll sell the transformation:
+            “Don’t just take a break. Take something home with you.”
+            We lead with the purpose, not the product.
           </p>
-          <p>
-            Our goal for the next five years is to expand into new markets,
-            bringing our unique travel experiences to <strong>over 25 countries</strong> and
-            reaching <strong>over 1.5 million users</strong>.
-          </p>
+          
         </animated.section>
 
        <section className="faq-categories">
