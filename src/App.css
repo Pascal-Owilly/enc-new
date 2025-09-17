@@ -174,7 +174,7 @@ body {
   flex-direction: column; /* Stack items vertically */
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: auto !important;
   position: absolute;
   top: 0;
   left: 0;
@@ -253,3 +253,7 @@ body {
     margin-bottom: 1rem !important; /* my-4 */
 }
 
+body{
+  background: linear-gradient(90deg, #34B7F1, #34E595) !important;
+
+}

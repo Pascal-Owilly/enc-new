@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import './MicroAdventure.css';
-import hero2 from '../../assets/hero/hero2.jpg'; // Fallback image
+import hero2 from '../../assets/hero/hero2.jpg';
 import { BASE_URL } from '../config/config';
 import BookingButton from '../bookings/BookingButton';
-import { FaInfoCircle } from 'react-icons/fa';
+import { FaInfoCircle, FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
 
 const MicroAdventure = () => {
     const [adventures, setAdventures] = useState([]);
     const [wishlisted, setWishlisted] = useState([]);
     const [loading, setLoading] = useState(true);
-    const category = "micro_adventure";
+    const category = "adventure_outdoors";
 
     useEffect(() => {
         const fetchAdventures = async () => {
             try {
-                setLoading(true); // Start loading
+                setLoading(true);
                 const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=${category}`);
                 const data = await response.json();
-                console.log('Backend Response:', data); // Log the data to inspect
                 setAdventures(data);
                 setWishlisted(Array(data.length).fill(false));
             } catch (error) {
                 console.error('Error fetching adventures:', error);
             } finally {
-                setLoading(false); // End loading
+                setLoading(false);
             }
         };
     
@@ -38,162 +37,84 @@ const MicroAdventure = () => {
     };
 
     return (
-        <div className="micro-adventure-page container m-auto">
-            <span 
-                className="hero-banne text-center" 
-                style={{
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    borderRadius: '100px',
-                }}
-            >
-                <h4 className="text-center text-dark all-headings4 fade-in" style={{textTransform:'capitalize'}}>Micro-Adventure</h4>
-
-<p>Quick, exciting escapes close to home—perfect for busy schedules. Discover hidden gems, local secrets, and make lasting memories without the hassle.</p>
-            </span>
-            <br />
-
-            {loading ? (
-                <div className="loading-indicator">
-                    <div className="dot-loader">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+        <div className="micro-adventure-page">
+            <div className="hero-banner">
+                <div className="hero-content">
+                    <h1 className="hero-title">Micro-Adventures</h1>
+                    <p className="hero-description">Quick, exciting escapes for busy schedules. Discover hidden gems, local secrets, and make lasting memories without the hassle.</p>
                 </div>
-            ) : (
-                <div className="row">
-                    <div className="col-md-10">
-                        <div className="row">
-                            {adventures.length > 0 ? (
-                                adventures.map((adventure, index) => (
-                                    <AdventureItem
-                                        key={adventure.id}
-                                        title={adventure.name}
-                                        description={adventure.description}
-                                        rating={adventure.average_rating || "N/A"}
-                                        reviewCount={adventure.total_reviews || 0}
-                                        image={adventure.pictures}
-                                        wishlisted={wishlisted[index]}
-                                        toggleWishlist={() => toggleWishlist(index)}
-                                        reviewLink={`/reviews/${adventure.id}`} 
-                                        adventure={adventure} // Pass the adventure object
-                                    />
-                                ))
-                            ) : (
-                                <p className="text-center">
-<FaInfoCircle size={50} color="#6c757d" />
-          <p className="mt-3 text-muted">No adventures found. at the moment. Please check back later!</p>
-                                </p>
+            </div>
 
-                            )}
+            <div className="content-section">
+                {loading ? (
+                    <div className="loading-indicator">
+                        <div className="dot-loader">
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </div>
-                    </div>  
-                    <div className="col-md-2"></div>
-                </div>
-            )}
+                    </div>
+                ) : (
+                    <div className="adventure-list">
+                        {adventures.length > 0 ? (
+                            adventures.map((adventure, index) => (
+                                <AdventureItem
+                                    key={adventure.id}
+                                    title={adventure.name}
+                                    description={adventure.description}
+                                    // Fix applied here: provide a default numeric value
+                                    rating={adventure.average_rating || 4.5} 
+                                    reviewCount={adventure.total_reviews || 0}
+                                    image={adventure.pictures}
+                                    wishlisted={wishlisted[index]}
+                                    toggleWishlist={() => toggleWishlist(index)}
+                                    adventure={adventure}
+                                />
+                            ))
+                        ) : (
+                            <div className="no-adventures-found">
+                                <FaInfoCircle size={50} color="#6c757d" />
+                                <p className="mt-3 text-muted">No adventures found at the moment. Please check back later!</p>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
 
-const AdventureItem = ({ title, description, rating, reviewCount, image, wishlisted, toggleWishlist, reviewLink, adventure }) => {
-    const [newRating, setNewRating] = useState(0);
-    const [newComment, setNewComment] = useState('');
-    const [reviewing, setReviewing] = useState(false);
-    const [reviews, setReviews] = useState([]);
-    const [error, setError] = useState('');
-
-    const handleReviewSubmit = async (e) => {
-        e.preventDefault();
-
-        if (newRating === 0) {
-            setError('Please select a rating!');
-            return;
-        }
-
-        try {
-            const response = await fetch(`${BASE_URL}profile/reviews/${adventure.id}/add_review/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-                },
-                body: JSON.stringify({ rating: newRating, comment: newComment }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setReviews([...reviews, data]);
-                setNewRating(0);
-                setNewComment('');
-                setError('');
-            } else {
-                const data = await response.json();
-                setError(data.error || 'Failed to submit review.');
-            }
-        } catch (error) {
-            console.error('Error submitting review:', error);
-            setError('An error occurred while submitting your review. Please try again.');
-        }
-    };
-
-    const toggleReviewForm = () => {
-        setReviewing(!reviewing);
-        setError('');
-    };
-
-    useEffect(() => {
-        const fetchReviews = async () => {
-            try {
-                const response = await fetch(`${BASE_URL}profile/reviews/${adventure.id}/get_reviews/`);
-                const data = await response.json();
-                setReviews(data);
-            } catch (error) {
-                console.error('Error fetching reviews:', error);
-            }
-        };
-
-        fetchReviews();
-    }, [adventure.id]);
+const AdventureItem = ({ title, description, rating, reviewCount, image, wishlisted, toggleWishlist, adventure }) => {
+    const defaultImage = "https://images.unsplash.com/photo-1517394553531-d85c2c77603c?fit=crop&w=1920&q=80";
+    const imageUrl = image ? `${BASE_URL}${image}` : defaultImage;
 
     return (
-        <div className="col-md-6 mb-4">
-            <div className="adventure-item d-flex flex-column flex-md-row align-items-start">
-                <div className="adventure-image">
-                    <img
-                        src={`${BASE_URL}${image}`}
-                        alt={title}
-                        className="img-fluid rounded"
-                        onError={(e) => (e.target.src = hero2)}
-                    />
-                </div>
-                <div className="adventure-text ms-md-3 mt-3 mt-md-0">
-                    <h4 className="text-secondary" style={{fontSize:'18px', fontWeight:'600'}}>{title}</h4>
-                    <p
-  className="adventure-meta text-secondary"
-  title={`KES ${adventure.price} | ${adventure.location}`}
->
-  <span style={{ fontWeight: '600', color: '#4CAF50' }}>KES {adventure.price}</span>
-  <span style={{ margin: '0 8px', color: '#ccc' }}>|</span>
-  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#555' }}>
-    <i className="bi bi-geo-alt-fill" style={{ color: '#e91e63' }}></i> 
-    <span style={{
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-      maxWidth: '120px',
-      display: 'inline-block',
-    }}>
-      {adventure.location}
-    </span>
-  </span>
-</p>
-
-                    <div className="d-flex align-items-center mt-3">
-                        <BookingButton place={adventure} />
+        <div className="adventure-card">
+            <div className="card-header">
+                <img
+                    src={imageUrl}
+                    alt={title}
+                    className="card-image"
+                    onError={(e) => (e.target.src = defaultImage)}
+                />
+                <button className="wishlist-btn" onClick={toggleWishlist}>
+                    {wishlisted ? <FaHeart color="red" /> : <FaRegHeart color="white" />}
+                </button>
+            </div>
+            <div className="card-body">
+                <div className="card-meta">
+                    <span className="location text-dark">{adventure.location}</span>
+                    <div className="rating">
+                        <FaStar color="#FFD700" />
+                        {/* Fix applied here: conditional check for rating type */}
+                        <span>{typeof rating === 'number' ? rating.toFixed(1) : 'N/A'}</span>
                     </div>
                 </div>
-                {error && <div className="error-message alert alert-danger mt-4">{error}</div>}
+                <h4 className="card-title">{title}</h4>
+                <p className="card-description">{description}</p>
+                <div className="card-footer">
+                    <BookingButton place={adventure} />
+                </div>
             </div>
         </div>
     );

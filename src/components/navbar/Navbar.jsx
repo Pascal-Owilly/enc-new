@@ -1,75 +1,91 @@
 import React, { useState, useEffect, useContext } from "react";
-import "./Navbar.css"; 
+import "./Navbar.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../assets/logo/enc_logo.png';
-import messageIcon from '../../assets/images/message_icon.png';
 import defaultProfile from '../../assets/images/default.svg';
-import { FaSearch, FaBars, FaTimes, FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp, FaShareAlt } from 'react-icons/fa';
-import { FaUser, FaHome, FaSignOutAlt, FaSignInAlt, FaUserPlus } from 'react-icons/fa';  // Import icons
-import BottomNav from './BottomNav';
-import { useNavigate } from 'react-router-dom';
-import AuthContext from '../auth/AuthContext';  // Adjust the import path as needed
+
+import { 
+  FaSearch, 
+  FaBars, 
+  FaTimes, 
+  FaUser, 
+  FaHome, 
+  FaSignOutAlt, 
+  FaSignInAlt, 
+  FaUserPlus,
+  FaFacebook, 
+  FaTwitter, 
+  FaInstagram, 
+  FaLinkedin,
+  FaWhatsapp,
+  FaShareAlt,
+} from 'react-icons/fa';
+
+import { FiPhone } from "react-icons/fi";
 import { MessageCircleMore } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../auth/AuthContext';
 
 const Navbar = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [isAuthenticated, setIsAuthenticated] = useState(false); 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
-  const navigate = useNavigate()
-  const { user } = useContext(AuthContext);  // Get user from context
-  const [hovered, setHovered] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  const [currentCategory, setCurrentCategory] = useState("Journey with Purpose");
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const categories = ["Journey with Purpose", "Explore Your Passions", "Savor Your Desires", "Share your story"];
 
   const handleLogout = () => {
-    // Handle logout and clear auth token
     localStorage.removeItem("authToken");
     setIsAuthenticated(false);
     window.location.reload();
-    console.log("Logged out successfully.");
   };
+
+    useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentCategory((prevCategory) => {
+        const currentIndex = categories.indexOf(prevCategory);
+        const nextIndex = (currentIndex + 1) % categories.length;
+        return categories[nextIndex];
+      });
+    }, 3000); 
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, [categories]);
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    if (token) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
+    setIsAuthenticated(!!token);
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Change scroll threshold to 50px for sticky behavior
-      if (window.scrollY > 50) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
+      setIsSticky(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const socialLinks = [
     { href: "https://facebook.com", icon: <FaFacebook /> },
-    { href: "https://twitter.com", icon: <FaTwitter /> },
+    // { href: "https://twitter.com", icon: <FaTwitter /> },
     { href: "https://instagram.com", icon: <FaInstagram /> },
-    { href: "https://linkedin.com", icon: <FaLinkedin /> },
+    // { href: "https://linkedin.com", icon: <FaLinkedin /> },
   ];
 
   const handleShare = async () => {
-    const shareData = {
-      title: "Check this out!",
-      text: "I found something interesting to share with you.",
-      url: window.location.href,
-    };
-
     if (navigator.share) {
       try {
-        await navigator.share(shareData);
-        console.log("Content shared successfully!");
+        await navigator.share({
+          title: "Check this out!",
+          text: "I found something interesting to share with you.",
+          url: window.location.href,
+        });
       } catch (err) {
         console.error("Error sharing content:", err);
       }
@@ -78,355 +94,296 @@ const Navbar = () => {
     }
   };
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  // Search
-  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchInputChange = (e) => setSearchQuery(e.target.value);
 
-
- // Function to handle search input changes
- const handleSearchInputChange = (e) => {
-  setSearchQuery(e.target.value);
-};
-
-  // Function to handle the search button click
   const handleSearch = () => {
-    console.log("Search Query:", searchQuery);
-    // Check if searchQuery is not empty before navigating
-    if (searchQuery.trim() !== '') {
+    if (searchQuery.trim()) {
       navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
       window.location.reload();
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') handleSearch();
+  };
+
   return (
-    <div className={`navbar ${isSticky ? "sticky" : ""}`}>
+    <header className={`navbar ${isSticky ? "sticky" : ""}`}>
+      {/* Top Bar */}
       <div className="top-bar">
-        <div className="logo-location">
-          <div className="logo">
-            <a href="/">
-              <img
-                src={logo}
-                alt="Logo"
-              />
-            </a>
-          </div>
-          <div className="tuor-options">
-            <span style={{color:'#FFF'}}>Join us to have a life time experience</span>
-            {/*<select>
-              <option value="" disabled selected>
-                Select an option
-              </option>
-              <option value="exclusive">Exclusive</option>
-              <option value="inclusive">Inclusive</option>
-            </select>*/}
-          </div>
-        </div>
-
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search everything at enceptics ..."
-            value={searchQuery}
-            onChange={handleSearchInputChange}
-          />
-          <button className="search-icon" onClick={handleSearch}>
-            <FaSearch size={15} style={{color:'#333'}}/>
-          </button>
-        </div>
-
-        <div className="relative" onClick={() => navigate("/talks")} style={{cursor:'pointer'}}>
-  <div
-    className="flex items-center justify-center p-1 rounded-full bg-blue-600 hover:bg-blue-700 cursor-pointer transition duration-300 shadow-lg"
-    
-  >
-    <MessageCircleMore className="w-5 h-5 " style={{color:'#FFD700'}}/>
-  </div>
-
-  <span className="absolute top-12 left-1/2 transform -translate-x-1/2 bg-gray-800 text-sm px-3 py-1 rounded-lg shadow-md" style={{fontSize:'12px', color:'#FFD700'}}>
-    • Traveler Stories •
-  </span>
-</div>
-        &nbsp;
-
-<div className="actions" style={{ zIndex: 1000, display: 'flex', justifyContent: 'flex-end' }}>
-  {isAuthenticated ? (
-    <>
-      <div className="dropdown">
-        <img
-          className="profile-image dropdown-toggle"
-          id="profileDropdown"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          src={defaultProfile}
-          alt="Profile Icon"
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            cursor: 'pointer'
-          }}
-        />
-        <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown" style={{
-          width: "200px",
-          padding: "15px",
-          borderRadius: "8px",
-          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-          fontFamily: "'Roboto', sans-serif",
-        }}>
-        {/*  <li>
-            <a className="dropdown-item" href="/auth/profile" style={{ display: "flex", alignItems: "center", color:'#000042' }}>
-              <FaUser style={{ marginRight: "10px" }} />
-              View Profile
-            </a>
-          </li>*/}
-         
-    {user && user.role === 'property_manager' && (
-  <>
-    <hr className="dropdown-divider" />
-    <li>
-      <a
-        className="dropdown-item"
-        href="/management/property-management"
-        style={{ display: "flex", alignItems: "center", color: '#000042' }}
-      >
-        <FaHome style={{ marginRight: "10px" }} />
-        My Properties
-      </a>
-    </li>
-    <hr className="dropdown-divider" />
-
-        <li>
-      <a
-        className="dropdown-item"
-        href="/contract-signing"
-        style={{ display: "flex", alignItems: "center", color: '#000042' }}
-      >
-        <FaHome style={{ marginRight: "10px" }} />
-        My Contract
-      </a>
-    </li>
-    <hr className="dropdown-divider" />
-
-    
-  </>
-)}
-          <li>
-          <a className="dropdown-item text-danger" onClick={handleLogout} style={{ display: "flex", alignItems: "center", color:'#000042', cursor: 'pointer' }}>
-                      <FaSignOutAlt style={{ marginRight: "10px" }} />
-                      Logout
-                    </a>
-          </li>
-        </ul>
-      </div>
-    </>
-  ) : (
-    <>
-      <a className="auth-button-login btn btn-outline-primar" href="/auth/login">
-        <FaSignInAlt style={{ marginRight: "8px" }} />
-        Login
-      </a>
-      <a href="/auth/signup" className="auth-button-signup btn " style={{ color: '#333' }}>
-        <FaUserPlus style={{ marginRight: "8px" }} />
-        Sign Up
-      </a>
-    
-    </>
-  )}
-</div>
-        <button className="burger-icon" style={{background:'transparent'}} onClick={toggleSidebar}>
-          <FaBars />
-        </button>
-      </div>
-
-      {/* Sidebar Menu */}
-      <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', background:'#ddd', color:'#333'}}>
-  <div>
-    <div className="sidebar-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
-      <div className="tuor-options " style={{background:'#000042', color:'#ddd', marginTop:'-1px', borderRadius:'30px', padding:'3px 15px 3px 15px', width:'100%  '}}>
-        <span style={{ fontWeight: '', marginBottom: '', fontSize:'10px' }}>Join us to have a life time experience</span> <br />
-        {/*<select style={{ padding: '5px', width: '100%', marginTop:'10px' }}>
-          <option value="" disabled selected>
-            Select an option
-          </option>
-          <option value="exclusive">Exclusive</option>
-          <option value="inclusive">Inclusive</option>
-        </select>*/}
-      </div> &nbsp;
-      <div className="close-btn" onClick={toggleSidebar} style={{ cursor: 'pointer', fontSize: '20px' }}>
-        <FaTimes />
-      </div>
-    </div>
-
-    <hr style={{ margin: '10px 0' }} />
-    <div className="actions" style={{ zIndex: 1000, display: 'flex', justifyContent: 'flex-end' }}>
-  {isAuthenticated ? (
-    <>
-      <div className="dropdown">
-        <img
-          className="profile-image dropdown-toggle"
-          id="profileDropdown"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          src={defaultProfile}
-          alt="Profile Icon"
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            cursor: 'pointer'
-          }}
-        />
-        <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown" style={{
-          width: "200px",
-          padding: "15px",
-          borderRadius: "8px",
-          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-          fontFamily: "'Roboto', sans-serif",
-        }}>
-          {/*<li>
-            <a className="dropdown-item" href="/auth/profile" style={{ display: "flex", alignItems: "center", color:'#000042' }}>
-              <FaUser style={{ marginRight: "10px" }} />
-              View Profile
-            </a>
-          </li>*/}
-         
-
-<li>
-{user && user.role === 'property_manager' && (
-  <>
-    <hr className="dropdown-divider" />
-    <li>
-      <a
-        className="dropdown-item"
-        href="/management/property-management"
-        style={{ display: "flex", alignItems: "center", color: '#000042' }}
-      >
-        <FaHome style={{ marginRight: "10px" }} />
-        My Properties
-      </a>
-    </li>
-    <hr className="dropdown-divider" />
-     <li>
-      <a
-        className="dropdown-item"
-        href="/contract-signing"
-        style={{ display: "flex", alignItems: "center", color: '#000042' }}
-      >
-        <FaHome style={{ marginRight: "10px" }} />
-        My Contract
-      </a>
-    </li>
-    <hr className="dropdown-divider" />
-  </>
-)}
-
-</li>
-
-
-        
-          <li>
-          <a className="dropdown-item text-danger" onClick={handleLogout} style={{ display: "flex", alignItems: "center", color:'#000042', cursor: 'pointer' }}>
-                      <FaSignOutAlt style={{ marginRight: "10px" }} />
-                      Logout
-                    </a>
-          </li>
-        </ul>
-      </div>
-    </>
-  ) : (
-    <>
-     <a className="auth-button-login btn btn-outline-primar" href="/auth/login">
-        <FaSignInAlt style={{ marginRight: "8px" }} />
-        Login
-      </a>
-      <a href="/auth/signup" className="auth-button-signup btn " style={{ color: '#333' }}>
-        <FaUserPlus style={{ marginRight: "8px" }} />
-        Sign Up
-      </a>
-    </>
-  )}
-</div>
-    <hr style={{ margin: '10px 0' }} />
-  </div>
-
-  {/* Footer Section */}
-  <div style={{ padding: '10px', backgroundColor: '#f4f4f4', textAlign: 'center' }}>
-
-  <div className="input-group" style={{width:'100%'}}>
-      {/* Form Outline */}
-      <div className="form-outline" data-mdb-input-init>
-        <input type="search" id="form1"
-        placeholder="Search everything at enceptics ..."
-        className="form-control"
-        value={searchQuery}
-        onChange={handleSearchInputChange}
-         />
-
-      </div>
-      {/* Search Button */}
-      <button onClick={handleSearch} type="button" className="btn btn-s" data-mdb-ripple-init style={{background:'#000042', color:'#ddd', marginTop:'-1px'}}>
-        <FaSearch size={10}/>  
-      </button>
-
-    </div>
-
-    <hr style={{ margin: '10px 0' }} />
-    <div style={{ marginBottom: '10px', textAlign:'left' }}>
-        
-      <a href="/about" style={{ display: 'block', textDecoration: 'none', color: '#333', marginBottom: '5px' }}>About Enceptics</a>
-      <hr style={{ margin: '10px 0' }} />
-      <a href="/contact" style={{ display: 'block', textDecoration: 'none', color: '#333', marginBottom: '5px' }}>Contact Us</a>
-      <hr style={{ margin: '10px 0' }} />
-
-      <a href="/blogs" style={{ display: 'block', textDecoration: 'none', color: '#333', marginBottom: '5px' }}>Blogs</a>
-      <hr style={{ margin: '10px 0' }} />
-
-      <a href="/partners" style={{ display: 'block', textDecoration: 'none', color: '#333', marginBottom: '5px' }}>Partners</a>
-      <hr style={{ margin: '10px 0' }} />
-
-      <a href="/faqs" style={{ display: 'block', textDecoration: 'none', color: '#333', marginBottom: '5px' }}>FAQs </a>
-      <hr style={{ margin: '10px 0' }} />
-
-    </div>
-
-  </div>
-
-        <div style={{ display: "flex", gap: "15px", alignItems: "center" }}>
-          {/* Social Links */}
-          {socialLinks.map((social) => (
-            <a
-              key={social.href}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
+        {/* Logo and Branding */}
+        <div className="brand-section">
+          <a href="/" className="logo-link">
+            <img src={logo} alt="Logo" className="logo" />
+          </a>
+{/*          <div className="brand-tagline">
+               <div className='bottom-nav-link'
               style={{
-                textDecoration: "none",
-                fontSize: "1.2rem",
+                fontSize: "0.9rem",  // Smaller font size
+                fontWeight: "600",   // Slightly bolder text
+                color: '#0071ce',
+                opacity: 0.5,
+                transform: "translateY(20px)",
+                animation: "fadeInUp 1.5s ease-out forwards, parallaxEffect 5s infinite alternate",
+                transition: "transform 0.3s ease-out",
               }}
             >
-              {social.icon}
-            </a>
-          ))}
-  
-          {/* Share Button */}
-          <button
-            onClick={handleShare}
-            style={{
-              background: "transparent",
-              border: "none",
-              fontSize: "1.2rem",
-              cursor: "pointer",
-            }}
-          >
-            <FaShareAlt />
+              {currentCategory}
+            </div>
+          </div>*/}
+
+          {/* Social links for large screens */}
+  <div className="social-links d-none d-md-flex mx-5">
+  <a
+    href="tel:+254712154175"
+    style={{
+      display: "flex",
+      alignItems: "center",
+      fontFamily: "'Poppins', sans-serif",
+      fontWeight: 600,
+      fontSize: "18px",
+      color: "#4B0082",
+      gap: "8px",
+      textDecoration: "none",
+      transition: "color 0.3s ease",
+    }}
+
+    onMouseEnter={(e) => (e.target.style.color = "#8A2BE2")}
+    onMouseLeave={(e) => (e.target.style.color = "#4B0082")}
+  >
+    <FiPhone size={20} />
+    <span style={{ letterSpacing: "0.5px" }}>+254-712-154-175</span>
+  </a>
+<div
+  className="social-links d-none d-md-flex"
+  style={{ marginLeft: '2rem' }}
+>
+  <button
+
+    onClick={() => {
+      const phoneNumber = "+254712154175";
+      window.open(`https://wa.me/${phoneNumber}`, '_blank');
+    }}
+
+    aria-label="Contact us on WhatsApp"
+    style={{
+      padding: '6px 6px 6px 6px',
+      borderRadius: '50%',
+      backgroundColor: '#25D366',
+      border: 'none',
+      width: '45px',
+      height: '45px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+      cursor: 'pointer',
+      transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.transform = 'scale(1.1)';
+      e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.2)';
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.transform = 'scale(1)';
+      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+    }}
+  >
+    
+    <span style={{ fontSize: '1.5rem', lineHeight: '1' }}>
+      <FaWhatsapp style={{ color: 'white' }} />
+    </span>
+  </button>
+</div>
+          </div>
+        </div>
+      
+        {/* Search Bar */}
+        <div className={`search-container ${isSearchFocused ? "focused" : ""}`}>
+         <input
+            type="text"
+            placeholder="🔍 What's your next hobby adventure?"
+            value={searchQuery}
+            onChange={handleSearchInputChange}
+            onKeyPress={handleKeyPress}
+            onFocus={() => setIsSearchFocused(true)}
+            onBlur={() => setIsSearchFocused(false)}
+          />
+
+          <button className="search-button" onClick={handleSearch}>
+            <FaSearch className="search-icon" />
           </button>
         </div>
+
+          {/* Stories Button */}
+
+<div
+  className="stories-button ms-5 ms-md-2"
+  onClick={() => navigate("/talks")}
+  style={{ marginRight: '10px' }}
+>
+  <div className="stories-icon-container ms-5">
+    <MessageCircleMore className="stories-icon" />
+  </div>
+  <span className="stories-tooltip">Traveler Stories</span>
 </div>
-    </div>
+
+<div
+  className="action-buttons ms-0 ms-md-4"
+  style={{ marginRight: '10px' }}
+>
+  <button className="mobile-menu-button" onClick={toggleSidebar}>
+    <FaBars />
+  </button>
+
+  {/* Auth Buttons - hidden on mobile */}
+  <div className="auth-section d-none d-md-flex">
+    {isAuthenticated ? (
+      <div className="profile-dropdown" onClick={() => setDropdownVisible(!dropdownVisible)}>
+        <img
+          src={defaultProfile}
+          alt="Profile"
+          className="profile-image mx-3"
+        />
+        {dropdownVisible && (
+          <div className="dropdown-menu show">
+            {user?.role === 'property_manager' && (
+              <>
+                <a href="/management/property-management" className="dropdown-item">
+                  <FaHome className="dropdown-icon" />
+                  My Properties
+                </a>
+                <a href="/contract-signing" className="dropdown-item">
+                  <FaHome className="dropdown-icon" />
+                  My Contract
+                </a>
+              </>
+            )}
+            <button onClick={handleLogout} className="dropdown-item logout">
+              <FaSignOutAlt className="dropdown-icon" />
+              Logout
+            </button>
+          </div>
+        )}
+      </div>
+    ) : (
+      <>
+        <a href="/auth/login" className="auth-button login">
+          <FaSignInAlt className="auth-icon" />
+          Login
+        </a>
+        <a href="/auth/signup" className="auth-button signup">
+          <FaUserPlus className="auth-icon" />
+          Sign Up
+        </a>
+      </>
+    )}
+  </div>
+</div>
+      </div>
+
+      {/* Mobile Sidebar */}
+      <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
+        <div className="sidebar-header">
+          <div className="sidebar-brand-tagline">
+            <span>Join us for a lifetime experience</span>
+          </div>
+          <button className="sidebar-close-button" onClick={toggleSidebar}>
+            <FaTimes />
+          </button>
+        </div>
+
+        <div className="sidebar-content">
+          {/* Mobile Search */}
+          <div className="mobile-search">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+              onKeyPress={handleKeyPress}
+            />
+            <button onClick={handleSearch}>
+              <FaSearch />
+            </button>
+          </div>
+
+          {/* Mobile Auth */}
+          <div className="mobile-auth">
+            {isAuthenticated ? (
+              <div className="mobile-profile">
+                <img src={defaultProfile} alt="Profile" />
+                <div className="mobile-profile-actions">
+                  {user?.role === 'property_manager' && (
+                    <>
+                      <a href="/management/property-management">
+                        <FaHome /> My Properties
+                      </a>
+                      <a href="/contract-signing">
+                        <FaHome /> My Contract
+                      </a>
+                    </>
+                  )}
+                  <button onClick={handleLogout}>
+                    <FaSignOutAlt /> Logout
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="mobile-auth-buttons">
+                <a href="/auth/login">
+                  <FaSignInAlt /> Login
+                </a>
+                <a href="/auth/signup">
+                  <FaUserPlus /> Sign Up
+                </a>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Navigation */}
+          <nav className="mobile-nav">
+            <a href="/trip-mate" className="nav-link">TripMate</a>
+            <a href="/about">About Us</a>
+            <a href="/blogs">Blogs</a>
+            <a href="/partners">Partners</a>
+            <a href="/faqs">FAQs</a>
+            <a href="/contact">Contact Us</a>
+
+          </nav>
+
+          {/* Social Links */}
+          <div className="mobile-social">
+            {socialLinks.map((social, index) => (
+              <a key={index} href={social.href} target="_blank" rel="noopener noreferrer">
+                {social.icon}
+              </a>
+            ))}
+           <button 
+  onClick={() => {
+    const phoneNumber = "+254712154175";
+    window.open(`https://wa.me/${phoneNumber}`, '_blank');
+  }}
+  className="btn btn-success p-1 rounded-circle"
+  aria-label="Contact us on WhatsApp"
+  style={{
+
+    borderColor: '#25D366',
+    transition: 'all 0.3s ease'
+  }}
+>
+  <FaWhatsapp 
+    className="fs-4" // Bootstrap font-size utility
+    style={{ color: 'white' }}
+  />
+</button>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 };
-  
+
 export default Navbar;

@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import Resizer from 'react-image-file-resizer';
 import { BASE_URL } from '../config/config';
 import './AddPlace.css';
 
 const AddPlace = () => {
-    // Function to get the token from localStorage or sessionStorage
-    const getAuthToken = () => {
-        return localStorage.getItem('authToken');
-    };
+    const { id } = useParams(); // Get the ID from the URL parameters
+    const navigate = useNavigate(); // Hook for navigation
 
     const [selectedCategory, setSelectedCategory] = useState('');
     const [name, setName] = useState('');
@@ -18,168 +18,223 @@ const AddPlace = () => {
     const [coverImage, setCoverImage] = useState(null);
     const [destination, setDestination] = useState('');
     const [pictures, setPictures] = useState([]);
-    const [videos, setVideos] = useState([]);
-    const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isDragging, setIsDragging] = useState(false);
+    const [initialDataLoaded, setInitialDataLoaded] = useState(false);
 
-    // Categories based on your Place model CATEGORY_CHOICES
+    const getAuthToken = () => localStorage.getItem('authToken');
+
+    const isEditing = !!id; // Boolean flag: true if id exists, false otherwise
+
     const CATEGORY_CHOICES = [
-        { value: 'micro_adventure', label: 'Micro Adventure' },
-        { value: 'group_booking', label: 'Group Booking' },
-        { value: 'culinary_tours', label: 'Culinary Tours' },
+        { value: 'adventure_outdoors', label: 'Adventure & Outdoors' },
+        { value: 'food_culinary', label: 'Food & Culinary' },
         { value: 'farmers_markets', label: 'Farmers Markets' },
-        { value: 'nature_hikes', label: 'Nature Hikes' },
-        { value: 'art_workshops', label: 'Art Workshops' },
-        { value: 'cultural_festivals', label: 'Cultural Festivals' },
-        { value: 'historical_tours', label: 'Historical Tours' },
-        { value: 'community_service', label: 'Community Service' },
-        { value: 'outdoor_adventures', label: 'Outdoor Adventures' },
-        { value: 'wellness_retreats', label: 'Wellness Retreats' },
-        { value: 'local_sports_events', label: 'Local Sports Events' },
-        { value: 'music_and_dance_classes', label: 'Music and Dance Classes' },
-        { value: 'local_artisan_tours', label: 'Local Artisan Tours' },
-        { value: 'themed_photo_walks', label: 'Themed Photo Walks' },
-        { value: 'wildlife_spotting', label: 'Wildlife Spotting' },
-        { value: 'cultural_exchange', label: 'Cultural Exchange' },
-        { value: 'storytelling_nights', label: 'Storytelling Nights' },
-        { value: 'virtual_reality', label: 'Virtual Reality' },
-        { value: 'family_fun', label: 'Family Fun' },
-        { value: 'explore_the_unknown', label: 'Explore the Unknown' },
-        { value: 'sustainable_travels', label: 'Sustainable Travels' },
-        { value: 'custom_itineraries', label: 'Custom Itineraries' },
+        { value: 'culture_community', label: 'Culture & Community' },
+        { value: 'arts_creativity', label: 'Arts & Creativity' },
+        { value: 'history_heritage', label: 'History & Heritage' },
+        { value: 'wellness_lifestyle', label: 'Wellness & Lifestyle' },
+        { value: 'sports_entertainment', label: 'Sports & Entertainment' },
     ];
+
+    useEffect(() => {
+        if (isEditing) {
+            const fetchPlace = async () => {
+                const token = getAuthToken();
+                if (!token) {
+                    alert('Please log in to edit this place.');
+                    navigate('/login');
+                    return;
+                }
+                try {
+                    const response = await axios.get(`${BASE_URL}/api/manager/places/${id}/`, {
+                        headers: { 'Authorization': `Token ${token}` },
+                    });
+                    const data = response.data;
+                    setName(data.name || '');
+                    setDescription(data.description || '');
+                    setLocation(data.location || '');
+                    setPrice(data.price || '');
+                    setSize(data.size || '');
+                    setDestination(data.destination || '');
+                    setSelectedCategory(data.category_type || '');
+                    // Note: We don't pre-populate file inputs for security reasons.
+                    setInitialDataLoaded(true);
+                } catch (error) {
+                    console.error('Error fetching place data:', error);
+                    alert('Could not load place data for editing.');
+                    navigate('/management/property-management/');
+                }
+            };
+            fetchPlace();
+        } else {
+            setInitialDataLoaded(true);
+        }
+    }, [id, isEditing, navigate]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsSubmitting(true);
-    
         const token = getAuthToken();
+
         if (!token) {
-            alert('Please log in first. We’re excited to see what you’ll share!');
+            alert('Please log in first.');
             setIsSubmitting(false);
             return;
         }
-    
+
         const formData = new FormData();
         formData.append('name', name);
         formData.append('description', description);
         formData.append('location', location);
         formData.append('price', price);
         formData.append('size', size);
-        formData.append('cover_image', coverImage);
-        formData.append('destination', destination);
+        // formData.append('destination', destination);
         formData.append('category_type', selectedCategory);
-    
-        pictures.forEach((pic) => formData.append('pictures', pic));
-        videos.forEach((vid) => formData.append('videos', vid));
-    
+
+        // Only append cover image if a new one is selected
+        if (coverImage) {
+            formData.append('cover_image', coverImage);
+        }
+
+        // Only append new pictures if new ones are selected
+        if (pictures.length > 0) {
+            pictures.forEach((pic) => formData.append('images', pic));
+        }
+
         try {
-            const response = await axios.post(`${BASE_URL}/profile/places/`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Token ${token}`,
-                },
-            });
-    
-            console.log('Place added successfully:', response.data);
-            window.location.href = '/management/property-management/';
+            if (isEditing) {
+                await axios.put(`${BASE_URL}/api/manager/places/${id}/`, formData, {
+                    headers: { 'Authorization': `Token ${token}` },
+                });
+                alert('Place updated successfully!');
+            } else {
+                await axios.post(`${BASE_URL}/api/manager/places/`, formData, {
+                    headers: { 'Authorization': `Token ${token}` },
+                });
+                alert('Place added successfully!');
+            }
+            navigate('/management/property-management/'); // Redirect after success
         } catch (error) {
             console.error('Error submitting form:', error);
-            alert('There was an error submitting the form.');
+            alert(`There was an error: ${error.response?.data?.detail || error.message}`);
         } finally {
             setIsSubmitting(false);
         }
     };
 
+    // New function to handle resizing
+    const resizeFile = (file) =>
+        new Promise((resolve) => {
+            Resizer.imageFileResizer(
+                file,
+                1024,
+                1024,
+                'JPEG',
+                80,
+                0,
+                (uri) => { resolve(uri); },
+                'blob'
+            );
+        });
+
+    // Validate and resize files for images
+    const validateAndResizeImages = async (files) => {
+        const processedImages = [];
+        for (const file of files) {
+            if (file.type.startsWith('image/')) {
+                try {
+                    const resizedImage = await resizeFile(file);
+                    processedImages.push(resizedImage);
+                } catch (err) {
+                    console.error('Error resizing image:', err);
+                }
+            } else {
+                alert(`The file "${file.name}" is not an image and was skipped.`);
+            }
+        }
+        return processedImages;
+    };
+
+    const handleFileChange = async (e) => {
+        const files = e.target.files;
+        const processedImages = await validateAndResizeImages(files);
+        setPictures(processedImages);
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        setIsDragging(true);
+    };
+
+    const handleDragLeave = (e) => {
+        e.preventDefault();
+        setIsDragging(false);
+    };
+
+    const handleDrop = async (e) => {
+        e.preventDefault();
+        setIsDragging(false);
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            const processedImages = await validateAndResizeImages(files);
+            setPictures(processedImages);
+        }
+    };
+
+    if (!initialDataLoaded && isEditing) {
+        return <div className="loading-state">Loading place data...</div>;
+    }
+
     return (
-        <div className='mb-5' style={{ marginTop: '20px', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '500px', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
-            <h4>Add destination</h4>
-            <hr />
-                {/* Form Fields */}
-                <label style={{ display: 'block', marginBottom: '10px' }}>
+        <div className='add-place-container'>
+            <form onSubmit={handleSubmit} className="add-place-form">
+                <h4>{isEditing ? 'Edit Place' : 'Add New Place'}</h4>
+                <hr />
+                <label>
                     Name:
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginTop: '5px' }}
-                    />
+                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
                 </label>
-
-                <label style={{ display: 'block', marginBottom: '10px' }}>
+                <label>
                     Description:
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginTop: '5px' }}
-                    />
+                    <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
                 </label>
-
-                <label style={{ display: 'block', marginBottom: '10px' }}>
+                <label>
                     Location:
-                    <input
-                        type="text"
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        required
-                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginTop: '5px' }}
-                    />
+                    <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} required />
                 </label>
-
-                <label style={{ display: 'block', marginBottom: '10px' }}>
+                <label>
                     Price:
-                    <input
-                        type="number"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        required
-                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginTop: '5px' }}
-                    />
+                    <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
                 </label>
-
-                <label style={{ display: 'block', marginBottom: '10px' }}>
-                    Size (Add size only if you offer groups e.g 3-4 people):
-                    <input
-                        type="text"
-                        value={size}
-                        onChange={(e) => setSize(e.target.value)}
-                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginTop: '5px' }}
-                    />
+                <label>
+                    Size (e.g., 4 people):
+                    <input type="text" value={size} onChange={(e) => setSize(e.target.value)} />
                 </label>
-
-                <label style={{ display: 'block', marginBottom: '10px' }}>
+               
+                <label>
                     Cover Image:
-                    <input
-                        type="file"
-                        onChange={(e) => setCoverImage(e.target.files[0])}
-                        required
-                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginTop: '5px' }}
-                    />
+                    <input type="file" onChange={(e) => setCoverImage(e.target.files[0])} required={!isEditing} />
                 </label>
-
-                <label style={{ display: 'block', marginBottom: '10px' }}>
+                <label>
                     Pictures:
-                    <input
-                        type="file"
-                        multiple
-                        onChange={(e) => setPictures(Array.from(e.target.files))}
-                        required
-                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginTop: '5px' }}
-                    />
-                </label>
-
-
-                <label style={{ display: 'block', marginBottom: '10px' }}>
-                    Category:
-                    <select
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
-                        required
-                        style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', marginTop: '5px' }}
+                    <div
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={handleDrop}
+                        className={`drag-and-drop-area ${isDragging ? 'is-dragging' : ''}`}
                     >
+                        {pictures.length > 0 ? (
+                            <p>{pictures.length} file(s) selected.</p>
+                        ) : (
+                            <p>Drag & drop images here or click to select.</p>
+                        )}
+                        <input type="file" multiple onChange={handleFileChange} required={!isEditing} />
+                    </div>
+                </label>
+                <label>
+                    Category:
+                    <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} required>
                         <option value="">Select a category</option>
                         {CATEGORY_CHOICES.map((category) => (
                             <option key={category.value} value={category.value}>
@@ -188,9 +243,8 @@ const AddPlace = () => {
                         ))}
                     </select>
                 </label>
-
-              <button type="submit" disabled={isSubmitting} style={{ width: '100%', padding: '10px', backgroundColor: '#ffd700', color: '#333', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-                    {isSubmitting ? 'Adding Place...' : 'Add Place'}
+                <button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? (isEditing ? 'Updating...' : 'Adding...') : (isEditing ? 'Save Changes' : 'Add Place')}
                 </button>
             </form>
         </div>

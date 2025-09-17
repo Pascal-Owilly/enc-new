@@ -9,6 +9,21 @@ import {
   AccordionItemButton,
   AccordionItemPanel,
 } from "react-accessible-accordion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMountain,
+  faUtensils,
+  faPalette,
+  faLandmark,
+  faSpa,
+  faMusic,
+  faHandsHelping,
+  faCamera,
+  faLeaf,
+  faSun,
+  faGlobe,
+  faCompass,
+} from "@fortawesome/free-solid-svg-icons";
 import "react-accessible-accordion/dist/fancy-example.css";
 import "chart.js/auto";
 import "./About.css";
@@ -19,18 +34,24 @@ const ExpansionChart = () => {
       labels: ["2025", "2026", "2027", "2028", "2029", "2030"],
       datasets: [
         {
-          label: "New Countries Reached",
-          data: [1, 3, 7, 12, 18, 25],
-          borderColor: "#1e90ff",
-          backgroundColor: "rgba(30, 144, 255, 0.2)",
+          label: "Cities Reached",
+          data: [1, 5, 15, 30, 60, 100],
+          borderColor: "#2DD4BF",
+          backgroundColor: "rgba(45, 212, 191, 0.2)",
           tension: 0.4,
+          borderWidth: 3,
+          pointBackgroundColor: "#2DD4BF",
+          pointHoverRadius: 6,
         },
         {
           label: "User Growth (in thousands)",
           data: [10, 50, 150, 400, 800, 1500],
-          borderColor: "#28a745",
-          backgroundColor: "rgba(40, 167, 69, 0.2)",
+          borderColor: "#F59E0B",
+          backgroundColor: "rgba(245, 158, 11, 0.2)",
           tension: 0.4,
+          borderWidth: 3,
+          pointBackgroundColor: "#F59E0B",
+          pointHoverRadius: 6,
         },
       ],
     }),
@@ -40,23 +61,39 @@ const ExpansionChart = () => {
   const chartOptions = useMemo(
     () => ({
       responsive: true,
-      maintainAspectRatio: false, // ✅ Ensures the chart resizes properly
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           labels: {
-            font: { size: 14 },
-            color: "#333",
+            font: { size: 14, family: "'Inter', sans-serif", weight: 600 },
+            color: "#F3F4F6",
+            usePointStyle: true,
+            padding: 20,
           },
+        },
+        tooltip: {
+          backgroundColor: "#1F2937",
+          titleFont: { size: 16, weight: 600 },
+          bodyFont: { size: 14 },
+          padding: 12,
+          usePointStyle: true,
+          cornerRadius: 8,
         },
       },
       scales: {
         x: {
           grid: { display: false },
-          ticks: { color: "#555", font: { size: 12 } },
+          ticks: {
+            color: "#9CA3AF",
+            font: { size: 12, family: "'Inter', sans-serif" },
+          },
         },
         y: {
-          grid: { color: "rgba(200, 200, 200, 0.3)" },
-          ticks: { color: "#555", font: { size: 12 } },
+          grid: { color: "rgba(156, 163, 175, 0.1)" },
+          ticks: {
+            color: "#9CA3AF",
+            font: { size: 12, family: "'Inter', sans-serif" },
+          },
         },
       },
     }),
@@ -65,7 +102,10 @@ const ExpansionChart = () => {
 
   return (
     <div className="chart-container">
-      <h2 className="text-center">Enceptics Expansion Plan (2025-2030)</h2>
+      <h2 className="text-center text-3xl font-bold text-teal-100 mb-8">
+        Global Microadventure Roadmap
+      
+      </h2>
       <div className="chart-wrapper">
         <Line data={chartData} options={chartOptions} />
       </div>
@@ -73,7 +113,7 @@ const ExpansionChart = () => {
   );
 };
 
-const FAQ = () => {
+const About = () => {
   const fadeIn = useSpring({
     from: { opacity: 0, transform: "translateY(20px)" },
     to: { opacity: 1, transform: "translateY(0)" },
@@ -82,163 +122,140 @@ const FAQ = () => {
 
   return (
     <ParallaxProvider>
-      <div className="faq-page">
-        <Parallax speed={-5}>
-          <header className="faq-header">
-            <h3 className='text-white'>Welcome to Enceptics</h3>
-            <p>The “Vacation With a Purpose” Movement</p>
+      <div className="about-page">
+        <Parallax speed={-10}>
+          <header className="about-header">
+            <div className="header-content">
+              <h1>
+                <span className="gradient-text">Enceptics Adventures</span>
+              </h1>
+              <p className="subtitle">
+                Where Your Hobby Comes Alive
+              </p>
+              <p className="intro">
+                We believe that the most transformative journeys aren't always
+                across oceans. They're often just around the corner. Enceptics
+                is a community dedicated to discovering and sharing
+                **microadventures**—those brief, impactful escapes that recharge
+                the soul.
+              </p>
+            </div>
           </header>
         </Parallax>
 
-        <animated.section style={fadeIn} className="faq-intro">
+        <section className="section-container mission">
+          <h2>Our Mission </h2>
           <p>
-           
-            We’re not selling vacations. We’re unlocking people’s inner artist, foodie, adventurer, and learner.
-            So, instead of pushing bookings, we’ll sell the transformation:
-            “Don’t just take a break. Take something home with you.”
-            We lead with the purpose, not the product.
+            To empower you to find adventure companions in your own city. We
+            make it easy to discover unique local activities, from urban hiking
+            to exploring hidden art scenes, all while connecting with like-minded
+            people.
           </p>
-          
-        </animated.section>
+        </section>
 
-       <section className="faq-categories">
-  <h2 className="text-center">Who We Target</h2>
-  <p>
-    At Enceptics, we offer unique travel experiences tailored for different interests and passions. 
-    Whether you seek adventure, cultural immersion, or personal growth, our diverse travel categories 
-    ensure there’s something for everyone.
-  </p>
+        <section className="section-container features">
+          <h2>Why Choose Us?</h2>
+          <div className="feature-grid">
+            <div className="feature-item">
+              <FontAwesomeIcon icon={faCompass} />
+              <h3>Discover New Horizons</h3>
+              <p>
+                Find unique experiences you never knew existed, from secret
+                hiking trails to local food festivals.
+              </p>
+            </div>
+            <div className="feature-item">
+              <FontAwesomeIcon icon={faHandsHelping} />
+              <h3>Find Your Crew</h3>
+              <p>
+                Swipe, match, and chat with local adventurers who share your
+                passions and are ready to explore.
+              </p>
+            </div>
+            <div className="feature-item">
+              <FontAwesomeIcon icon={faLeaf} />
+              <h3>Sustainable Fun</h3>
+              <p>
+                We promote low-impact, local exploration, supporting small businesses
+                and reducing your carbon footprint.
+              </p>
+            </div>
+          </div>
+        </section>
 
-  <Accordion allowMultipleExpanded allowZeroExpanded>
-    {/* Adventure Enthusiasts */}
-    <AccordionItem>
-      <AccordionItemHeading>
-        <AccordionItemButton>Adventure Enthusiasts</AccordionItemButton>
-      </AccordionItemHeading>
-      <AccordionItemPanel>
-        <p>
-          For those who crave excitement and exploration, we offer micro-adventures, outdoor 
-          activities, and nature hikes. Whether you're scaling breathtaking trails, spotting 
-          wildlife, or diving into thrilling outdoor adventures, our experiences bring the world to life.
-        </p>
-      </AccordionItemPanel>
-    </AccordionItem>
+        <section className="section-container">
+          <ExpansionChart />
+        </section>
 
-    {/* Food Lovers & Culinary Explorers */}
-    <AccordionItem>
-      <AccordionItemHeading>
-        <AccordionItemButton>Food Lovers & Culinary Explorers</AccordionItemButton>
-      </AccordionItemHeading>
-      <AccordionItemPanel>
-        <p>
-          We cater to those with a passion for local flavors and gastronomy. From immersive 
-          culinary tours and hands-on cooking classes to discovering vibrant farmers' markets, 
-          we bring you closer to the heart of a region’s cuisine.
-        </p>
-      </AccordionItemPanel>
-    </AccordionItem>
-
-    {/* Culture & Art Seekers */}
-    <AccordionItem>
-      <AccordionItemHeading>
-        <AccordionItemButton>Culture & Art Seekers</AccordionItemButton>
-      </AccordionItemHeading>
-      <AccordionItemPanel>
-        <p>
-          For travelers eager to experience local traditions and artistry, we offer art workshops, 
-          artisan tours, and cultural festivals. Whether it’s learning the craftsmanship of local 
-          artisans or participating in storytelling nights, our experiences are deeply engaging.
-        </p>
-      </AccordionItemPanel>
-    </AccordionItem>
-
-    {/* History & Heritage Enthusiasts */}
-    <AccordionItem>
-      <AccordionItemHeading>
-        <AccordionItemButton>History & Heritage Enthusiasts</AccordionItemButton>
-      </AccordionItemHeading>
-      <AccordionItemPanel>
-        <p>
-          Those who love the past will enjoy our historical tours and cultural exchanges, 
-          where they can walk through ancient landmarks, engage in rich storytelling, 
-          and connect with local communities.
-        </p>
-      </AccordionItemPanel>
-    </AccordionItem>
-
-    {/* Wellness & Mindfulness Seekers */}
-    <AccordionItem>
-      <AccordionItemHeading>
-        <AccordionItemButton>Wellness & Mindfulness Seekers</AccordionItemButton>
-      </AccordionItemHeading>
-      <AccordionItemPanel>
-        <p>
-          For those looking to unwind, we provide wellness retreats designed for relaxation 
-          and rejuvenation. Whether it's a tranquil spa escape or a serene meditation retreat, 
-          we prioritize well-being.
-        </p>
-      </AccordionItemPanel>
-    </AccordionItem>
-
-    {/* Entertainment & Performance Lovers */}
-    <AccordionItem>
-      <AccordionItemHeading>
-        <AccordionItemButton>Entertainment & Performance Lovers</AccordionItemButton>
-      </AccordionItemHeading>
-      <AccordionItemPanel>
-        <p>
-          From music and dance classes to local sports events, our experiences immerse you 
-          in the region’s entertainment scene. Feel the rhythm, learn new moves, and cheer 
-          for local teams in an unforgettable way.
-        </p>
-      </AccordionItemPanel>
-    </AccordionItem>
-
-    {/* Community & Social Impact Travelers */}
-    <AccordionItem>
-      <AccordionItemHeading>
-        <AccordionItemButton>Community & Social Impact Travelers</AccordionItemButton>
-      </AccordionItemHeading>
-      <AccordionItemPanel>
-        <p>
-          For those looking to make a difference while traveling, our community service programs 
-          allow you to engage with local initiatives, volunteer, and leave a lasting impact.
-        </p>
-      </AccordionItemPanel>
-    </AccordionItem>
-
-    {/* Digital & Virtual Explorers */}
-    <AccordionItem>
-      <AccordionItemHeading>
-        <AccordionItemButton>Digital & Virtual Explorers</AccordionItemButton>
-      </AccordionItemHeading>
-      <AccordionItemPanel>
-        <p>
-          For modern explorers, we offer themed photo walks for capturing stunning moments, and 
-          even virtual reality experiences that transport you to new destinations without leaving 
-          your home.
-        </p>
-      </AccordionItemPanel>
-    </AccordionItem>
-  </Accordion>
-</section>
-
-
-        {/* ✅ Corrected: No need to memoize ExpansionChart */}
-        <ExpansionChart />
+        <section className="section-container accordion-section">
+          <h2>FAQs: Your Adventure Questions Answered</h2>
+          <Accordion allowZeroExpanded>
+            <AccordionItem>
+              <AccordionItemHeading>
+                <AccordionItemButton className="accordion-button">
+                  <div className="flex-center-icon">
+                    <FontAwesomeIcon icon={faMountain} className="accordion-icon" />
+                    What is a microadventure?
+                  </div>
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <p>
+                  A microadventure is a short, localized adventure—an escape from the everyday.
+                  This could be a night of wild camping, a sunrise hike, or exploring a new
+                  neighborhood for its street food. It's about finding adventure close to home.
+                </p>
+              </AccordionItemPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionItemHeading>
+                <AccordionItemButton className="accordion-button">
+                  <div className="flex-center-icon">
+                    <FontAwesomeIcon icon={faCamera} className="accordion-icon" />
+                    How do I find a trip mate?
+                  </div>
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <p>
+                  Our app uses a swipe-and-match system. Simply browse profiles of other adventurers
+                  and swipe right on those you're interested in connecting with. If they also swipe
+                  right on you, it's a match, and you can start planning your venture!
+                </p>
+              </AccordionItemPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionItemHeading>
+                <AccordionItemButton className="accordion-button">
+                  <div className="flex-center-icon">
+                    <FontAwesomeIcon icon={faGlobe} className="accordion-icon" />
+                    Is this for international travel?
+                  </div>
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <p>
+                  While you can find connections for any trip, our primary focus is on local
+                  microadventures. We aim to help you discover hidden gems and build connections
+                  in your own city first.
+                </p>
+              </AccordionItemPanel>
+            </AccordionItem>
+          </Accordion>
+        </section>
 
         <Parallax speed={5}>
-          <section className="faq-footer">
-            <h2>Partnering with Excellence</h2>
+          <animated.section style={fadeIn} className="call-to-action">
+            <h2>Ready to Start Your Adventure?</h2>
             <p>
-              Enceptics is actively working toward partnerships with leading
-              companies to provide you with unmatched vacation experiences.
+              Join the community and find your next adventure companion today.
             </p>
-          </section>
+            <button className="cta-button">Join the Journey</button>
+          </animated.section>
         </Parallax>
       </div>
     </ParallaxProvider>
   );
 };
 
-export default FAQ;
+export default About;

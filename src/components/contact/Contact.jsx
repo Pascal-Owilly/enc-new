@@ -53,7 +53,7 @@ export default function Contact() {
           </p>
           <div className="contact-info">
             <p>Email: enceptics.vacay@gmail.com</p>
-            <p>Phone: +254712154794</p>
+            <p>Phone: +254712154175</p>
           </div>
           <div className="contact-form">
             <form onSubmit={handleSubmit}>

@@ -11,7 +11,7 @@ const OutdoorAdventures = () => {
   const [adventures, setAdventures] = useState([]); // State to store fetched adventures
   const [currentPage, setCurrentPage] = useState(1); // State to manage current page
   const [loading, setLoading] = useState(true); // State to show loading indicator
-  const category = "outdoor_adventures";
+  const category = "adventure_outdoors";
   const [error, setError] = useState(null); // State for any errors during data fetching
   const itemsPerPage = 8; // Items per page for pagination
 

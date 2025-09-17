@@ -1,91 +1,138 @@
+/* Container for the entire booking component */
 .booking-component {
-    background: transparent;
-    border-radius: 10px;
-/*    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);*/
-    padding: 20px;
-    max-width: 400px;
-    transition: transform 0.2s;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
 }
 
-.booking-component:hover {
-    transform: translateY(-5px);
-}
-
-.place-detail {
+/* Rating and price section */
+.booking-header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
-.rating {
+/* Rating container */
+.rating-container {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    gap: 8px;
 }
 
-.stars {
+.rating-badge {
     display: flex;
-    margin-right: 10px;
+    align-items: center;
+    background-color: rgba(255, 215, 0, 0.15); /* Soft yellow background */
+    padding: 6px 10px;
+    border-radius: 20px;
 }
 
 .rating-value {
-    font-weight: bold;
+    margin-left: 5px;
+    font-size: 14px;
+    font-weight: 600;
     color: #333;
-    margin-right: 10px;
 }
 
-.views {
-    font-size: 0.9em;
+.review-count {
+    font-size: 13px;
     color: #666;
 }
 
-.wishlist-button {
-    cursor: pointer;
-    margin-left: auto;
-    color: #e74c3c;
-    transition: color 0.3s;
+/* Price container */
+.price-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-.wishlist-button.wished {
-    color: #2ecc71;
+.original-price {
+    font-size: 14px;
+    color: #666;
+    text-decoration: line-through;
+    opacity: 0.7;
 }
 
-.view-reviews-link {
-    margin-top: 5px;
-    font-size: 0.9em;
-    color: #007bff;
-    cursor: pointer;
+.current-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FF7E5F; /* Vibrant orange for price */
+    background-color: rgba(255, 126, 95, 0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
 }
 
-.footer {
+/* Action buttons section */
+.action-buttons {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
     align-items: center;
+    gap: 12px;
 }
 
-.details-button {
-    color: #007bff;
-    font-weight: bold;
-    text-decoration: none;
+.details-btn {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    border: 1px solid #4A90E2; /* Blue border */
+    border-radius: 8px;
+    color: #4A90E2;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none; /* For the Link component */
 }
 
-.forward-arrow {
-    margin-left: 5px;
+.details-btn:hover {
+    background-color: rgba(74, 144, 226, 0.1);
 }
 
-.booking-button {
-    background-color: blue;
+.details-btn .arrow-icon {
+    transition: transform 0.2s ease;
+}
+
+.details-btn:hover .arrow-icon {
+    transform: translateX(4px);
+}
+
+
+/* Style for when an item is "wished" */
+/*.wishlist-btn.is-wished {
+    background-color: rgba(74, 144, 226, 0.1);
+    border-color: #4A90E2;
+    color: #4A90E2;
+}*/
+
+/* Hover state for wishlist button */
+.wishlist-btn:hover {
+    border-color: #4A90E2;
+    color: #4A90E2;
+}
+
+/* Book Now button */
+.book-now-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4A90E2; /* Blue background */
+    border: none;
+    border-radius: 8px;
     color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none; /* For the Link component */
 }
 
-.booking-button:hover {
-    background-color: #218838;
+.book-now-btn:hover {
+    background-color: #3a80d6;
+    transform: translateY(-1px);
 }
+
+
+

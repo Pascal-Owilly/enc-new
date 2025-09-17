@@ -17,6 +17,8 @@ function SearchResults() {
         .get(`${BASE_URL}/api/places/search/?query=${encodeURIComponent(searchQuery)}`)
         .then((response) => {
           setResults(response.data);
+          // Log the data to inspect the structure and image paths
+          console.log("API Response Data:", response.data);
         })
         .catch((error) => {
           console.error("Error fetching search results:", error);
@@ -28,6 +30,15 @@ function SearchResults() {
       setLoading(false);
     }
   }, [searchQuery]);
+
+  // Log the final results state after it has been updated
+  useEffect(() => {
+    console.log("Current Results State:", results);
+    results.forEach((result, index) => {
+      console.log(`Result ${index} - cover_image:`, result.cover_image);
+      console.log(`Result ${index} - Image URL to render:`, `${BASE_URL}${result.cover_image}`);
+    });
+  }, [results]);
 
   // Pagination Logic
   const indexOfLastResult = currentPage * resultsPerPage;
@@ -68,7 +79,7 @@ function SearchResults() {
                     <div className="d-flex align-items-center">
                       {/* Display cover image */}
                       <img
-                        src={result.cover_image ? `${BASE_URL}${result.cover_image}` : "/placeholder.jpg"}
+                        src={result.cover_image }
                         alt={result.name}
                         className="rounded m-2 "
                         style={{ width: "100px", height: "100px", objectFit: "cover" }}

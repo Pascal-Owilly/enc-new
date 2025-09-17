@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faClock, faStar } from '@fortawesome/free-solid-svg-icons';
 import './CulinaryTours.css';
 import BookingButton from '../bookings/BookingButton';
+import { Link } from 'react-router-dom';
 
 const CulinaryToursPage = () => {
   const [adventures, setAdventures] = useState([]);
@@ -17,7 +18,7 @@ const CulinaryToursPage = () => {
     const fetchAdventures = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=culinary_tours`);
+        const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=food_culinary`);
         if (!response.ok) {
           throw new Error('Failed to fetch adventures');
         }
@@ -66,55 +67,55 @@ const CulinaryToursPage = () => {
         ) : (
           <Col lg={12}>
             {/* Carousel */}
-            <Carousel className="mb-4" controls={true} indicators={false}>
-              {adventures.map((adventure) => (
-                <Carousel.Item key={adventure.id}>
-                  <img
-                    className="d-block w-100"
-                    src={`${BASE_URL}${imageSwitch ? adventure.cover_image : adventure.pictures}`}
-                    alt={adventure.title}
-                    style={{ maxHeight: '400px', objectFit: 'cover' }}
-                  />
-                  <Carousel.Caption>
-                    <h3 className="carousel-title text-white  ">Culinary Tours</h3>
-                    <p className="text-left" style={{color:'yellow', fontWeight:'bold'}}>
-                      Experience the joy of tasting traditional and modern recipes, savor exquisite dishes, and immerse yourself 
-                      in the rich flavors of different cuisines. 
-                    </p>
-                    <h3>{adventure.title}</h3>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              ))}
-            </Carousel>
+            <div className="carousel-container">
+              <Carousel className="mb-4" controls={true} indicators={true} interval={5000}>
+                {adventures.map((adventure) => (
+                  <Carousel.Item key={adventure.id}>
+                    <Link to={`/place/${adventure.id}`}>
+                      <img
+                        className="d-block w-100"
+                        src={adventure.cover_image}
+                        alt={adventure.name}
+                      />
+                      <Carousel.Caption className="carousel-caption">
+                        <h3 className="carousel-title">Culinary Tours</h3>
+                        <p>
+                          Experience the joy of tasting traditional and modern recipes, savor exquisite dishes, and immerse yourself
+                          in the rich flavors of different cuisines.
+                        </p>
+                        <h3 className="carousel-item-title">{adventure.name}</h3>
+                      </Carousel.Caption>
+                    </Link>
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+            </div>
 
             {/* Tour Cards */}
-           <Row>
-            {currentItems.map((adventure) => (
-              <Col xs={12} sm={6} md={4} lg={3} className="mb-4" key={adventure.id}>
-                <Card className="tour-card shadow-lg">
-                  <Card.Img
-                    variant="top"
-                    src={`${BASE_URL}${adventure.pictures}`}
-                    alt={adventure.title}
-                    className="tour-image"
-                  />
-                  <Card.Body>
-                    <Card.Title className="tour-title">{adventure.name}</Card.Title>
-                    <Card.Text>
-                      <FontAwesomeIcon icon={faMapMarkerAlt} className="text-primary me-2" />
-                      {adventure.location}
-                    </Card.Text>
-                  {/*  <Card.Text className="tour-description">
-                      {adventure.price}
-                    </Card.Text>*/}
-                    <div className="text-center">
-                      <BookingButton place={adventure} />
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
+            <Row className='p-5'>
+              {currentItems.map((adventure) => (
+                <Col xs={12} sm={6} md={4} lg={3} className="mb-4" key={adventure.id}>
+                  <Card className="tour-card shadow-lg m-auto">
+                    <Card.Img
+                      variant="top"
+                      src={adventure.cover_image}
+                      alt={adventure.title}
+                      className="tour-image"
+                    />
+                    <Card.Body>
+                      <Card.Title className="tour-title">{adventure.name}</Card.Title>
+                      <Card.Text>
+                        <FontAwesomeIcon icon={faMapMarkerAlt} className="text-primary me-2" />
+                        {adventure.location}
+                      </Card.Text>
+                      <div className="text-center">
+                        <BookingButton place={adventure} />
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
 
             {/* Pagination Buttons */}
             <div className="d-flex justify-content-between mt-4">

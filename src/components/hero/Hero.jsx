@@ -1,122 +1,102 @@
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import './Hero.css';
-import culinary from './hero1.jpg';
-import vr from './hero2.jpg';
-import farm from './farm.jpg';
-import hiking from './hiking.jpg';
-import car from './car.jpg';
+import Blogs from '../../components/blogs/Blogs';
 
-const images = [
-  culinary,
-  vr,
-  farm,
-  hiking,
-  car
-];
+const HeroSection = () => {
+  const [activeCategory, setActiveCategory] = useState('All Adventures');
+  const [searchQuery, setSearchQuery] = useState(''); // State to hold search input
 
-const badgeDetails = [
-  {
-    name: "🍲 The Flavor Hunter",
-    description: "For those who chase spices, stories, and secret recipes."
-  },
-  {
-    name: "🧠 Mind-Bender Explorer",
-    description: "Reality? Overrated. You see dimensions the rest of us dream about."
-  },
-  {
-    name: "🥕 Harvest Hopper",
-    description: "You don’t shop—you forage with flair and local love."
-  },
-  {
-    name: "🏞️ Trail Whisperer",
-    description: "Your footprints belong in poetry and pine needles."
-  },
-  {
-    name: "🛣️ Roam Commander",
-    description: "You live off maps, detours, and unforgettable playlists."
-  }
-];
-
-// Define links for each slide
-const links = [
-  '/destinations/culinary-tours',  // Link for culinary image
-  '/destinations/vr-2',  // Link for VR image
-  '/destinations/farmers-markets',  
-  '/destinations/nature-hikes',  // Link for hiking image
-  '/destinations/outdoor-adventures'  // Link for car image
-];
-
-export default function HeroSection() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate(); // Hook to get the navigate function
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000);
+    const particlesContainer = document.getElementById('hero-particles-3');
+    const numberOfParticles = 30;
 
-    return () => clearInterval(interval);
+    for (let i = 0; i < numberOfParticles; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('hero-particle-3');
+      
+      const size = Math.random() * 10 + 5;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      
+      const duration = Math.random() * 10 + 15;
+      particle.style.animationDuration = `${duration}s`;
+      
+      particle.style.animationDelay = `${Math.random() * 5}s`;
+      
+      particlesContainer.appendChild(particle);
+    }
   }, []);
 
-  const goToPreviousSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  const handleCategoryClick = (category) => {
+    setActiveCategory(category);
+    console.log(`Selected category: ${category}`);
   };
 
-  const goToNextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  // New function to handle input change
+  const handleSearchInputChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
-  return (
-    <div className="position-relative hero-section" style={{ height: '100vh', overflow: 'hidden' }}>
-      <div
-        className="position-absolute w-100 h-100"
-        style={{
-          backgroundImage: `url(${images[currentIndex]})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-      <div
-        className="position-absolute bottom-0 w-100"
-        style={{
-          height: '90%',
-          background: 'linear-gradient(to top, rgba(0, 0, 139, 0.9), transparent)',
-        }}
-      ></div>
-      <div className="d-flex flex-column justify-content-center align-items-center h-100 text-white text-center p-4 position-relative">
-        <h3 className="display-3 font-weight-bold mb-4 text-white">
-          {badgeDetails[currentIndex].name}
-        </h3>
-        <p className="lead mb-4 text-white" style={{ fontFamily: 'Roboto, sans-serif' }}>
-          {badgeDetails[currentIndex].description}
-        </p>
+  // Updated function to handle the search action
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      // The `Maps` function is used to change the URL.
+      // This will take the user to a route like `/search?query=hiking`.
+      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+      
+      // Optionally reload the page to ensure fresh data, as in the inspiration.
+      window.location.reload(); 
+    } else {
+      alert("Please enter a search query.");
+    }
+  };
 
-        <Link to={links[currentIndex]} style={{ listStyleType: 'none', textDecoration: 'none' }}>
-          <button className="btn btn-light get-started-btn btn-lg d-flex align-items-center">
-            <span>Explore</span>
-            <ArrowRight className="ml-2" />
-          </button>
-        </Link>
+  // Optional: Handle search on Enter key press
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
-        {/* Controls */}
-        <div className="position-absolute bottom-4 w-100 d-flex justify-content-between px-4">
-          <button 
-            className="control-btn prev-btn mt-3"
-            onClick={goToPreviousSlide}
-            aria-label="Previous Slide"
-          >
-            <ArrowLeft />
-          </button>
-          <button 
-            className="control-btn next-btn mt-3"
-            onClick={goToNextSlide}
-            aria-label="Next Slide"
-          >
-            <ArrowRight />
-          </button>
-        </div>
+return (
+  <section className="hero-3">
+    <div className="hero-particles-3" id="hero-particles-3"></div>
+    {/* Correct placement: All content is now inside the container */}
+    <div className='container-fluid hero-content-3'>
+      <h1>
+        Discover your <span className="hero-highlight-3">passion</span> and bring it to <span className="hero-highlight-3">life</span>
+      </h1>
+      <p className="hero-subtitle-3">
+        Transform your hobbies into unforgettable adventures — experiences so good, you’ll never want to stop.
+      </p>
+
+      <div className="hero-search-box-3">
+        <input
+          type="text"
+          className="hero-search-input-3"
+          placeholder="What adventure are you looking for?"
+          id="searchInput-3"
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+          onKeyPress={handleKeyPress}
+        />
+        <button className="hero-search-btn-3" onClick={handleSearch}>
+          Explore
+        </button>
+      </div>
+
+      <div className="hero-categories-">
+        <Blogs />
       </div>
     </div>
-  );
-} 
+  </section>
+);
+};
+
+export default HeroSection;

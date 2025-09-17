@@ -14,8 +14,8 @@ const LocalSports = () => {
   const [currentPage, setCurrentPage] = useState(1); // State to manage current page
   const [loading, setLoading] = useState(true); // State to show loading indicator
   const [error, setError] = useState(null); // State for any errors during data fetching
-  const category = "local_sports_events"; // Set the category to local sports events
-  const itemsPerPage = 6; // Items per page for pagination
+  const category = "sports_entertainment"; // Set the category to local sports events
+  const itemsPerPage = 15; // Items per page for pagination
 
   // Fetch local sports events from backend API
   useEffect(() => {
@@ -53,7 +53,7 @@ const LocalSports = () => {
 
   return (
     <Container fluid className="">
-      <h5 className="text-center "><FontAwesomeIcon icon={faFutbol} /> Local Sports</h5>
+      <h5 className="text-center mt-3"><FontAwesomeIcon icon={faFutbol} /> Sports & Entertainment</h5>
 
       {loading ? (
         <div className="dot-loader">

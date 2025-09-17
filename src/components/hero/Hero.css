@@ -1,135 +1,224 @@
-@font-face {
-    font-family: 'RomanseAfthero';
-    src: url('RomanseAfthero-BF67db9ab90cde5.otf') format('opentype');
+/* General reset for a clean slate */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@font-face {
-    font-family: 'Fontspring-DEMO-theseasons-bd';
-    src: url('Fontspring-DEMO-theseasons-bd.otf') format('opentype');
-    font-weight: bold;
-    font-style: italic;
+/* Base body styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  line-height: 1.6;
 }
 
-@font-face {
-  font-family: 'Monesta-Light';
-  src: url('Monesta-Light-DEMO.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
+/* Hero section container */
+.hero-3 {
+  min-height: 100vh;
+  background: linear-gradient(
+      135deg,
+      rgba(30, 60, 114, 0.8) 0%,
+      rgba(42, 82, 152, 0.8) 100%
+    ),
+    url('https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')
+      no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
 }
 
-@font-face {
-  font-family: 'Shathika';
-  src: url('Shathika.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
+/* Hero content container */
+.hero-content-3 {
+  text-align: center;
+  max-width: 900px;
+  margin: auto	;
+  z-index: 2;
+  padding: 40px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
-/* Base styles for all screens */
-.hero-section {
-  min-height: 100vh; /* Ensures full viewport height */
-  background: blue;
+/* Main heading */
+.hero-content-3 h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-  .hero-section p {
-      font-family: 'Shathika' !important;
-      letter-spacing: 4px;
-  }
+/* Highlighted text */
+.hero-highlight-3 {
+  color: #ffd166;
+  position: relative;
+  display: inline-block;
+}
 
-.hero-section h1 {
-    font-family: 'Monesta-Light' !important;
-  }
+.hero-highlight-3::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background: rgba(255, 209, 102, 0.3);
+  z-index: -1;
+}
 
-  .get-started-btn{
-    font-family: 'Monesta-Light' !important;
-  }
+/* Subtitle paragraph */
+.hero-subtitle-3 {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 30px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+/* Search bar container */
+.hero-search-box-3 {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 50px;
+  overflow: hidden;
+}
 
-/* Hero.css */
-
-/* Base styles for control buttons */
-.control-btn {
-  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent background */
+/* Search input field */
+.hero-search-input-3 {
+  flex: 1;
+  padding: 18px 25px;
   border: none;
-  padding: 12px;
-  border-radius: 50%; /* Circular buttons */
+  font-size: 1rem;
+  outline: none;
+}
+
+/* Search button */
+.hero-search-btn-3 {
+  background: #ffd166;
+  color: #333;
+  border: none;
+  padding: 0 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-search-btn-3:hover {
+  background: #ffc44d;
+}
+
+/* Categories container */
+.hero-categories-3 {
   display: flex;
   justify-content: center;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+/* Individual categories */
+.hero-category-3 {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-  color: #003366; /* Dark blue color for the icon */
-  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
 }
 
-/* Styles for the 'previous' button */
-.prev-btn {
-/*  margin-left: 20px; */ 
+.hero-category-3:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
 }
 
-/* Styles for the 'next' button */
-.next-btn {
-/*  margin-right: 20px; */
+.hero-category-3.active {
+  background: #ffd166;
+  color: #333;
+  font-weight: 600;
+  border-color: white;
 }
 
-/* Hover and active states */
-.control-btn:hover {
-  background-color: rgba(255, 255, 255, 0.9); /* Darken the background on hover */
-  transform: scale(1.1); /* Slight zoom effect */
+/* Particles container */
+.hero-particles-3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-.control-btn:focus {
-  outline: none; /* Remove focus outline */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); /* Add a subtle shadow when focused */
+/* Individual particle */
+.hero-particle-3 {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: float 15s infinite linear;
 }
 
-/* Add some spacing between the Explore button and the control buttons */
-.get-started-btn {
-  margin-bottom: 20px; /* Adds space between the Explore button and controls */
+/* Keyframes for particle animation */
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-1000px) rotate(720deg);
+    opacity: 0;
+  }
 }
 
-/* For mobile devices (max-width: 768px) */
+/* Responsive styles for smaller screens */
 @media (max-width: 768px) {
-  .hero-section {
-    min-height: 80vh; /* Adjust height for mobile */
+  .hero-content-3 {
+    padding: 30px;
   }
 
-  .hero-section h1 {
-    font-family: 'RomanseAfthero' !important;
+  .hero-content-3 h1 {
     font-size: 2.5rem;
+    line-height: 1.2;
   }
 
-  .hero-section p {
-    font-size: 1rem; /* Smaller font size for the paragraph */
+  .hero-subtitle-3 {
+    font-size: 1.2rem;
+  }
+
+  .hero-search-box-3 {
+    flex-direction: column;
+    border-radius: 10px;
+  }
+
+  .hero-search-input-3 {
+    border-radius: 10px 10px 0 0;
+  }
+
+  .hero-search-btn-3 {
+    padding: 15px;
+    border-radius: 0 0 10px 10px;
   }
 }
 
-/* For tablet devices (min-width: 769px and max-width: 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .hero-section {
-    min-height: 80vh; /* Height for tablets */
+/* Further adjustments for very small mobile devices */
+@media (max-width: 480px) {
+  .hero-content-3 h1 {
+    font-size: 2rem;
   }
 
-  .hero-section h1 {
-    font-size: 3rem; /* Medium font size for the heading */
+  .hero-subtitle-3 {
+    font-size: 1rem;
+    line-height: 1.4;
   }
 
-  .hero-section p {
-    font-size: 1.25rem; /* Medium font size for the paragraph */
-  }
-}
-
-/* For desktop devices (min-width: 1025px) */
-@media (min-width: 1025px) {
-  .hero-section {
-    min-height: 100vh; /* Full height for desktops */
-/*    padding: 3rem; */
-  }
-
-  .hero-section h1 {
-    font-size: 4rem; /* Larger font size for the heading */
-  }
-
-  .hero-section p {
-    font-size: 1.5rem; /* Larger font size for the paragraph */
+  .hero-content-3 {
+    padding: 20px;
   }
 }

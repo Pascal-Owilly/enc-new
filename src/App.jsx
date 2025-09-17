@@ -88,6 +88,8 @@ import BookingResponse from './components/bookings/BookingResponse';
 
 // Property Management
 import PropertyManager from './components/property_management/PropertyManager';
+// TravelTinder
+import TravelTinder from './components/tripmate/TravelTinder';
 
 // Authentication
 import { AuthProvider } from "./components/auth/AuthContext";
@@ -116,7 +118,7 @@ export default function App() {
       <AuthProvider>
 
       <Navbar />
-      <BottomNav />
+      {/*<BottomNav /> */}
       <div className="page-container">
         <Routes>
           {/* Authentication Routes */}
@@ -176,7 +178,7 @@ export default function App() {
           <Route path="/destinations/community-service" element={<CommunityService />} />
           <Route path="/destinations/outdoor-adventures" element={<OutdoorAdventures />} />
           <Route path="/destinations/wellness-retreats" element={<WellnessRetreats />} />
-          <Route path="/destinations/local-sports" element={<LocalSports />} />
+          {/*<Route path="/destinations/local-sports" element={<LocalSports />} />*/}
           <Route path="/destinations/music-dance" element={<MusicAndDanceClasses />} />
           <Route path="/destinations/artisan-tours" element={<LocalArtisanTours />} />
           <Route path="/destinations/photo-walks" element={<ThemedPhotoWalks />} />
@@ -200,8 +202,9 @@ export default function App() {
           <Route path="/weather/:place_name" element={<Weather />} />
           <Route path="/talks" element={<Talks />} />
           <Route path="/talks2" element={<Talks2 />} />
+          <Route path="/trip-mate" element={<TravelTinder />} />
 
-          <Route path="/destinations/vr-2" element={<VirtualRealityTwo />} />
+          <Route path="/destinations/local-sports" element={<VirtualRealityTwo />} />
           <Route path="/destinations/tour-and-learn" element={<TourAndLearn />} />
 
           {/* Test Route */}
@@ -216,7 +219,8 @@ export default function App() {
           <Route path="/management/property-management" element={<PrivateRoute><PropertyManager /></PrivateRoute>} />
 
           <Route path="/management/property-management/add-place" element={<PrivateRoute><AddPlace /></PrivateRoute>} />
-          
+          <Route path="/management/property-management/edit/:id" element={<PrivateRoute><AddPlace /></PrivateRoute>} />
+
           {/*Search*/}
           <Route path="/search" element={<SearchResults />} />
           <Route path="/result/:id" element={<Places />} />
@@ -230,7 +234,6 @@ export default function App() {
 
           {/*Not found*/}
           <Route path="*" element={<NotFound />} />
-
 
         </Routes>
       </div>

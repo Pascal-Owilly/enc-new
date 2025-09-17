@@ -12,8 +12,8 @@ const WellnessRetreats = () => {
   const [currentPage, setCurrentPage] = useState(1); // State to manage current page
   const [loading, setLoading] = useState(true); // State to show loading indicator
   const [error, setError] = useState(null); // State for any errors during data fetching
-  const category = "wellness_retreats"; // Set the category to wellness retreats
-  const itemsPerPage = 6; // Items per page for pagination
+  const category = "wellness_lifestyle"; // Set the category to wellness retreats
+  const itemsPerPage = 15; // Items per page for pagination
 
   // Fetch wellness retreats from backend API
   useEffect(() => {

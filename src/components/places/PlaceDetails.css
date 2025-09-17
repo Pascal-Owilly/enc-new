@@ -1,102 +1,255 @@
-.place-details-container {
+:root {
+  --primary-color: #4b0082;
+  --secondary-color: #ff7e5f;
+  --text-dark: #333;
+  --text-light: #fff;
+  --bg-light: #f7f9fc;
+  --shadow-subtle: rgba(0, 0, 0, 0.08);
+}
+
+/* Page Layout */
+.place-details-page {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-light);
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  height: 60vh;
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: moveBackground 30s linear infinite; /* Kept your animation for a unique touch */
+}
+
+@keyframes moveBackground {
+  0%, 100% { background-position: center; }
+  50% { background-position: 50% 10%; }
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  color: var(--text-light);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero-location {
+  font-size: 1.5rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* Main Content Section */
+.details-main-content {
+  margin-top: -80px; /* Overlap with hero section for modern look */
+  padding: 20px;
+  position: relative;
+  z-index: 20;
+}
+
+.details-info-box {
+  background-color: var(--text-light);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 30px var(--shadow-subtle);
+  max-width: 900px;
+  margin: auto;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.description-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.meta-item {
+  background-color: var(--bg-light);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.meta-item strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.meta-item span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.booking-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Loader */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.dot-loader span {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  margin: 0 5px;
+  animation: dot-flicker 1.4s infinite ease-in-out both;
+}
+
+.dot-loader span:nth-child(1) { animation-delay: -0.32s; }
+.dot-loader span:nth-child(2) { animation-delay: -0.16s; }
+.dot-loader span:nth-child(3) { animation-delay: 0s; }
+
+@keyframes dot-flicker {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1.0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-title { font-size: 2.5rem; }
+  .hero-location { font-size: 1.2rem; }
+  .details-info-box { padding: 1rem; }
+}
+
+
+/*more*/
+/* Ensure the parent container can stretch to full width */
+.place-details-page {
     width: 100%;
-  }
-  
-  .hero-section {
-    height: 400px;
-    background-size: cover; /* Ensures the background image covers the section */
-    background-position: center;
-    background-repeat: no-repeat; /* Prevent the image from repeating */
+    overflow-x: hidden;
+}
+
+/* Container for the slider, set to a fixed height */
+.image-gallery-container {
+    width: 100%;
+    height: 500px; /* Set your desired fixed height here */
     position: relative;
-    animation: moveBackground 30s linear infinite; /* Add animation */
-  }
-  
-  .hero-overlay {
+    overflow: hidden; /* Hides content that exceeds the fixed height */
+}
+
+/* The slick slider's inner list needs to match the container's height */
+.slick-slider, .slick-list, .slick-track, .slick-slide > div {
+    height: 100%;
+}
+
+/* Styles for the individual images inside the slider */
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This makes the image fill the fixed space without distortion */
+    object-position: center;
+}
+
+/* Styles for the image counter */
+.image-count {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Overlay with transparency */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .place-title {
-    font-size: 3rem;
-    font-weight: bold;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
-  }
-  
-  .place-location {
-    font-size: 1.5rem;
-    margin-top: 10px;
-    color: white;
-  }
-  
-  .place-info {
-    padding: 20px;
-  }
-  
-  .place-description {
-    font-size: 1.2rem;
-  }
-  
-  .place-meta {
-    font-size: 1rem;
-  }
-  
-  .btn-book {
-    margin-top: 20px;
-  }
-  
-  /* Keyframes for moving background */
-  @keyframes moveBackground {
-    0% {
-      background-position: 0% 50%; /* Start position */
-    }
-    50% {
-      background-position: 100% 50%; /* Mid position */
-    }
-    100% {
-      background-position: 0% 50%; /* End position */
-    }
-  }
-  
-  .loading-spinner {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    margin: 50px 0;
-  }
-  
-  .weather-forecast-card {
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 20px;
-    text-align: center;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .weather-info {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  .weather-temp {
-    font-size: 2em;
-    display: flex;
-    align-items: center;
-  }
-  
-  .weather-temp img {
-    margin-left: 10px;
-  }
-  
-  .weather-details p {
-    margin: 5px 0;
-  }
-  
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    z-index: 10;
+}
+
+/* You might need to override slick-carousel's default styles */
+/* Hide the default navigation arrows if you don't want them */
+.slick-prev, .slick-next {
+    z-index: 5;
+}
+
+/* You can also style the dots to match your theme */
+.slick-dots li button:before {
+    font-size: 10px;
+    color: #fff;
+    opacity: 0.75;
+}
+
+.slick-dots li.slick-active button:before {
+    color: #ffd700;
+    opacity: 1;
+}
+
+/* Styling for the slick-carousel arrows */
+.slick-prev:before,
+.slick-next:before {
+    font-family: 'slick';
+    font-size: 40px;
+    line-height: 1;
+    color: white; /* Choose a color that stands out on your images */
+    opacity: 0.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Position the arrows to be visible on the sides of the slider */
+.slick-prev {
+    left: 25px; /* Adjust to move the arrow from the edge */
+    z-index: 10;
+}
+
+.slick-next {
+    right: 25px; /* Adjust to move the arrow from the edge */
+    z-index: 10;
+}
+
+/* Optionally, you can hide the dots to keep it clean */
+.slick-dots {
+    bottom: 20px;
+}
+
+/* Optional hover effects */
+.slick-prev:hover:before,
+.slick-next:hover:before {
+    opacity: 1;
+    color: #ffd700; /* Use your brand's accent color */
+}

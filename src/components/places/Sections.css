@@ -1,105 +1,241 @@
-/* Blogs.css */
-
-@font-face {
-    font-family: 'RomanseAfthero';
-    src: url('../hero/RomanseAfthero-BF67db9ab90cde5.otf') format('opentype');
+:root {
+    --primary: #3498db;
+    --secondary: #2ecc71;
+    --accent: #9b59b6;
+    --dark: #2c3e50;
+    --light: #ecf0f1;
+    --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --card-radius: 16px;
 }
 
-@font-face {
-    font-family: 'Fontspring-DEMO-theseasons-bd';
-    src: url('../hero/Fontspring-DEMO-theseasons-bd.otf') format('opentype');
-    font-weight: bold;
-    font-style: italic;
-}
-
-@font-face {
-  font-family: 'Monesta-Light';
-  src: url('../hero/Monesta-Light-DEMO.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Shathika';
-  src: url('../hero/Shathika.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.showcase-intro {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.showcase-intro h1, h3 {
-    font-size: 2.5em;
-    color: #333;
+* {
     margin: 0;
-    font-family: 'Fontspring-DEMO-theseasons-bd' !important;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.showcase-intro p {
-    font-family: 'Shathika' !important;
-    letter-spacing: 2px;
-    font-size: 1.2em;
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    min-height: 100vh;
 }
 
-.showcase-beautiful-cards p {
-    font-family: 'Shathika' !important;
-    letter-spacing: 2px;
-    font-size: 1.2em;
-    color: #333; 
-}
-
-.showcase-large-cards {
-    width: 100%;
-    max-width: 97%; 
-    margin: auto;
-}
-
-
-.showcase-large-card {
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-}
-
-.showcase-large-card:hover {
-    transform: scale(1.05);
-}
-
-.showcase-large-card-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.showcase-large-card-content {
+.showcase-container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
 }
 
-.showcase-large-card-title {
-    font-size: 1.1em;
-    font-weight: bold;
+.category-section {
+    margin-bottom: 60px;
+    position: relative;
 }
 
-.showcase-large-card-location {
-    color: #777;
-    margin: 5px 0;
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(52, 152, 219, 0.2);
 }
 
-.showcase-large-card-price {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333;
-    margin: 10px 0;
+.category-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
 }
 
-.showcase-large-card-rating {
-    color: #ff9800;
+.category-icon {
+    font-size: 1.8rem;
+    margin-right: 12px;
 }
 
+.item-count {
+    font-size: 1rem;
+    background: var(--gradient);
+    color: white;
+    padding: 2px 12px;
+    border-radius: 20px;
+    margin-left: 12px;
+}
 
+.see-all-link {
+    background: var(--gradient);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.see-all-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.place-card {
+    height: 380px;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow);
+    transition: all 0.4s ease;
+    background-size: cover;
+    background-position: center;
+}
+
+.place-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.1) 100%);
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+}
+
+.place-card:hover .card-overlay {
+    opacity: 0.7;
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px;
+    color: white;
+    z-index: 10;
+}
+
+.card-badge {
+    background: var(--accent);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.card-place-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.card-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.card-location, .card-price {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.card-price {
+    font-weight: 700;
+    color: #2ecc71;
+}
+
+.card-booking-btn-wrapper {
+    text-align: center;
+}
+
+.card-booking-btn-wrapper .btn {
+    background: var(--gradient);
+    border: none;
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+.card-booking-btn-wrapper .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+}
+
+.pagination-controls {
+    margin-top: 30px;
+}
+
+.pagination-btn {
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.pagination-info {
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: var(--primary);
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-top: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .category-title {
+        font-size: 1.7rem;
+    }
+    
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pagination-controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+}

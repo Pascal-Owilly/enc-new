@@ -3,11 +3,13 @@ import './HistoricalTours.css';
 import { BASE_URL } from '../config/config';
 import BookingButton from '../bookings/BookingButton';
 import cloudImage from '../../assets/hero/cloud.webp';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHistory, faPaintBrush, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 const HistoricalTours = () => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
-  const category = "historical_tours";
+  const category = "history_heritage";
 
   useEffect(() => {
     const fetchTours = async () => {
@@ -44,7 +46,10 @@ const HistoricalTours = () => {
   return (
     <div className="container">
       <div className="jumbotron">
-        <h5 className="all-headi text-dark">Historical Tours</h5>
+              <h2 className="text-center mb-4 text-gradient fw-bold">
+        <FontAwesomeIcon icon={faHistory} className="me-2" />
+        Historical Tours
+      </h2>
         <p className="text-dark" style={{ color: "#5e5e5e", fontSize: "", marginBottom: "1rem" }}>
           Discover the hidden stories and legends of ancient sites. Our historical tours take you through landmarks and tales that shaped the world, providing a journey through time and culture.
         </p>

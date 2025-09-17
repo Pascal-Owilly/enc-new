@@ -29,9 +29,9 @@ const NavigationBar = () => {
         const nextIndex = (currentIndex + 1) % categories.length;
         return categories[nextIndex];
       });
-    }, 3000); // Change category every 3 seconds
+    }, 3000); 
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
+    return () => clearInterval(interval); 
   }, [categories]);
 
   const toggleSidebar = () => {
@@ -84,7 +84,7 @@ const NavigationBar = () => {
 </div>
 
 
-      <div className="d-none d-sm-block" style={{ display: "flex", gap: "10px" }}>
+{/*      <div className="d-none d-sm-block" style={{ display: "flex", gap: "10px" }}>
         {links.map((link) => (
           <a 
           className="mx-2 bottom-nav-link"
@@ -92,15 +92,93 @@ const NavigationBar = () => {
             href={link.href}
             style={{
               textDecoration: "none",
-              
-              // fontSize: "1rem",
-              // fontWeight: "500",
+            
             }}
           >
             {link.label}
           </a>
         ))}
-      </div>
+      </div>*/}
+
+<nav
+  className="navbar-links d-none d-md-flex"
+  style={{
+    display: "flex",
+    gap: "24px",
+    alignItems: "center",
+    fontFamily: "'Poppins', sans-serif",
+    fontWeight: 500,
+    fontSize: "16px",
+    color: "#333",
+  }}
+>
+  <a
+    href="/blogs"
+    className="nav-link"
+    style={{
+      textDecoration: "none",
+      color: "#4B0082",
+      transition: "color 0.3s ease",
+    }}
+    onMouseEnter={(e) => (e.target.style.color = "#8A2BE2")}
+    onMouseLeave={(e) => (e.target.style.color = "#4B0082")}
+  >
+    Travel Bingo
+  </a>
+  <a
+    href="/travel-tinder"
+    className="nav-link"
+    style={{
+      textDecoration: "none",
+      color: "#4B0082",
+      transition: "color 0.3s ease",
+    }}
+    onMouseEnter={(e) => (e.target.style.color = "#8A2BE2")}
+    onMouseLeave={(e) => (e.target.style.color = "#4B0082")}
+  >
+    Travel Tinder
+  </a>
+  <a
+    href="/blind-booking"
+    className="nav-link"
+    style={{
+      textDecoration: "none",
+      color: "#4B0082",
+      transition: "color 0.3s ease",
+    }}
+    onMouseEnter={(e) => (e.target.style.color = "#8A2BE2")}
+    onMouseLeave={(e) => (e.target.style.color = "#4B0082")}
+  >
+    Blind Booking
+  </a>
+  <a
+    href="/pay-with-skills"
+    className="nav-link"
+    style={{
+      textDecoration: "none",
+      color: "#4B0082",
+      transition: "color 0.3s ease",
+    }}
+    onMouseEnter={(e) => (e.target.style.color = "#8A2BE2")}
+    onMouseLeave={(e) => (e.target.style.color = "#4B0082")}
+  >
+    Pay with Skills
+  </a>
+  <a
+    href="/faqs"
+    className="nav-link"
+    style={{
+      textDecoration: "none",
+      color: "#4B0082",
+      transition: "color 0.3s ease",
+    }}
+    onMouseEnter={(e) => (e.target.style.color = "#8A2BE2")}
+    onMouseLeave={(e) => (e.target.style.color = "#4B0082")}
+  >
+    Reverse Tourism
+  </a>
+</nav>
+
 
       <div style={{ display: "flex", gap: "15px", alignItems: "center" }}>
         {socialLinks.map((social) => (

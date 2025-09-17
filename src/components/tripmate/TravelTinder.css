@@ -1,0 +1,282 @@
+/* TravelTinder.css */
+
+/* Global Styles & Container */
+.travel-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    height: 80vh; /* New: Set the main app height to 80% of the viewport height */
+    overflow-y: auto; /* New: Allow internal scrolling if content overflows */
+    padding-top: 80px;
+    overflow-x: hidden;
+}
+
+/* Card Stack Container */
+.cards-stack-container {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+    min-height: 400px; /* Reduced min-height to fit within 80vh */
+    max-height: 500px; /* Reduced max-height to fit within 80vh */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    margin-bottom: 20px;
+}
+
+/* User Card Styling */
+.user-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.1),
+        0 10px 30px rgba(0, 0, 0, 0.15);
+    cursor: grab;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    will-change: transform;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.top-card {
+    cursor: grabbing;
+}
+
+/* Card Image & Overlay */
+.card-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    z-index: 1;
+}
+
+/* Swipe Text Overlays */
+.swipe-text {
+    position: absolute;
+    top: 60px;
+    width: 120px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 32px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.2s;
+    border: 4px solid;
+    text-align: center;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+}
+
+.like-text {
+    left: 20px;
+    color: #4ade80;
+    border-color: #4ade80;
+    background: rgba(74, 222, 128, 0.15);
+}
+
+.nope-text {
+    right: 20px;
+    color: #f87171;
+    border-color: #f87171;
+    background: rgba(248, 113, 113, 0.15);
+}
+
+.swipe-text.visible {
+    opacity: 1;
+}
+
+/* Card Content Styling */
+.card-content {
+    padding: 25px;
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.card-header {
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.location {
+    font-size: 18px;
+    font-weight: 500;
+    color: #e2e8f0;
+    margin-top: 5px;
+}
+
+.trip-info {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trip-info h4 {
+    margin: 0 0 12px 0;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.trip-info p {
+    margin: 8px 0;
+    color: #e2e8f0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* "How It Works" Section */
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    color: #374151;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.step-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    text-align: center;
+}
+
+.step-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-image: linear-gradient(to bottom right, #7c3aed, #9333ea);
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.step-circle--lg { width: 32px; height: 32px; }
+.step-circle--md { width: 28px; height: 28px; }
+.step-circle--sm { width: 24px; height: 24px; font-size: 0.875rem; }
+
+.step-label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.dotted-line {
+    border-top: 2px dotted #d8b4fe;
+    margin: 0 0.25rem;
+}
+
+.dotted-line--lg { width: 64px; }
+.dotted-line--md { width: 48px; }
+
+/* No More Users Section */
+.no-more-users {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Responsive Design Adjustments */
+@media (min-width: 640px) {
+    .dotted-line--lg { width: 96px; }
+    .dotted-line--md { width: 80px; }
+}
+
+@media (max-width: 480px) {
+    .travel-app {
+        padding-top: 60px;
+    }
+
+    .cards-stack-container {
+        width: 95%;
+        min-height: 350px; /* Reduced to fit better on small screens */
+        max-height: 450px;
+    }
+
+    .card-content {
+        padding: 15px;
+    }
+
+    .card-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .location {
+        font-size: 0.9rem;
+    }
+
+    .trip-info h4 {
+        font-size: 1rem;
+    }
+
+    .trip-info p {
+        font-size: 0.8rem;
+    }
+
+    .step-label {
+        font-size: 0.8rem;
+    }
+
+    .step-circle--lg { width: 28px; height: 28px; }
+    .step-circle--md { width: 24px; height: 24px; }
+    .step-circle--sm { width: 20px; height: 20px; font-size: 0.75rem; }
+
+    .swipe-text {
+        font-size: 24px;
+        width: 100px;
+        top: 40px;
+    }
+}

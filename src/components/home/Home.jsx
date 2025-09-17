@@ -33,9 +33,9 @@ export default function Home() {
         <div style={{  }}>
           <div >
             <Hero />
-            <Blogs />
+            {/*<Blogs />*/}
             <Sections />
-            <Partners />
+            {/*<Partners />*/}
           </div>
         </div>
       </div>

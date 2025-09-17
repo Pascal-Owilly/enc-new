@@ -12,7 +12,7 @@ const ArtWorkshops = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-  const category = "art_workshops";
+  const category = "arts_creativity";
 
   useEffect(() => {
     const fetchWorkshops = async () => {

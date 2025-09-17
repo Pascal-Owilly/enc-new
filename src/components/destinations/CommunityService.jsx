@@ -16,7 +16,7 @@ const CommunityService = () => {
     const fetchServices = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=community_service`);
+        const response = await fetch(`${BASE_URL}/api/places/filter_by_category/?category=culture_community`);
         if (!response.ok) {
           throw new Error('Failed to fetch community services');
         }
